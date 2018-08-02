@@ -1,0 +1,40 @@
+﻿<project version="2.9" name="Project" ID="5F47408A-8F6F-476E-9087-87BF26905C66">
+  <params>
+    <pageParam version="5.3" minAllowVersion="5.3"/>
+    <projectParam version="2.9" minAllowVersion="2.9" platform="MtMobile" orientation="MoPortrait" mobileScreenScale="1.77777779102325" mobileType="mmtIOS" pageSize="(375,667)" backgroundColor="4294967295" fontSize="0" fontFamily="" projectType="ptPersonalProject" isShowTitleIndex="False"/>
+    <previewParam version="1.0"/>
+    <colorParam version="1.0"/>
+  </params>
+  <pages>
+    <page name="Login" ID="FBEC35BB-EA52-4877-81F3-12E3DA1FC879" expanded="False" code="HdNolzZlKv" thumbCode="HdNolzZlKv" status="psWhite" isfolder="False" isshownode="True">
+      <images>
+        <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
+      </images>
+    </page>
+    <page name="Home" ID="7E9F0B1F-B590-446D-B902-707655DF0B99" expanded="True" code="H8EA5yDsrX" thumbCode="H8EA5yDsrX" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
+      <images>
+        <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
+        <image key="E81ED979293FF1C7F35153E7BDA571B8.svg"/>
+        <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+      </images>
+    </page>
+    <page name="Task in Progress" ID="AE978A4D-081E-49F8-9F50-6C7895EF130C" expanded="True" code="lyMm1iJvaw" thumbCode="lyMm1iJvaw" status="psWhite" isfolder="False" isshownode="True">
+      <images>
+        <image key="94E9452D20864CF3FBC79CD2C4E76723.svg"/>
+        <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
+        <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
+      </images>
+    </page>
+  </pages>
+  <trash/>
+  <deletes/>
+  <masters/>
+  <images>
+    <image key="E81ED979293FF1C7F35153E7BDA571B8.svg"/>
+    <image key="94E9452D20864CF3FBC79CD2C4E76723.svg"/>
+    <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
+    <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+    <image key="D95E480717200F895E41DB6E5B869596.svg"/>
+  </images>
+</project>
