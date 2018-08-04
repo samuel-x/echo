@@ -1,0 +1,49 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="F22AF951-2195-4D4D-9A08-54EEECA0B581" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325">
+  <controls controlCount="6">
+    <control controlID="931A547C-7E0D-4E0F-A30E-8E5631A2E2DC" controlTypeID="__group__" x="0" y="20" w="375" h="60" zOrder="0">
+      <groupChildrenDescriptors>
+        <control controlID="B5CDFBBB-81FA-4ABC-AEB6-35D7E30184D0" controlTypeID="Shape" x="0" y="0" w="375" h="60" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="0A501446-BE9F-48EA-9362-6F4432635D2F" controlTypeID="Label" x="138" y="14" w="99" h="32" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>New+Task</text>
+          <textSize>24</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="18BC618C-3142-4897-8D52-13B65FE22A22" controlTypeID="Icon" x="325" y="16" w="30" h="30" zOrder="2">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>61763</iconCode>
+          </icon>
+          <URL>7194678D1F9372E1049A1619D3191045.svg</URL>
+        </control>
+        <control controlID="4FD68159-AA22-432A-BBEC-139EA8630617" controlTypeID="Icon" x="20" y="15" w="31" h="31" zOrder="3">
+          <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+            <link targetPageID="7E9F0B1F-B590-446D-B902-707655DF0B99" linkType="ltPageLink" isApplyIncludePage="False" title="Home">
+              <area shape="0" alt="" ID="{82971A46-AC65-48A4-AB7E-66E8296D4EB9}" coords="(0,0,31,31)"/>
+            </link>
+          </links>
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62154</iconCode>
+          </icon>
+          <URL>D95E480717200F895E41DB6E5B869596.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="1C80E785-F68A-44F8-8E2B-9EB501C7C055" controlTypeID="StatusBar(Android)" x="0" y="0" w="375" h="20" zOrder="1"/>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

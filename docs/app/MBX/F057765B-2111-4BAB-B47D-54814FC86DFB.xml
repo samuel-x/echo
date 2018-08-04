@@ -1,0 +1,111 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="F057765B-2111-4BAB-B47D-54814FC86DFB" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325">
+  <controls controlCount="14">
+    <control controlID="58DF2B5C-548B-49A0-B677-7273ECAA7CB1" controlTypeID="StatusBar(Android)" x="0" y="0" w="375" h="20" zOrder="0"/>
+    <control controlID="F427D5F8-B029-4DFE-9C27-C6E23ACB14B0" controlTypeID="__group__" x="0" y="20" w="375" h="60" zOrder="1">
+      <groupChildrenDescriptors>
+        <control controlID="364B82FC-AC6E-4345-9F4A-4EA3507986AE" controlTypeID="Shape" x="0" y="0" w="375" h="60" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="E25943B7-903A-4A0E-8079-6C514EECE4CC" controlTypeID="Label" x="138" y="14" w="99" h="32" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>New+Task</text>
+          <textSize>24</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="6C2D45CC-067E-460D-8378-1EBF4FBB5D79" controlTypeID="Icon" x="325" y="16" w="30" h="30" zOrder="2">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>61763</iconCode>
+          </icon>
+          <URL>7194678D1F9372E1049A1619D3191045.svg</URL>
+        </control>
+        <control controlID="181CADC6-C5FB-4DD3-9F1E-9CB137FCCDE1" controlTypeID="Icon" x="20" y="15" w="31" h="31" zOrder="3">
+          <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+            <link targetPageID="7E9F0B1F-B590-446D-B902-707655DF0B99" linkType="ltPageLink" isApplyIncludePage="False" title="Home">
+              <area shape="0" alt="" ID="{82971A46-AC65-48A4-AB7E-66E8296D4EB9}" coords="(0,0,31,31)"/>
+            </link>
+          </links>
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62154</iconCode>
+          </icon>
+          <URL>D95E480717200F895E41DB6E5B869596.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="096CE69D-26DD-4E5C-86F7-61BCE9C1826A" controlTypeID="__group__" x="0" y="373" w="375" h="293" zOrder="2">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="78E386A8-3F60-4628-A4A0-8EBBCF03AC5D" linkType="ltPageLink" isApplyIncludePage="False" title="Page1">
+          <area shape="0" alt="" ID="{664E4902-5828-40B8-A674-E4EAF5382C73}" coords="(0,0,375,293)"/>
+        </link>
+      </links>
+      <groupChildrenDescriptors>
+        <control controlID="F1CB3D8F-9714-4795-A113-EBE81A40FF81" controlTypeID="Shape" x="0" y="0" w="375" h="293" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="F8FC61F0-D62D-4A7B-BC29-E8AD30585B77" controlTypeID="Label" x="20" y="124" w="193" h="43" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI+Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False"/>
+          <text>Existing+Task</text>
+          <textSize>32</textSize>
+          <lineSpacing>0</lineSpacing>
+          <textStyles>[fsBold]</textStyles>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="1776A01D-731E-4428-B2AF-8478AA91D3DE" controlTypeID="Icon" x="300" y="124" w="55" h="55" zOrder="2">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>61733</iconCode>
+          </icon>
+          <URL>2D780716D3D89B2EFB0155599BA0A89F.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="91870ADB-4E17-4E38-A8FC-206B7917B591" controlTypeID="__group__" x="0" y="80" w="375" h="293" zOrder="3">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="F22AF951-2195-4D4D-9A08-54EEECA0B581" linkType="ltPageLink" isApplyIncludePage="False" title="Page">
+          <area shape="0" alt="" ID="{2F79D042-150F-4E9C-95E0-35C1D4EFCB1A}" coords="(0,0,375,293)"/>
+        </link>
+      </links>
+      <groupChildrenDescriptors>
+        <control controlID="D0059BC5-9364-43EA-9F08-B166CD834330" controlTypeID="Shape" x="0" y="0" w="375" h="293" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="AE419530-8EDA-4008-9216-17252E02E73C" controlTypeID="Label" x="20" y="124" w="142" h="43" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI+Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False"/>
+          <text>New+Task</text>
+          <textSize>32</textSize>
+          <lineSpacing>0</lineSpacing>
+          <textStyles>[fsBold]</textStyles>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="E42699ED-118C-495F-AF5B-776E456D517B" controlTypeID="Icon" x="300" y="118" w="55" h="55" zOrder="2">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>61733</iconCode>
+          </icon>
+          <URL>2D780716D3D89B2EFB0155599BA0A89F.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

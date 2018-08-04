@@ -1,0 +1,123 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="51928E01-FE0B-4035-8CB9-8576F7F0F53D" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
+  <controls controlCount="18">
+    <control controlID="9025B690-471D-4550-8C23-B1E95FD1549A" controlTypeID="Label" x="20" y="0" w="340" h="43" zOrder="0">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>Pickup+Medication+From</text>
+      <textSize>32</textSize>
+      <lineSpacing>0</lineSpacing>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="1E184C35-EF27-492A-B7C7-7E71C923EA87" controlTypeID="TextArea" x="20" y="48" w="335" h="64" zOrder="1">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>1+Washington+Street%2C+Fitzroy+at+6%3A30pm%0D%0A</text>
+      <textSize>20</textSize>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="E63979AC-8E3A-4328-9857-BD71E49B46A6" controlTypeID="__group__" x="24" y="112" w="106" h="125" zOrder="2">
+      <groupChildrenDescriptors>
+        <control controlID="FEAE9E74-4C37-411F-B683-42F3BE7F6479" controlTypeID="AvatarEx2" x="0" y="19" w="106" h="106" zOrder="0">
+          <icon>
+            <ID/>
+            <iconFontName>jdiconfontB</iconFontName>
+            <iconCode>59652</iconCode>
+          </icon>
+          <URL>467605F5F90D9FF65132C1A6EF883F26.svg</URL>
+        </control>
+        <control controlID="A6C12E8B-9BF8-4D71-8143-892C662AD43D" controlTypeID="Label" x="0" y="0" w="93" h="19" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Order+Filled+By%3A</text>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="6F2728EE-8B7B-475C-9298-958BD4DCF5BA" controlTypeID="Label" x="155" y="131" w="115" h="38" zOrder="3">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>John+Doe</text>
+      <textSize>28</textSize>
+      <lineSpacing>0</lineSpacing>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="7F0AA950-A301-4FD5-88E0-6C72C94B7917" controlTypeID="Label" x="155" y="164" w="100" h="19" zOrder="4">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>(%2B61)482665913</text>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="58E63F21-8127-468E-8774-1AFEE5476C4C" controlTypeID="Icon" x="27" y="256" w="113" h="113" zOrder="5">
+      <icon>
+        <ID/>
+        <iconFontName>jdIonicons</iconFontName>
+        <iconCode>62162</iconCode>
+      </icon>
+      <URL>94E9452D20864CF3FBC79CD2C4E76723.svg</URL>
+    </control>
+    <control controlID="31568508-CDEE-4232-AD3A-A3968A63E145" controlTypeID="__group__" x="18" y="462" w="340" h="92" zOrder="6">
+      <groupChildrenDescriptors>
+        <control controlID="F9AD008D-4FFF-450A-A68A-270EC49DE305" controlTypeID="Label" x="0" y="0" w="131" h="38" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Task+Notes</text>
+          <textSize>28</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="702AD9B5-5525-49A1-9FEA-FA5F05E5F818" controlTypeID="TextArea" x="0" y="38" w="340" h="54" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Buy+2+boxes+of+500mg+of+Panadol%0D%0AAsk+for+John+at+the+desk%0D%0A</text>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="E696802D-45D7-4BCD-90C1-61E2D0ED2A79" controlTypeID="Icon" x="216" y="255" w="114" h="114" zOrder="7">
+      <icon>
+        <ID/>
+        <iconFontName>jdIonicons</iconFontName>
+        <iconCode>62386</iconCode>
+      </icon>
+      <URL>B5B6BA97D3F9A8466E238D65BE28DDA4.svg</URL>
+    </control>
+    <control controlID="278BE2D1-3944-4A14-9783-6F157917BB27" controlTypeID="__group__" x="24" y="385" w="328" h="67" zOrder="8">
+      <groupChildrenDescriptors>
+        <control controlID="61F86B61-D541-4955-B876-D158BC0EB50C" controlTypeID="ProgressBar" x="0" y="0" w="328" h="67" zOrder="0">
+          <progress>100</progress>
+        </control>
+        <control controlID="8B20F819-637A-49C6-A9C6-C426DFF81327" controlTypeID="Label" x="80" y="11" w="162" h="43" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>ETA%3A+17+min</text>
+          <textSize>32</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="B9C886B5-A03D-4F4E-9323-7C726FD16818" controlTypeID="__group__" x="155" y="193" w="46" h="24" zOrder="9">
+      <groupChildrenDescriptors>
+        <control controlID="7662BBEA-DEE9-40F6-B41A-311A61849ABC" controlTypeID="Icon" x="0" y="0" w="24" h="24" zOrder="0">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62204</iconCode>
+          </icon>
+          <URL>7368E932054EB35095B123FCB5C28A31.svg</URL>
+        </control>
+        <control controlID="F51DA1DF-DB27-4C23-8C47-A9509EAAC167" controlTypeID="Label" x="29" y="2" w="17" h="19" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>4.5</text>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

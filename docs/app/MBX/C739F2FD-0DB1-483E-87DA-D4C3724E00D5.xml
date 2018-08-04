@@ -1,0 +1,235 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="E438AEE8-6540-4AAF-B2B1-94114CAF1537" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325">
+  <controls controlCount="31">
+    <control controlID="04943649-3FB2-4435-B7BA-FE883DF06E60" controlTypeID="StatusBar(Android)" x="0" y="0" w="375" h="20" zOrder="0"/>
+    <control controlID="3F64F442-9D42-4228-B97A-2BF2563DC9C1" controlTypeID="__group__" x="0" y="20" w="375" h="60" zOrder="1">
+      <groupChildrenDescriptors>
+        <control controlID="03969432-ED0B-4D13-8902-ADAE6FD588D5" controlTypeID="Shape" x="0" y="0" w="375" h="60" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="E45CAEF0-EEEC-458A-8FFB-B4F92C62237C" controlTypeID="Label" x="100" y="14" w="166" h="32" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Cooking+Details</text>
+          <textSize>24</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="A691AB99-1398-4DD1-B755-F9AAA46240F7" controlTypeID="Icon" x="325" y="16" w="30" h="30" zOrder="2">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>61763</iconCode>
+          </icon>
+          <URL>7194678D1F9372E1049A1619D3191045.svg</URL>
+        </control>
+        <control controlID="FFEF7160-0804-45B9-BDDA-19DE4929F6A7" controlTypeID="Icon" x="20" y="15" w="31" h="31" zOrder="3">
+          <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+            <link targetPageID="7E9F0B1F-B590-446D-B902-707655DF0B99" linkType="ltPageLink" isApplyIncludePage="False" title="Home">
+              <area shape="0" alt="" ID="{82971A46-AC65-48A4-AB7E-66E8296D4EB9}" coords="(0,0,31,31)"/>
+            </link>
+          </links>
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62154</iconCode>
+          </icon>
+          <URL>D95E480717200F895E41DB6E5B869596.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="C87B5860-D1D1-434E-BFB2-C78BF1A6FFA4" controlTypeID="__group__" x="20" y="80" w="355" h="79" zOrder="2">
+      <groupChildrenDescriptors>
+        <control controlID="88AE27F9-E547-4E15-AC20-07DADD188A39" controlTypeID="LabelTextInput" x="0" y="0" w="355" h="79" zOrder="0">
+          <borderVisible>False</borderVisible>
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Title...</text>
+          <textSize>32</textSize>
+          <textVAlign>VaMiddle</textVAlign>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="94D8AE68-37AD-445C-AED9-DF6CD5AFF811" controlTypeID="Icon" x="285" y="10" w="60" h="60" zOrder="1">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62188</iconCode>
+          </icon>
+          <URL>6F1E26DA3F4DA7A720AD334E97A085AC.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="5FCFB690-A35C-4B3F-BA21-16B1B5A81B2F" controlTypeID="Line" x="0" y="237" w="382" h="1" zOrder="3">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <textSize>14</textSize>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+      <controlPoint>(192,0)</controlPoint>
+      <startPoint>(1,0)</startPoint>
+      <endPoint>(382,0)</endPoint>
+    </control>
+    <control controlID="12177CBA-6354-4C14-87AD-AE239E3B4089" controlTypeID="__group__" x="20" y="239" w="354" h="108" zOrder="4">
+      <groupChildrenDescriptors>
+        <control controlID="91C449AB-0E2C-4A3D-A525-A45AF3D96AA5" controlTypeID="LabelTextInput" x="0" y="0" w="354" h="108" zOrder="0">
+          <borderVisible>False</borderVisible>
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Task+Notes...</text>
+          <textSize>32</textSize>
+          <textVAlign>VaMiddle</textVAlign>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="534A4235-546A-4FF6-91AC-3610D1328AC9" controlTypeID="__group__" x="267" y="21" w="74" h="74" zOrder="1">
+          <groupChildrenDescriptors>
+            <control controlID="5E6CF2EB-F7DA-4998-B151-A43A4CB940ED" controlTypeID="Icon" x="0" y="0" w="74" h="74" zOrder="0">
+              <icon>
+                <ID/>
+                <iconFontName>jdIonicons</iconFontName>
+                <iconCode>62342</iconCode>
+              </icon>
+              <URL>69DA6689680A20AC214125CFC13BFB38.svg</URL>
+            </control>
+            <control controlID="ECDD462B-0E30-4C83-8668-0535B81539B1" controlTypeID="Icon" x="25" y="25" w="24" h="24" zOrder="1">
+              <icon>
+                <ID/>
+                <iconFontName>jdIonicons</iconFontName>
+                <iconCode>62163</iconCode>
+              </icon>
+              <URL>C7D1B4CE058A7FC0691E8FF41CC36AD9.svg</URL>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="2C66597A-9594-4041-ADC8-F324AC2BC06F" controlTypeID="LabelTextInput" x="26" y="347" w="280" h="46" zOrder="5">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>%2B%2C+Detail1...%0D%0A</text>
+      <textSize>28</textSize>
+      <lineSpacing>0</lineSpacing>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="D49AF2F2-D262-4A05-A52F-EF6ACECFD397" controlTypeID="LabelTextInput" x="20" y="159" w="355" h="70" zOrder="6">
+      <borderVisible>False</borderVisible>
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>My+House</text>
+      <textSize>32</textSize>
+      <textVAlign>VaMiddle</textVAlign>
+      <lineSpacing>0</lineSpacing>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="BEF68C0A-52C3-4D92-97E3-0DAE7136ACEF" controlTypeID="__group__" x="0" y="480" w="187" h="187" zOrder="7">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="538E41E5-8B35-41BB-ADCF-1F4CBD1F91C9" linkType="ltPageLink" isApplyIncludePage="False" title="Page">
+          <area shape="0" alt="" ID="{50BBA8B6-AAAA-411F-8408-A1908B27FF32}" coords="(0,0,187,187)"/>
+        </link>
+      </links>
+      <groupChildrenDescriptors>
+        <control controlID="DFC92060-BB09-4BBB-838E-70C92BE39B9D" controlTypeID="Shape" x="0" y="0" w="187" h="187" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="0BE55A63-515E-416B-A188-FBC037616ED2" controlTypeID="Label" x="56" y="72" w="77" h="43" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>NOW</text>
+          <textSize>32</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="072CD00D-DED7-449F-8469-6661F16E44ED" controlTypeID="__group__" x="187" y="480" w="188" h="187" zOrder="8">
+      <interactiveData>
+        <entry title="">
+          <area shape="0" alt="" ID="{6623F3A7-260E-47A5-BF30-BACAF282E9FB}" coords="(0,0,188,187)"/>
+          <events title="">
+            <event eventType="atClick" isChecked="True">
+              <behaviour title="" isChecked="True" isWait="False" isLoop="False" execMode="emParallel">
+                <target targetID="F64DF0BB-9E05-45F0-80F9-55DCD26633A8" isChecked="True" isAutoRecovery="False" isLoop="False" execMode="emSequence">
+                  <command name="Popup State Change" isChecked="True" descrition="">
+                    <param name="AniInterpolation" value="0" varType="3" description=""/>
+                    <param name="AniDuration" value="200" varType="3" description=""/>
+                    <param name="AniAutoReverse" value="False" varType="11" description=""/>
+                    <param name="AniLoop" value="False" varType="11" description=""/>
+                    <param name="AniInterpolationTypeOut" value="False" varType="11" description=""/>
+                    <param name="Delay" value="0" varType="3" description=""/>
+                    <param name="Value" value="2" varType="3" description=""/>
+                    <param name="AniType" value="0" varType="3" description=""/>
+                  </command>
+                </target>
+              </behaviour>
+            </event>
+          </events>
+        </entry>
+      </interactiveData>
+      <groupChildrenDescriptors>
+        <control controlID="0667BFAF-178C-477A-A04A-F4735F5ED97B" controlTypeID="Shape" x="0" y="0" w="188" h="187" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="5C6A5D8F-D29C-4B58-82EC-A41F0AC750BD" controlTypeID="Label" x="51" y="72" w="86" h="43" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>LATER</text>
+          <textSize>32</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="DA3C1F9E-EDA3-4095-9048-B4788704D283" controlTypeID="LabelTextInput" x="26" y="393" w="280" h="46" zOrder="9">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>%2B%2C+Detail2...%0D%0A</text>
+      <textSize>28</textSize>
+      <lineSpacing>0</lineSpacing>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="F64DF0BB-9E05-45F0-80F9-55DCD26633A8" controlTypeID="PopupPanel" x="-223" y="252" w="46" h="46" zOrder="10">
+      <groupChildrenDescriptors>
+        <control controlID="4A4165A8-9586-4449-9EDC-24EDB9352888" controlTypeID="Panel" x="0" y="0" w="375" h="667" zOrder="0">
+          <locked>True</locked>
+          <color>1879048192</color>
+          <borderVisible>False</borderVisible>
+          <canMove>False</canMove>
+          <alias>background</alias>
+          <groupChildrenDescriptors>
+            <control controlID="8D45F5EC-934D-4732-BB3E-616E8666ED34" controlTypeID="Border" x="0" y="0" w="375" h="667" zOrder="0">
+              <borderVisible>False</borderVisible>
+              <alias>borderLayer</alias>
+            </control>
+          </groupChildrenDescriptors>
+          <thinkness>1</thinkness>
+        </control>
+        <control controlID="C3B2076E-0A9A-433D-B965-AFD9AAF1425C" controlTypeID="PopupPanelContent" x="38" y="197" w="300" h="274" zOrder="1">
+          <color>16777215</color>
+          <alias>content</alias>
+          <groupChildrenDescriptors>
+            <control controlID="133126EC-4110-43F2-AA30-D4D0871EA5A6" controlTypeID="Panel" x="0" y="0" w="300" h="274" zOrder="0">
+              <groupChildrenDescriptors>
+                <control controlID="5E96BA1D-2C03-4D96-8DAC-6B313C04E077" controlTypeID="Border" x="0" y="0" w="300" h="274" zOrder="0">
+                  <alias>borderLayer</alias>
+                </control>
+              </groupChildrenDescriptors>
+              <thinkness>1</thinkness>
+            </control>
+            <control controlID="EC4CCCB7-152A-42CE-8E8E-1238D9FDBD97" controlTypeID="TimePicker" x="0" y="0" w="300" h="274" zOrder="1"/>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

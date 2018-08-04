@@ -1,5 +1,5 @@
 ﻿<mockup version="5.3" minAllowVersion="5.3" ID="7E9F0B1F-B590-446D-B902-707655DF0B99" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
-  <controls controlCount="20">
+  <controls controlCount="21">
     <control controlID="22FD5896-FE00-4DA9-BF65-8DB91CB17CEA" controlTypeID="Map" x="0" y="76" w="375" h="537" zOrder="0"/>
     <control controlID="3E09E4E7-A1C7-46E1-BB0A-4C65FD46FDBD" controlTypeID="StatusBar(Android)" x="0" y="0" w="375" h="20" zOrder="1"/>
     <control controlID="C9D33248-73EC-4A78-8DCC-F293DF09037B" controlTypeID="__group__" x="0" y="613" w="375" h="54" zOrder="2">
@@ -9,15 +9,19 @@
         </link>
       </links>
       <groupChildrenDescriptors>
-        <control controlID="8E6E2951-8980-4BD7-A839-34B874DF1699" controlTypeID="ProgressBar" x="0" y="0" w="375" h="54" zOrder="0"/>
-        <control controlID="7C735547-0CE4-4D07-87C0-91486762CEFA" controlTypeID="Label" x="90" y="8" w="195" h="38" zOrder="1">
+        <control controlID="8E6E2951-8980-4BD7-A839-34B874DF1699" controlTypeID="ProgressBar" x="0" y="0" w="375" h="54" zOrder="0">
+          <borderColor>4294967040</borderColor>
+          <progress>100</progress>
+          <indicatorColor>4281584895</indicatorColor>
+        </control>
+        <control controlID="7C735547-0CE4-4D07-87C0-91486762CEFA" controlTypeID="Label" x="74" y="8" w="229" h="38" zOrder="1">
           <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
             <link targetPageID="AE978A4D-081E-49F8-9F50-6C7895EF130C" linkType="ltPageLink" isApplyIncludePage="False" title="Task+in+Progress">
-              <area shape="0" alt="" ID="{F3A9FC29-02C5-43F5-B846-01492A652E05}" coords="(0,0,195,38)"/>
+              <area shape="0" alt="" ID="{F3A9FC29-02C5-43F5-B846-01492A652E05}" coords="(0,0,229,38)"/>
             </link>
           </links>
           <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
-          <text>Task+In+Progress</text>
+          <text>5+Tasks+in+Progress</text>
           <textSize>28</textSize>
           <lineSpacing>0</lineSpacing>
           <useDefaultTextSize>False</useDefaultTextSize>
@@ -32,9 +36,9 @@
           <textSize>14</textSize>
           <selectedIndex>-1</selectedIndex>
         </control>
-        <control controlID="E104713C-47AD-4F06-884D-70CEF73358CE" controlTypeID="Label" x="138" y="16" w="99" h="32" zOrder="1">
+        <control controlID="E104713C-47AD-4F06-884D-70CEF73358CE" controlTypeID="Label" x="166" y="15" w="44" h="32" zOrder="1">
           <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
-          <text>New+Task</text>
+          <text>Title</text>
           <textSize>24</textSize>
           <lineSpacing>0</lineSpacing>
           <useDefaultTextSize>False</useDefaultTextSize>
@@ -81,7 +85,21 @@
         </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="057D5C05-7301-4516-B21D-1ECE8AC9FFAD" controlTypeID="SlidingDrawer" x="-157" y="36" w="46" h="46" zOrder="4">
+    <control controlID="FA4C8524-C54D-4B42-AF70-EB16AF468C43" controlTypeID="Icon" x="293" y="531" w="72" h="72" zOrder="4">
+      <color>4281584895</color>
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="F057765B-2111-4BAB-B47D-54814FC86DFB" linkType="ltPageLink" isApplyIncludePage="False" title="New+Task">
+          <area shape="0" alt="" ID="{C00351C7-24AC-4F05-9F1F-93CC7FABFE1A}" coords="(0,0,72,72)"/>
+        </link>
+      </links>
+      <icon>
+        <ID/>
+        <iconFontName>jdIonicons</iconFontName>
+        <iconCode>61974</iconCode>
+      </icon>
+      <URL>909563FAFE25D2BCBB465D4435A7FA63.svg</URL>
+    </control>
+    <control controlID="057D5C05-7301-4516-B21D-1ECE8AC9FFAD" controlTypeID="SlidingDrawer" x="-157" y="36" w="46" h="46" zOrder="5">
       <groupChildrenDescriptors>
         <control controlID="8312C122-489F-4A5F-A583-8D25F970817A" controlTypeID="Panel" x="0" y="0" w="375" h="667" zOrder="0">
           <locked>True</locked>
