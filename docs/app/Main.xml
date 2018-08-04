@@ -11,7 +11,7 @@
         <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
       </images>
     </page>
-    <page name="Home" ID="7E9F0B1F-B590-446D-B902-707655DF0B99" expanded="True" code="IkFePcBaOw" thumbCode="IkFePcBaOw" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
+    <page name="Home" ID="7E9F0B1F-B590-446D-B902-707655DF0B99" expanded="True" code="GGA22yaHNE" thumbCode="GGA22yaHNE" status="psWhite" isfolder="False" isshownode="True">
       <images>
         <image key="909563FAFE25D2BCBB465D4435A7FA63.svg"/>
         <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
@@ -19,7 +19,7 @@
         <image key="E81ED979293FF1C7F35153E7BDA571B8.svg"/>
       </images>
     </page>
-    <page name="Task in Progress" ID="AE978A4D-081E-49F8-9F50-6C7895EF130C" expanded="True" code="NT34HEVQ3X" thumbCode="g1iHisfR4Y" status="psWhite" isfolder="False" isshownode="True">
+    <page name="Task in Progress" ID="AE978A4D-081E-49F8-9F50-6C7895EF130C" expanded="True" code="pcAykJ1XyM" thumbCode="pcAykJ1XyM" status="psWhite" isfolder="False" isshownode="True">
       <images>
         <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
@@ -65,16 +65,16 @@
         </images>
       </page>
     </page>
-    <page name="New Task" ID="F057765B-2111-4BAB-B47D-54814FC86DFB" expanded="True" code="IkOemlZkyb" thumbCode="IkOemlZkyb" status="psWhite" isfolder="False" isshownode="True">
+    <page name="New Task" ID="F057765B-2111-4BAB-B47D-54814FC86DFB" expanded="True" code="RyA8qmAq8K" thumbCode="RyA8qmAq8K" status="psWhite" isfolder="False" isshownode="True">
       <images>
         <image key="2D780716D3D89B2EFB0155599BA0A89F.svg"/>
         <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
       </images>
-      <page name="Confirm Page" ID="538E41E5-8B35-41BB-ADCF-1F4CBD1F91C9" expanded="True" code="5t6osr9tmb" thumbCode="5t6osr9tmb" status="psWhite" isfolder="False" isshownode="True">
+      <page name="Confirm Page" ID="538E41E5-8B35-41BB-ADCF-1F4CBD1F91C9" expanded="True" code="5t6osr9tmb" thumbCode="5t6osr9tmb" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
         <images>
-          <image key="D95E480717200F895E41DB6E5B869596.svg"/>
           <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+          <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         </images>
       </page>
       <page name="Task Selection" ID="F22AF951-2195-4D4D-9A08-54EEECA0B581" expanded="True" code="qCqkums87N" thumbCode="qCqkums87N" status="psWhite" isfolder="False" isshownode="True">
@@ -87,57 +87,57 @@
           <image key="2D780716D3D89B2EFB0155599BA0A89F.svg"/>
           <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         </images>
-        <page name="Transport Task" ID="CC5778A8-EC13-4017-8252-502354ABFE69" expanded="True" code="x9gOMsX7LM" thumbCode="x9gOMsX7LM" status="psWhite" isfolder="False" isshownode="True">
+        <page name="Transport Task" ID="CC5778A8-EC13-4017-8252-502354ABFE69" expanded="False" code="x9gOMsX7LM" thumbCode="x9gOMsX7LM" status="psWhite" isfolder="False" isshownode="True">
           <images>
+            <image key="7194678D1F9372E1049A1619D3191045.svg"/>
             <image key="2D780716D3D89B2EFB0155599BA0A89F.svg"/>
             <image key="D95E480717200F895E41DB6E5B869596.svg"/>
-            <image key="7194678D1F9372E1049A1619D3191045.svg"/>
           </images>
           <page name="Transport Task From House" ID="E438AEE8-6540-4AAF-B2B1-94114CAF1537" expanded="True" code="EVHJKDviwJ" thumbCode="EVHJKDviwJ" status="psWhite" isfolder="False" isshownode="True">
             <images>
+              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="69DA6689680A20AC214125CFC13BFB38.svg"/>
               <image key="C7D1B4CE058A7FC0691E8FF41CC36AD9.svg"/>
               <image key="7194678D1F9372E1049A1619D3191045.svg"/>
-              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="D95E480717200F895E41DB6E5B869596.svg"/>
             </images>
           </page>
           <page name="Transport Task Home" ID="3AC64982-03EE-4382-914E-E74DD0E82B63" expanded="True" code="kDRPCbjkiY" thumbCode="kDRPCbjkiY" status="psWhite" isfolder="False" isshownode="True">
             <images>
+              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="69DA6689680A20AC214125CFC13BFB38.svg"/>
               <image key="C7D1B4CE058A7FC0691E8FF41CC36AD9.svg"/>
               <image key="7194678D1F9372E1049A1619D3191045.svg"/>
-              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="D95E480717200F895E41DB6E5B869596.svg"/>
             </images>
           </page>
         </page>
-        <page name="Delivery Task" ID="6B6F54EA-9135-406F-8958-79EF9BF00722" expanded="True" code="nOImKRxCXW" thumbCode="nOImKRxCXW" status="psWhite" isfolder="False" isshownode="True">
+        <page name="Delivery Task" ID="6B6F54EA-9135-406F-8958-79EF9BF00722" expanded="False" code="nOImKRxCXW" thumbCode="nOImKRxCXW" status="psWhite" isfolder="False" isshownode="True">
           <images>
+            <image key="7194678D1F9372E1049A1619D3191045.svg"/>
             <image key="2D780716D3D89B2EFB0155599BA0A89F.svg"/>
             <image key="D95E480717200F895E41DB6E5B869596.svg"/>
-            <image key="7194678D1F9372E1049A1619D3191045.svg"/>
           </images>
           <page name="Delivery From House" ID="611CCE03-DD50-429C-B7AC-B6A8E999BEA9" expanded="True" code="9x77bzl4hW" thumbCode="9x77bzl4hW" status="psWhite" isfolder="False" isshownode="True">
             <images>
+              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="69DA6689680A20AC214125CFC13BFB38.svg"/>
               <image key="C7D1B4CE058A7FC0691E8FF41CC36AD9.svg"/>
               <image key="7194678D1F9372E1049A1619D3191045.svg"/>
-              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="D95E480717200F895E41DB6E5B869596.svg"/>
             </images>
           </page>
           <page name="Delivery To House" ID="E103418C-DA92-4783-864D-D65E173230EB" expanded="True" code="ky3nKAqmbU" thumbCode="ky3nKAqmbU" status="psWhite" isfolder="False" isshownode="True">
             <images>
+              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="69DA6689680A20AC214125CFC13BFB38.svg"/>
               <image key="C7D1B4CE058A7FC0691E8FF41CC36AD9.svg"/>
               <image key="7194678D1F9372E1049A1619D3191045.svg"/>
-              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="D95E480717200F895E41DB6E5B869596.svg"/>
             </images>
           </page>
         </page>
-        <page name="Household Task" ID="57702BCE-4A28-4DC5-A830-4974BCF2B842" expanded="True" code="P6TFrR9opE" thumbCode="P6TFrR9opE" status="psWhite" isfolder="False" isshownode="True">
+        <page name="Household Task" ID="57702BCE-4A28-4DC5-A830-4974BCF2B842" expanded="False" code="P6TFrR9opE" thumbCode="P6TFrR9opE" status="psWhite" isfolder="False" isshownode="True">
           <images>
             <image key="E83356C90CF3FA7AB2A26D5E939C3C57.svg"/>
             <image key="7194678D1F9372E1049A1619D3191045.svg"/>
@@ -147,25 +147,25 @@
           </images>
           <page name="Cooking Details" ID="C739F2FD-0DB1-483E-87DA-D4C3724E00D5" expanded="True" code="rQKhnbiATj" thumbCode="rQKhnbiATj" status="psWhite" isfolder="False" isshownode="True">
             <images>
+              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="69DA6689680A20AC214125CFC13BFB38.svg"/>
               <image key="C7D1B4CE058A7FC0691E8FF41CC36AD9.svg"/>
               <image key="7194678D1F9372E1049A1619D3191045.svg"/>
-              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="D95E480717200F895E41DB6E5B869596.svg"/>
             </images>
           </page>
           <page name="Cleaning Details" ID="D6D62331-83D6-40F5-B42E-3652E296E7B1" expanded="True" code="MZQ3nVzokO" thumbCode="MZQ3nVzokO" status="psWhite" isfolder="False" isshownode="True">
             <images>
+              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="69DA6689680A20AC214125CFC13BFB38.svg"/>
               <image key="C7D1B4CE058A7FC0691E8FF41CC36AD9.svg"/>
               <image key="7194678D1F9372E1049A1619D3191045.svg"/>
-              <image key="6F1E26DA3F4DA7A720AD334E97A085AC.svg"/>
               <image key="D95E480717200F895E41DB6E5B869596.svg"/>
             </images>
           </page>
         </page>
       </page>
-      <page name="Previous Selection" ID="78E386A8-3F60-4628-A4A0-8EBBCF03AC5D" expanded="True" code="P2nFIddwTn" thumbCode="P2nFIddwTn" status="psWhite" isfolder="False" isshownode="True">
+      <page name="Previous Selection" ID="78E386A8-3F60-4628-A4A0-8EBBCF03AC5D" expanded="True" code="9PvadZvks7" thumbCode="9PvadZvks7" status="psWhite" isfolder="False" isshownode="True">
         <images>
           <image key="D95E480717200F895E41DB6E5B869596.svg"/>
           <image key="7194678D1F9372E1049A1619D3191045.svg"/>
@@ -198,8 +198,8 @@
     </page>
     <page name="Page1" ID="3185825A-187B-4380-88CF-575E6865254B" expanded="False" code="ck7XiJ9Gbl" thumbCode="" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
       <images>
-        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
       </images>
     </page>
     <page name="Page" ID="C4C852A1-FC01-4373-BE73-4579CCD09B4F" expanded="False" code="iSWbuz5roM" thumbCode="" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
@@ -215,8 +215,8 @@
     </page>
     <page name="Page1" ID="961A31A1-DB2C-453A-B305-C1C5CC67F79C" expanded="False" code="9nPhwpy9FH" thumbCode="" status="psWhite" isfolder="False" isshownode="True">
       <images>
-        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
       </images>
     </page>
     <page name="Page" ID="BAA0CE3F-13F0-4737-8AF9-841B16377056" expanded="False" code="jwo9lLGJwi" thumbCode="" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
@@ -232,27 +232,27 @@
     </page>
     <page name="Page1" ID="FAB90AEA-F507-4C76-80AC-16700B436096" expanded="False" code="MgV3bmDGAp" thumbCode="" status="psWhite" isfolder="False" isshownode="True">
       <images>
-        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
       </images>
     </page>
     <page name="Page1" ID="2925D55E-1697-4216-83A8-30492FED8CAA" expanded="False" code="nD7tPkNTvv" thumbCode="aPswWual1Z" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True"/>
     <page name="Page" ID="4E7DECE9-8637-4223-A806-27E37E1C4E03" expanded="False" code="6m2khnVfqR" thumbCode="ATtgth7AQE" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
       <images>
-        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
       </images>
     </page>
     <page name="Page1" ID="A2ECD906-4D2C-40BB-8FE7-7BDBCA546C05" expanded="True" code="56c9UPlNbT" thumbCode="K7JbqDyAn6" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
       <images>
-        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
       </images>
     </page>
     <page name="Page2" ID="AD1FA899-1345-4DB6-86CB-3D17C25648FD" expanded="False" code="cLREhSKkb3" thumbCode="yfsEmzFY5Z" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
       <images>
-        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
       </images>
     </page>
   </trash>

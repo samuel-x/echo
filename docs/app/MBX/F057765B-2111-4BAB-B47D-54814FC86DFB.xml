@@ -51,9 +51,9 @@
           <textSize>14</textSize>
           <selectedIndex>-1</selectedIndex>
         </control>
-        <control controlID="F8FC61F0-D62D-4A7B-BC29-E8AD30585B77" controlTypeID="Label" x="20" y="124" w="193" h="43" zOrder="1">
+        <control controlID="F8FC61F0-D62D-4A7B-BC29-E8AD30585B77" controlTypeID="Label" x="20" y="124" w="177" h="43" zOrder="1">
           <font family="Segoe+UI" displayName="Segoe+UI+Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False"/>
-          <text>Existing+Task</text>
+          <text>Saved+Tasks</text>
           <textSize>32</textSize>
           <lineSpacing>0</lineSpacing>
           <textStyles>[fsBold]</textStyles>
