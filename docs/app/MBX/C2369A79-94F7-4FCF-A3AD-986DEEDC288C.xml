@@ -1,4 +1,4 @@
-﻿<mockup version="5.3" minAllowVersion="5.3" ID="771494F8-6196-4878-93C2-DF801408D97A" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="C2369A79-94F7-4FCF-A3AD-986DEEDC288C" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
   <controls controlCount="17">
     <control controlID="364ADEF7-689E-4E68-A6B1-AEE72085089D" controlTypeID="Label" x="20" y="0" w="311" h="43" zOrder="0">
       <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
@@ -30,6 +30,11 @@
       <selectedIndex>-1</selectedIndex>
     </control>
     <control controlID="73132B4D-2E2C-4823-B6F1-CEE1B72764DF" controlTypeID="Icon" x="27" y="256" w="113" h="113" zOrder="4">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="C98A24EE-2372-4553-8133-837B8B4FBF0B" linkType="ltPageLink" isApplyIncludePage="False" title="Call">
+          <area shape="0" alt="" ID="{D52E9D8E-3D74-4E85-868B-31D4B251AB13}" coords="(0,0,113,113)"/>
+        </link>
+      </links>
       <icon>
         <ID/>
         <iconFontName>jdIonicons</iconFontName>
@@ -55,6 +60,11 @@
       </groupChildrenDescriptors>
     </control>
     <control controlID="EC10DBE9-A510-43BD-B74F-0E983764D0B0" controlTypeID="Icon" x="216" y="255" w="114" h="114" zOrder="6">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="DFDB428C-ABD6-4DEA-B3A2-C70822F91B76" linkType="ltPageLink" isApplyIncludePage="False" title="Messaging">
+          <area shape="0" alt="" ID="{EB933370-3866-45FC-8A97-CA104E61E796}" coords="(0,0,114,114)"/>
+        </link>
+      </links>
       <icon>
         <ID/>
         <iconFontName>jdIonicons</iconFontName>

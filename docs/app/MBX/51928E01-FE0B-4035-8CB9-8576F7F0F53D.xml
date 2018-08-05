@@ -48,6 +48,11 @@
       <selectedIndex>-1</selectedIndex>
     </control>
     <control controlID="58E63F21-8127-468E-8774-1AFEE5476C4C" controlTypeID="Icon" x="27" y="256" w="113" h="113" zOrder="5">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="C98A24EE-2372-4553-8133-837B8B4FBF0B" linkType="ltPageLink" isApplyIncludePage="False" title="Call">
+          <area shape="0" alt="" ID="{EFDB7077-D2EE-44D4-888E-A289C4BF4351}" coords="(0,0,113,113)"/>
+        </link>
+      </links>
       <icon>
         <ID/>
         <iconFontName>jdIonicons</iconFontName>
@@ -73,6 +78,11 @@
       </groupChildrenDescriptors>
     </control>
     <control controlID="E696802D-45D7-4BCD-90C1-61E2D0ED2A79" controlTypeID="Icon" x="216" y="255" w="114" h="114" zOrder="7">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="DFDB428C-ABD6-4DEA-B3A2-C70822F91B76" linkType="ltPageLink" isApplyIncludePage="False" title="Messaging">
+          <area shape="0" alt="" ID="{72CDBE50-8AA8-40E9-B12B-395E8CDB64EC}" coords="(0,0,114,114)"/>
+        </link>
+      </links>
       <icon>
         <ID/>
         <iconFontName>jdIonicons</iconFontName>

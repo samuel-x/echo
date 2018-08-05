@@ -1,0 +1,19 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="C98A24EE-2372-4553-8133-837B8B4FBF0B" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325">
+  <controls controlCount="2">
+    <control controlID="204AC7E3-3CAD-4067-8D47-BBDB8A84FF3C" controlTypeID="Image" x="0" y="10" w="375" h="667" zOrder="0">
+      <links eventType="AtClick" animate="AmSlideDown" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="AE978A4D-081E-49F8-9F50-6C7895EF130C" linkType="ltPageLink" isApplyIncludePage="False" title="Task+in+Progress">
+          <area shape="0" alt="" ID="{F6B503A0-59AD-43BA-B2FB-2ABEB1538E64}" coords="(0,0,375,667)"/>
+        </link>
+      </links>
+      <URL>5CDD6EF3B1668CACEF74F4DA35928450.png</URL>
+    </control>
+    <control controlID="62C89919-010B-4EAD-8C17-7B885CFDB85E" controlTypeID="StatusBar(Android)" x="0" y="0" w="375" h="20" zOrder="1"/>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

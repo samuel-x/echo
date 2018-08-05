@@ -1,0 +1,84 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="DFDB428C-ABD6-4DEA-B3A2-C70822F91B76" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325">
+  <controls controlCount="12">
+    <control controlID="ABBAEF51-CB81-4568-BC7F-081D425DC6BD" controlTypeID="StatusBar(Android)" x="0" y="0" w="375" h="20" zOrder="0"/>
+    <control controlID="0A0D2FB1-2D14-49F5-BCB5-C7B94E28ED7C" controlTypeID="__group__" x="0" y="20" w="375" h="647" zOrder="1">
+      <groupChildrenDescriptors>
+        <control controlID="CEEF8990-9472-4502-99F6-C59959BF0DE4" controlTypeID="Shape" x="0" y="0" w="375" h="60" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="D54ECB14-75C2-48D7-9D60-31BC13CF2BC6" controlTypeID="Label" x="132" y="15" w="112" h="32" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Messaging</text>
+          <textSize>24</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="8E1A8667-3EF5-47FA-A630-C4C0D5A7EC4B" controlTypeID="Icon" x="325" y="16" w="30" h="30" zOrder="2">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>61763</iconCode>
+          </icon>
+          <URL>7194678D1F9372E1049A1619D3191045.svg</URL>
+        </control>
+        <control controlID="22B2143D-A3AA-4A07-9724-B0F2C41A92C6" controlTypeID="Icon" x="20" y="15" w="31" h="31" zOrder="3">
+          <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+            <link targetPageID="AE978A4D-081E-49F8-9F50-6C7895EF130C" linkType="ltPageLink" isApplyIncludePage="False" title="Task+in+Progress">
+              <area shape="0" alt="" ID="{82971A46-AC65-48A4-AB7E-66E8296D4EB9}" coords="(0,0,31,31)"/>
+            </link>
+          </links>
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62154</iconCode>
+          </icon>
+          <URL>D95E480717200F895E41DB6E5B869596.svg</URL>
+        </control>
+        <control controlID="11EC0D50-7C9F-4BC0-B542-D0DB3C63A125" controlTypeID="ToolTip" x="10" y="70" w="300" h="48" zOrder="4">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Message</text>
+          <textSize>14</textSize>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="A4DBEAE6-95D1-44A1-A6CD-E7D2E9131250" controlTypeID="Keyboard" x="0" y="407" w="375" h="240" zOrder="5"/>
+        <control controlID="6BE38649-D20A-49D1-B8CD-3DA42F84C2E6" controlTypeID="Label" x="10" y="128" w="45" h="19" zOrder="6">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>1%3A00pm</text>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="03060E0D-B256-4DDB-852F-CCEEB442FD51" controlTypeID="ToolTip" x="65" y="153" w="300" h="48" zOrder="7">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Message</text>
+          <textSize>14</textSize>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+          <tipCornerDirection>AdRightBottom</tipCornerDirection>
+        </control>
+        <control controlID="B499D10F-CD13-45FA-B4E2-FDA09871DE77" controlTypeID="Label" x="320" y="211" w="45" h="19" zOrder="8">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>1%3A01pm</text>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="F236B98D-F695-482F-9715-308B15FD6284" controlTypeID="ToolTip" x="10" y="239" w="55" h="48" zOrder="9">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>...</text>
+          <textSize>14</textSize>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

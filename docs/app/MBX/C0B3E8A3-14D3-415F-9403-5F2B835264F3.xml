@@ -1,0 +1,116 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="C0B3E8A3-14D3-415F-9403-5F2B835264F3" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325">
+  <controls controlCount="15">
+    <control controlID="EE0696CF-CA5B-4A25-88EF-5BCFF822623C" controlTypeID="StatusBar(Android)" x="0" y="0" w="375" h="20" zOrder="0"/>
+    <control controlID="E6019D06-D764-4C83-9055-026CD73FF7FA" controlTypeID="__group__" x="0" y="20" w="375" h="60" zOrder="1">
+      <groupChildrenDescriptors>
+        <control controlID="4144E411-2F13-4EC2-A7FC-D0DBC722AFF1" controlTypeID="Shape" x="0" y="0" w="375" h="60" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="54299BE4-65CB-44A8-925C-14C80810A770" controlTypeID="Label" x="138" y="16" w="101" h="32" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Rate+User</text>
+          <textSize>24</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="973F7508-3F6F-4D63-A6B7-108FB47A3811" controlTypeID="Icon" x="325" y="16" w="30" h="30" zOrder="2">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>61763</iconCode>
+          </icon>
+          <URL>7194678D1F9372E1049A1619D3191045.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="17DE50A8-3391-44C5-BAA3-CBD2E03C9BA8" controlTypeID="AvatarEx2" x="128" y="264" w="120" h="120" zOrder="2">
+      <icon>
+        <ID/>
+        <iconFontName>jdiconfontB</iconFontName>
+        <iconCode>59652</iconCode>
+      </icon>
+      <URL>467605F5F90D9FF65132C1A6EF883F26.svg</URL>
+    </control>
+    <control controlID="3BB3F7EB-FE2A-4196-A500-38480CD11AB5" controlTypeID="__group__" x="77" y="414" w="222" h="39" zOrder="3">
+      <groupChildrenDescriptors>
+        <control controlID="218A8EFE-A90B-4C42-B109-42C58A38B476" controlTypeID="Icon" x="0" y="6" w="33" h="33" zOrder="0">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62204</iconCode>
+          </icon>
+          <URL>7368E932054EB35095B123FCB5C28A31.svg</URL>
+        </control>
+        <control controlID="4A5284C3-82ED-4143-9A6C-EA12B3DD2834" controlTypeID="Icon" x="47" y="6" w="33" h="33" zOrder="1">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62204</iconCode>
+          </icon>
+          <URL>7368E932054EB35095B123FCB5C28A31.svg</URL>
+        </control>
+        <control controlID="0AF45AAA-9EA3-4A07-AB20-83EE89C55373" controlTypeID="Icon" x="94" y="6" w="33" h="33" zOrder="2">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62204</iconCode>
+          </icon>
+          <URL>7368E932054EB35095B123FCB5C28A31.svg</URL>
+        </control>
+        <control controlID="0848C9D5-A8D5-49C0-8D27-B5C3859A23D1" controlTypeID="Icon" x="142" y="6" w="33" h="33" zOrder="3">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62204</iconCode>
+          </icon>
+          <URL>7368E932054EB35095B123FCB5C28A31.svg</URL>
+        </control>
+        <control controlID="19D5EC42-4D2F-4A35-A77D-8582993F3843" controlTypeID="Icon" x="189" y="6" w="33" h="33" zOrder="4">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62204</iconCode>
+          </icon>
+          <URL>7368E932054EB35095B123FCB5C28A31.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="27D55B20-C579-469B-B916-3BEAAFED23A8" controlTypeID="Label" x="130" y="216" w="115" h="38" zOrder="4">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>John+Doe</text>
+      <textSize>28</textSize>
+      <lineSpacing>0</lineSpacing>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="34562117-5E81-4E3E-9622-CA27404ABA45" controlTypeID="Label" x="82" y="147" w="213" h="27" zOrder="5">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>How+was+your+assistant%3F</text>
+      <textSize>20</textSize>
+      <lineSpacing>0</lineSpacing>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="3A6DE079-67CC-4E0A-B123-8C701256F5F9" controlTypeID="PointyButton" x="106" y="565" w="165" h="44" zOrder="6">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="7E9F0B1F-B590-446D-B902-707655DF0B99" linkType="ltPageLink" isApplyIncludePage="False" title="Home">
+          <area shape="0" alt="" ID="{A8DD92CD-F34C-4FF9-B8C7-1774F1DDACB5}" coords="(0,0,165,44)"/>
+        </link>
+      </links>
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>Confirm</text>
+      <textSize>14</textSize>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

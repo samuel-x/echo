@@ -1,0 +1,111 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="536B7E02-7418-4581-B65D-4457D5455461" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
+  <controls controlCount="16">
+    <control controlID="57CEDCDB-2368-495C-9628-E0853865231D" controlTypeID="StatusBar(Android)" x="0" y="0" w="375" h="20" zOrder="0"/>
+    <control controlID="9D9ECFF9-ABAD-4A94-9957-D0FFA06D0868" controlTypeID="__group__" x="0" y="20" w="375" h="60" zOrder="1">
+      <groupChildrenDescriptors>
+        <control controlID="AD43D4AE-5330-4419-A5E9-636BB411E4EE" controlTypeID="Shape" x="0" y="0" w="375" h="60" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="E1168FE7-C252-4507-8592-0BB5C899FD17" controlTypeID="Label" x="142" y="14" w="91" h="32" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Payment</text>
+          <textSize>24</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="0F36D611-89A9-41CD-952C-9B192F9E0195" controlTypeID="Icon" x="325" y="16" w="30" h="30" zOrder="2">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>61763</iconCode>
+          </icon>
+          <URL>7194678D1F9372E1049A1619D3191045.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="429CEB6E-89F8-483F-A8D9-4BCF30D6B88B" controlTypeID="ScrollView" x="0" y="80" w="375" h="587" zOrder="2">
+      <groupChildrenDescriptors>
+        <control controlID="ABCCA0E8-95FA-49C3-838A-F7E86660DD9C" controlTypeID="ScrollViewContentPanel" x="0" y="0" w="375" h="1058" zOrder="0">
+          <alias>contentPanel</alias>
+          <groupChildrenDescriptors>
+            <control controlID="7EFB1285-CDF1-4D60-B483-FCD9C626C75E" controlTypeID="Label" x="12" y="0" w="356" h="32" zOrder="0">
+              <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+              <text>Task+%22Buy+Medication%22+Completed</text>
+              <textSize>24</textSize>
+              <lineSpacing>0</lineSpacing>
+              <useDefaultTextSize>False</useDefaultTextSize>
+              <selectedIndex>-1</selectedIndex>
+            </control>
+            <control controlID="4EC6F81B-246D-4827-89B9-DFB5815EE51E" controlTypeID="Label" x="58" y="71" w="264" h="32" zOrder="1">
+              <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False" useDefaultFontFamily="False"/>
+              <text>TIP+AMOUNT%3A+20.00+AUD</text>
+              <textSize>24</textSize>
+              <lineSpacing>0</lineSpacing>
+              <useDefaultTextSize>False</useDefaultTextSize>
+              <selectedIndex>-1</selectedIndex>
+            </control>
+            <control controlID="38AF114A-BE6B-4493-8590-8E3C3BDF0A59" controlTypeID="Label" x="26" y="113" w="329" h="27" zOrder="2">
+              <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False" useDefaultFontFamily="False"/>
+              <text>ASSISTANT+EXPENDITURE%3A+34.50+AUD</text>
+              <textSize>20</textSize>
+              <lineSpacing>0</lineSpacing>
+              <useDefaultTextSize>False</useDefaultTextSize>
+              <selectedIndex>-1</selectedIndex>
+            </control>
+            <control controlID="7C9371A3-D110-4FDF-9446-00F86EBA0C01" controlTypeID="Label" x="89" y="150" w="202" h="38" zOrder="3">
+              <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+              <text>Total%3A+54.50+AUD</text>
+              <textSize>28</textSize>
+              <lineSpacing>0</lineSpacing>
+              <useDefaultTextSize>False</useDefaultTextSize>
+              <selectedIndex>-1</selectedIndex>
+            </control>
+            <control controlID="135CBA22-F2F4-493A-B49F-CDED82F5EF09" controlTypeID="Image" x="10" y="242" w="360" h="667" zOrder="4">
+              <URL>BC73D194E7E59804AEF1DD1E5DCAB1D6.png</URL>
+            </control>
+            <control controlID="2F592CE4-3A66-483D-A866-BEDDC0E1BB8F" controlTypeID="Label" x="82" y="210" w="209" h="32" zOrder="5">
+              <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False" useDefaultFontFamily="False"/>
+              <text>ASSISTANT+RECEIPT</text>
+              <textSize>24</textSize>
+              <lineSpacing>0</lineSpacing>
+              <useDefaultTextSize>False</useDefaultTextSize>
+              <selectedIndex>-1</selectedIndex>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+        <control controlID="84F0DCC8-B2D9-4D54-B67D-D2A7E0F1DC15" controlTypeID="Border" x="0" y="0" w="375" h="587" zOrder="1">
+          <color>4284900966</color>
+          <borderColor>4278190080</borderColor>
+          <alias>borderLayer</alias>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="DF9D55C0-3EBE-4CED-ACD4-780DF3FD55C6" controlTypeID="Shape" x="0" y="616" w="375" h="51" zOrder="3">
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <textSize>14</textSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="75ADF33A-DADE-4C2C-8C7B-E59E0653C021" controlTypeID="PointyButton" x="94" y="616" w="187" h="51" zOrder="4">
+      <borderColor>4281532416</borderColor>
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="C0B3E8A3-14D3-415F-9403-5F2B835264F3" linkType="ltPageLink" isApplyIncludePage="False" title="Rate+User">
+          <area shape="0" alt="" ID="{B636D2FE-24F4-4F81-9EBB-7329EFABC28B}" coords="(0,0,187,51)"/>
+        </link>
+      </links>
+      <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>Confirm</text>
+      <textSize>14</textSize>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

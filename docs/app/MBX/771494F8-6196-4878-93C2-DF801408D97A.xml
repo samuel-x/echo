@@ -30,6 +30,11 @@
       <selectedIndex>-1</selectedIndex>
     </control>
     <control controlID="2CCC7BE1-1E1B-43F1-88E8-03F1D25AF7E9" controlTypeID="Icon" x="29" y="256" w="113" h="113" zOrder="4">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="C98A24EE-2372-4553-8133-837B8B4FBF0B" linkType="ltPageLink" isApplyIncludePage="False" title="Call">
+          <area shape="0" alt="" ID="{8DB8662B-2AC8-423A-845D-2803131B7390}" coords="(0,0,113,113)"/>
+        </link>
+      </links>
       <icon>
         <ID/>
         <iconFontName>jdIonicons</iconFontName>
@@ -55,6 +60,11 @@
       </groupChildrenDescriptors>
     </control>
     <control controlID="62D8031D-F54D-42F6-A6A2-14622C840FA3" controlTypeID="Icon" x="218" y="255" w="114" h="114" zOrder="6">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="DFDB428C-ABD6-4DEA-B3A2-C70822F91B76" linkType="ltPageLink" isApplyIncludePage="False" title="Messaging">
+          <area shape="0" alt="" ID="{EB1A148C-54FB-40AC-B86D-68D85EAE34E3}" coords="(0,0,114,114)"/>
+        </link>
+      </links>
       <icon>
         <ID/>
         <iconFontName>jdIonicons</iconFontName>

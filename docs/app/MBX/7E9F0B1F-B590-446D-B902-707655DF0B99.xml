@@ -1,5 +1,5 @@
 ﻿<mockup version="5.3" minAllowVersion="5.3" ID="7E9F0B1F-B590-446D-B902-707655DF0B99" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325" clipArea="(0,0,0,0)">
-  <controls controlCount="21">
+  <controls controlCount="27">
     <control controlID="22FD5896-FE00-4DA9-BF65-8DB91CB17CEA" controlTypeID="Map" x="0" y="76" w="375" h="537" zOrder="0"/>
     <control controlID="3E09E4E7-A1C7-46E1-BB0A-4C65FD46FDBD" controlTypeID="StatusBar(Android)" x="0" y="0" w="375" h="20" zOrder="1"/>
     <control controlID="C9D33248-73EC-4A78-8DCC-F293DF09037B" controlTypeID="__group__" x="0" y="613" w="375" h="54" zOrder="2">
@@ -36,9 +36,9 @@
           <textSize>14</textSize>
           <selectedIndex>-1</selectedIndex>
         </control>
-        <control controlID="E104713C-47AD-4F06-884D-70CEF73358CE" controlTypeID="Label" x="166" y="15" w="44" h="32" zOrder="1">
+        <control controlID="E104713C-47AD-4F06-884D-70CEF73358CE" controlTypeID="Label" x="132" y="15" w="113" h="32" zOrder="1">
           <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
-          <text>Title</text>
+          <text>App+Name</text>
           <textSize>24</textSize>
           <lineSpacing>0</lineSpacing>
           <useDefaultTextSize>False</useDefaultTextSize>
@@ -87,7 +87,7 @@
     </control>
     <control controlID="FA4C8524-C54D-4B42-AF70-EB16AF468C43" controlTypeID="Icon" x="293" y="531" w="72" h="72" zOrder="4">
       <color>4281584895</color>
-      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+      <links eventType="AtClick" animate="AmSlideUp" animateAutoDelay="0" animateDuration="500">
         <link targetPageID="F057765B-2111-4BAB-B47D-54814FC86DFB" linkType="ltPageLink" isApplyIncludePage="False" title="New+Task">
           <area shape="0" alt="" ID="{C00351C7-24AC-4F05-9F1F-93CC7FABFE1A}" coords="(0,0,72,72)"/>
         </link>
@@ -99,7 +99,67 @@
       </icon>
       <URL>909563FAFE25D2BCBB465D4435A7FA63.svg</URL>
     </control>
-    <control controlID="057D5C05-7301-4516-B21D-1ECE8AC9FFAD" controlTypeID="SlidingDrawer" x="-157" y="36" w="46" h="46" zOrder="5">
+    <control controlID="387493B4-94E0-4A01-B1F1-AFE46FD92DA5" controlTypeID="__group__" x="2" y="218" w="163" h="131" zOrder="5">
+      <groupChildrenDescriptors>
+        <control controlID="0C5D9143-94C1-4CCE-BBC8-754D095A9AA7" controlTypeID="Icon" x="54" y="75" w="56" h="56" zOrder="0">
+          <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+            <link targetPageID="AE978A4D-081E-49F8-9F50-6C7895EF130C" linkType="ltPageLink" isApplyIncludePage="False" title="Task+in+Progress">
+              <area shape="0" alt="" ID="{B1C36796-A3CB-4FA9-8168-BFD3994250D4}" coords="(0,0,56,56)"/>
+            </link>
+          </links>
+          <icon>
+            <ID/>
+            <iconFontName>jdIcoMoonFree</iconFontName>
+            <iconCode>59868</iconCode>
+          </icon>
+          <URL>C705AF7D465F14939C55681AE05FA8BD.svg</URL>
+        </control>
+        <control controlID="C1965488-CEF1-4B04-B6CE-6BEC72EE390A" controlTypeID="ToolTip" x="0" y="0" w="163" h="65" zOrder="1">
+          <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+            <link targetPageID="AE978A4D-081E-49F8-9F50-6C7895EF130C" linkType="ltPageLink" isApplyIncludePage="False" title="Task+in+Progress">
+              <area shape="0" alt="" ID="{C56329AA-D778-45E5-BAA1-31994F366A0D}" coords="(0,0,163,65)"/>
+            </link>
+          </links>
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>John+Doe+is+picking+up+Medication</text>
+          <textSize>14</textSize>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+          <tipCornerDirection>AdBottom</tipCornerDirection>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="D3B459F6-1B8C-44C7-BEED-B72E2B40081D" controlTypeID="__group__" x="226" y="400" w="150" h="126" zOrder="6">
+      <groupChildrenDescriptors>
+        <control controlID="124920D7-2787-4F07-8B4E-E666C4BAD593" controlTypeID="Icon" x="47" y="70" w="56" h="56" zOrder="0">
+          <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+            <link targetPageID="AE978A4D-081E-49F8-9F50-6C7895EF130C" linkType="ltPageLink" isApplyIncludePage="False" title="Task+in+Progress">
+              <area shape="0" alt="" ID="{63E2A505-569B-4E03-94AB-564C8029B581}" coords="(0,0,56,56)"/>
+            </link>
+          </links>
+          <icon>
+            <ID/>
+            <iconFontName>jdIcoMoonFree</iconFontName>
+            <iconCode>59868</iconCode>
+          </icon>
+          <URL>C705AF7D465F14939C55681AE05FA8BD.svg</URL>
+        </control>
+        <control controlID="8F96394F-B93E-49C5-98D3-BD2D59281B44" controlTypeID="ToolTip" x="0" y="0" w="150" h="65" zOrder="1">
+          <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+            <link targetPageID="AE978A4D-081E-49F8-9F50-6C7895EF130C" linkType="ltPageLink" isApplyIncludePage="False" title="Task+in+Progress">
+              <area shape="0" alt="" ID="{BAFDE0F8-B182-499D-9131-9092F3432BE8}" coords="(0,0,150,65)"/>
+            </link>
+          </links>
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>Hughie+Mung+is+On+The+Way</text>
+          <textSize>14</textSize>
+          <lineSpacing>0</lineSpacing>
+          <selectedIndex>-1</selectedIndex>
+          <tipCornerDirection>AdBottom</tipCornerDirection>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="057D5C05-7301-4516-B21D-1ECE8AC9FFAD" controlTypeID="SlidingDrawer" x="-157" y="36" w="46" h="46" zOrder="7">
       <groupChildrenDescriptors>
         <control controlID="8312C122-489F-4A5F-A583-8D25F970817A" controlTypeID="Panel" x="0" y="0" w="375" h="667" zOrder="0">
           <locked>True</locked>

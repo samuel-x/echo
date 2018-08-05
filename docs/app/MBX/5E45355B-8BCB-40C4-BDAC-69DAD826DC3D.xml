@@ -1,0 +1,86 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="5E45355B-8BCB-40C4-BDAC-69DAD826DC3D" platform="MtMobile" defaultW="375" defaultH="667" measureW="375" measureH="667" screenOrientation="MoPortrait" mobileScreenScale="1.77777779102325">
+  <controls controlCount="11">
+    <control controlID="DDADD6A3-2FED-494D-807C-E934DD82FB86" controlTypeID="Map" x="0" y="80" w="375" h="533" zOrder="0"/>
+    <control controlID="D99BFBA2-6E0B-4591-B259-527345C2E2C3" controlTypeID="StatusBar(Android)" x="0" y="0" w="375" h="20" zOrder="1"/>
+    <control controlID="51DDF16E-686B-48F1-A531-1A4FA330DC52" controlTypeID="__group__" x="0" y="613" w="375" h="54" zOrder="2">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="AE978A4D-081E-49F8-9F50-6C7895EF130C" linkType="ltPageLink" isApplyIncludePage="False" title="Task+in+Progress">
+          <area shape="0" alt="" ID="{780B9193-7691-42AD-BE72-B1D78001F48F}" coords="(0,0,375,54)"/>
+        </link>
+      </links>
+      <groupChildrenDescriptors>
+        <control controlID="0BCB640A-D438-414E-9D09-11BE6D8ACF45" controlTypeID="ProgressBar" x="0" y="0" w="375" h="54" zOrder="0">
+          <borderColor>4294967040</borderColor>
+          <progress>100</progress>
+          <indicatorColor>4281584895</indicatorColor>
+        </control>
+        <control controlID="609A8CB8-BAD7-49C3-AE7D-4EEF0E2B496B" controlTypeID="Label" x="74" y="8" w="229" h="38" zOrder="1">
+          <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+            <link targetPageID="AE978A4D-081E-49F8-9F50-6C7895EF130C" linkType="ltPageLink" isApplyIncludePage="False" title="Task+in+Progress">
+              <area shape="0" alt="" ID="{F3A9FC29-02C5-43F5-B846-01492A652E05}" coords="(0,0,229,38)"/>
+            </link>
+          </links>
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>5+Tasks+in+Progress</text>
+          <textSize>28</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="6492CAAD-B1BD-496B-8DB2-BCA4B7823909" controlTypeID="__group__" x="0" y="20" w="375" h="60" zOrder="3">
+      <groupChildrenDescriptors>
+        <control controlID="D6345122-0A7A-4DF4-9B00-FFDBD5978AA3" controlTypeID="Shape" x="0" y="0" w="375" h="60" zOrder="0">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <textSize>14</textSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="6A8F123E-C865-4DF1-89A7-8E0FD004020F" controlTypeID="Label" x="132" y="15" w="113" h="32" zOrder="1">
+          <font family="Segoe+UI" displayName="Segoe+UI" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+          <text>App+Name</text>
+          <textSize>24</textSize>
+          <lineSpacing>0</lineSpacing>
+          <useDefaultTextSize>False</useDefaultTextSize>
+          <selectedIndex>-1</selectedIndex>
+        </control>
+        <control controlID="1AB75294-A2FE-48A8-951F-F47CCF358A91" controlTypeID="Icon" x="20" y="16" w="32" h="32" zOrder="2">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>62300</iconCode>
+          </icon>
+          <URL>E81ED979293FF1C7F35153E7BDA571B8.svg</URL>
+        </control>
+        <control controlID="F73D7BC2-E274-4B35-8CA5-A81E6D93ED2A" controlTypeID="Icon" x="325" y="16" w="30" h="30" zOrder="3">
+          <icon>
+            <ID/>
+            <iconFontName>jdIonicons</iconFontName>
+            <iconCode>61763</iconCode>
+          </icon>
+          <URL>7194678D1F9372E1049A1619D3191045.svg</URL>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="0CB2E4C1-C31F-4BAF-B640-51D00047696B" controlTypeID="Icon" x="293" y="531" w="72" h="72" zOrder="4">
+      <color>4281584895</color>
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="F057765B-2111-4BAB-B47D-54814FC86DFB" linkType="ltPageLink" isApplyIncludePage="False" title="New+Task">
+          <area shape="0" alt="" ID="{C00351C7-24AC-4F05-9F1F-93CC7FABFE1A}" coords="(0,0,72,72)"/>
+        </link>
+      </links>
+      <icon>
+        <ID/>
+        <iconFontName>jdIonicons</iconFontName>
+        <iconCode>61974</iconCode>
+      </icon>
+      <URL>909563FAFE25D2BCBB465D4435A7FA63.svg</URL>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>
