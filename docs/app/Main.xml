@@ -11,38 +11,47 @@
         <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
       </images>
     </page>
-    <page name="Home" ID="7E9F0B1F-B590-446D-B902-707655DF0B99" expanded="True" code="Tu4Ks7Vkqs" thumbCode="Tu4Ks7Vkqs" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
+    <page name="Home" ID="7E9F0B1F-B590-446D-B902-707655DF0B99" expanded="True" code="Tu4Ks7Vkqs" thumbCode="Tu4Ks7Vkqs" status="psWhite" isfolder="False" isshownode="True">
       <images>
         <image key="909563FAFE25D2BCBB465D4435A7FA63.svg"/>
+        <image key="E81ED979293FF1C7F35153E7BDA571B8.svg"/>
         <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
         <image key="C705AF7D465F14939C55681AE05FA8BD.svg"/>
-        <image key="E81ED979293FF1C7F35153E7BDA571B8.svg"/>
       </images>
     </page>
     <page name="Messaging" ID="DFDB428C-ABD6-4DEA-B3A2-C70822F91B76" expanded="True" code="ujwSxupVyS" thumbCode="ujwSxupVyS" status="psWhite" isfolder="False" isshownode="True">
       <images>
-        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
       </images>
     </page>
-    <page name="Payment" ID="536B7E02-7418-4581-B65D-4457D5455461" expanded="True" code="ohqpmpXonY" thumbCode="ohqpmpXonY" status="psWhite" isfolder="False" isshownode="True">
+    <page name="Navigation" ID="126E85DD-96FB-4D76-ABFC-9301626DC918" expanded="True" code="iYBDj9dWp1" thumbCode="bgfOvNJ9ZH" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
+      <images>
+        <image key="474A61FDC203C97B2EEFAF494C017CCB.svg"/>
+        <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="A7AD19D49404C43765EE13B1ABED3FC0.svg"/>
+        <image key="C705AF7D465F14939C55681AE05FA8BD.svg"/>
+        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
+      </images>
+    </page>
+    <page name="Payment" ID="536B7E02-7418-4581-B65D-4457D5455461" expanded="False" code="ohqpmpXonY" thumbCode="ohqpmpXonY" status="psWhite" isfolder="False" isshownode="True">
       <images>
         <image key="BC73D194E7E59804AEF1DD1E5DCAB1D6.png"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
       </images>
       <page name="Rate User" ID="C0B3E8A3-14D3-415F-9403-5F2B835264F3" expanded="True" code="VDzQUVQqh5" thumbCode="VDzQUVQqh5" status="psWhite" isfolder="False" isshownode="True">
         <images>
-          <image key="7368E932054EB35095B123FCB5C28A31.svg"/>
           <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
           <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+          <image key="7368E932054EB35095B123FCB5C28A31.svg"/>
         </images>
       </page>
     </page>
     <page name="Task in Progress" ID="AE978A4D-081E-49F8-9F50-6C7895EF130C" expanded="True" code="3XrolbSaPn" thumbCode="3XrolbSaPn" status="psWhite" isfolder="False" isshownode="True">
       <images>
-        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="D95E480717200F895E41DB6E5B869596.svg"/>
       </images>
       <page name="Page1" ID="51928E01-FE0B-4035-8CB9-8576F7F0F53D" expanded="True" code="UI11pHkZJd" thumbCode="UI11pHkZJd" status="psWhite" isfolder="False" isshownode="True">
         <images>
@@ -107,7 +116,7 @@
           <image key="2D780716D3D89B2EFB0155599BA0A89F.svg"/>
           <image key="D95E480717200F895E41DB6E5B869596.svg"/>
         </images>
-        <page name="Transport Task" ID="CC5778A8-EC13-4017-8252-502354ABFE69" expanded="True" code="x9gOMsX7LM" thumbCode="x9gOMsX7LM" status="psWhite" isfolder="False" isshownode="True">
+        <page name="Transport Task" ID="CC5778A8-EC13-4017-8252-502354ABFE69" expanded="False" code="x9gOMsX7LM" thumbCode="x9gOMsX7LM" status="psWhite" isfolder="False" isshownode="True">
           <images>
             <image key="7194678D1F9372E1049A1619D3191045.svg"/>
             <image key="2D780716D3D89B2EFB0155599BA0A89F.svg"/>
@@ -287,6 +296,15 @@
         <image key="7194678D1F9372E1049A1619D3191045.svg"/>
       </images>
     </page>
+    <page name="Navigation" ID="027DB59E-1E2B-4D21-8F78-0E084825B455" expanded="False" code="PWEgkttTmy" thumbCode="2ph6vcQJmy" isLastOpen="True" status="psWhite" isfolder="False" isshownode="True">
+      <images>
+        <image key="909563FAFE25D2BCBB465D4435A7FA63.svg"/>
+        <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
+        <image key="7194678D1F9372E1049A1619D3191045.svg"/>
+        <image key="C705AF7D465F14939C55681AE05FA8BD.svg"/>
+        <image key="E81ED979293FF1C7F35153E7BDA571B8.svg"/>
+      </images>
+    </page>
   </trash>
   <deletes/>
   <masters/>
@@ -305,6 +323,8 @@
     <image key="5CDD6EF3B1668CACEF74F4DA35928450.png"/>
     <image key="C705AF7D465F14939C55681AE05FA8BD.svg"/>
     <image key="E83356C90CF3FA7AB2A26D5E939C3C57.svg"/>
+    <image key="474A61FDC203C97B2EEFAF494C017CCB.svg"/>
+    <image key="A7AD19D49404C43765EE13B1ABED3FC0.svg"/>
     <image key="69DA6689680A20AC214125CFC13BFB38.svg"/>
     <image key="94E9452D20864CF3FBC79CD2C4E76723.svg"/>
     <image key="467605F5F90D9FF65132C1A6EF883F26.svg"/>
