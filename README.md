@@ -6,6 +6,7 @@ It was built over 2018, Semester 2.
 - Alexander Terp
 - Lachlan Napoli
 - Max Philip
+- Jonas Olausson
 
 
 ## How to build
