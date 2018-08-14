@@ -5,6 +5,7 @@ It was built over 2018, Semester 2.
 **Members:**
 - Alexander Terp
 - Lachlan Napoli
+- Max Philip
 
 
 ## How to build
