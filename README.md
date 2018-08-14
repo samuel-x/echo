@@ -7,9 +7,10 @@ It was built over 2018, Semester 2.
 - Lachlan Napoli
 - Max Philip
 - Jonas Olausson
+- Samuel Xu
 
 
 ## How to build
 1. Checkout repository on your local computer.
 2. Open the folder/project 'Echo' in Android Studio.
-3. Build with Android Studio.
+3. Build with [Android Studio](https://developer.android.com/studio/).
