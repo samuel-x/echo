@@ -4,6 +4,8 @@ It was built over 2018, Semester 2.
 
 **Members:**
 - Alexander Terp
+- Lachlan Napoli
+
 
 ## How to build
 1. Checkout repository on your local computer.
