@@ -3,6 +3,7 @@ package com.unimelb.droptable.echo.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -57,7 +58,9 @@ public class LoginActivity extends AppCompatActivity {
 
         ClientInfo.setUsername(username);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
-        // TODO: Switch activity.
+
+        // Switch to welcome/home screen.
+        startActivity(new Intent(this, HomePlaceholder.class));
     }
 
     private boolean isUsernameValid(String username) {
