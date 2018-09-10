@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         ClientInfo.setUsername(username);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
 
-        // Switch to welcome/home screen.
+        // Switch to task creation for testing.
         startActivity(new Intent(this, TaskCreation.class));
     }
 
