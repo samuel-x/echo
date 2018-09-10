@@ -6,12 +6,12 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox isAssistantCheckBox;
     private Button signInButton;
     private View signInView;
-    private ImageButton helperButton;
+    private FloatingActionButton helperButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
