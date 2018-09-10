@@ -47,7 +47,6 @@ public class TaskConfirm extends AppCompatActivity {
     private void setRecent() {
         Log.d("test","recent");
     }
-W
     private void confirmSubmit() {
         startActivity(new Intent(null, HomePlaceholder.class));
 
