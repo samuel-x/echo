@@ -3,35 +3,16 @@ package com.unimelb.droptable.echo.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
@@ -41,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // UI references.
     private EditText usernameText;
+    private CheckBox isAssistantCheckBox;
     private Button signInButton;
     private View signInView;
 
@@ -51,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Set up the login form.
         usernameText = findViewById(R.id.usernameText);
+        isAssistantCheckBox = findViewById(R.id.isAssistantCheckBox);
 
         // Get a reference to the sign in button and set its listener.
         signInButton = findViewById(R.id.signInButton);
@@ -73,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         ClientInfo.setUsername(username);
+        ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
         // TODO: Switch activity.
     }
 
