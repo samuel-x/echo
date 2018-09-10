@@ -13,4 +13,21 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="prompt_address">Address</string>
+    <string name="prompt_title">Title</string>
+    <string name="button_transport_text">Transport</string>
+    <string name="button_delivery_text" >Delivery</string>
+    <string name="button_household_text">Household</string>
+    <string name="button_other_text">Other</string>
+    <string name="task_notes">Task Notes</string>
+    <string name="prompt_details">Details...</string>
+    <string name="button_task_now">Now</string>
+    <string name="button_task_later">Later</string>
+    <string name="new_task">New Task</string>
+    <string name="saved_tasks">Saved Tasks</string>
+    <string name="default_button_text">button</string>
+    <string name="prompt_time">Time</string>
+    <string name="button_set_recurring_text">Set as Recurring</string>
+    <string name="button_text_recent">Save as Recent</string>
+    <string name="confirm">Confirm</string>
 </resources>
