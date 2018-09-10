@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         String username = usernameText.getText().toString();
         if (!isUsernameValid(username)) {
             showProgress(false);
+            return;
         }
 
         // The login attempt is valid. Remember the entered information.
