@@ -9,6 +9,6 @@ public class HomePlaceholder extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_placeholder);
+        setContentView(R.layout.activity_task_creation_start);
     }
 }

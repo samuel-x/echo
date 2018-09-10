@@ -23,6 +23,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.HomePlaceholder" />
+        <activity android:name=".activities.tasks.TaskCategories" />
+        <activity android:name=".activities.tasks.TaskConfirm" />
+        <activity android:name=".activities.tasks.TaskCreation" />
+        <activity android:name=".activities.tasks.TaskDetails" />
+        <activity android:name=".activities.tasks.TaskSubcategories" />
     </application>
 
 </manifest>
