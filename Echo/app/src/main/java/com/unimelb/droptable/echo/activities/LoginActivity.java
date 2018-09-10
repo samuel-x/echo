@@ -16,10 +16,10 @@ import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via a simple username.
  */
 public class LoginActivity extends AppCompatActivity {
-    private static final int MIN_USERNAME_LENGTH = 4;
+    private static final int MIN_USERNAME_LENGTH = 3;
 
     // UI references.
     private EditText usernameText;
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Set up the login form.
+        // Get references to UI elements.
         usernameText = findViewById(R.id.usernameText);
         isAssistantCheckBox = findViewById(R.id.isAssistantCheckBox);
 
@@ -40,13 +40,12 @@ public class LoginActivity extends AppCompatActivity {
         signInButton = findViewById(R.id.signInButton);
         signInButton.setOnClickListener((view) -> {attemptLogin();});
 
+        // Get a reference to the whole view.
         signInView = findViewById(R.id.signInView);
     }
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
+     * Attempts to sign in with the given sign in information. If successful, switches activity.
      */
     private void attemptLogin() {
         showProgress(true);
@@ -56,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
         }
 
+        // The login attempt is valid. Remember the entered information.
         ClientInfo.setUsername(username);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
 
@@ -63,6 +63,11 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(this, HomePlaceholder.class));
     }
 
+    /**
+     * Checks if the given username is valid.
+     * @param username The username being checked.
+     * @return A boolean to indicate if the given username is valid or not.
+     */
     private boolean isUsernameValid(String username) {
         return username.length() >= MIN_USERNAME_LENGTH;
     }
@@ -72,25 +77,16 @@ public class LoginActivity extends AppCompatActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            signInView.setVisibility(show ? View.GONE : View.VISIBLE);
-            signInView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    signInView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            signInView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+        signInView.setVisibility(show ? View.GONE : View.VISIBLE);
+        signInView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                signInView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
     }
 }
 
