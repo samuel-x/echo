@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".activities.login.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.HomePlaceholder" />
+        <activity android:name=".activities.HelperActivity" />
     </application>
 
 </manifest>

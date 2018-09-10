@@ -11,20 +11,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activities.LoginActivity">
+    tools:context=".activities.login.LoginActivity">
 
     <!-- Login progress -->
 
     <EditText
         android:id="@+id/usernameText"
-        android:layout_width="235dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Enter username..."
+        android:hint="@string/prompt_username"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,15 +35,12 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="Assistant?"
+        android:text="@string/prompt_assistant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/usernameText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -55,8 +52,21 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Sign in"
+        android:text="@string/sign_in_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameText" />
+
+    <ImageButton
+        android:id="@+id/helperButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="Question Mark"
+        android:src="@android:drawable/ic_menu_help"
+        android:tint="?attr/actionMenuTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
