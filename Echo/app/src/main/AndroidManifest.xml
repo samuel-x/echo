@@ -23,6 +23,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.HomePlaceholder" />
+
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCgSOtLqsKAFvpHmychMVDcHbW1gmusrWI"/>
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+
     </application>
 
 </manifest>
