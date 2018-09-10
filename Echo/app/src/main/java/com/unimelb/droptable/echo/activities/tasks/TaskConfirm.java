@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.HomePlaceholder;
+import com.unimelb.droptable.echo.activities.MapActivity;
 
 public class TaskConfirm extends AppCompatActivity {
 
@@ -48,7 +48,7 @@ public class TaskConfirm extends AppCompatActivity {
         Log.d("test","recent");
     }
     private void confirmSubmit() {
-        startActivity(new Intent(this, HomePlaceholder.class));
+        startActivity(new Intent(this, MapActivity.class));
 
     }
 

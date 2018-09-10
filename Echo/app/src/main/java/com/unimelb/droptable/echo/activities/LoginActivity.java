@@ -14,7 +14,6 @@ import android.widget.EditText;
 
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.tasks.TaskCreation;
 
 /**
  * A login screen that offers login via a simple username.
@@ -62,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
 
         // Switch to task creation for testing.
-        startActivity(new Intent(this, HomePlaceholder.class));
+        startActivity(new Intent(this, MapActivity.class));
     }
 
     /**
