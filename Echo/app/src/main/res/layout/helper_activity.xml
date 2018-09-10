@@ -14,6 +14,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/helper_dismiss_button"
+        android:textSize="@dimen/echoApSmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -29,7 +30,7 @@
         android:layout_marginStart="8dp"
         android:scrollbars="vertical"
         android:text="Helper Text Here"
-        android:textSize="24sp"
+        android:textSize="@dimen/echoApMedium"
         app:layout_constraintBottom_toTopOf="@+id/okButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
