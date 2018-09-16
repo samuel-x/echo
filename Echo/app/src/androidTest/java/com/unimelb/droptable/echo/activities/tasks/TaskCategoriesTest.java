@@ -1,17 +1,16 @@
 package com.unimelb.droptable.echo.activities.tasks;
 
-import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.tasks.TaskCategories;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static android.support.test.espresso.Espresso.onView;
 import static org.junit.Assert.assertEquals;
 
 public class TaskCategoriesTest {
@@ -29,25 +28,29 @@ public class TaskCategoriesTest {
 
     @Test
     public void testTransportCategory() {
-        Espresso.onView(ViewMatchers.withId(R.id.buttonTaskTransport)).perform(ViewActions.click());
+        assertEquals(true, taskCategory.hasWindowFocus());
+        onView(ViewMatchers.withId(R.id.buttonTaskTransport)).perform(ViewActions.click());
         assertEquals(false, taskCategory.hasWindowFocus());
     }
 
     @Test
     public void testDeliveryCategory() {
-        Espresso.onView(ViewMatchers.withId(R.id.buttonTaskDelivery)).perform(ViewActions.click());
+        assertEquals(true, taskCategory.hasWindowFocus());
+        onView(ViewMatchers.withId(R.id.buttonTaskDelivery)).perform(ViewActions.click());
         assertEquals(false, taskCategory.hasWindowFocus());
     }
 
     @Test
     public void testHouseholdCategory() {
-        Espresso.onView(ViewMatchers.withId(R.id.buttonTaskHousehold)).perform(ViewActions.click());
+        assertEquals(true, taskCategory.hasWindowFocus());
+        onView(ViewMatchers.withId(R.id.buttonTaskHousehold)).perform(ViewActions.click());
         assertEquals(false, taskCategory.hasWindowFocus());
     }
 
     @Test
     public void testOtherCategory() {
-        Espresso.onView(ViewMatchers.withId(R.id.buttonTaskOther)).perform(ViewActions.click());
+        assertEquals(true, taskCategory.hasWindowFocus());
+        onView(ViewMatchers.withId(R.id.buttonTaskOther)).perform(ViewActions.click());
         assertEquals(false, taskCategory.hasWindowFocus());
     }
 
