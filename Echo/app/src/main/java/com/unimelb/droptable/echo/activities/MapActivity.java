@@ -28,7 +28,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        newTaskButton = findViewById(R.id.add_task_button);
+        newTaskButton = findViewById(R.id.addTaskButton);
         newTaskButton.setOnClickListener((view) -> {newTask();});
     }
 
