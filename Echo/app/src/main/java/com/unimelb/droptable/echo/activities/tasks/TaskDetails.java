@@ -9,7 +9,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.HomePlaceholder;
 
 public class TaskDetails extends AppCompatActivity {
 

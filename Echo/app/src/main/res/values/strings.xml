@@ -30,4 +30,19 @@
     <string name="button_set_recurring_text">Set as Recurring</string>
     <string name="button_text_recent">Save as Recent</string>
     <string name="confirm">Confirm</string>
+
+    <string name="prompt_username">Enter username…</string>
+    <string name="sign_in_button">Sign in</string>
+    <string name="prompt_assistant">Assistant?</string>
+    <string name="error_invalid_username">This username is invalid</string>
+
+    <!-- Strings related to helper screens -->
+    <string name="helper_prompt_button">\?</string>
+    <string name="helper_dismiss_button">OK</string>
+    <string name="help_login_text">
+        This screen allows you to sign in to the app. How to use:\n\n
+        1. Enter your username into the text box. Your username must be at least %d characters long.\n\n
+        2. If you\'re an assistant, check the \'%s\' box. If you\'re a person in need of an assistant (assisted person, or AP), leave the checkbox blank.\n\n
+        3. Press the \'%s\' button.
+    </string>
 </resources>

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.HomePlaceholder;
 
 public class TaskCreation extends AppCompatActivity {
 
