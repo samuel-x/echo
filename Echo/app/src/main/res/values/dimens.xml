@@ -1,19 +1,19 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16sp</dimen>
+    <dimen name="activity_vertical_margin">16sp</dimen>
 
     <!-- Echo Custom Assistant Font Size Standards -->
-    <dimen name="echoAssistantTiny">12dp</dimen>    <!-- +0 -->
-    <dimen name="echoAssistantSmall">14dp</dimen>   <!-- +2 -->
-    <dimen name="echoAssistantMedium">18dp</dimen>  <!-- +4 -->
-    <dimen name="echoAssistantLarge">24dp</dimen>   <!-- +6 -->
-    <dimen name="echoAssistantHuge">32dp</dimen>    <!-- +8 -->
+    <dimen name="echoAssistantTiny">12sp</dimen>    <!-- +0 -->
+    <dimen name="echoAssistantSmall">14sp</dimen>   <!-- +2 -->
+    <dimen name="echoAssistantMedium">18sp</dimen>  <!-- +4 -->
+    <dimen name="echoAssistantLarge">24sp</dimen>   <!-- +6 -->
+    <dimen name="echoAssistantHuge">32sp</dimen>    <!-- +8 -->
 
     <!-- Echo Custom AP Font Size Standards -->
-    <dimen name="echoApTiny">16dp</dimen>           <!-- +0 -->
-    <dimen name="echoApSmall">18dp</dimen>          <!-- +2 -->
-    <dimen name="echoApMedium">22dp</dimen>         <!-- +4 -->
-    <dimen name="echoApLarge">28dp</dimen>          <!-- +6 -->
-    <dimen name="echoApHuge">36dp</dimen>           <!-- +8 -->
+    <dimen name="echoApTiny">16sp</dimen>           <!-- +0 -->
+    <dimen name="echoApSmall">18sp</dimen>          <!-- +2 -->
+    <dimen name="echoApMedium">22sp</dimen>         <!-- +4 -->
+    <dimen name="echoApLarge">28sp</dimen>          <!-- +6 -->
+    <dimen name="echoApHuge">36sp</dimen>           <!-- +8 -->
 </resources>
