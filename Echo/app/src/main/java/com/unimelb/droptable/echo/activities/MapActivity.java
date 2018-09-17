@@ -21,6 +21,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     private FloatingActionButton newTaskButton;
 
+    private FloatingActionButton settingsButton;
+    private FloatingActionButton infoButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         newTaskButton = findViewById(R.id.addTaskButton);
         newTaskButton.setOnClickListener((view) -> {newTask();});
+
+        // currently placeholders
+        settingsButton = findViewById(R.id.settingsButton);
+        infoButton = findViewById(R.id.infoButton);
     }
 
     private void newTask() {
