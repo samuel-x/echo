@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.tasks.TaskCreation;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 /**
  * A login screen that offers login via email/password.
@@ -59,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
         ClientInfo.setUsername(username);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
+
+        FirebaseAdapter.pushTask(new Task("title", "address", "notes"));
 
         // Switch to task creation for testing.
         startActivity(new Intent(this, TaskCreation.class));
