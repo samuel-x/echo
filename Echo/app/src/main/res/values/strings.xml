@@ -2,19 +2,32 @@
     <string name="app_name">Echo</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_username">Enter username…</string>
-    <string name="sign_in_button">Sign in</string>
-    <string name="prompt_assistant">Assistant?</string>
-    <string name="error_invalid_username">This username is invalid</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-
-    <!-- Strings related to helper screens -->
-    <string name="helper_prompt_button">\?</string>
-    <string name="helper_dismiss_button">OK</string>
-    <string name="help_login_text">
-        This screen allows you to sign in to the app. How to use:\n\n
-        1. Enter your username into the text box. Your username must be at least %d characters long.\n\n
-        2. If you\'re an assistant, check the \'%s\' box. If you\'re a person in need of an assistant (assisted person, or AP), leave the checkbox blank.\n\n
-        3. Press the \'%s\' button.
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
     </string>
+    <string name="prompt_address">Address</string>
+    <string name="prompt_title">Title</string>
+    <string name="button_transport_text">Transport</string>
+    <string name="button_delivery_text" >Delivery</string>
+    <string name="button_household_text">Household</string>
+    <string name="button_other_text">Other</string>
+    <string name="task_notes">Task Notes</string>
+    <string name="prompt_details">Details...</string>
+    <string name="button_task_now">Now</string>
+    <string name="button_task_later">Later</string>
+    <string name="new_task">New Task</string>
+    <string name="saved_tasks">Saved Tasks</string>
+    <string name="default_button_text">button</string>
+    <string name="prompt_time">Time</string>
+    <string name="button_set_recurring_text">Set as Recurring</string>
+    <string name="button_text_recent">Save as Recent</string>
+    <string name="confirm">Confirm</string>
 </resources>

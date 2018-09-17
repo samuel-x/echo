@@ -11,22 +11,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activities.login.LoginActivity">
+    tools:context=".activities.LoginActivity">
 
     <!-- Login progress -->
 
     <EditText
         android:id="@+id/usernameText"
-        android:layout_width="210dp"
+        android:layout_width="235dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/prompt_username"
+        android:hint="Enter username..."
         android:inputType="textPersonName"
-        android:textSize="@dimen/echoApMedium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,13 +35,15 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/prompt_assistant"
-        android:textSize="@dimen/echoAssistantMedium"
+        android:text="Assistant?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/usernameText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -54,25 +55,8 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/sign_in_button"
-        android:textAllCaps="false"
-        android:textSize="@dimen/echoApMedium"
+        android:text="Sign in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameText" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/helperButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="4dp"
-        android:clickable="true"
-        android:src="@android:drawable/ic_menu_help"
-        android:tint="?attr/actionMenuTextColor"
-        app:backgroundTint="?attr/colorBackgroundFloating"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </android.support.constraint.ConstraintLayout>
