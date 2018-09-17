@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.HomePlaceholder;
+import com.unimelb.droptable.echo.clientTaskManagement.Task;
 
 public class TaskDetails extends AppCompatActivity {
 
@@ -21,12 +21,14 @@ public class TaskDetails extends AppCompatActivity {
     private ImageButton cameraButton;
     private Button submitNowButton;
     private Button submitLaterButton;
+    private Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creation_details);
 
+        task = (Task) getIntent().getSerializableExtra("task");
         // Setup our buttons
         title = findViewById(R.id.textTaskTitle);
         address = findViewById(R.id.textTaskAddress);
@@ -42,7 +44,10 @@ public class TaskDetails extends AppCompatActivity {
     }
 
     private void submitNow() {
-        startActivity(new Intent(this, TaskConfirm.class));
+        task.setTitle(title.getText().toString());
+        task.setAddress(address.getText().toString());
+        task.setNotes(taskNotes.getText().toString());
+        startActivity(new Intent(this, TaskConfirm.class).putExtra("task", task));
     }
 
 

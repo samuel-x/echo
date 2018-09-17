@@ -15,7 +15,6 @@ public class FirebaseAdapter {
 
     public static void pushTask(Task task) {
         DatabaseReference dbRef = database.getReference();
-        dbRef.child("tasks").setValue("testID1");
-        dbRef.child("tasks").setValue("testID", task);
+        dbRef.child("tasks").setValue(task);
     }
 }

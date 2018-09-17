@@ -22,12 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.HomePlaceholder" />
+        <activity android:name=".activities.MapActivity" />
         <activity android:name=".activities.tasks.TaskCategories" />
         <activity android:name=".activities.tasks.TaskConfirm" />
         <activity android:name=".activities.tasks.TaskCreation" />
         <activity android:name=".activities.tasks.TaskDetails" />
         <activity android:name=".activities.tasks.TaskSubcategories" />
+
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCgSOtLqsKAFvpHmychMVDcHbW1gmusrWI"/>
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+
     </application>
 
 </manifest>

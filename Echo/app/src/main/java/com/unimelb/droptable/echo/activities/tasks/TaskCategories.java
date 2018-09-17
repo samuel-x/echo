@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.clientTaskManagement.Task;
 
 public class TaskCategories extends AppCompatActivity {
 
@@ -33,19 +34,23 @@ public class TaskCategories extends AppCompatActivity {
     }
 
     private void otherTask() {
-        startActivity(new Intent(this, TaskDetails.class));
+        Task task = new Task(null, null, null, "Other", null);
+        startActivity(new Intent(this, TaskDetails.class).putExtra("task", task));
     }
 
     private void householdTask() {
-        startActivity(new Intent(this, TaskSubcategories.class));
+        Task task = new Task(null, null, null, "Household", null);
+        startActivity(new Intent(this, TaskSubcategories.class).putExtra("task", task));
     }
 
     private void deliveryTask() {
-        startActivity(new Intent(this, TaskSubcategories.class));
+        Task task = new Task(null, null, null, "Delivery", null);
+        startActivity(new Intent(this, TaskSubcategories.class).putExtra("task", task));
     }
 
     private void transportTask() {
-        startActivity(new Intent(this, TaskSubcategories.class));
+        Task task = new Task(null, null, null, "Transport", null);
+        startActivity(new Intent(this, TaskSubcategories.class).putExtra("task", task));
     }
 
 }

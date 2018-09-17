@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.HomePlaceholder;
+import com.unimelb.droptable.echo.activities.MapActivity;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
+import com.unimelb.droptable.echo.clientTaskManagement.Task;
 
 public class TaskConfirm extends AppCompatActivity {
 
@@ -17,22 +19,33 @@ public class TaskConfirm extends AppCompatActivity {
     private TextView title;
     private TextView address;
     private TextView time;
+    private TextView notes;
     private Button setRecurringButton;
     private Button setRecentButton;
     private Button confirmButton;
+    private Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creation_confirm);
 
+        task = (Task) getIntent().getSerializableExtra("task");
+
         // Setup our buttons
         title = findViewById(R.id.textTaskConfirmTitle);
         address = findViewById(R.id.textTaskConfirmAddress);
         time = findViewById(R.id.textTaskConfirmTime);
+        notes = findViewById(R.id.textTaskConfirmNotes);
         setRecentButton = findViewById(R.id.buttonTaskConfirmRecent);
         setRecurringButton = findViewById(R.id.buttonTaskConfirmRecurring);
         confirmButton = findViewById(R.id.buttonTaskConfirmConfirm);
+
+        title.setText(task.getTitle());
+        address.setText(task.getAddress());
+        time.setText("Now");
+        notes.setText(task.getNotes());
+
 
         setRecentButton.setOnClickListener((view) -> {setRecent();});
         setRecurringButton.setOnClickListener((view) -> {setRecurring();});
@@ -48,7 +61,10 @@ public class TaskConfirm extends AppCompatActivity {
         Log.d("test","recent");
     }
     private void confirmSubmit() {
-        startActivity(new Intent(this, HomePlaceholder.class));
+
+        FirebaseAdapter.pushTask(task);
+        startActivity(new Intent(this, MapActivity.class));
+        finish();
 
     }
 
