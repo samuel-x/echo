@@ -45,4 +45,6 @@
         2. If you\'re an assistant, check the \'%s\' box. If you\'re a person in need of an assistant (assisted person, or AP), leave the checkbox blank.\n\n
         3. Press the \'%s\' button.
     </string>
+
+    <string name="action_submit_rating">Submit Rating</string>
 </resources>
