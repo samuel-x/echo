@@ -16,8 +16,6 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
         confirmPayment = findViewById(R.id.confirmButton);
         confirmPayment.setOnClickListener((view)->{goToRating();});
     }

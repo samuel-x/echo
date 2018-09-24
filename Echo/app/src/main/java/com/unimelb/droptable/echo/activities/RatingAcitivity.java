@@ -16,14 +16,12 @@ public class RatingAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
         confirmRating = findViewById(R.id.ratingButton);
         confirmRating.setOnClickListener((view)->{goToMap();});
     }
 
     private void goToMap() {
         startActivity(new Intent(this, MapActivity.class));
-
+        finish();
     }
 }
