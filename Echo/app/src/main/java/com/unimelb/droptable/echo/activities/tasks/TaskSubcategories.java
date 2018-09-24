@@ -3,6 +3,7 @@ package com.unimelb.droptable.echo.activities.tasks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 
 import com.unimelb.droptable.echo.R;
@@ -23,7 +24,10 @@ public class TaskSubcategories extends AppCompatActivity {
         subcategoryA = findViewById(R.id.buttonTaskSubcategoryA);
         subcategoryB = findViewById(R.id.buttonTaskSubcategoryB);
 
-        if (getIntent().getExtras().getString("category").equals("Household")) {
+        if (!getIntent().hasExtra("category")) {
+            Log.d("Warning", "Missing key 'category'");
+        }
+        else if (getIntent().getExtras().getString("category").equals("Household")) {
             subcategoryA.setText("Cooking");
             subcategoryB.setText("Cleaning");
         }

@@ -3,6 +3,7 @@ package com.unimelb.droptable.echo.activities.tasks;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
+
 import com.unimelb.droptable.echo.R;
 
 import org.junit.After;
@@ -24,6 +25,7 @@ public class TaskSubcategoriesTest {
     @Before
     public void setUp() throws Exception {
         taskSubcategories = mActivityRule.getActivity();
+        taskSubcategories.getIntent().putExtra("category", "Household");
     }
 
     @Test

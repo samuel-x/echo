@@ -7,9 +7,9 @@ import com.google.firebase.database.FirebaseDatabase;
 public class FirebaseAdapter {
 
     private final static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final static DatabaseReference dbRef = database.getReference();
 
     public static void pushTask(ImmutableTask task) {
-        DatabaseReference dbRef = database.getReference();
         dbRef.child("tasks").setValue(task);
     }
 }
