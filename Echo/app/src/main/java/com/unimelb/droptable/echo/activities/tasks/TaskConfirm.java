@@ -12,6 +12,7 @@ import com.unimelb.droptable.echo.activities.MapActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.activities.MapActivity;
 
 public class TaskConfirm extends AppCompatActivity {
 
