@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.ApMapActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
@@ -51,7 +52,6 @@ public class TaskConfirm extends AppCompatActivity {
         setRecentButton.setOnClickListener((view) -> {setRecent();});
         setRecurringButton.setOnClickListener((view) -> {setRecurring();});
         confirmButton.setOnClickListener((view) -> {confirmSubmit();});
-
     }
 
     private void setRecurring() {
@@ -63,7 +63,11 @@ public class TaskConfirm extends AppCompatActivity {
     }
 
     private void confirmSubmit() {
+        // Submit and remember the task.
+        ClientInfo.setTask(task);
         FirebaseAdapter.pushTask(task);
+
+        // End this activity.
         startActivity(new Intent(this, ApMapActivity.class));
         finish();
     }

@@ -13,6 +13,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCreation;
@@ -21,10 +22,10 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
 
-    private FloatingActionButton newTaskButton;
+    private Button taskButton;
+    private FloatingActionButton helperButton;
 
-    private FloatingActionButton settingsButton;
-    private FloatingActionButton infoButton;
+
     private Button paymentButton;
 
     @Override
@@ -34,18 +35,31 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        newTaskButton = findViewById(R.id.addTaskButton);
-        newTaskButton.setOnClickListener((view) -> {newTask();});
+        // Get references and set listeners.
 
-        // currently placeholders
-        settingsButton = findViewById(R.id.settingsButton);
-        infoButton = findViewById(R.id.infoButton);
+        taskButton = findViewById(R.id.taskButton);
+        taskButton.setOnClickListener((view) -> {onTaskPress();});
+        if (ClientInfo.hasTask()) {
+            taskButton.setText(R.string.current_task_home_button);
+        } else {
+            taskButton.setText(R.string.new_task_home_button);
+        }
+
+
+        helperButton = findViewById(R.id.apMapHelperButton);
+        helperButton.setOnClickListener(view -> {onHelperPress();});
+
         paymentButton = findViewById(R.id.paymentButton);
         paymentButton.setOnClickListener((view) -> {toPayment();});
     }
 
-    private void newTask() {
-        startActivity(new Intent(this, TaskCreation.class));
+    private void onTaskPress() {
+        if (ClientInfo.hasTask()) {
+            // TODO: This is a placeholder. Needs to go to task details screen, not login.
+            startActivity(new Intent(this, LoginActivity.class));
+        } else {
+            startActivity(new Intent(this, TaskCreation.class));
+        }
     }
 
     @Override
@@ -59,6 +73,15 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(melbourne));
 
         googleMap.setMinZoomPreference(12);
+    }
+
+    private void onHelperPress() {
+        HelperActivity.setCurrentHelperText(String.format(
+                getString(R.string.home_help_text),
+                getString(R.string.new_task_home_button),
+                getString(R.string.current_task_home_button)
+        ));
+        startActivity(new Intent(this, HelperActivity.class));
     }
 
     public void toPayment() {

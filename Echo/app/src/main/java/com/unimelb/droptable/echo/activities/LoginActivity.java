@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener((view) -> {attemptLogin();});
 
         // Get a reference to the helper button and set its listener.
-        helperButton = findViewById(R.id.helperButton);
+        helperButton = findViewById(R.id.loginHelperButton);
         helperButton.setOnClickListener(view -> {onHelperPress();});
 
         signInView = findViewById(R.id.signInView);
@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
     private void onHelperPress() {
         HelperActivity.setCurrentHelperText(
                 String.format(
-                        getString(R.string.help_login_text),
+                        getString(R.string.login_help_text),
                         MIN_USERNAME_LENGTH,
                         getString(R.string.prompt_assistant),
                         getString(R.string.sign_in_button)

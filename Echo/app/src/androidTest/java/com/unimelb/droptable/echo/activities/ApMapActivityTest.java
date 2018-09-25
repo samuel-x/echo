@@ -31,10 +31,16 @@ public class ApMapActivityTest {
     }
 
     @Test
-    public void testAddTask() {
-
+    public void testTaskButton() {
         assertEquals(true, apMapActivity.hasWindowFocus());
-        onView(withId(R.id.addTaskButton)).perform(click());
+        onView(withId(R.id.taskButton)).perform(click());
+        assertEquals(false, apMapActivity.hasWindowFocus());
+    }
+
+    @Test
+    public void testHelperButton() {
+        assertEquals(true, apMapActivity.hasWindowFocus());
+        onView(withId(R.id.apMapHelperButton)).perform(click());
         assertEquals(false, apMapActivity.hasWindowFocus());
     }
 

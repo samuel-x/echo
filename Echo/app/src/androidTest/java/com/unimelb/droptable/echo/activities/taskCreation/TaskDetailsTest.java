@@ -2,6 +2,8 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 
 import android.support.test.rule.ActivityTestRule;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
+import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,6 +26,7 @@ public class TaskDetailsTest {
     private TaskDetails taskDetails;
 
     private final String TEST_STR = "Test Title";
+    private final String TEST_ADDRESS = "Test Address";
     private final String TEST_NOTES = "Test Text";
 
     @Before
@@ -35,6 +38,7 @@ public class TaskDetailsTest {
     public void testFormFillIn() {
         assertEquals(true, taskDetails.hasWindowFocus());
         onView(withId(R.id.textTaskTitle)).perform(typeText(TEST_STR), closeSoftKeyboard());
+        onView(withId(R.id.textTaskAddress)).perform(typeText(TEST_ADDRESS), closeSoftKeyboard());
         onView(withId(R.id.textTaskNotes)).perform(typeText(TEST_NOTES), closeSoftKeyboard());
         onView(withId(R.id.buttonTaskNow)).perform(click());
         assertEquals(false, taskDetails.hasWindowFocus());
@@ -42,6 +46,12 @@ public class TaskDetailsTest {
 
     @After
     public void tearDown() throws Exception {
-
+        // Reset task builder.
+        Utility.currentTaskBuilder = ImmutableTask.builder()
+                .title("Placeholder Title")
+                .address("Placeholder Address")
+                .category("Placeholder Category")
+                .subCategory("Placeholder Subcategory")
+                .notes("Placeholder Notes");
     }
 }

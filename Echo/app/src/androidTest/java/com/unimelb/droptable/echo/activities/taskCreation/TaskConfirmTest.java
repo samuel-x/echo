@@ -3,6 +3,8 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
+
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 import com.unimelb.droptable.echo.clientTaskManagement.Utility;
@@ -13,26 +15,32 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onView;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-public class TaskCreationTest {
-
+public class TaskConfirmTest {
     @Rule
-    public ActivityTestRule<TaskCreation> mActivityRule =
-            new ActivityTestRule<>(TaskCreation.class);
+    public ActivityTestRule<TaskConfirm> mActivityRule =
+            new ActivityTestRule<>(TaskConfirm.class);
 
-    private TaskCreation taskCreation;
+    private TaskConfirm taskConfirm;
 
     @Before
     public void setUp() throws Exception {
-        taskCreation = mActivityRule.getActivity();
+        taskConfirm = mActivityRule.getActivity();
     }
 
     @Test
-    public void testNewTask() {
-        assertEquals(true, taskCreation.hasWindowFocus());
-        onView(ViewMatchers.withId(R.id.buttonNewTask)).perform(ViewActions.click());
-        assertEquals(false, taskCreation.hasWindowFocus());
+    public void testTaskCreation() {
+        // Check initial conditions.
+        assertEquals(true, taskConfirm.hasWindowFocus());
+        assertNull(ClientInfo.getTask());
+
+        // Perform action.
+        onView(ViewMatchers.withId(R.id.buttonTaskConfirmConfirm)).perform(ViewActions.click());
+
+        // Check final conditions.
+        assertNotNull(ClientInfo.getTask());
+        assertEquals(false, taskConfirm.hasWindowFocus());
     }
 
     @After

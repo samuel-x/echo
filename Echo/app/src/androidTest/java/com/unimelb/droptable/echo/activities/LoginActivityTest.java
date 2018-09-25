@@ -70,7 +70,7 @@ public class LoginActivityTest {
     @Test
     public void testHelperButton() {
         assertEquals(true, loginActivity.hasWindowFocus());
-        onView(withId(R.id.helperButton)).perform(click());
+        onView(withId(R.id.loginHelperButton)).perform(click());
         assertEquals(false, loginActivity.hasWindowFocus());
     }
 
