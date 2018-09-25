@@ -30,12 +30,7 @@
         <activity android:name=".activities.tasks.TaskSubcategories" />
         <activity android:name=".activities.PaymentActivity" />
         <activity android:name=".activities.RatingAcitivity" />
-
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCgSOtLqsKAFvpHmychMVDcHbW1gmusrWI"/>
-
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
-
-
+        <activity android:name=".activities.tasks.TaskList" />
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCgSOtLqsKAFvpHmychMVDcHbW1gmusrWI"/>
 
