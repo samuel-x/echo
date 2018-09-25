@@ -1,6 +1,5 @@
 package com.unimelb.droptable.echo.clientTaskManagement;
 
-
 import android.support.annotation.Nullable;
 
 import org.immutables.serial.Serial;

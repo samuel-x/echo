@@ -48,5 +48,4 @@ dependencies {
     compileOnly "org.immutables:value:2.7.1" // <-- for annotation API
     compileOnly "org.immutables:serial:2.7.1"
 }
-
 apply plugin: 'com.google.gms.google-services'
