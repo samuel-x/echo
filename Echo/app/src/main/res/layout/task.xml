@@ -8,42 +8,33 @@
     android:paddingTop="5dp"
     android:paddingBottom="5dp">
 
-    <FrameLayout
-        android:id="@+id/left_arrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:rotation="180" />
-
-
     <LinearLayout
         android:id="@+id/task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="26dp"
-        android:layout_marginRight="26dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:backgroundTint="@color/colorPrimary">
 
         <TextView
             android:id="@+id/task_title"
-            style="@style/TextAppearance.AppCompat.Medium"
+            style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@android:color/background_dark"
             android:textIsSelectable="true"
-            tools:text="Hey this is a message, look!" />
+            android:textSize="@dimen/echoAssistantLarge"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/task_address"
-            style="@style/TextAppearance.AppCompat.Small"
+            style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/holo_green_dark"
             android:textIsSelectable="true"
-            tools:text="Some User" />
+            android:textSize="@dimen/echoAssistantMedium" />
 
         <TextView
             android:id="@+id/task_category"
@@ -51,8 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textIsSelectable="true"
-            android:textStyle="bold"
-            tools:text="Hey this is a message, look!" />
+            android:textSize="@dimen/echoAssistantMedium" />
 
         <TextView
             android:id="@+id/task_subcategory"
@@ -60,7 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textIsSelectable="true"
-            tools:text="Some User" />
+            android:textSize="@dimen/echoAssistantSmall" />
+
 
         <TextView
             android:id="@+id/task_notes"
@@ -68,19 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textIsSelectable="true"
-            tools:text="Some User" />
+            android:textSize="@dimen/echoAssistantSmall" />
 
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/right_arrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignEnd="@+id/task"
-        android:layout_marginEnd="25dp"
-        android:layout_alignRight="@+id/task"
-        android:layout_marginRight="25dp"
-        android:layout_alignParentTop="true"
-        android:rotation="180" />
-
 </RelativeLayout>

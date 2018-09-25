@@ -57,7 +57,7 @@ public class TaskList extends AppCompatActivity {
                                         .title(snapshot.child("title").getValue(String.class))
                                             .address(snapshot.child("address").getValue(String.class))
                                             .category(snapshot.child("category").getValue(String.class))
-                                            .subCategory(snapshot.child("subcategory").getValue(String.class))
+                                            .subCategory(snapshot.child("subCategory").getValue(String.class))
                                             .notes(snapshot.child("notes").getValue(String.class)).build();
                             }
                         })
