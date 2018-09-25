@@ -20,7 +20,7 @@
     <string name="button_household_text">Household</string>
     <string name="button_other_text">Other</string>
     <string name="task_notes">Task Notes</string>
-    <string name="prompt_details">Details...</string>
+    <string name="prompt_details">Details…</string>
     <string name="button_task_now">Now</string>
     <string name="button_task_later">Later</string>
     <string name="new_task">New Task</string>
@@ -35,6 +35,8 @@
     <string name="sign_in_button">Sign in</string>
     <string name="prompt_assistant">Assistant?</string>
     <string name="error_invalid_username">This username is invalid</string>
+
+    <string name="action_submit_rating">Submit Rating</string>
 
     <!-- Strings related to helper screens -->
     <string name="helper_prompt_button">\?</string>

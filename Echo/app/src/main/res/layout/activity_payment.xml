@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingLeft="150dp"
+            android:text="Payment" />
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/Summary"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:ems="10"
+        android:gravity="top|bottom|left"
+        android:inputType="textPersonName"
+        android:paddingBottom="-10dp"
+        android:paddingLeft="50dp"
+        android:paddingTop="-100dp"
+        android:text='Task "Buy Medication" Complete'
+        tools:layout_height="100dp" />
+
+    <EditText
+        android:id="@+id/Tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="Add Tip" />
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="265dp"
+        android:text="Confirm" />
+</LinearLayout>

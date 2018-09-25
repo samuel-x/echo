@@ -28,6 +28,8 @@
         <activity android:name=".activities.tasks.TaskCreation" />
         <activity android:name=".activities.tasks.TaskDetails" />
         <activity android:name=".activities.tasks.TaskSubcategories" />
+        <activity android:name=".activities.PaymentActivity" />
+        <activity android:name=".activities.RatingAcitivity" />
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCgSOtLqsKAFvpHmychMVDcHbW1gmusrWI"/>
 

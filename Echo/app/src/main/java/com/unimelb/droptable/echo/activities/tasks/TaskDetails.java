@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 
 public class TaskDetails extends AppCompatActivity {
 
@@ -41,8 +42,9 @@ public class TaskDetails extends AppCompatActivity {
     }
 
     private void submitNow() {
+        Utility.currentTaskBuilder.title(title.getText().toString());
+        Utility.currentTaskBuilder.address(address.getText().toString());
+        Utility.currentTaskBuilder.notes(taskNotes.getText().toString());
         startActivity(new Intent(this, TaskConfirm.class));
     }
-
-
 }
