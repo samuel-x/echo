@@ -1,8 +1,11 @@
 package com.unimelb.droptable.echo;
 
+import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
+
 public class ClientInfo {
     private static String username;
     private static boolean isAssistant;
+    private static ImmutableTask currentTask;
 
     public static String getUsername() {
         return username;
@@ -18,5 +21,17 @@ public class ClientInfo {
 
     public static void setIsAssistant(boolean isAssistant) {
         ClientInfo.isAssistant = isAssistant;
+    }
+
+    public static ImmutableTask getTask() {
+        return currentTask;
+    }
+
+    public static boolean hasTask() {
+        return currentTask != null;
+    }
+
+    public static void setTask(ImmutableTask task) {
+        ClientInfo.currentTask = task;
     }
 }

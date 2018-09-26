@@ -21,7 +21,7 @@ public class RatingAcitivity extends AppCompatActivity {
     }
 
     private void goToMap() {
-        startActivity(new Intent(this, MapActivity.class));
+        startActivity(new Intent(this, ApMapActivity.class));
         finish();
     }
 }
