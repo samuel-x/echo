@@ -14,6 +14,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -61,7 +62,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         mMap = googleMap;
 
-        // WORKSHOP LOCATION FOR TESTING : -37.800900, 144.958850
+        // WORKSHOP LOCATION FOR TESTING: -37.800900, 144.958847
 
         LatLng melbourne = new LatLng(-37.8136, 144.9631);
         //mMap.addMarker(new MarkerOptions().position(melbourne).title("Marker in Melbourne"));
@@ -72,8 +73,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         LatLng carlton = new LatLng( -37.8001, 144.9671);
         //mMap.addMarker(new MarkerOptions().position(carlton).title("Marker in Carlton"));
 
-        LatLng southbank = new LatLng(-37.8290, 144.9570);
-        mMap.addMarker(new MarkerOptions().position(southbank).title("Destination: Southbank"));
+        LatLng docklands = new LatLng (-37.8170, 144.9460);
+        mMap.addMarker(new MarkerOptions().position(docklands).title("Destination: Docklands"));
+        LatLng southbank = new LatLng (-37.8290, 144.9570);
+        //mMap.addMarker(new MarkerOptions().position(southbank).title("Destination: Southbank"));
+
 
         LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         Location location;
@@ -84,24 +88,29 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             location = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-            LatLng UserLoc = new LatLng(latitude, longitude);
-            mMap.addMarker(new MarkerOptions().position(UserLoc).title("Your Location"));
+            mMap.addMarker(new MarkerOptions().position(new LatLng (latitude, longitude)).title("Start Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         } catch (SecurityException e) {
             Log.d("GPS_error", "Your GPS is not working");
             latitude = carlton.latitude;
             longitude = carlton.longitude;
+            mMap.addMarker(new MarkerOptions().position(carlton).title("Default Location: Carlton"));
         }
+
+
+
+        // THIS ROUTE DRAWING BASED ON: https://stackoverflow.com/questions/47492459/android-google-maps-draw-a-route-between-two-points-along-the-road
+
 
         //Define list to get all latlng for the route
         List<LatLng> path = new ArrayList();
 
-
         //Execute Directions API request
         GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyBqDcWb2dGBHZ_mOtFPRS7rJ72g2KnaIFk")
+                .apiKey("AIzaSyBrPt88vvoPDDn_imh-RzCXl5Ha2F2LYig")
                 .build();
-        DirectionsApiRequest req = DirectionsApi.getDirections(context, ("\"" + latitude + "," + longitude + "\""), "-37.8011,144.9789");
+        DirectionsApiRequest req = DirectionsApi.getDirections(context,
+                ("\"" + latitude + "," + longitude + "\""), ("\"" + docklands.latitude + "," + docklands.longitude + "\""));
         try {
             DirectionsResult res = req.await();
 
@@ -148,7 +157,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         //Draw the polyline
         if (path.size() > 0) {
-            PolylineOptions opts = new PolylineOptions().addAll(path).color(Color.BLUE).width(5);
+            PolylineOptions opts = new PolylineOptions().addAll(path).color(Color.BLUE).width(8);
             mMap.addPolyline(opts);
         }
 
