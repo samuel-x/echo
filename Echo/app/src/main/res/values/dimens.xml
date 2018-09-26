@@ -16,4 +16,8 @@
     <dimen name="echoApMedium">22sp</dimen>         <!-- +4 -->
     <dimen name="echoApLarge">28sp</dimen>          <!-- +6 -->
     <dimen name="echoApHuge">36sp</dimen>           <!-- +8 -->
+
+    <!-- Misc -->
+    <dimen name="chatDivider">12dp</dimen>
+    <dimen name="messagePadding">8dp</dimen>
 </resources>

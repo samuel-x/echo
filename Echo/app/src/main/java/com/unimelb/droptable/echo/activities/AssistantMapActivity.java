@@ -1,5 +1,6 @@
 package com.unimelb.droptable.echo.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
@@ -30,6 +31,10 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         // currently placeholders
         settingsButton = findViewById(R.id.settingsButton);
         infoButton = findViewById(R.id.infoButton);
+        infoButton.setOnClickListener(view -> {
+            startActivity(new Intent(this, ChatActivity.class)
+                    .putExtra(getString(R.string.chat_partner), "TestChatPartner"));
+        });
     }
 
     @Override
