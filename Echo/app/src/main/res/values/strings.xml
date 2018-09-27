@@ -62,4 +62,5 @@
     <string name="tasks_root">tasks</string>
     <string name="messages_root">messages</string>
     <string name="task_id">taskID</string>
+    <string name="accept_task">accept</string>
 </resources>

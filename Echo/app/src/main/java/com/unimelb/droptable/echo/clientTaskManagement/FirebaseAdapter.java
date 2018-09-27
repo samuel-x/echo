@@ -1,9 +1,9 @@
 package com.unimelb.droptable.echo.clientTaskManagement;
 
 
-import android.content.res.Resources;
 import android.util.Log;
 
+import com.google.android.gms.common.api.Api;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,7 +57,7 @@ public class FirebaseAdapter {
     };
 
     // Our base query for assistants
-    public final static Query mostRecentTasks = tasksDbReference.limitToLast(10);
+    public final static Query mostRecentTasks = tasksDbReference.orderByChild("status").equalTo("PENDING");
 
     /**
      * Pushes a task to the database and assigns it to the current user
@@ -67,10 +67,41 @@ public class FirebaseAdapter {
     public static int pushTask(ImmutableTask task) {
         DatabaseReference pushTask = tasksDbReference.push();
         pushTask.setValue(task);
+        pushTask.child("id").setValue(pushTask.getKey());
 
         usersDbReference.child(ClientInfo.getUsername()).child(TASK_ID).setValue(pushTask.getKey());
 
         // TODO: Make the code returned actually reflect the true status.
+        return HttpURLConnection.HTTP_OK;
+    }
+
+    /**
+     * Compares the specified task to the task on Firebase and updates changes accordingly
+     * @param task
+     * @param id
+     * @return
+     */
+    public static int updateTask(ImmutableTask task, String id) {
+        DatabaseReference push = tasksDbReference.child(id);
+        push.setValue(task);
+        return HttpURLConnection.HTTP_OK;
+    }
+
+    /**
+     * Updates the status of a task
+     * @return
+     */
+    public static int updateTaskStatus(String newStatus, String id) {
+        tasksDbReference.child(id).child("status").setValue(newStatus);
+        return HttpURLConnection.HTTP_OK;
+    }
+
+    /**
+     * Updates the assistant id of a task
+     * @return
+     */
+    public static int updateTaskAssistant(String newAssistant, String id) {
+        tasksDbReference.child(id).child("assistant").setValue(newAssistant);
         return HttpURLConnection.HTTP_OK;
     }
 
@@ -119,25 +150,35 @@ public class FirebaseAdapter {
     }
 
     public static ImmutableTask getTask(String id) {
+        DataSnapshot taskRef = currentData.child(TASKS_ROOT);
+
         // TODO: Change the strings here for ImmutableTask to use strings.xml.
-        String title = currentData.child(TASKS_ROOT).child(id).child("title").getValue(String.class);
+        String title = taskRef.child(id).child("title").getValue(String.class);
 
         if (title == null) {
             // This task does not exist, so return null.
             return null;
         }
 
-        String address = currentData.child(TASKS_ROOT).child(id).child("address").getValue(String.class);
-        String category = currentData.child(TASKS_ROOT).child(id).child("category").getValue(String.class);
-        String subCategory = currentData.child(TASKS_ROOT).child(id).child("subCategory").getValue(String.class);
-        String notes = currentData.child(TASKS_ROOT).child(id).child("notes").getValue(String.class);
+        String address = taskRef.child(id).child("address").getValue(String.class);
+        String category = taskRef.child(id).child("category").getValue(String.class);
+        String subCategory = taskRef.child(id).child("subCategory").getValue(String.class);
+        String notes = taskRef.child(id).child("notes").getValue(String.class);
+        String status = taskRef.child("status").getValue(String.class);
+        String ap = taskRef.child("ap").getValue(String.class);
+        String assistant = taskRef.child("assistant").getValue(String.class);
+
 
         return ImmutableTask.builder()
                 .title(title)
                 .address(address)
                 .category(category)
                 .subCategory(subCategory)
-                .notes(notes).build();
+                .notes(notes)
+                .status(status)
+                .ap(ap)
+                .assistant(assistant)
+                .id(taskRef.getKey()).build();
     }
 
     /**
@@ -162,10 +203,22 @@ public class FirebaseAdapter {
 
     public static void goOnline() {
         masterDbReference.addListenerForSingleValueEvent(FirebaseAdapter.listener);
+        masterDbReference.addValueEventListener(FirebaseAdapter.listener);
     }
 
     public static void pushMessage(ChatMessage message) {
         messagesDbReference.child(Utility.generateUserChatId(message.getSender(),
                 message.getReceiver())).push().setValue(message);
     }
+
+    public static void assignTask(String assistant, String id) {
+        updateTaskStatus("ACCEPTED", id);
+        updateTaskAssistant(assistant, id);
+        updateAssistantTask(assistant, id);
+    }
+
+    private static void updateAssistantTask(String assistant, String id) {
+        usersDbReference.child(assistant).child("taskID").setValue(id);
+    }
+
 }

@@ -1,29 +1,32 @@
 package com.unimelb.droptable.echo.activities.tasks.uiElements;
 
-import android.graphics.PorterDuff;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RotateDrawable;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.tasks.TaskAssistantDetails;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class TaskHolder extends RecyclerView.ViewHolder {
+
+    private Context parentContext;
+    private ImmutableTask thisTask;
+
     private final TextView titleField;
     private final TextView taskNotes;
     private final TextView taskAddress;
     private final TextView taskCategory;
     private final TextView taskSubCategory;
+    private final Button taskButton;
 
     public TaskHolder(@NonNull View itemView) {
         super(itemView);
@@ -32,9 +35,17 @@ public class TaskHolder extends RecyclerView.ViewHolder {
         taskAddress = itemView.findViewById(R.id.taskAddress);
         taskCategory = itemView.findViewById(R.id.taskCategory);
         taskSubCategory = itemView.findViewById(R.id.taskSubcategory);
+        taskButton = itemView.findViewById(R.id.acceptTask);
+
+        taskButton.setOnClickListener((view) -> onAcceptButton());
+    }
+
+    private void onAcceptButton() {
+        parentContext.startActivity(new Intent(parentContext, TaskAssistantDetails.class).putExtra("task", thisTask));
     }
 
     public void bind(@NonNull ImmutableTask task) {
+        thisTask = task;
         setTitle(task.getTitle());
         setAddress(task.getAddress());
         setCategory(task.getCategory());
@@ -61,5 +72,10 @@ public class TaskHolder extends RecyclerView.ViewHolder {
 
     private void setSubCategory(@Nullable String subCategory) {
         taskSubCategory.setText(subCategory);
+    }
+
+
+    public void bindParentIntent(Context context) {
+        this.parentContext = context;
     }
 }

@@ -31,8 +31,7 @@
         <activity android:name=".activities.taskCreation.TaskSubcategories" />
         <activity android:name=".activities.PaymentActivity" />
         <activity android:name=".activities.RatingAcitivity" />
-        <activity android:name=".activities.taskCreation.TaskAssistantList" />
-        <activity android:name=".activities.taskCreation.TaskCurrent" />
+        <activity android:name=".activities.tasks.TaskAssistantDetails" />
 
         <activity android:name=".activities.AssistantMapActivity" />
         <activity android:name=".activities.HelperActivity" />

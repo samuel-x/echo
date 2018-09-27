@@ -1,5 +1,6 @@
 package com.unimelb.droptable.echo.activities.tasks;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -58,11 +59,16 @@ public class TaskAssistantList extends AppCompatActivity {
                                             .address(snapshot.child("address").getValue(String.class))
                                             .category(snapshot.child("category").getValue(String.class))
                                             .subCategory(snapshot.child("subCategory").getValue(String.class))
-                                            .notes(snapshot.child("notes").getValue(String.class)).build();
+                                            .notes(snapshot.child("notes").getValue(String.class))
+                                            .status(snapshot.child("status").getValue(String.class))
+                                            .ap(snapshot.child("ap").getValue(String.class))
+                                            .id(snapshot.child("id").getValue(String.class)).build();
                             }
                         })
                         .setLifecycleOwner(this)
                         .build();
+
+        Context self = this;
 
         return new FirebaseRecyclerAdapter<ImmutableTask, TaskHolder>(options) {
             @Override
@@ -74,6 +80,7 @@ public class TaskAssistantList extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull TaskHolder holder, int position, @NonNull ImmutableTask model) {
                 holder.bind(model);
+                holder.bindParentIntent(self);
             }
         };
     }

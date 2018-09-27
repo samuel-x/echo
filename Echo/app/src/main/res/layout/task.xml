@@ -61,4 +61,14 @@
             android:textSize="@dimen/echoAssistantSmall" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/acceptTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="24dp"
+        android:text="@string/accept_task"
+        android:textSize="@dimen/echoAssistantSmall" />
 </RelativeLayout>

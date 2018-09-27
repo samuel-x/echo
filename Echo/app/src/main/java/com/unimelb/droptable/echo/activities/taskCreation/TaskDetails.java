@@ -46,5 +46,6 @@ public class TaskDetails extends AppCompatActivity {
         Utility.currentTaskBuilder.address(address.getText().toString());
         Utility.currentTaskBuilder.notes(taskNotes.getText().toString());
         startActivity(new Intent(this, TaskConfirm.class));
+        finish();
     }
 }
