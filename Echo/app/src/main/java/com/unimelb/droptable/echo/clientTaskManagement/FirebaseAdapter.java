@@ -3,25 +3,25 @@ package com.unimelb.droptable.echo.clientTaskManagement;
 
 import android.util.Log;
 
-import com.google.android.gms.common.api.Api;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.unimelb.droptable.echo.ChatMessage;
 import com.unimelb.droptable.echo.ClientInfo;
 
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 
 public class FirebaseAdapter {
 
-    public static DataSnapshot currentData;
     public final static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public final static DatabaseReference dbRef = database.getReference();
-    public static DatabaseReference dbRefUsers = dbRef.child("users");
-    public static DatabaseReference dbRefTasks = dbRef.child("tasks_dev");
+    public final static DatabaseReference masterDbReference = database.getReference();
+    public final static DatabaseReference tasksDbReference = database.getReference().child("tasks");
+    public final static DatabaseReference messagesDbReference = database.getReference().child("messages");
+
+    public static DataSnapshot currentData;
 
     public static ValueEventListener listener = new ValueEventListener() {
         @Override
@@ -36,7 +36,7 @@ public class FirebaseAdapter {
     };
 
     // Our base query for assistants
-    public final static Query mostRecentTasks = dbRef.child("tasks_dev").limitToLast(10);
+    public final static Query mostRecentTasks = tasksDbReference.limitToLast(10);
 
     /**
      * Pushes a task to the database and assigns it to the current user
@@ -44,10 +44,10 @@ public class FirebaseAdapter {
      * @return
      */
     public static int pushTask(ImmutableTask task) {
-        DatabaseReference pushTask = dbRef.child("tasks_dev").push();
+        DatabaseReference pushTask =tasksDbReference.push();
         pushTask.setValue(task);
 
-        DatabaseReference pushUser = dbRef.child("users").child(ClientInfo.getUsername());
+        DatabaseReference pushUser = masterDbReference.child("users").child(ClientInfo.getUsername());
         pushUser.child("taskID").setValue(pushTask.getKey());
         pushUser.child("isAssistant").setValue(false);
 
@@ -67,13 +67,11 @@ public class FirebaseAdapter {
     }
 
     public static ImmutableTask getTask(String id) {
-        String title = currentData.child("tasks_dev").child(id).child("title").getValue(String.class);
-        String address = currentData.child("tasks_dev").child(id).child("address").getValue(String.class);
-        String category = currentData.child("tasks_dev").child(id).child("category").getValue(String.class);
-        String subCategory = currentData.child("tasks_dev").child(id).child("subCategory").getValue(String.class);
-        String notes = currentData.child("tasks_dev").child(id).child("notes").getValue(String.class);
-
-
+        String title = currentData.child("tasks").child(id).child("title").getValue(String.class);
+        String address = currentData.child("tasks").child(id).child("address").getValue(String.class);
+        String category = currentData.child("tasks").child(id).child("category").getValue(String.class);
+        String subCategory = currentData.child("tasks").child(id).child("subCategory").getValue(String.class);
+        String notes = currentData.child("tasks").child(id).child("notes").getValue(String.class);
 
         return ImmutableTask.builder()
                 .title(title)
@@ -96,9 +94,7 @@ public class FirebaseAdapter {
      * @return
      */
     public static Query queryTask(String id) {
-        Query task = dbRef.child("tasks_dev").child(id);
-
-        return task;
+        return tasksDbReference.child(id);
     }
 
     public static void goOffline() {
@@ -106,6 +102,11 @@ public class FirebaseAdapter {
     }
 
     public static void goOnline() {
-        dbRef.addValueEventListener(FirebaseAdapter.listener);
+        masterDbReference.addValueEventListener(FirebaseAdapter.listener);
+    }
+
+    public static void pushMessage(ChatMessage message) {
+        messagesDbReference.child(Utility.generateUserChatId(message.getSender(),
+                message.getReceiver())).push().setValue(message);
     }
 }

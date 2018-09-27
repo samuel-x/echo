@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/senderName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="@dimen/messagePadding"
+        android:paddingTop="@dimen/messagePadding"
+        android:text="UserName"
+        android:textSize="@dimen/echoApSmall"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:id="@+id/messageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/senderName"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="@dimen/messagePadding"
+        android:paddingTop="@dimen/messagePadding"
+        android:text="MessageTime"
+        android:textSize="@dimen/echoApSmall" />
+
+    <TextView
+        android:id="@+id/messageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/senderName"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="@dimen/messagePadding"
+        android:paddingLeft="@dimen/messagePadding"
+        android:text="Message Body"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp" />
+</RelativeLayout>

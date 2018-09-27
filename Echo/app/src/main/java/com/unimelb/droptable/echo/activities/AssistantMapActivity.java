@@ -12,49 +12,37 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import com.unimelb.droptable.echo.R;
-
-import com.unimelb.droptable.echo.activities.tasks.TaskCreation;
 import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    private FloatingActionButton newTaskButton;
-    private Button currentTask;
+    private Button taskButton;
     private FloatingActionButton settingsButton;
     private FloatingActionButton infoButton;
-    private Button paymentButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_assistant_map);
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        newTaskButton = findViewById(R.id.addTaskButton);
-        newTaskButton.setOnClickListener((view) -> {newTask();});
 
-        // currently placeholders
+        // Get references to UI elements.
+
+        taskButton = findViewById(R.id.assistantTaskButton);
+        taskButton.setOnClickListener(view -> onTaskButtonClick());
+
         settingsButton = findViewById(R.id.settingsButton);
         infoButton = findViewById(R.id.infoButton);
-        paymentButton = findViewById(R.id.paymentButton);
-        currentTask = findViewById(R.id.taskListButton);
-
-        paymentButton.setOnClickListener((view) -> {toPayment();});
-        currentTask.setOnClickListener((view) -> {toTaskList();});
-    }
-
-    private void toTaskList() {
-        startActivity(new Intent(this, TaskCurrent.class));
-    }
-
-    private void newTask() {
-        startActivity(new Intent(this, TaskCreation.class));
+        infoButton.setOnClickListener(view -> {
+            startActivity(new Intent(this, ChatActivity.class)
+                    .putExtra(getString(R.string.chat_partner), "TestChatPartner"));
+        });
     }
 
     @Override
@@ -70,8 +58,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         googleMap.setMinZoomPreference(12);
     }
 
-    public void toPayment() {
-        startActivity(new Intent(this, PaymentActivity.class));
+    private void onTaskButtonClick() {
+        startActivity(new Intent(this, TaskAssistantList.class));
     }
-
 }

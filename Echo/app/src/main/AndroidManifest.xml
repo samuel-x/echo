@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name="android.support.multidex.MultiDexApplication">
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name">
@@ -22,18 +23,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MapActivity" />
-        <activity android:name=".activities.tasks.TaskCategories" />
-        <activity android:name=".activities.tasks.TaskConfirm" />
-        <activity android:name=".activities.tasks.TaskCreation" />
-        <activity android:name=".activities.tasks.TaskDetails" />
-        <activity android:name=".activities.tasks.TaskSubcategories" />
+        <activity android:name=".activities.ApMapActivity" />
+        <activity android:name=".activities.taskCreation.TaskCategories" />
+        <activity android:name=".activities.taskCreation.TaskConfirm" />
+        <activity android:name=".activities.taskCreation.TaskCreation" />
+        <activity android:name=".activities.taskCreation.TaskDetails" />
+        <activity android:name=".activities.taskCreation.TaskSubcategories" />
         <activity android:name=".activities.PaymentActivity" />
         <activity android:name=".activities.RatingAcitivity" />
-        <activity android:name=".activities.tasks.TaskAssistantList" />
-        <activity android:name=".activities.tasks.TaskCurrent" />
+        <activity android:name=".activities.taskCreation.TaskAssistantList" />
+        <activity android:name=".activities.taskCreation.TaskCurrent" />
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCgSOtLqsKAFvpHmychMVDcHbW1gmusrWI"/>
+        <activity android:name=".activities.AssistantMapActivity" />
+        <activity android:name=".activities.HelperActivity" />
+        <activity android:name=".activities.ChatActivity" />
+        <activity android:name=".activities.tasks.TaskCurrent" />
+        <activity android:name=".activities.tasks.TaskAssistantList" />
+
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqDcWb2dGBHZ_mOtFPRS7rJ72g2KnaIFk"/>
 
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
 

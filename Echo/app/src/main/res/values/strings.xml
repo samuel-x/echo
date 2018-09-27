@@ -1,18 +1,6 @@
 <resources>
     <string name="app_name">Echo</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="prompt_address">Address</string>
     <string name="prompt_title">Title</string>
     <string name="button_transport_text">Transport</string>
@@ -30,7 +18,16 @@
     <string name="button_set_recurring_text">Set as Recurring</string>
     <string name="button_text_recent">Save as Recent</string>
     <string name="confirm">Confirm</string>
+    <string name="task_list_title">Task List</string>
+    <string name="text_task_in_progress">Task in Progress</string>
+    <string name="user_rating">Rating</string>
+    <string name="searching_assistant">Searching for an Assistant near you…</string>
 
+    <!-- Strings related to the map home screens -->
+    <string name="new_task_home_button">New Task</string>
+    <string name="current_task_home_button">View Current Task</string>
+
+    <!-- Strings related to logging in -->
     <string name="prompt_username">Enter username…</string>
     <string name="sign_in_button">Sign in</string>
     <string name="prompt_assistant">Assistant?</string>
@@ -41,14 +38,21 @@
     <!-- Strings related to helper screens -->
     <string name="helper_prompt_button">\?</string>
     <string name="helper_dismiss_button">OK</string>
-    <string name="help_login_text">
+    <string name="login_help_text">
         This screen allows you to sign in to the app. How to use:\n\n
         1. Enter your username into the text box. Your username must be at least %d characters long.\n\n
         2. If you\'re an assistant, check the \'%s\' box. If you\'re a person in need of an assistant (assisted person, or AP), leave the checkbox blank.\n\n
         3. Press the \'%s\' button.
     </string>
-    <string name="task_list_title">Task List</string>
-    <string name="text_task_in_progress">Task in Progress</string>
-    <string name="user_rating">Rating</string>
-    <string name="searching_assistant">Searching for an Assistant near you...</string>
+    <string name="home_help_text">
+        This screen lets you do several things.\n
+        If you\'ve not yet started a task, you can create one with the \'%s\' button at the bottom.\n
+        If you already have, you can press the \'%s\' button at the bottom to view its details.
+    </string>
+
+    <!-- Strings related to chat messaging screen -->
+    <string name="message_prompt">"Enter message…"</string>
+
+    <!-- Intent extras values -->
+    <string name="chat_partner">chat_partner</string>
 </resources>
