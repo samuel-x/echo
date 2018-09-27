@@ -46,6 +46,7 @@ public class TaskCurrent extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
+        disableAvatar();
         ChildEventListener childEventListener = createListener();
         Query query = FirebaseAdapter.queryCurrentTask();
         query.addChildEventListener(childEventListener);
@@ -115,15 +116,19 @@ public class TaskCurrent extends AppCompatActivity{
     }
 
     private void enableAvatar() {
+        for (int i = 0; i < avatar.getChildCount(); i++) {
+            avatar.getChildAt(i).setAlpha(1.0f);
+        }
 
-        avatar.setAlpha(1.0f);
         searchingMessage.setEnabled(false);
 
     }
 
     private void disableAvatar() {
+        for (int i = 0; i < avatar.getChildCount(); i++) {
+            avatar.getChildAt(i).setAlpha(0.06f);
+        }
 
-        avatar.setAlpha(0.1f);
         searchingMessage.setEnabled(true);
 
     }
