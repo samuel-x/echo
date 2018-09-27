@@ -150,20 +150,20 @@ public class FirebaseAdapter {
     }
 
     public static ImmutableTask getTask(String id) {
-        DataSnapshot taskRef = currentData.child(TASKS_ROOT);
+        DataSnapshot taskRef = currentData.child(TASKS_ROOT).child(id);
 
         // TODO: Change the strings here for ImmutableTask to use strings.xml.
-        String title = taskRef.child(id).child("title").getValue(String.class);
+        String title = taskRef.child("title").getValue(String.class);
 
         if (title == null) {
             // This task does not exist, so return null.
             return null;
         }
 
-        String address = taskRef.child(id).child("address").getValue(String.class);
-        String category = taskRef.child(id).child("category").getValue(String.class);
-        String subCategory = taskRef.child(id).child("subCategory").getValue(String.class);
-        String notes = taskRef.child(id).child("notes").getValue(String.class);
+        String address = taskRef.child("address").getValue(String.class);
+        String category = taskRef.child("category").getValue(String.class);
+        String subCategory = taskRef.child("subCategory").getValue(String.class);
+        String notes = taskRef.child("notes").getValue(String.class);
         String status = taskRef.child("status").getValue(String.class);
         String ap = taskRef.child("ap").getValue(String.class);
         String assistant = taskRef.child("assistant").getValue(String.class);
