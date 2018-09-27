@@ -1,6 +1,7 @@
 package com.unimelb.droptable.echo.activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
@@ -10,10 +11,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
+import com.firebase.ui.database.SnapshotParser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ChatMessage;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
+import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 
 public class ChatActivity extends AppCompatActivity {
@@ -46,10 +52,13 @@ public class ChatActivity extends AppCompatActivity {
      */
     private void displayMessages(String chatId) {
         ListView messageList = findViewById(R.id.messageList);
-
+        FirebaseListOptions<ChatMessage> options = new FirebaseListOptions.Builder<ChatMessage>()
+                .setQuery(FirebaseAdapter.messagesDbReference.child(chatId), ChatMessage.class)
+                .setLifecycleOwner(this)
+                .setLayout(R.layout.chat_message)
+                .build();
         FirebaseListAdapter<ChatMessage> listAdapter =
-                new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-                R.layout.chat_message, FirebaseAdapter.messagesDbReference.child(chatId)) {
+                new FirebaseListAdapter<ChatMessage>(options) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
                 // Get references to elements in the message layout.

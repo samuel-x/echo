@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 /**
  * A login screen that offers login via email/password.
@@ -47,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         helperButton.setOnClickListener(view -> {onHelperPress();});
 
         signInView = findViewById(R.id.signInView);
+
+        FirebaseAdapter.goOnline();
     }
 
     /**
@@ -58,11 +62,26 @@ public class LoginActivity extends AppCompatActivity {
         showProgress(true);
 
         String username = usernameText.getText().toString();
+
+        // Verify that the user name is valid.
         if (!isUsernameValid(username)) {
             showProgress(false);
+            // TODO: Show error message.
+            Log.d("Login", "Denied access based on invalid user name");
             return;
         }
 
+        // Verify that the isAssistant checkbox matches the boolean on the database, if the username
+        // already exists.
+        if (FirebaseAdapter.userExists(username)
+                && isAssistantCheckBox.isChecked() != FirebaseAdapter.getIsAssistant(username)) {
+            showProgress(false);
+            // TODO: Show error message.
+            Log.d("Login", "Denied access based on user type for existing user");
+            return;
+        }
+
+        FirebaseAdapter.pushUser(username, isAssistantCheckBox.isChecked());
         ClientInfo.setUsername(username);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
 
@@ -72,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             startActivity(new Intent(this, ApMapActivity.class));
         }
+
         finish();
     }
 

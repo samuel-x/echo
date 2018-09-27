@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -12,11 +13,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
+import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
+    private Button taskButton;
     private FloatingActionButton settingsButton;
     private FloatingActionButton infoButton;
 
@@ -28,7 +32,11 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         mapFragment.getMapAsync(this);
 
 
-        // currently placeholders
+        // Get references to UI elements.
+
+        taskButton = findViewById(R.id.assistantTaskButton);
+        taskButton.setOnClickListener(view -> onTaskButtonClick());
+
         settingsButton = findViewById(R.id.settingsButton);
         infoButton = findViewById(R.id.infoButton);
         infoButton.setOnClickListener(view -> {
@@ -48,5 +56,9 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(melbourne));
 
         googleMap.setMinZoomPreference(12);
+    }
+
+    private void onTaskButtonClick() {
+        startActivity(new Intent(this, TaskAssistantList.class));
     }
 }

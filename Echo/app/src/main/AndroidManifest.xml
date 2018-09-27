@@ -31,9 +31,14 @@
         <activity android:name=".activities.taskCreation.TaskSubcategories" />
         <activity android:name=".activities.PaymentActivity" />
         <activity android:name=".activities.RatingAcitivity" />
+        <activity android:name=".activities.taskCreation.TaskAssistantList" />
+        <activity android:name=".activities.taskCreation.TaskCurrent" />
+
         <activity android:name=".activities.AssistantMapActivity" />
         <activity android:name=".activities.HelperActivity" />
         <activity android:name=".activities.ChatActivity" />
+        <activity android:name=".activities.tasks.TaskCurrent" />
+        <activity android:name=".activities.tasks.TaskAssistantList" />
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqDcWb2dGBHZ_mOtFPRS7rJ72g2KnaIFk"/>
 

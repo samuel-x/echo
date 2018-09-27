@@ -18,7 +18,10 @@
     <string name="button_set_recurring_text">Set as Recurring</string>
     <string name="button_text_recent">Save as Recent</string>
     <string name="confirm">Confirm</string>
-    <string name="action_submit_rating">Submit Rating</string>
+    <string name="task_list_title">Task List</string>
+    <string name="text_task_in_progress">Task in Progress</string>
+    <string name="user_rating">Rating</string>
+    <string name="searching_assistant">Searching for an Assistant near you…</string>
 
     <!-- Strings related to the map home screens -->
     <string name="new_task_home_button">New Task</string>
@@ -29,6 +32,8 @@
     <string name="sign_in_button">Sign in</string>
     <string name="prompt_assistant">Assistant?</string>
     <string name="error_invalid_username">This username is invalid</string>
+
+    <string name="action_submit_rating">Submit Rating</string>
 
     <!-- Strings related to helper screens -->
     <string name="helper_prompt_button">\?</string>
@@ -50,4 +55,11 @@
 
     <!-- Intent extras values -->
     <string name="chat_partner">chat_partner</string>
+
+    <!-- Firebase strings -->
+    <string name="user_is_assistant">isAssistant</string>
+    <string name="users_root">users</string>
+    <string name="tasks_root">tasks</string>
+    <string name="messages_root">messages</string>
+    <string name="task_id">taskID</string>
 </resources>

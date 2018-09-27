@@ -17,6 +17,8 @@ import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCreation;
+import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class ApMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -34,6 +36,9 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_ap_map);
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // Read from the database to see if the AP already has a task in progress.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
 
         // Get references and set listeners.
 
@@ -56,7 +61,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
     private void onTaskPress() {
         if (ClientInfo.hasTask()) {
             // TODO: This is a placeholder. Needs to go to task details screen, not login.
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, TaskCurrent.class));
         } else {
             startActivity(new Intent(this, TaskCreation.class));
         }
