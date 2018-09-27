@@ -55,4 +55,11 @@
 
     <!-- Intent extras values -->
     <string name="chat_partner">chat_partner</string>
+
+    <!-- Firebase strings -->
+    <string name="user_is_assistant">isAssistant</string>
+    <string name="users_root">users</string>
+    <string name="tasks_root">tasks</string>
+    <string name="messages_root">messages</string>
+    <string name="task_id">taskID</string>
 </resources>
