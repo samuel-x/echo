@@ -49,10 +49,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         settingsButton = findViewById(R.id.settingsButton);
         infoButton = findViewById(R.id.infoButton);
-        infoButton.setOnClickListener(view -> {
-            startActivity(new Intent(this, ChatActivity.class)
-                    .putExtra(getString(R.string.chat_partner), "TestChatPartner"));
-        });
     }
 
     @Override

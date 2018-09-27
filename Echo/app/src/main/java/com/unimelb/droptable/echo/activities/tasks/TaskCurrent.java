@@ -1,18 +1,22 @@
 package com.unimelb.droptable.echo.activities.tasks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.ChatActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
@@ -26,6 +30,7 @@ public class TaskCurrent extends AppCompatActivity{
     private TextView assistantPhone;
     private ConstraintLayout avatar;
     private ConstraintLayout searchingMessage;
+    private ImageView messageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,8 @@ public class TaskCurrent extends AppCompatActivity{
         avatar = findViewById(R.id.avatarContainer);
         searchingMessage = findViewById(R.id.isReadyLayer);
 
+        messageButton = findViewById(R.id.messagingButton);
+        messageButton.setOnClickListener(view -> onMessageButtonClick());
     }
 
     @Override
@@ -130,6 +137,10 @@ public class TaskCurrent extends AppCompatActivity{
         }
 
         searchingMessage.setEnabled(true);
+    }
 
+    private void onMessageButtonClick() {
+        startActivity(new Intent(this, ChatActivity.class)
+                .putExtra(getString(R.string.chat_partner), "TestChatPartner"));
     }
 }
