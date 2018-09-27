@@ -127,7 +127,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
 
 
-        // THIS ROUTE DRAWING BASED ON: https://stackoverflow.com/questions/47492459/android-google-maps-draw-a-route-between-two-points-along-the-road
+        // THIS ROUTE DRAWING BASED ON:
+        // https://stackoverflow.com/questions/47492459/android-google-maps-draw-a-route-between-two-points-along-the-road
 
         //Define list to get all latlng for the route
         List<LatLng> path = new ArrayList();
