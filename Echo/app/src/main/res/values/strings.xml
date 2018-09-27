@@ -44,4 +44,10 @@
         If you\'ve not yet started a task, you can create one with the \'%s\' button at the bottom.\n
         If you already have, you can press the \'%s\' button at the bottom to view its details.
     </string>
+
+    <!-- Strings related to chat messaging screen -->
+    <string name="message_prompt">"Enter message…"</string>
+
+    <!-- Intent extras values -->
+    <string name="chat_partner">chat_partner</string>
 </resources>

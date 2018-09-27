@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name="android.support.multidex.MultiDexApplication">
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name">
@@ -32,6 +33,7 @@
         <activity android:name=".activities.RatingAcitivity" />
         <activity android:name=".activities.AssistantMapActivity" />
         <activity android:name=".activities.HelperActivity" />
+        <activity android:name=".activities.ChatActivity" />
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqDcWb2dGBHZ_mOtFPRS7rJ72g2KnaIFk"/>
 

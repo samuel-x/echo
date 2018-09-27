@@ -1,0 +1,92 @@
+package com.unimelb.droptable.echo.activities;
+
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.unimelb.droptable.echo.ChatMessage;
+import com.unimelb.droptable.echo.ClientInfo;
+import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
+import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+
+public class ChatActivity extends AppCompatActivity {
+
+    public String currentChatPartner;
+
+    private FloatingActionButton sendButton;
+    private EditText inputText;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chat);
+
+        // Get references to UI elements.
+        inputText = findViewById(R.id.messageInput);
+        sendButton = findViewById(R.id.sendButton);
+        sendButton.setOnClickListener(view -> onMessageSend());
+
+        // Figure out who we're speaking with.
+        currentChatPartner = getIntent().getStringExtra(getString(R.string.chat_partner));
+
+        // Retrieve and show existing messages.
+        displayMessages(Utility.generateUserChatId(ClientInfo.getUsername(), currentChatPartner));
+    }
+
+    /**
+     * Populates the list view with chat messages for the given id.
+     * @param chatId a string representing the chat id used by Firebase.
+     */
+    private void displayMessages(String chatId) {
+        ListView messageList = findViewById(R.id.messageList);
+
+        FirebaseListAdapter<ChatMessage> listAdapter =
+                new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
+                R.layout.chat_message, FirebaseAdapter.messagesDbReference.child(chatId)) {
+            @Override
+            protected void populateView(View v, ChatMessage model, int position) {
+                // Get references to elements in the message layout.
+                TextView messageText = v.findViewById(R.id.messageText);
+                TextView messageUser = v.findViewById(R.id.senderName);
+                TextView messageTime = v.findViewById(R.id.messageTime);
+
+                // Set the text, including message date.
+                messageText.setText(model.getMessageText());
+                messageUser.setText(model.getSender());
+                messageTime.setText(DateFormat.format("HH:mm, dd-MM-yyyy",
+                        model.getMessageTime()));
+
+                // Tint the background for the message if *this* user sent it.
+                if (model.getSender().equals(ClientInfo.getUsername())) {
+                    v.setBackgroundResource(R.color.messageSenderColor);
+                }
+            }
+        };
+
+        messageList.setAdapter(listAdapter);
+    }
+
+    /**
+     * A method which, when called, sends the current message.
+     */
+    private void onMessageSend() {
+        if (inputText.getText().toString().equals("")) {
+            // There's nothing to send. Don't send anything.
+            return;
+        }
+
+        // There's something to send. Create a ChatMessage and push it.
+        FirebaseAdapter.pushMessage(new ChatMessage(inputText.getText().toString(),
+                ClientInfo.getUsername(), currentChatPartner));
+
+        // Clear the input field.
+        inputText.setText("");
+    }
+}
