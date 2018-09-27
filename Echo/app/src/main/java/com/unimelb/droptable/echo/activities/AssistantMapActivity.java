@@ -12,9 +12,12 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.taskCreation.TaskCreation;
 import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -31,11 +34,18 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // Read from the database to see if the assistant already has a task in progress.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
 
         // Get references to UI elements.
 
         taskButton = findViewById(R.id.assistantTaskButton);
         taskButton.setOnClickListener(view -> onTaskButtonClick());
+        if (ClientInfo.hasTask()) {
+            taskButton.setText(R.string.current_task_home_button);
+        } else {
+            taskButton.setText(R.string.new_task_home_button);
+        }
 
         settingsButton = findViewById(R.id.settingsButton);
         infoButton = findViewById(R.id.infoButton);
@@ -59,6 +69,10 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     }
 
     private void onTaskButtonClick() {
-        startActivity(new Intent(this, TaskAssistantList.class));
+        if (ClientInfo.hasTask()) {
+            startActivity(new Intent(this, TaskCurrent.class));
+        } else {
+            startActivity(new Intent(this, TaskAssistantList.class));
+        }
     }
 }
