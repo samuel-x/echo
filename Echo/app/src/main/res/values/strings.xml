@@ -48,4 +48,7 @@
         3. Press the \'%s\' button.
     </string>
     <string name="task_list_title">Task List</string>
+    <string name="text_task_in_progress">Task in Progress</string>
+    <string name="user_rating">Rating</string>
+    <string name="searching_assistant">Searching for an Assistant near you...</string>
 </resources>

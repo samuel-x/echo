@@ -16,7 +16,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.unimelb.droptable.echo.R;
 
 import com.unimelb.droptable.echo.activities.tasks.TaskCreation;
-import com.unimelb.droptable.echo.activities.tasks.TaskList;
+import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
+import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -42,14 +43,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         settingsButton = findViewById(R.id.settingsButton);
         infoButton = findViewById(R.id.infoButton);
         paymentButton = findViewById(R.id.paymentButton);
-        paymentButton.setOnClickListener((view) -> {toPayment();});
-        
         currentTask = findViewById(R.id.taskListButton);
+
+        paymentButton.setOnClickListener((view) -> {toPayment();});
         currentTask.setOnClickListener((view) -> {toTaskList();});
     }
 
     private void toTaskList() {
-        startActivity(new Intent(this, TaskList.class));
+        startActivity(new Intent(this, TaskCurrent.class));
     }
 
     private void newTask() {

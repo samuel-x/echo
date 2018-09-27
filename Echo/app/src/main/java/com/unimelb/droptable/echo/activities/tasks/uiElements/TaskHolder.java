@@ -27,11 +27,11 @@ public class TaskHolder extends RecyclerView.ViewHolder {
 
     public TaskHolder(@NonNull View itemView) {
         super(itemView);
-        titleField = itemView.findViewById(R.id.task_title);
-        taskNotes = itemView.findViewById(R.id.task_notes);
-        taskAddress = itemView.findViewById(R.id.task_address);
-        taskCategory = itemView.findViewById(R.id.task_category);
-        taskSubCategory = itemView.findViewById(R.id.task_subcategory);
+        titleField = itemView.findViewById(R.id.taskTitle);
+        taskNotes = itemView.findViewById(R.id.taskNotes);
+        taskAddress = itemView.findViewById(R.id.taskAddress);
+        taskCategory = itemView.findViewById(R.id.taskCategory);
+        taskSubCategory = itemView.findViewById(R.id.taskSubcategory);
     }
 
     public void bind(@NonNull ImmutableTask task) {

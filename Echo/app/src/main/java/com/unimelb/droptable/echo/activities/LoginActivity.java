@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 /**
  * A login screen that offers login via email/password.
@@ -61,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Switch to task creation for testing.
         startActivity(new Intent(this, MapActivity.class));
+        FirebaseAdapter.goOnline();
     }
 
     private boolean isUsernameValid(String username) {

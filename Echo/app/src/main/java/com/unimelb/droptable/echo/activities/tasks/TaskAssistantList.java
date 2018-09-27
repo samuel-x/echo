@@ -17,7 +17,7 @@ import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskHolder;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
-public class TaskList extends AppCompatActivity {
+public class TaskAssistantList extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
 
@@ -26,7 +26,7 @@ public class TaskList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
 
-        mRecyclerView = findViewById(R.id.task_list);
+        mRecyclerView = findViewById(R.id.taskList);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
