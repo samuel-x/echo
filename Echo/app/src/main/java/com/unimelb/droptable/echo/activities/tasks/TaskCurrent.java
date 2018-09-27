@@ -53,7 +53,13 @@ public class TaskCurrent extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        disableAvatar();
+
+        if (ClientInfo.getTask().getAssistant().isEmpty()) {
+            disableAvatar();
+        }
+        else {
+            enableAvatar();
+        }
         ChildEventListener childEventListener = createListener();
         Query query = FirebaseAdapter.queryCurrentTask();
         query.addChildEventListener(childEventListener);
@@ -65,6 +71,9 @@ public class TaskCurrent extends AppCompatActivity{
         setTitle(task.getTitle());
         setAddress(task.getAddress());
         setNotes(task.getNotes());
+        if (!task.getAssistant().isEmpty()) {
+            updateAssistant(task.getAssistant());
+        }
         Log.d("Bind:", "Current Task UI AP");
     }
 
@@ -85,15 +94,20 @@ public class TaskCurrent extends AppCompatActivity{
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 // Check if the new child added is an assistant, if so, then update our avatar card
-                String assistantID = dataSnapshot.getValue(String.class);
-                updateAssistant(assistantID);
+                if (dataSnapshot.getKey().toString().equals("assistant")) {
+                    String assistantID = dataSnapshot.getValue(String.class);
+                    updateAssistant(assistantID);
+                }
+
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                // Update our element
-                String assistantID = dataSnapshot.getValue(String.class);
-                updateAssistant(assistantID);
+                // Check if the new child added is an assistant, if so, then update our avatar card
+                if (dataSnapshot.getKey().toString().equals("assistant")) {
+                    String assistantID = dataSnapshot.getValue(String.class);
+                    updateAssistant(assistantID);
+                }
             }
 
             @Override
@@ -140,7 +154,11 @@ public class TaskCurrent extends AppCompatActivity{
     }
 
     private void onMessageButtonClick() {
+
         startActivity(new Intent(this, ChatActivity.class)
-                .putExtra(getString(R.string.chat_partner), "TestChatPartner"));
+                .putExtra(getString(R.string.chat_partner),
+                        (ClientInfo.isAssistant()
+                                ? ClientInfo.getTask().getAp()
+                                : ClientInfo.getTask().getAssistant())));
     }
 }
