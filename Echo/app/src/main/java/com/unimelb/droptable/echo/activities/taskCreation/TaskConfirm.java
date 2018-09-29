@@ -49,7 +49,6 @@ public class TaskConfirm extends AppCompatActivity {
         time.setText("Now");
         notes.setText(task.getNotes());
 
-
         setRecentButton.setOnClickListener((view) -> {setRecent();});
         setRecurringButton.setOnClickListener((view) -> {setRecurring();});
         confirmButton.setOnClickListener((view) -> {confirmSubmit();});

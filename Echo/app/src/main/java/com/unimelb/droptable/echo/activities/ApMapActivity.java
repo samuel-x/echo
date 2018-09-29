@@ -12,10 +12,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCreation;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
@@ -42,20 +40,26 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // Get references and set listeners.
 
-        taskButton = findViewById(R.id.taskButton);
+        taskButton = findViewById(R.id.apTaskButton);
         taskButton.setOnClickListener((view) -> {onTaskPress();});
-        if (ClientInfo.hasTask()) {
-            taskButton.setText(R.string.current_task_home_button);
-        } else {
-            taskButton.setText(R.string.new_task_home_button);
-        }
-
 
         helperButton = findViewById(R.id.apMapHelperButton);
         helperButton.setOnClickListener(view -> {onHelperPress();});
 
         paymentButton = findViewById(R.id.paymentButton);
         paymentButton.setOnClickListener((view) -> {toPayment();});
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Ensure that the task button's text is up to date.
+        if (ClientInfo.hasTask()) {
+            taskButton.setText(R.string.current_task_home_button);
+        } else {
+            taskButton.setText(R.string.new_task_home_button);
+        }
     }
 
     private void onTaskPress() {
