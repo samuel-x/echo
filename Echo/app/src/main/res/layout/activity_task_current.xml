@@ -125,7 +125,7 @@
             android:layout_height="0dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:text="@android:string/emptyPhoneNumber"
+            android:text="@string/empty_phone_number"
             android:textIsSelectable="true"
             android:textSize="@dimen/echoAssistantMedium"
             app:layout_constraintBottom_toTopOf="@+id/userRating"
@@ -157,14 +157,14 @@
             android:layout_height="0dp"
             android:layout_marginLeft="32dp"
             android:layout_marginStart="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/avatarCall"
+            app:layout_constraintBottom_toTopOf="@+id/callButton"
             app:layout_constraintDimensionRatio="h,1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal" />
 
         <ImageView
-            android:id="@+id/avatarCall"
+            android:id="@+id/callButton"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
@@ -190,7 +190,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/avatarCall"
+            app:layout_constraintStart_toEndOf="@+id/callButton"
             app:layout_constraintTop_toBottomOf="@+id/avatarImage"
             app:srcCompat="@android:drawable/sym_action_chat" />
     </android.support.constraint.ConstraintLayout>

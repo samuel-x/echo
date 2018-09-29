@@ -1,15 +1,22 @@
 package com.unimelb.droptable.echo.activities.tasks;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Api;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +26,7 @@ import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.ChatActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
+
 
 public class TaskCurrent extends AppCompatActivity{
 
@@ -31,6 +39,7 @@ public class TaskCurrent extends AppCompatActivity{
     private ConstraintLayout avatar;
     private ConstraintLayout searchingMessage;
     private ImageView messageButton;
+    private ImageView callButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +57,9 @@ public class TaskCurrent extends AppCompatActivity{
 
         messageButton = findViewById(R.id.messagingButton);
         messageButton.setOnClickListener(view -> onMessageButtonClick());
+
+        callButton = findViewById(R.id.callButton);
+        callButton.setOnClickListener(view -> onCallButtonClick());
     }
 
     @Override
@@ -131,7 +143,7 @@ public class TaskCurrent extends AppCompatActivity{
     private void updateAssistant(String assistantID) {
         // TODO: pull data from firebase about the assistant
         assistantName.setText(assistantID);
-
+        assistantPhone.setText("0412345678"); //Default number, TODO: pull number from firebase
         // enable our avatar
         enableAvatar();
     }
@@ -160,5 +172,36 @@ public class TaskCurrent extends AppCompatActivity{
                         (ClientInfo.isAssistant()
                                 ? ClientInfo.getTask().getAp()
                                 : ClientInfo.getTask().getAssistant())));
+    }
+
+    private void onCallButtonClick() {
+        if(assistantPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
+            // Assistant has no phone number so do nothing
+            return;
+        }else {
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                //Permission is allowed so call is made
+                makeCall();
+            } else {
+                //Permission is denied so permission is requested and then call is made
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 0);
+                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    //Permission has been granted
+                    makeCall();
+                } else {
+                    //Permission denied
+                    return;
+                }
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void makeCall() {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:" + assistantPhone.getText().toString()));
+        startActivity(intent);
     }
 }

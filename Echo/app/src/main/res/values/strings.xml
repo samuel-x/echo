@@ -63,4 +63,5 @@
     <string name="messages_root">messages</string>
     <string name="task_id">taskID</string>
     <string name="accept_task">accept</string>
+    <string name="empty_phone_number">(No phone number)</string>
 </resources>
