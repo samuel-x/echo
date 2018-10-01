@@ -78,7 +78,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     private Location currentLocation;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,10 +108,27 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                 if (locationResult == null) {
                     return;
                 }
-                currentLocation = locationResult.getLastLocation();
+                else {
+                    currentLocation = locationResult.getLastLocation();
+                    double startLat = locationResult.getLastLocation().getLatitude();
+                    double startLon = locationResult.getLastLocation().getLongitude();
+                    Log.d("Lat:", String.valueOf(startLat));
+                    Log.d("Lon:", String.valueOf(startLon));
 
-                doMap(mMap);
-            }
+                    LatLng startLL = new LatLng(startLat, startLon);
+                    LatLng southbank = new LatLng(-37.8290, 144.9570);
+                    LatLng endLL = southbank;
+                    try {
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude())).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        if (ClientInfo.hasTask()) {
+                            doMap(mMap, startLL, endLL);
+                        }
+                    }
+                    catch (Exception e) {
+                        Log.d("help:", "null marker");
+                    }
+                }
+            };
         };
 
 
@@ -159,12 +175,22 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
      */
     @Override
     public void onMapReady(GoogleMap googleMap){
-        if (ClientInfo.hasTask()) {
-            startLocationUpdates();
-        }
+
+        mMap = googleMap;
+
+        LatLng melbourne = new LatLng(-37.8136, 144.9631);
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(melbourne));
+
+        googleMap.setMinZoomPreference(12);
+        startLocationUpdates();
+
+//        if (ClientInfo.hasTask()) {
+//            startLocationUpdates();
+//        }
     }
 
-    private void doMap(GoogleMap googleMap) {
+    private void doMap(GoogleMap googleMap, LatLng startLL, LatLng endLL) {
 
         mMap = googleMap;
 
@@ -180,21 +206,21 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         LatLng southbank = new LatLng(-37.8290, 144.9570);
 
-        LatLng destination = new LatLng(docklands.latitude, docklands.longitude);
+        LatLng destination = endLL;
 
-        mMap.addMarker(new MarkerOptions().position(destination).title("Destination: " + "Docklands"));
+        mMap.addMarker(new MarkerOptions().position(destination).title("Destination: " + "Southbank"));
 
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location;
         double longitude;
         double latitude;
 
         try {
-            assert lm != null;
-            location = currentLocation;
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-            mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Start Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            //assert lm != null;
+            //location = currentLocation;
+            latitude = startLL.latitude;
+            longitude = startLL.longitude;
+            //mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Start Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         } catch (SecurityException e) {
             Log.d("GPS_error", "Your GPS is not working");
