@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class RatingAcitivity extends AppCompatActivity {
 
@@ -17,10 +19,11 @@ public class RatingAcitivity extends AppCompatActivity {
         setContentView(R.layout.activity_rating);
 
         confirmRating = findViewById(R.id.ratingButton);
-        confirmRating.setOnClickListener((view)->{goToMap();});
+        confirmRating.setOnClickListener((view)->{completeTask();});
     }
 
-    private void goToMap() {
+    private void completeTask() {
+        FirebaseAdapter.completeTask(ClientInfo.getTask().getId());
         startActivity(new Intent(this, ApMapActivity.class));
         finish();
     }

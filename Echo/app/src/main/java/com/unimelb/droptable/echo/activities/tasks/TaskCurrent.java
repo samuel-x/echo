@@ -10,22 +10,30 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Api;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.ApMapActivity;
+import com.unimelb.droptable.echo.activities.AssistantMapActivity;
 import com.unimelb.droptable.echo.activities.ChatActivity;
+import com.unimelb.droptable.echo.activities.PaymentActivity;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.CancelledTaskDialog;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.CompletedTaskDialog;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
-public class TaskCurrent extends AppCompatActivity{
+public class TaskCurrent extends AppCompatActivity
+        implements CancelledTaskDialog.NoticeDialogListener, CompletedTaskDialog.NoticeDialogListener{
 
     private TextView taskCurrentTitle;
     private TextView taskCurrentAddress;
@@ -42,6 +50,9 @@ public class TaskCurrent extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_current);
+
+        // Read from the database to see if the AP already has a task in progress.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
 
         taskCurrentTitle = findViewById(R.id.textTaskInProgressTitle);
         taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
@@ -73,8 +84,62 @@ public class TaskCurrent extends AppCompatActivity{
         if (ClientInfo.getTask().getAssistant() == null) {
             disableAvatar();
         } else {
+            if (ClientInfo.getTask().getStatus().equals("COMPLETED")) {
+                showCompletedDialog();
+            }
             enableAvatar();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Read from the database to see if the AP already has a task in progress.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
+
+        if (ClientInfo.getTask().getStatus().equals("COMPLETED")) {
+            showCompletedDialog();
+        }
+    }
+
+    public void showCompletedDialog() {
+        DialogFragment dialog = new CompletedTaskDialog();
+        dialog.show(getSupportFragmentManager(), "CompletedDialogFragment");
+    }
+
+    public void showCancelledDialog() {
+        // Create an instance of the dialog fragment and show it
+        DialogFragment dialog = new CancelledTaskDialog();
+        dialog.show(getSupportFragmentManager(), "CancelledDialogFragment");
+    }
+
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the NoticeDialogFragment.NoticeDialogListener interface
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        // User touched the dialog's positive button
+        if (dialog.getTag().equals("CompletedDialogFragment")) {
+            if (ClientInfo.isAssistant()) {
+                startActivity(new Intent(this, AssistantMapActivity.class));
+                ClientInfo.setTask(null);
+            }
+            else {
+                startActivity(new Intent(this, PaymentActivity.class));
+            }
+        }
+        else {
+            if (ClientInfo.isAssistant()) {
+                startActivity(new Intent(this, AssistantMapActivity.class));
+                ClientInfo.setTask(null);
+            }
+            else {
+                startActivity(new Intent(this, ApMapActivity.class));
+                ClientInfo.setTask(null);
+            }
+        }
+        finish();
     }
 
     public void bind(@NonNull ImmutableTask task) {
@@ -118,12 +183,15 @@ public class TaskCurrent extends AppCompatActivity{
                     String assistantID = dataSnapshot.getValue(String.class);
                     updateAssistant(assistantID);
                 }
+                if (dataSnapshot.getKey().toString().equals("status") && dataSnapshot.getValue(String.class).equals("COMPLETED")) {
+                    showCompletedDialog();
+                }
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 // Disable avatar section and begin search for new assistant
-                disableAvatar();
+                showCancelledDialog();
             }
 
             @Override
@@ -133,7 +201,7 @@ public class TaskCurrent extends AppCompatActivity{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                disableAvatar();
+                showCancelledDialog();
             }
         };
     }

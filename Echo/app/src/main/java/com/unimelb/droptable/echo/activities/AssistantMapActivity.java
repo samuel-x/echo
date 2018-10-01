@@ -3,9 +3,11 @@ package com.unimelb.droptable.echo.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Button;
 
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -16,6 +18,7 @@ import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.CancelledTaskDialog;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -23,8 +26,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     private GoogleMap mMap;
 
     private Button taskButton;
-    private FloatingActionButton settingsButton;
-    private FloatingActionButton infoButton;
+    private Button completeTaskButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,12 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         taskButton = findViewById(R.id.assistantTaskButton);
         taskButton.setOnClickListener(view -> onTaskButtonClick());
 
-        settingsButton = findViewById(R.id.settingsButton);
-        infoButton = findViewById(R.id.infoButton);
+        completeTaskButton = findViewById(R.id.completeTaskButton);
+        completeTaskButton.setOnClickListener(view -> onCompleteTaskButton());
+    }
+
+    private void onCompleteTaskButton() {
+        FirebaseAdapter.updateTaskStatus("COMPLETED", ClientInfo.getTask().getId());
     }
 
     @Override
@@ -51,10 +57,22 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         // Ensure that the task button's text is up to date.
         if (ClientInfo.hasTask()) {
+            enableCompleteTask();
             taskButton.setText(R.string.current_task_home_button);
         } else {
+            disableCompleteTask();
             taskButton.setText(R.string.new_task_home_button);
         }
+    }
+
+    private void enableCompleteTask() {
+        completeTaskButton.setEnabled(true);
+        completeTaskButton.setAlpha(1.0f);
+    }
+
+    private void disableCompleteTask() {
+        completeTaskButton.setEnabled(false);
+        completeTaskButton.setAlpha(0.0f);
     }
 
 

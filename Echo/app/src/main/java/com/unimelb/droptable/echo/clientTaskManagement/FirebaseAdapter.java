@@ -247,4 +247,9 @@ public class FirebaseAdapter {
         usersDbReference.child(assistant).child("taskID").setValue(id);
     }
 
+    public static void completeTask(ImmutableTask task) {
+        currentData.child(TASKS_ROOT).child(task.getId()).getRef().removeValue();
+        currentData.child(USERS_ROOT).child(task.getAssistant()).getRef().removeValue();
+        currentData.child(USERS_ROOT).child(task.getAp()).getRef().removeValue();
+    }
 }
