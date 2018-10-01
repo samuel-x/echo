@@ -23,7 +23,7 @@ public class RatingAcitivity extends AppCompatActivity {
     }
 
     private void completeTask() {
-        FirebaseAdapter.completeTask(ClientInfo.getTask().getId());
+        FirebaseAdapter.completeTask(ClientInfo.getTask());
         startActivity(new Intent(this, ApMapActivity.class));
         finish();
     }
