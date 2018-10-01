@@ -75,6 +75,14 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        // Verify that the phone number is valid.
+        if(!isPhoneNumberValid(phoneNumber)) {
+            showProgress(false);
+            // TODO: Show error message.
+            Log.d("Login", "Denied access based on invalid phone number");
+            return;
+        }
+
         // Verify that the isAssistant checkbox matches the boolean on the database, if the username
         // already exists.
         if (FirebaseAdapter.userExists(username)
@@ -85,28 +93,11 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        FirebaseAdapter.pushUser(username, isAssistantCheckBox.isChecked());
+        FirebaseAdapter.pushUser(username, phoneNumber, isAssistantCheckBox.isChecked());
         ClientInfo.setUsername(username);
+        ClientInfo.setPhoneNumber(phoneNumber);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
 
-
-        // if phonenumber valid update db
-        if(isPhoneNumberValid(phoneNumber)){
-            Log.d("Login","Phone number: " + phoneNumber + " is valid");
-            ClientInfo.setPhoneNumber(phoneNumber);
-            FirebaseAdapter.pushPhoneNumber(username,phoneNumber);
-        }else {
-            Log.d("Login","Phone number: " + phoneNumber + " is not valid");
-        }
-        // TODO
-        String working = FirebaseAdapter.getPhoneNumber(username);
-        if(working == null){
-            System.out.println("Phone number was not added");
-        } else {
-            System.out.println(working + "was added to the firebase");
-            System.out.println("the number added was correct? " + (working.equals(phoneNumber)));
-        }
-        // TODO
         // Switch to the appropriate activity.
         if (ClientInfo.isAssistant()) {
             startActivity(new Intent(this, AssistantMapActivity.class));

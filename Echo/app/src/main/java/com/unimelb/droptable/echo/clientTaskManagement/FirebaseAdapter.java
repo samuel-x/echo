@@ -111,6 +111,14 @@ public class FirebaseAdapter {
                 .child(TASK_ID).getValue(String.class);
     }
 
+    /**
+     * This returns a DataSnapshot of the user
+     * @return
+     */
+    public static DataSnapshot getUser(String user) {
+        return currentData.child(USERS_ROOT).child(user);
+    }
+
     public static Boolean getIsAssistant(String username) {
         if (!currentData.child(USERS_ROOT).hasChild(username)) {
             return null;
@@ -129,16 +137,10 @@ public class FirebaseAdapter {
                 .hasChild(username);
     }
 
-    public static int pushUser(String username, boolean isAssistant) {
+    public static int pushUser(String username, String phoneNumber, boolean isAssistant) {
         usersDbReference.child(username).child(IS_ASSISTANT).setValue(isAssistant);
-
-        // TODO: Make the code returned actually reflect the true status.
-        return HttpURLConnection.HTTP_OK;
-    }
-
-    public static int pushPhoneNumber(String username,String phoneNumber){
         usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
-        System.out.println(getPhoneNumber(username));
+
         // TODO: Make the code returned actually reflect the true status.
         return HttpURLConnection.HTTP_OK;
     }
@@ -157,7 +159,6 @@ public class FirebaseAdapter {
                 .child(username)
                 .child(PHONE_NUMBER)
                 .getValue(String.class);
-
     }
 
     /**

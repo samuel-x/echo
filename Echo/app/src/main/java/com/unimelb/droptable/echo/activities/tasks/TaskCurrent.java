@@ -2,7 +2,6 @@ package com.unimelb.droptable.echo.activities.tasks;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -16,7 +15,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.Api;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,15 +25,14 @@ import com.unimelb.droptable.echo.activities.ChatActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
-
 public class TaskCurrent extends AppCompatActivity{
 
     private TextView taskCurrentTitle;
     private TextView taskCurrentAddress;
     private TextView taskCurrentTime;
     private TextView taskCurrentNotes;
-    private TextView assistantName;
-    private TextView assistantPhone;
+    private TextView otherUserName;
+    private TextView otherUserPhone;
     private ConstraintLayout avatar;
     private ConstraintLayout searchingMessage;
     private ImageView messageButton;
@@ -50,8 +47,8 @@ public class TaskCurrent extends AppCompatActivity{
         taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
         taskCurrentTime = findViewById(R.id.textTaskInProgressTime);
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
-        assistantName = findViewById(R.id.userName);
-        assistantPhone = findViewById(R.id.userPhone);
+        otherUserName = findViewById(R.id.userName);
+        otherUserPhone = findViewById(R.id.userPhone);
         avatar = findViewById(R.id.avatarContainer);
         searchingMessage = findViewById(R.id.isReadyLayer);
 
@@ -142,11 +139,31 @@ public class TaskCurrent extends AppCompatActivity{
     }
 
     private void updateAssistant(String assistantID) {
-        // TODO: pull data from firebase about the assistant
-        assistantName.setText(assistantID);
-        assistantPhone.setText("0412345678"); //Default number, TODO: pull number from firebase
+        DataSnapshot user;
+        // Update it with the AP's information if we are currently an assistant
+        if (ClientInfo.isAssistant()) {
+            String AP = ClientInfo.getTask().getAp();
+            user = FirebaseAdapter.getUser(AP);
+            otherUserName.setText(AP);
+            otherUserPhone.setText(user.child(getString(R.string.phone_number_child)).getValue(String.class));
+        }
+        else {
+            user = FirebaseAdapter.getUser(assistantID);
+            otherUserName.setText(assistantID);
+            otherUserPhone.setText(user.child(getString(R.string.phone_number_child)).getValue(String.class));
+        }
+
         // enable our avatar
         enableAvatar();
+    }
+
+    private void resetAssistant() {
+        otherUserName.setText(getString(R.string.unknown_user));
+        otherUserPhone.setText(getString(R.string.empty_phone_number));
+
+        if (ClientInfo.isAssistant()) {
+            ClientInfo.setTask(null);
+        }
     }
 
     private void enableAvatar() {
@@ -154,8 +171,10 @@ public class TaskCurrent extends AppCompatActivity{
             avatar.getChildAt(i).setAlpha(1.0f);
         }
 
-        searchingMessage.setEnabled(false);
-
+        for (int i = 0; i < searchingMessage.getChildCount(); i++) {
+            searchingMessage.getChildAt(i).setEnabled(false);
+            searchingMessage.getChildAt(i).setAlpha(0.0f);
+        }
     }
 
     private void disableAvatar() {
@@ -163,7 +182,12 @@ public class TaskCurrent extends AppCompatActivity{
             avatar.getChildAt(i).setAlpha(0.06f);
         }
 
-        searchingMessage.setEnabled(true);
+        for (int i = 0; i < searchingMessage.getChildCount(); i++) {
+            searchingMessage.getChildAt(i).setEnabled(true);
+            searchingMessage.getChildAt(i).setAlpha(1.0f);
+        }
+
+        resetAssistant();
     }
 
     private void onMessageButtonClick() {
@@ -176,7 +200,7 @@ public class TaskCurrent extends AppCompatActivity{
     }
 
     private void onCallButtonClick() {
-        if(assistantPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
+        if(otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
             // Assistant has no phone number so do nothing
             return;
         }else {
@@ -202,7 +226,7 @@ public class TaskCurrent extends AppCompatActivity{
     @SuppressLint("MissingPermission")
     private void makeCall() {
         Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse("tel:" + assistantPhone.getText().toString()));
+        intent.setData(Uri.parse("tel:" + otherUserPhone.getText().toString()));
         startActivity(intent);
     }
 }
