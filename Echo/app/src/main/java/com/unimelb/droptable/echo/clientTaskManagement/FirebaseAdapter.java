@@ -110,6 +110,14 @@ public class FirebaseAdapter {
                 .child(TASK_ID).getValue(String.class);
     }
 
+    /**
+     * This returns a DataSnapshot of the user
+     * @return
+     */
+    public static DataSnapshot getUser(String user) {
+        return currentData.child(USERS_ROOT).child(user);
+    }
+
     public static Boolean getIsAssistant(String username) {
         if (!currentData.child(USERS_ROOT).hasChild(username)) {
             return null;

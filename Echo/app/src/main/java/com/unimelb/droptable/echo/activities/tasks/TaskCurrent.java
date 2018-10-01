@@ -26,8 +26,8 @@ public class TaskCurrent extends AppCompatActivity{
     private TextView taskCurrentAddress;
     private TextView taskCurrentTime;
     private TextView taskCurrentNotes;
-    private TextView assistantName;
-    private TextView assistantPhone;
+    private TextView otherUserName;
+    private TextView otherUserPhone;
     private ConstraintLayout avatar;
     private ConstraintLayout searchingMessage;
     private ImageView messageButton;
@@ -41,8 +41,8 @@ public class TaskCurrent extends AppCompatActivity{
         taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
         taskCurrentTime = findViewById(R.id.textTaskInProgressTime);
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
-        assistantName = findViewById(R.id.userName);
-        assistantPhone = findViewById(R.id.userPhone);
+        otherUserName = findViewById(R.id.userName);
+        otherUserPhone = findViewById(R.id.userPhone);
         avatar = findViewById(R.id.avatarContainer);
         searchingMessage = findViewById(R.id.isReadyLayer);
 
@@ -130,11 +130,31 @@ public class TaskCurrent extends AppCompatActivity{
     }
 
     private void updateAssistant(String assistantID) {
-        // TODO: pull data from firebase about the assistant
-        assistantName.setText(assistantID);
+        DataSnapshot user;
+        // Update it with the AP's information if we are currently an assistant
+        if (ClientInfo.isAssistant()) {
+            String AP = ClientInfo.getTask().getAp();
+            user = FirebaseAdapter.getUser(AP);
+            otherUserName.setText(AP);
+            otherUserPhone.setText(user.child("phoneNumber").getValue(String.class));
+        }
+        else {
+            user = FirebaseAdapter.getUser(assistantID);
+            otherUserName.setText(assistantID);
+            otherUserPhone.setText(user.child("phoneNumber").getValue(String.class));
+        }
 
         // enable our avatar
         enableAvatar();
+    }
+
+    private void resetAssistant() {
+        otherUserName.setText(null);
+        otherUserPhone.setText(null);
+
+        if (ClientInfo.isAssistant()) {
+            ClientInfo.setTask(null);
+        }
     }
 
     private void enableAvatar() {
@@ -142,8 +162,10 @@ public class TaskCurrent extends AppCompatActivity{
             avatar.getChildAt(i).setAlpha(1.0f);
         }
 
-        searchingMessage.setEnabled(false);
-
+        for (int i = 0; i < searchingMessage.getChildCount(); i++) {
+            searchingMessage.getChildAt(i).setEnabled(false);
+            searchingMessage.getChildAt(i).setAlpha(0.0f);
+        }
     }
 
     private void disableAvatar() {
@@ -151,7 +173,12 @@ public class TaskCurrent extends AppCompatActivity{
             avatar.getChildAt(i).setAlpha(0.06f);
         }
 
-        searchingMessage.setEnabled(true);
+        for (int i = 0; i < searchingMessage.getChildCount(); i++) {
+            searchingMessage.getChildAt(i).setEnabled(true);
+            searchingMessage.getChildAt(i).setAlpha(1.0f);
+        }
+
+        resetAssistant();
     }
 
     private void onMessageButtonClick() {

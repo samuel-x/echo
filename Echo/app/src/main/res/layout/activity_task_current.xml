@@ -71,7 +71,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/isReadyLayer"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/avatarContainer"
         app:layout_constraintEnd_toEndOf="@id/avatarContainer"
         app:layout_constraintHorizontal_bias="0.0"
