@@ -103,7 +103,7 @@ public class TaskCurrent extends AppCompatActivity
     }
 
     public void showDialog(String status) {
-        DialogFragment dialog = new CompletionTaskDialog();;
+        DialogFragment dialog = new CompletionTaskDialog();
         Bundle args = new Bundle();
         args.putString("type", status);
         dialog.setArguments(args);
@@ -120,7 +120,7 @@ public class TaskCurrent extends AppCompatActivity
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         // User touched the dialog's positive button
-        if (dialog.getTag().equals("CompletedDialogFragment")) {
+        if (dialog.getTag().equals("COMPLETED")) {
             if (ClientInfo.isAssistant()) {
                 startActivity(new Intent(this, AssistantMapActivity.class));
                 ClientInfo.setTask(null);
@@ -191,7 +191,9 @@ public class TaskCurrent extends AppCompatActivity
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 // Disable avatar section and begin search for new assistant
-                showDialog("CANCELLED");
+                if (ClientInfo.isAssistant()) {
+                    showDialog("CANCELLED");
+                }
             }
 
             @Override
@@ -201,7 +203,9 @@ public class TaskCurrent extends AppCompatActivity
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                showDialog("CANCELLED");
+                if (ClientInfo.isAssistant()) {
+                    showDialog("CANCELLED");
+                }
             }
         };
     }

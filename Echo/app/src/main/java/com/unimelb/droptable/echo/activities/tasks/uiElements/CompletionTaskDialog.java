@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 
 import com.unimelb.droptable.echo.R;
 
@@ -15,7 +16,7 @@ import static android.app.AlertDialog.Builder;
 public class CompletionTaskDialog extends DialogFragment {
 
     final private String ERROR = "CANCELLED";
-    final private String COMPLETE = "COMPLETE";
+    final private String COMPLETE = "COMPLETED";
 
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
@@ -45,7 +46,7 @@ public class CompletionTaskDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getDialog(savedInstanceState.getString("type")))
+        builder.setMessage(getDialog(getArguments().getString("type")))
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
@@ -56,6 +57,7 @@ public class CompletionTaskDialog extends DialogFragment {
     }
 
     public String getDialog(String type) {
+        Log.d("test", type);
         String str = "Message";
         if (type.equals(COMPLETE)) {
             str = "Task has been completed.";
