@@ -249,7 +249,7 @@ public class FirebaseAdapter {
 
     public static void completeTask(ImmutableTask task) {
         currentData.child(TASKS_ROOT).child(task.getId()).getRef().removeValue();
-        currentData.child(USERS_ROOT).child(task.getAssistant()).getRef().removeValue();
-        currentData.child(USERS_ROOT).child(task.getAp()).getRef().removeValue();
+        currentData.child(USERS_ROOT).child(task.getAssistant()).child(TASK_ID).getRef().removeValue();
+        currentData.child(USERS_ROOT).child(task.getAp()).child(TASK_ID).getRef().removeValue();
     }
 }
