@@ -1,14 +1,18 @@
 package com.unimelb.droptable.echo.activities;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Button;
@@ -55,6 +59,8 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private LocationRequest mLocationRequest;
 
+    private Location currentLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +68,27 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // setup our location provider
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        // Setup our location callback
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                currentLocation = locationResult.getLastLocation();
+                Log.d("Lat:", String.valueOf(locationResult.getLastLocation().getLatitude()));
+                Log.d("Lon:", String.valueOf(locationResult.getLastLocation().getLongitude()));
+                mMap.addMarker(new MarkerOptions().position(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude())).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            };
+        };
 
         // Read from the database to see if the AP already has a task in progress.
         ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
@@ -71,7 +96,9 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         // Get references and set listeners.
 
         taskButton = findViewById(R.id.taskButton);
-        taskButton.setOnClickListener((view) -> {onTaskPress();});
+        taskButton.setOnClickListener((view) -> {
+            onTaskPress();
+        });
         if (ClientInfo.hasTask()) {
             taskButton.setText(R.string.current_task_home_button);
         } else {
@@ -80,12 +107,30 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
 
         helperButton = findViewById(R.id.apMapHelperButton);
-        helperButton.setOnClickListener(view -> {onHelperPress();});
+        helperButton.setOnClickListener(view -> {
+            onHelperPress();
+        });
 
         paymentButton = findViewById(R.id.paymentButton);
-        paymentButton.setOnClickListener((view) -> {toPayment();});
+        paymentButton.setOnClickListener((view) -> {
+            toPayment();
+        });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startLocationUpdates();
+    }
+
+    @SuppressLint("MissingPermission")
+    private void startLocationUpdates() {
+
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                mLocationCallback,
+                null /* Looper */);
     }
 
     private void onTaskPress() {
@@ -108,24 +153,25 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         double longitude;
         double latitude;
 
-        try {
-            mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            // Got last known location. In some rare situations this can be null.
-                            if (location != null) {
-                                // Logic to handle location object
-                                Log.d("GPS_success","GPS works!");
-                                double latitude = location.getLatitude();
-                                double longitude = location.getLongitude();
-                                mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                            }
-                        }
-                    });
-        } catch (SecurityException e) {
-            Log.d("GPS_error","ur stuffed");
-        }
+
+//        try {
+//            mFusedLocationClient.getLastLocation()
+//                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+//                        @Override
+//                        public void onSuccess(Location location) {
+//                            // Got last known location. In some rare situations this can be null.
+//                            if (location != null) {
+//                                // Logic to handle location object
+//                                Log.d("GPS_success","GPS works!");
+//                                double latitude = location.getLatitude();
+//                                double longitude = location.getLongitude();
+//                                mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+//                            }
+//                        }
+//                    });
+//        } catch (SecurityException e) {
+//            Log.d("GPS_error","ur stuffed");
+//        }
 
         //mMap.getUiSettings().setZoomControlsEnabled(true);
 

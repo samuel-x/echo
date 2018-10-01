@@ -1,4 +1,5 @@
 package com.unimelb.droptable.echo.activities;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,6 +21,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -62,9 +64,12 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
 //    static Thread thread;
 
-//    private LocationCallback mLocationCallback;
-//    public FusedLocationProviderClient mFusedLocationClient;
-//    public LocationRequest mLocationRequest = LocationRequest.create();
+    private FusedLocationProviderClient mFusedLocationClient;
+    private LocationCallback mLocationCallback;
+
+    private LocationRequest mLocationRequest;
+
+    private Location currentLocation;
 
 
 
@@ -83,6 +88,25 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 //        newTaskButton.setOnClickListener((view) -> {
 //            newTask();
 //        });
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        // Setup our location callback
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                currentLocation = locationResult.getLastLocation();
+            };
+        };
+
 
         // Read from the database to see if the assistant already has a task in progress.
         ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
@@ -134,6 +158,20 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 //                    .putExtra(getString(R.string.chat_partner), "TestChatPartner"));
 //        });
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startLocationUpdates();
+    }
+
+    @SuppressLint("MissingPermission")
+    private void startLocationUpdates() {
+
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                mLocationCallback,
+                null /* Looper */);
+    }
 
     /**
      * Manipulates the map once available.
