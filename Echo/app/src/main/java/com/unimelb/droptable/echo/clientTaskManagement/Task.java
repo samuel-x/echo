@@ -11,6 +11,12 @@ public interface Task {
     String getTitle();
     String getAddress();
     String getNotes();
+    String getStatus();
+    String getAp();
+    @Nullable
+    String getId();
+    @Nullable
+    String getAssistant();
     @Nullable
     String getCategory();
     @Nullable

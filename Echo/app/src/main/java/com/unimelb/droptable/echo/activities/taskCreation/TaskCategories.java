@@ -41,20 +41,24 @@ public class TaskCategories extends AppCompatActivity {
     private void otherTask() {
         Utility.currentTaskBuilder.category("Other");
         startActivity(new Intent(this, TaskDetails.class).putExtra("category", "Other"));
+        finish();
     }
 
     private void householdTask() {
         Utility.currentTaskBuilder.category("Household");
         startActivity(new Intent(this, TaskSubcategories.class).putExtra("category", "Household"));
+        finish();
     }
 
     private void deliveryTask() {
         Utility.currentTaskBuilder.category("Delivery");
         startActivity(new Intent(this, TaskSubcategories.class).putExtra("category", "Delivery"));
+        finish();
     }
 
     private void transportTask() {
         Utility.currentTaskBuilder.category("Transport");
         startActivity(new Intent(this, TaskSubcategories.class).putExtra("category", "Transport"));
+        finish();
     }
 }
