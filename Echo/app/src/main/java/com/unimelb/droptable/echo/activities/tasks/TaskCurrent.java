@@ -66,6 +66,7 @@ public class TaskCurrent extends AppCompatActivity{
         helperButton.setOnClickListener(view -> {onHelperPress();});
         if (ClientInfo.isAssistant()) {
             // The user is an assistant, and we don't want to display the helper button to them.
+            helperButton.setAlpha(0f);
             helperButton.setEnabled(false);
         }
     }
@@ -202,6 +203,10 @@ public class TaskCurrent extends AppCompatActivity{
     }
 
     private void onMessageButtonClick() {
+        if (otherUserName.getText().toString().equals(getString(R.string.unknown_user))) {
+            // The task has not been accepted and thus there is not user to chat with.
+            return;
+        }
 
         startActivity(new Intent(this, ChatActivity.class)
                 .putExtra(getString(R.string.chat_partner),
