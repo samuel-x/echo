@@ -187,9 +187,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         googleMap.setMinZoomPreference(12);
         startLocationUpdates();
 
-//        if (ClientInfo.hasTask()) {
-//            startLocationUpdates();
-//        }
     }
 
     private void doMap(GoogleMap googleMap, LatLng startLL, LatLng endLL) {
@@ -218,8 +215,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         double latitude;
 
         try {
-            //assert lm != null;
-            //location = currentLocation;
             latitude = startLL.latitude;
             longitude = startLL.longitude;
             //mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Start Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
