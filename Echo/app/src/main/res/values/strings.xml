@@ -21,7 +21,11 @@
     <string name="task_list_title">Task List</string>
     <string name="text_task_in_progress">Task in Progress</string>
     <string name="user_rating">Rating</string>
+
+    <!-- For Task Current -->
     <string name="searching_assistant">Searching for an Assistant near you…</string>
+    <string name="unknown_user">Unknown</string>
+    <string name="empty_phone_number">(No phone number)</string>
 
     <!-- Strings related to the map home screens -->
     <string name="new_task_home_button">New Task</string>
@@ -32,6 +36,7 @@
     <string name="sign_in_button">Sign in</string>
     <string name="prompt_assistant">Assistant?</string>
     <string name="error_invalid_username">This username is invalid</string>
+    <string name="prompt_phone_number">Enter phone number…</string>
 
     <string name="action_submit_rating">Submit Rating</string>
 
@@ -62,5 +67,7 @@
     <string name="tasks_root">tasks</string>
     <string name="messages_root">messages</string>
     <string name="task_id">taskID</string>
+    <string name="phone_number_child">phoneNumber</string>
+
     <string name="accept_task">accept</string>
 </resources>

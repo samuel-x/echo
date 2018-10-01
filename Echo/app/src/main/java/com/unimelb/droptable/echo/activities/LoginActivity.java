@@ -23,9 +23,11 @@ import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
  */
 public class LoginActivity extends AppCompatActivity {
     private static final int MIN_USERNAME_LENGTH = 3;
+    private static final int PHONENUMBER_LENGTH = 10;
 
     // UI references.
     private EditText usernameText;
+    private EditText phoneNumberText;
     private CheckBox isAssistantCheckBox;
     private Button signInButton;
     private FloatingActionButton helperButton;
@@ -39,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         usernameText = findViewById(R.id.usernameText);
         isAssistantCheckBox = findViewById(R.id.isAssistantCheckBox);
+        phoneNumberText = findViewById(R.id.phoneNumberText);
 
         // Get a reference to the sign in button and set its listener.
         signInButton = findViewById(R.id.signInButton);
@@ -62,12 +65,21 @@ public class LoginActivity extends AppCompatActivity {
         showProgress(true);
 
         String username = usernameText.getText().toString();
+        String phoneNumber = phoneNumberText.getText().toString();
 
         // Verify that the user name is valid.
         if (!isUsernameValid(username)) {
             showProgress(false);
             // TODO: Show error message.
             Log.d("Login", "Denied access based on invalid user name");
+            return;
+        }
+
+        // Verify that the phone number is valid.
+        if(!isPhoneNumberValid(phoneNumber)) {
+            showProgress(false);
+            // TODO: Show error message.
+            Log.d("Login", "Denied access based on invalid phone number");
             return;
         }
 
@@ -81,8 +93,9 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        FirebaseAdapter.pushUser(username, isAssistantCheckBox.isChecked());
+        FirebaseAdapter.pushUser(username, phoneNumber, isAssistantCheckBox.isChecked());
         ClientInfo.setUsername(username);
+        ClientInfo.setPhoneNumber(phoneNumber);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
 
         // Switch to the appropriate activity.
@@ -97,6 +110,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isUsernameValid(String username) {
         return username.length() >= MIN_USERNAME_LENGTH;
+    }
+
+    private boolean isPhoneNumberValid(String phoneNumber) {
+        return phoneNumber.length() == PHONENUMBER_LENGTH
+                && phoneNumber.matches("[0-9]+")
+                && phoneNumber.startsWith("04");
     }
 
     private void onHelperPress() {

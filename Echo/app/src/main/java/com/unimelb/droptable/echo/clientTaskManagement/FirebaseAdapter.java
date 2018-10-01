@@ -32,6 +32,7 @@ public class FirebaseAdapter {
     private final static String USERS_ROOT = "users";
     private final static String TASK_ID = "taskID";
     private final static String IS_ASSISTANT = "isAssistant";
+    private final static String PHONE_NUMBER = "phoneNumber";
 
     public final static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public final static DatabaseReference masterDbReference = database.getReference();
@@ -136,11 +137,28 @@ public class FirebaseAdapter {
                 .hasChild(username);
     }
 
-    public static int pushUser(String username, boolean isAssistant) {
+    public static int pushUser(String username, String phoneNumber, boolean isAssistant) {
         usersDbReference.child(username).child(IS_ASSISTANT).setValue(isAssistant);
+        usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
 
         // TODO: Make the code returned actually reflect the true status.
         return HttpURLConnection.HTTP_OK;
+    }
+
+    public static String getPhoneNumber(String username) {
+        if (!currentData.child(USERS_ROOT).hasChild(username)) {
+            return null;
+        }
+
+        if(!currentData.child(USERS_ROOT).child(username).hasChild(PHONE_NUMBER)){
+            return null;
+        }
+
+        return currentData
+                .child(USERS_ROOT)
+                .child(username)
+                .child(PHONE_NUMBER)
+                .getValue(String.class);
     }
 
     /**

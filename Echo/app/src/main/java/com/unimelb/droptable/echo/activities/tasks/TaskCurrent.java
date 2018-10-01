@@ -1,10 +1,15 @@
 package com.unimelb.droptable.echo.activities.tasks;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
@@ -31,6 +36,7 @@ public class TaskCurrent extends AppCompatActivity{
     private ConstraintLayout avatar;
     private ConstraintLayout searchingMessage;
     private ImageView messageButton;
+    private ImageView callButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,9 @@ public class TaskCurrent extends AppCompatActivity{
 
         messageButton = findViewById(R.id.messagingButton);
         messageButton.setOnClickListener(view -> onMessageButtonClick());
+
+        callButton = findViewById(R.id.callButton);
+        callButton.setOnClickListener(view -> onCallButtonClick());
     }
 
     @Override
@@ -136,12 +145,12 @@ public class TaskCurrent extends AppCompatActivity{
             String AP = ClientInfo.getTask().getAp();
             user = FirebaseAdapter.getUser(AP);
             otherUserName.setText(AP);
-            otherUserPhone.setText(user.child("phoneNumber").getValue(String.class));
+            otherUserPhone.setText(user.child(getString(R.string.phone_number_child)).getValue(String.class));
         }
         else {
             user = FirebaseAdapter.getUser(assistantID);
             otherUserName.setText(assistantID);
-            otherUserPhone.setText(user.child("phoneNumber").getValue(String.class));
+            otherUserPhone.setText(user.child(getString(R.string.phone_number_child)).getValue(String.class));
         }
 
         // enable our avatar
@@ -149,8 +158,8 @@ public class TaskCurrent extends AppCompatActivity{
     }
 
     private void resetAssistant() {
-        otherUserName.setText(null);
-        otherUserPhone.setText(null);
+        otherUserName.setText(getString(R.string.unknown_user));
+        otherUserPhone.setText(getString(R.string.empty_phone_number));
 
         if (ClientInfo.isAssistant()) {
             ClientInfo.setTask(null);
@@ -188,5 +197,36 @@ public class TaskCurrent extends AppCompatActivity{
                         (ClientInfo.isAssistant()
                                 ? ClientInfo.getTask().getAp()
                                 : ClientInfo.getTask().getAssistant())));
+    }
+
+    private void onCallButtonClick() {
+        if(otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
+            // Assistant has no phone number so do nothing
+            return;
+        }else {
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                //Permission is allowed so call is made
+                makeCall();
+            } else {
+                //Permission is denied so permission is requested and then call is made
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 0);
+                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    //Permission has been granted
+                    makeCall();
+                } else {
+                    //Permission denied
+                    return;
+                }
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void makeCall() {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:" + otherUserPhone.getText().toString()));
+        startActivity(intent);
     }
 }

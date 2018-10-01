@@ -6,6 +6,7 @@ public class ClientInfo {
     private static String username;
     private static boolean isAssistant;
     private static ImmutableTask currentTask;
+    private static String phoneNumber;
 
     public static String getUsername() {
         return username;
@@ -34,4 +35,8 @@ public class ClientInfo {
     public static void setTask(ImmutableTask task) {
         ClientInfo.currentTask = task;
     }
+
+    public static String getPhoneNumber() {return phoneNumber;}
+
+    public static void setPhoneNumber(String phoneNumber) { ClientInfo.phoneNumber = phoneNumber;}
 }
