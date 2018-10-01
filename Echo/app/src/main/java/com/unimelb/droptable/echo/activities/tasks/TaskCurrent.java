@@ -66,24 +66,25 @@ public class TaskCurrent extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
 
-        if (ClientInfo.getTask().getAssistant().isEmpty()) {
-            disableAvatar();
-        }
-        else {
-            enableAvatar();
-        }
         ChildEventListener childEventListener = createListener();
         Query query = FirebaseAdapter.queryCurrentTask();
         query.addChildEventListener(childEventListener);
         ImmutableTask currentTask = FirebaseAdapter.getCurrentTask();
         bind(currentTask);
+        ClientInfo.setTask(currentTask);
+
+        if (ClientInfo.getTask().getAssistant() == null) {
+            disableAvatar();
+        } else {
+            enableAvatar();
+        }
     }
 
     public void bind(@NonNull ImmutableTask task) {
         setTitle(task.getTitle());
         setAddress(task.getAddress());
         setNotes(task.getNotes());
-        if (!task.getAssistant().isEmpty()) {
+        if (task.getAssistant() != null) {
             updateAssistant(task.getAssistant());
         }
         Log.d("Bind:", "Current Task UI AP");

@@ -14,7 +14,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.taskCreation.TaskCreation;
 import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
@@ -41,15 +40,23 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         taskButton = findViewById(R.id.assistantTaskButton);
         taskButton.setOnClickListener(view -> onTaskButtonClick());
+
+        settingsButton = findViewById(R.id.settingsButton);
+        infoButton = findViewById(R.id.infoButton);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Ensure that the task button's text is up to date.
         if (ClientInfo.hasTask()) {
             taskButton.setText(R.string.current_task_home_button);
         } else {
             taskButton.setText(R.string.new_task_home_button);
         }
-
-        settingsButton = findViewById(R.id.settingsButton);
-        infoButton = findViewById(R.id.infoButton);
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
