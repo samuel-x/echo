@@ -119,8 +119,10 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                     LatLng southbank = new LatLng(-37.8290, 144.9570);
                     LatLng endLL = southbank;
                     try {
+                        mMap.clear();
                         mMap.addMarker(new MarkerOptions().position(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude())).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                         if (ClientInfo.hasTask()) {
+
                             doMap(mMap, startLL, endLL);
                         }
                     }
