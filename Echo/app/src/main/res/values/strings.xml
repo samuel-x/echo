@@ -32,6 +32,7 @@
     <string name="sign_in_button">Sign in</string>
     <string name="prompt_assistant">Assistant?</string>
     <string name="error_invalid_username">This username is invalid</string>
+    <string name="prompt_phonenumber">Enter Phone Number (Optional) </string>
 
     <string name="action_submit_rating">Submit Rating</string>
 

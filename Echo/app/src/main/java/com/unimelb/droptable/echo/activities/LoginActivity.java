@@ -23,9 +23,11 @@ import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
  */
 public class LoginActivity extends AppCompatActivity {
     private static final int MIN_USERNAME_LENGTH = 3;
+    private static final int PHONENUMBER_LENGTH = 10;
 
     // UI references.
     private EditText usernameText;
+    private EditText phoneNumberText;
     private CheckBox isAssistantCheckBox;
     private Button signInButton;
     private FloatingActionButton helperButton;
@@ -39,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         usernameText = findViewById(R.id.usernameText);
         isAssistantCheckBox = findViewById(R.id.isAssistantCheckBox);
+        phoneNumberText = findViewById(R.id.phoneNumberText);
 
         // Get a reference to the sign in button and set its listener.
         signInButton = findViewById(R.id.signInButton);
@@ -62,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         showProgress(true);
 
         String username = usernameText.getText().toString();
+        String phoneNumber = phoneNumberText.getText().toString();
 
         // Verify that the user name is valid.
         if (!isUsernameValid(username)) {
@@ -85,6 +89,24 @@ public class LoginActivity extends AppCompatActivity {
         ClientInfo.setUsername(username);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
 
+
+        // if phonenumber valid update db
+        if(isPhoneNumberValid(phoneNumber)){
+            Log.d("Login","Phone number: " + phoneNumber + " is valid");
+            ClientInfo.setPhoneNumber(phoneNumber);
+            FirebaseAdapter.pushPhoneNumber(username,phoneNumber);
+        }else {
+            Log.d("Login","Phone number: " + phoneNumber + " is not valid");
+        }
+        // TODO
+        String working = FirebaseAdapter.getPhoneNumber(username);
+        if(working == null){
+            System.out.println("Phone number was not added");
+        } else {
+            System.out.println(working + "was added to the firebase");
+            System.out.println("the number added was correct? " + (working.equals(phoneNumber)));
+        }
+        // TODO
         // Switch to the appropriate activity.
         if (ClientInfo.isAssistant()) {
             startActivity(new Intent(this, AssistantMapActivity.class));
@@ -97,6 +119,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isUsernameValid(String username) {
         return username.length() >= MIN_USERNAME_LENGTH;
+    }
+
+    private boolean isPhoneNumberValid(String phoneNumber) {
+        return phoneNumber.length() == PHONENUMBER_LENGTH
+                && phoneNumber.matches("[0-9]+")
+                && phoneNumber.startsWith("04");
     }
 
     private void onHelperPress() {
