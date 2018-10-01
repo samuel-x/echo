@@ -47,10 +47,12 @@ public class TaskSubcategories extends AppCompatActivity {
     private void taskDetailsA() {
         Utility.currentTaskBuilder.subCategory(subcategoryA.getText().toString());
         startActivity(new Intent(this, TaskDetails.class));
+        finish();
     }
 
     private void taskDetailsB() {
         Utility.currentTaskBuilder.subCategory(subcategoryB.getText().toString());
         startActivity(new Intent(this, TaskDetails.class));
+        finish();
     }
 }

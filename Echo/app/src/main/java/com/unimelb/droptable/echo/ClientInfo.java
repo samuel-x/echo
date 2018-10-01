@@ -1,11 +1,14 @@
 package com.unimelb.droptable.echo;
 
+import com.google.android.gms.location.places.Place;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class ClientInfo {
     private static String username;
     private static boolean isAssistant;
     private static ImmutableTask currentTask;
+    private static String phoneNumber;
+    private static Place currentPlace;
 
     public static String getUsername() {
         return username;
@@ -33,5 +36,15 @@ public class ClientInfo {
 
     public static void setTask(ImmutableTask task) {
         ClientInfo.currentTask = task;
+    }
+
+    public static String getPhoneNumber() {return phoneNumber;}
+
+    public static void setPhoneNumber(String phoneNumber) { ClientInfo.phoneNumber = phoneNumber;}
+
+    public static void setCurrentPlace(Place place) { ClientInfo.currentPlace = place; }
+
+    public static Place getCurrentPlace() {
+        return currentPlace;
     }
 }

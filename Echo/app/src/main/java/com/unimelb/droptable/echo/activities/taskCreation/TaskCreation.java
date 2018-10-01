@@ -31,5 +31,6 @@ public class TaskCreation extends AppCompatActivity {
      */
     private void newTask() {
         startActivity(new Intent(this, TaskCategories.class));
+        finish();
     }
 }

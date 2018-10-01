@@ -1,46 +1,28 @@
 package com.unimelb.droptable.echo.activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Button;
 
-import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCreation;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
@@ -83,10 +65,17 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                 if (locationResult == null) {
                     return;
                 }
-                currentLocation = locationResult.getLastLocation();
-                Log.d("Lat:", String.valueOf(locationResult.getLastLocation().getLatitude()));
-                Log.d("Lon:", String.valueOf(locationResult.getLastLocation().getLongitude()));
-                mMap.addMarker(new MarkerOptions().position(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude())).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                else {
+                    currentLocation = locationResult.getLastLocation();
+                    Log.d("Lat:", String.valueOf(locationResult.getLastLocation().getLatitude()));
+                    Log.d("Lon:", String.valueOf(locationResult.getLastLocation().getLongitude()));
+                    try {
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude())).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    }
+                    catch (Exception e) {
+                        Log.d("help:", "null marker");
+                    }
+                }
             };
         };
 
@@ -95,16 +84,8 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // Get references and set listeners.
 
-        taskButton = findViewById(R.id.taskButton);
-        taskButton.setOnClickListener((view) -> {
-            onTaskPress();
-        });
-        if (ClientInfo.hasTask()) {
-            taskButton.setText(R.string.current_task_home_button);
-        } else {
-            taskButton.setText(R.string.new_task_home_button);
-        }
-
+        taskButton = findViewById(R.id.apTaskButton);
+        taskButton.setOnClickListener((view) -> {onTaskPress();});
 
         helperButton = findViewById(R.id.apMapHelperButton);
         helperButton.setOnClickListener(view -> {
@@ -122,7 +103,12 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
     @Override
     protected void onResume() {
         super.onResume();
-        startLocationUpdates();
+        // Ensure that the task button's text is up to date.
+        if (ClientInfo.hasTask()) {
+            taskButton.setText(R.string.current_task_home_button);
+        } else {
+            taskButton.setText(R.string.new_task_home_button);
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -146,36 +132,16 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
         mMap = googleMap;
 
-        LatLng carlton = new LatLng(-37.8001, 144.9671);
+//        // Add a marker in Sydney, Australia,
+//        // and move the map's camera to the same location.
+        LatLng melbourne = new LatLng(-37.8136, 144.9631);
 
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location location;
-        double longitude;
-        double latitude;
+//        googleMap.addMarker(new MarkerOptions().position(melbourne)
+//                .title("Marker in Melbourne"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(melbourne));
 
-
-//        try {
-//            mFusedLocationClient.getLastLocation()
-//                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-//                        @Override
-//                        public void onSuccess(Location location) {
-//                            // Got last known location. In some rare situations this can be null.
-//                            if (location != null) {
-//                                // Logic to handle location object
-//                                Log.d("GPS_success","GPS works!");
-//                                double latitude = location.getLatitude();
-//                                double longitude = location.getLongitude();
-//                                mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-//                            }
-//                        }
-//                    });
-//        } catch (SecurityException e) {
-//            Log.d("GPS_error","ur stuffed");
-//        }
-
-        //mMap.getUiSettings().setZoomControlsEnabled(true);
-
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 14));
+        googleMap.setMinZoomPreference(12);
+        startLocationUpdates();
     }
 
     private void onHelperPress() {

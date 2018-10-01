@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.unimelb.droptable.echo">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -36,13 +37,13 @@
         <activity android:name=".activities.RatingAcitivity" />
         <activity android:name=".activities.tasks.TaskAssistantList" />
         <activity android:name=".activities.tasks.TaskCurrent" />
+        <activity android:name=".activities.tasks.TaskAssistantDetails" />
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqDcWb2dGBHZ_mOtFPRS7rJ72g2KnaIFk"/>
+
         <activity android:name=".activities.AssistantMapActivity" />
         <activity android:name=".activities.HelperActivity" />
         <activity android:name=".activities.ChatActivity" />
-
-        <!--<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqDcWb2dGBHZ_mOtFPRS7rJ72g2KnaIFk"/>-->
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqDcWb2dGBHZ_mOtFPRS7rJ72g2KnaIFk"/>
 
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
 

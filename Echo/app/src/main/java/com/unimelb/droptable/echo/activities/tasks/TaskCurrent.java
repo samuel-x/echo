@@ -1,18 +1,27 @@
 package com.unimelb.droptable.echo.activities.tasks;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.ChatActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
@@ -22,10 +31,12 @@ public class TaskCurrent extends AppCompatActivity{
     private TextView taskCurrentAddress;
     private TextView taskCurrentTime;
     private TextView taskCurrentNotes;
-    private TextView assistantName;
-    private TextView assistantPhone;
+    private TextView otherUserName;
+    private TextView otherUserPhone;
     private ConstraintLayout avatar;
     private ConstraintLayout searchingMessage;
+    private ImageView messageButton;
+    private ImageView callButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,28 +47,43 @@ public class TaskCurrent extends AppCompatActivity{
         taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
         taskCurrentTime = findViewById(R.id.textTaskInProgressTime);
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
-        assistantName = findViewById(R.id.userName);
-        assistantPhone = findViewById(R.id.userPhone);
+        otherUserName = findViewById(R.id.userName);
+        otherUserPhone = findViewById(R.id.userPhone);
         avatar = findViewById(R.id.avatarContainer);
         searchingMessage = findViewById(R.id.isReadyLayer);
 
+        messageButton = findViewById(R.id.messagingButton);
+        messageButton.setOnClickListener(view -> onMessageButtonClick());
+
+        callButton = findViewById(R.id.callButton);
+        callButton.setOnClickListener(view -> onCallButtonClick());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        disableAvatar();
+
         ChildEventListener childEventListener = createListener();
         Query query = FirebaseAdapter.queryCurrentTask();
         query.addChildEventListener(childEventListener);
         ImmutableTask currentTask = FirebaseAdapter.getCurrentTask();
         bind(currentTask);
+        ClientInfo.setTask(currentTask);
+
+        if (ClientInfo.getTask().getAssistant() == null) {
+            disableAvatar();
+        } else {
+            enableAvatar();
+        }
     }
 
     public void bind(@NonNull ImmutableTask task) {
         setTitle(task.getTitle());
         setAddress(task.getAddress());
         setNotes(task.getNotes());
+        if (task.getAssistant() != null) {
+            updateAssistant(task.getAssistant());
+        }
         Log.d("Bind:", "Current Task UI AP");
     }
 
@@ -78,15 +104,20 @@ public class TaskCurrent extends AppCompatActivity{
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 // Check if the new child added is an assistant, if so, then update our avatar card
-                String assistantID = dataSnapshot.getValue(String.class);
-                updateAssistant(assistantID);
+                if (dataSnapshot.getKey().toString().equals("assistant")) {
+                    String assistantID = dataSnapshot.getValue(String.class);
+                    updateAssistant(assistantID);
+                }
+
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                // Update our element
-                String assistantID = dataSnapshot.getValue(String.class);
-                updateAssistant(assistantID);
+                // Check if the new child added is an assistant, if so, then update our avatar card
+                if (dataSnapshot.getKey().toString().equals("assistant")) {
+                    String assistantID = dataSnapshot.getValue(String.class);
+                    updateAssistant(assistantID);
+                }
             }
 
             @Override
@@ -108,11 +139,31 @@ public class TaskCurrent extends AppCompatActivity{
     }
 
     private void updateAssistant(String assistantID) {
-        // TODO: pull data from firebase about the assistant
-        assistantName.setText(assistantID);
+        DataSnapshot user;
+        // Update it with the AP's information if we are currently an assistant
+        if (ClientInfo.isAssistant()) {
+            String AP = ClientInfo.getTask().getAp();
+            user = FirebaseAdapter.getUser(AP);
+            otherUserName.setText(AP);
+            otherUserPhone.setText(user.child(getString(R.string.phone_number_child)).getValue(String.class));
+        }
+        else {
+            user = FirebaseAdapter.getUser(assistantID);
+            otherUserName.setText(assistantID);
+            otherUserPhone.setText(user.child(getString(R.string.phone_number_child)).getValue(String.class));
+        }
 
         // enable our avatar
         enableAvatar();
+    }
+
+    private void resetAssistant() {
+        otherUserName.setText(getString(R.string.unknown_user));
+        otherUserPhone.setText(getString(R.string.empty_phone_number));
+
+        if (ClientInfo.isAssistant()) {
+            ClientInfo.setTask(null);
+        }
     }
 
     private void enableAvatar() {
@@ -120,8 +171,10 @@ public class TaskCurrent extends AppCompatActivity{
             avatar.getChildAt(i).setAlpha(1.0f);
         }
 
-        searchingMessage.setEnabled(false);
-
+        for (int i = 0; i < searchingMessage.getChildCount(); i++) {
+            searchingMessage.getChildAt(i).setEnabled(false);
+            searchingMessage.getChildAt(i).setAlpha(0.0f);
+        }
     }
 
     private void disableAvatar() {
@@ -129,7 +182,51 @@ public class TaskCurrent extends AppCompatActivity{
             avatar.getChildAt(i).setAlpha(0.06f);
         }
 
-        searchingMessage.setEnabled(true);
+        for (int i = 0; i < searchingMessage.getChildCount(); i++) {
+            searchingMessage.getChildAt(i).setEnabled(true);
+            searchingMessage.getChildAt(i).setAlpha(1.0f);
+        }
 
+        resetAssistant();
+    }
+
+    private void onMessageButtonClick() {
+
+        startActivity(new Intent(this, ChatActivity.class)
+                .putExtra(getString(R.string.chat_partner),
+                        (ClientInfo.isAssistant()
+                                ? ClientInfo.getTask().getAp()
+                                : ClientInfo.getTask().getAssistant())));
+    }
+
+    private void onCallButtonClick() {
+        if(otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
+            // Assistant has no phone number so do nothing
+            return;
+        }else {
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                //Permission is allowed so call is made
+                makeCall();
+            } else {
+                //Permission is denied so permission is requested and then call is made
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 0);
+                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    //Permission has been granted
+                    makeCall();
+                } else {
+                    //Permission denied
+                    return;
+                }
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void makeCall() {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:" + otherUserPhone.getText().toString()));
+        startActivity(intent);
     }
 }

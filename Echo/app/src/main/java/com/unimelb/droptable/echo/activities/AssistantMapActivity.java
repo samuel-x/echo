@@ -22,6 +22,10 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.AutocompletePredictionBufferResponse;
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,9 +35,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import com.google.android.gms.tasks.Task;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
+import com.google.maps.PlaceAutocompleteRequest;
 import com.google.maps.model.DirectionsLeg;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
@@ -104,7 +110,9 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                     return;
                 }
                 currentLocation = locationResult.getLastLocation();
-            };
+
+                doMap(mMap);
+            }
         };
 
 
@@ -115,54 +123,21 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         taskButton = findViewById(R.id.assistantTaskButton);
         taskButton.setOnClickListener(view -> onTaskButtonClick());
+
+        settingsButton = findViewById(R.id.settingsButton);
+        infoButton = findViewById(R.id.infoButton);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Ensure that the task button's text is up to date.
         if (ClientInfo.hasTask()) {
             taskButton.setText(R.string.current_task_home_button);
         } else {
             taskButton.setText(R.string.new_task_home_button);
         }
-
-        settingsButton = findViewById(R.id.settingsButton);
-        infoButton = findViewById(R.id.infoButton);
-//        paymentButton = findViewById(R.id.paymentButton);
-//        paymentButton.setOnClickListener((view) -> {
-//            toPayment();
-//        });
-
-
-
-
-//        thread = new Thread() {
-//
-//            @Override
-//            public void run() {
-//                try {
-//                    while (!thread.isInterrupted()) {
-//                        Thread.sleep(1000);
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                doMap(mMap);
-//                            }
-//                        });
-//                    }
-//                } catch (InterruptedException e) {
-//                }
-//            }
-//        };
-//
-//        thread.start();
-    }
-
-//        infoButton.setOnClickListener(view -> {
-//            startActivity(new Intent(this, ChatActivity.class)
-//                    .putExtra(getString(R.string.chat_partner), "TestChatPartner"));
-//        });
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        startLocationUpdates();
     }
 
     @SuppressLint("MissingPermission")
@@ -184,10 +159,12 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
      */
     @Override
     public void onMapReady(GoogleMap googleMap){
-        doMap(googleMap);
+        if (ClientInfo.hasTask()) {
+            startLocationUpdates();
+        }
     }
 
-    public void doMap(GoogleMap googleMap) {
+    private void doMap(GoogleMap googleMap) {
 
         mMap = googleMap;
 
@@ -203,8 +180,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         LatLng southbank = new LatLng(-37.8290, 144.9570);
 
-
         LatLng destination = new LatLng(docklands.latitude, docklands.longitude);
+
         mMap.addMarker(new MarkerOptions().position(destination).title("Destination: " + "Docklands"));
 
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -214,7 +191,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         try {
             assert lm != null;
-            location = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            location = currentLocation;
             latitude = location.getLatitude();
             longitude = location.getLongitude();
             mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Start Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
@@ -228,9 +205,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         // to center the map, need to have midpoint of start and end points
         LatLng midPoint = new LatLng ((latitude + destination.latitude)/2, (longitude + destination.longitude)/2);
-
-
-
 
         // THIS ROUTE DRAWING BASED ON:
         // https://stackoverflow.com/questions/47492459/android-google-maps-draw-a-route-between-two-points-along-the-road

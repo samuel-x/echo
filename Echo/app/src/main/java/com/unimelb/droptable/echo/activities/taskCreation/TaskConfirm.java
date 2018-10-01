@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Api;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.ApMapActivity;
@@ -32,7 +33,7 @@ public class TaskConfirm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creation_confirm);
 
-        task = Utility.currentTaskBuilder.build();
+        task = Utility.currentTaskBuilder.status("PENDING").ap(ClientInfo.getUsername()).build();
 
         // Setup our buttons
         title = findViewById(R.id.textTaskConfirmTitle);
@@ -47,7 +48,6 @@ public class TaskConfirm extends AppCompatActivity {
         address.setText(task.getAddress());
         time.setText("Now");
         notes.setText(task.getNotes());
-
 
         setRecentButton.setOnClickListener((view) -> {setRecent();});
         setRecurringButton.setOnClickListener((view) -> {setRecurring();});
@@ -68,7 +68,6 @@ public class TaskConfirm extends AppCompatActivity {
         FirebaseAdapter.pushTask(task);
 
         // End this activity.
-        startActivity(new Intent(this, ApMapActivity.class));
         finish();
     }
 }
