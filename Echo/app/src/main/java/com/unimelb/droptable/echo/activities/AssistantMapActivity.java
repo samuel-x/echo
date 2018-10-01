@@ -2,12 +2,9 @@ package com.unimelb.droptable.echo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Button;
 
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -18,7 +15,6 @@ import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
-import com.unimelb.droptable.echo.activities.tasks.uiElements.CancelledTaskDialog;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {

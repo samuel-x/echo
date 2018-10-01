@@ -27,13 +27,12 @@ import com.unimelb.droptable.echo.activities.ApMapActivity;
 import com.unimelb.droptable.echo.activities.AssistantMapActivity;
 import com.unimelb.droptable.echo.activities.ChatActivity;
 import com.unimelb.droptable.echo.activities.PaymentActivity;
-import com.unimelb.droptable.echo.activities.tasks.uiElements.CancelledTaskDialog;
-import com.unimelb.droptable.echo.activities.tasks.uiElements.CompletedTaskDialog;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.CompletionTaskDialog;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class TaskCurrent extends AppCompatActivity
-        implements CancelledTaskDialog.NoticeDialogListener, CompletedTaskDialog.NoticeDialogListener{
+        implements CompletionTaskDialog.NoticeDialogListener{
 
     private TextView taskCurrentTitle;
     private TextView taskCurrentAddress;
@@ -85,7 +84,7 @@ public class TaskCurrent extends AppCompatActivity
             disableAvatar();
         } else {
             if (ClientInfo.getTask().getStatus().equals("COMPLETED")) {
-                showCompletedDialog();
+                showDialog("COMPLETED");
             }
             enableAvatar();
         }
@@ -99,19 +98,20 @@ public class TaskCurrent extends AppCompatActivity
         ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
 
         if (ClientInfo.getTask().getStatus().equals("COMPLETED")) {
-            showCompletedDialog();
+            showDialog("COMPLETED");
         }
     }
 
-    public void showCompletedDialog() {
-        DialogFragment dialog = new CompletedTaskDialog();
-        dialog.show(getSupportFragmentManager(), "CompletedDialogFragment");
-    }
-
-    public void showCancelledDialog() {
-        // Create an instance of the dialog fragment and show it
-        DialogFragment dialog = new CancelledTaskDialog();
-        dialog.show(getSupportFragmentManager(), "CancelledDialogFragment");
+    public void showDialog(String status) {
+        DialogFragment dialog = new CompletionTaskDialog();;
+        Bundle args = new Bundle();
+        args.putString("type", status);
+        dialog.setArguments(args);
+        if (status.equals("COMPLETED")) {
+            dialog.show(getSupportFragmentManager(), "COMPLETED");
+        } else {
+            dialog.show(getSupportFragmentManager(), "CANCELLED");
+        }
     }
 
     // The dialog fragment receives a reference to this Activity through the
@@ -184,14 +184,14 @@ public class TaskCurrent extends AppCompatActivity
                     updateAssistant(assistantID);
                 }
                 if (dataSnapshot.getKey().toString().equals("status") && dataSnapshot.getValue(String.class).equals("COMPLETED")) {
-                    showCompletedDialog();
+                    showDialog("COMPLETED");
                 }
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 // Disable avatar section and begin search for new assistant
-                showCancelledDialog();
+                showDialog("CANCELLED");
             }
 
             @Override
@@ -201,7 +201,7 @@ public class TaskCurrent extends AppCompatActivity
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                showCancelledDialog();
+                showDialog("CANCELLED");
             }
         };
     }

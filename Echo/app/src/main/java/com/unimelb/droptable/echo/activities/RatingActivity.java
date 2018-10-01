@@ -10,7 +10,7 @@ import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
-public class RatingAcitivity extends AppCompatActivity {
+public class RatingActivity extends AppCompatActivity {
 
     private Button confirmRating;
 

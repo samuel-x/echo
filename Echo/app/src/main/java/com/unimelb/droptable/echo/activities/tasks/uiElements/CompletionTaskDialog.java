@@ -12,7 +12,10 @@ import com.unimelb.droptable.echo.R;
 import static android.app.AlertDialog.Builder;
 
 
-public class CompletedTaskDialog extends DialogFragment {
+public class CompletionTaskDialog extends DialogFragment {
+
+    final private int ERROR = 1;
+    final private int COMPLETE = 0;
 
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
@@ -42,13 +45,24 @@ public class CompletedTaskDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Task has been completed.")
+        builder.setMessage(getDialog(savedInstanceState.getInt("type")))
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        mListener.onDialogPositiveClick(CompletedTaskDialog.this);
+                        mListener.onDialogPositiveClick(CompletionTaskDialog.this);
                     }
                 });
         return builder.create();
+    }
+
+    public String getDialog(int type) {
+        String str = "Message";
+        if (type == COMPLETE) {
+            str = "Task has been completed.";
+        }
+        else if (type == ERROR) {
+            str = "Task has been cancelled.";
+        }
+        return str;
     }
 }

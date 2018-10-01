@@ -1,11 +1,5 @@
 package com.unimelb.droptable.echo.clientTaskManagement;
 
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-
-import com.google.android.gms.dynamic.SupportFragmentWrapper;
-import com.unimelb.droptable.echo.activities.tasks.uiElements.CancelledTaskDialog;
-
 public class Utility {
 
     public static ImmutableTask.Builder currentTaskBuilder = ImmutableTask.builder()
