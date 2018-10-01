@@ -1,9 +1,12 @@
-package com.unimelb.droptable.echo.activities.tasks;
+package com.unimelb.droptable.echo.activities.taskCreation;
 
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
+
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
+import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,6 +27,7 @@ public class TaskSubcategoriesTest {
     @Before
     public void setUp() throws Exception {
         taskSubcategories = mActivityRule.getActivity();
+        taskSubcategories.getIntent().putExtra("category", "Household");
     }
 
     @Test
@@ -42,6 +46,12 @@ public class TaskSubcategoriesTest {
 
     @After
     public void tearDown() throws Exception {
-
+        // Reset task builder.
+        Utility.currentTaskBuilder = ImmutableTask.builder()
+                .title("Placeholder Title")
+                .address("Placeholder Address")
+                .category("Placeholder Category")
+                .subCategory("Placeholder Subcategory")
+                .notes("Placeholder Notes");
     }
 }

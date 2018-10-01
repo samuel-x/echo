@@ -1,4 +1,4 @@
-package com.unimelb.droptable.echo.activities.tasks;
+package com.unimelb.droptable.echo.activities.taskCreation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,12 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.MapActivity;
+import com.unimelb.droptable.echo.activities.ApMapActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
-import com.unimelb.droptable.echo.clientTaskManagement.Task;
+import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
+import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 
 public class TaskConfirm extends AppCompatActivity {
 
@@ -23,14 +25,14 @@ public class TaskConfirm extends AppCompatActivity {
     private Button setRecurringButton;
     private Button setRecentButton;
     private Button confirmButton;
-    private Task task;
+    private ImmutableTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creation_confirm);
 
-        task = (Task) getIntent().getSerializableExtra("task");
+        task = Utility.currentTaskBuilder.build();
 
         // Setup our buttons
         title = findViewById(R.id.textTaskConfirmTitle);
@@ -50,7 +52,6 @@ public class TaskConfirm extends AppCompatActivity {
         setRecentButton.setOnClickListener((view) -> {setRecent();});
         setRecurringButton.setOnClickListener((view) -> {setRecurring();});
         confirmButton.setOnClickListener((view) -> {confirmSubmit();});
-
     }
 
     private void setRecurring() {
@@ -60,12 +61,14 @@ public class TaskConfirm extends AppCompatActivity {
     private void setRecent() {
         Log.d("test","recent");
     }
+
     private void confirmSubmit() {
-
+        // Submit and remember the task.
+        ClientInfo.setTask(task);
         FirebaseAdapter.pushTask(task);
-        startActivity(new Intent(this, MapActivity.class));
+
+        // End this activity.
+        startActivity(new Intent(this, ApMapActivity.class));
         finish();
-
     }
-
 }

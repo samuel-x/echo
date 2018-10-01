@@ -1,4 +1,4 @@
-package com.unimelb.droptable.echo.activities.tasks;
+package com.unimelb.droptable.echo.activities.taskCreation;
 
 import android.content.Intent;
 import android.os.Bundle;

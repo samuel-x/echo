@@ -5,6 +5,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -13,6 +16,10 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Button;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,27 +37,41 @@ import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.DirectionsStep;
 import com.google.maps.model.EncodedPolyline;
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.tasks.TaskCreation;
+
+import com.unimelb.droptable.echo.activities.taskCreation.TaskCreation;
+import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
+import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
+
+//import com.unimelb.droptable.echo.activities.tasks.TaskCreation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private String TAG = "so47492459";
 
-    private FloatingActionButton newTaskButton;
-
+    private Button taskButton;
     private FloatingActionButton settingsButton;
     private FloatingActionButton infoButton;
     private Button paymentButton;
 
+//    static Thread thread;
+
+//    private LocationCallback mLocationCallback;
+//    public FusedLocationProviderClient mFusedLocationClient;
+//    public LocationRequest mLocationRequest = LocationRequest.create();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_assistant_map);
         //MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         //mapFragment.getMapAsync(this);
 
@@ -58,19 +79,60 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        newTaskButton = findViewById(R.id.addTaskButton);
-        newTaskButton.setOnClickListener((view) -> {
-            newTask();
-        });
+//        newTaskButton = findViewById(R.id.addTaskButton);
+//        newTaskButton.setOnClickListener((view) -> {
+//            newTask();
+//        });
 
-        // currently placeholders
+        // Read from the database to see if the assistant already has a task in progress.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
+
+        // Get references to UI elements.
+
+        taskButton = findViewById(R.id.assistantTaskButton);
+        taskButton.setOnClickListener(view -> onTaskButtonClick());
+        if (ClientInfo.hasTask()) {
+            taskButton.setText(R.string.current_task_home_button);
+        } else {
+            taskButton.setText(R.string.new_task_home_button);
+        }
+
         settingsButton = findViewById(R.id.settingsButton);
         infoButton = findViewById(R.id.infoButton);
-        paymentButton = findViewById(R.id.paymentButton);
-        paymentButton.setOnClickListener((view) -> {
-            toPayment();
-        });
+//        paymentButton = findViewById(R.id.paymentButton);
+//        paymentButton.setOnClickListener((view) -> {
+//            toPayment();
+//        });
+
+
+
+
+//        thread = new Thread() {
+//
+//            @Override
+//            public void run() {
+//                try {
+//                    while (!thread.isInterrupted()) {
+//                        Thread.sleep(1000);
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                doMap(mMap);
+//                            }
+//                        });
+//                    }
+//                } catch (InterruptedException e) {
+//                }
+//            }
+//        };
+//
+//        thread.start();
     }
+
+//        infoButton.setOnClickListener(view -> {
+//            startActivity(new Intent(this, ChatActivity.class)
+//                    .putExtra(getString(R.string.chat_partner), "TestChatPartner"));
+//        });
 
 
     /**
@@ -83,7 +145,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap){
+        doMap(googleMap);
+    }
+
+    public void doMap(GoogleMap googleMap) {
 
         mMap = googleMap;
 
@@ -109,6 +175,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         double latitude;
 
         try {
+            assert lm != null;
             location = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
             latitude = location.getLatitude();
             longitude = location.getLongitude();
@@ -198,7 +265,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         startActivity(new Intent(this, TaskCreation.class));
     }
 
-    public void toPayment() {
-        startActivity(new Intent(this, PaymentActivity.class));
+    private void onTaskButtonClick() {
+        if (ClientInfo.hasTask()) {
+            startActivity(new Intent(this, TaskCurrent.class));
+        } else {
+            startActivity(new Intent(this, TaskAssistantList.class));
+        }
     }
 }
