@@ -14,8 +14,8 @@ import static android.app.AlertDialog.Builder;
 
 public class CompletionTaskDialog extends DialogFragment {
 
-    final private int ERROR = 1;
-    final private int COMPLETE = 0;
+    final private String ERROR = "CANCELLED";
+    final private String COMPLETE = "COMPLETE";
 
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
@@ -45,7 +45,7 @@ public class CompletionTaskDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getDialog(savedInstanceState.getInt("type")))
+        builder.setMessage(getDialog(savedInstanceState.getString("type")))
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
@@ -55,12 +55,12 @@ public class CompletionTaskDialog extends DialogFragment {
         return builder.create();
     }
 
-    public String getDialog(int type) {
+    public String getDialog(String type) {
         String str = "Message";
-        if (type == COMPLETE) {
+        if (type.equals(COMPLETE)) {
             str = "Task has been completed.";
         }
-        else if (type == ERROR) {
+        else if (type.equals(ERROR)) {
             str = "Task has been cancelled.";
         }
         return str;
