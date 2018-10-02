@@ -54,6 +54,13 @@
         If you\'ve not yet started a task, you can create one with the \'%s\' button at the bottom.\n
         If you already have, you can press the \'%s\' button at the bottom to view its details.
     </string>
+    <string name="task_current_helper_text">
+        This screen lets you view the current task that you have asked for assistance with.
+        Until your task has been accepted by an assistant, this screen will simply display the details you wrote for the task\n
+        Once an assistant has accepted your task, their details is displayed near the middle of the screen, including their name and phone number.
+        You can press the left call button to initiate a call to your assistant.
+        You can also press the speech bubble on the right to begin a text chat session with your assistant.
+    </string>
 
     <!-- Strings related to chat messaging screen -->
     <string name="message_prompt">"Enter message…"</string>

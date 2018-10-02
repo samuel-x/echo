@@ -25,9 +25,6 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
     private Button taskButton;
     private FloatingActionButton helperButton;
 
-
-    private Button paymentButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +42,6 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
         helperButton = findViewById(R.id.apMapHelperButton);
         helperButton.setOnClickListener(view -> {onHelperPress();});
-
-        paymentButton = findViewById(R.id.paymentButton);
-        paymentButton.setOnClickListener((view) -> {toPayment();});
     }
 
     @Override
@@ -91,9 +85,4 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         ));
         startActivity(new Intent(this, HelperActivity.class));
     }
-
-    public void toPayment() {
-        startActivity(new Intent(this, PaymentActivity.class));
-    }
-
 }
