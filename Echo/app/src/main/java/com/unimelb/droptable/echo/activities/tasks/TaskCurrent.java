@@ -16,7 +16,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.Api;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -107,10 +106,12 @@ public class TaskCurrent extends AppCompatActivity
         Bundle args = new Bundle();
         args.putString("type", status);
         dialog.setArguments(args);
-        if (status.equals("COMPLETED")) {
-            dialog.show(getSupportFragmentManager(), "COMPLETED");
-        } else {
-            dialog.show(getSupportFragmentManager(), "CANCELLED");
+        if (hasWindowFocus()) {
+            if (status.equals("COMPLETED")) {
+                dialog.show(getSupportFragmentManager(), "COMPLETED");
+            } else {
+                dialog.show(getSupportFragmentManager(), "CANCELLED");
+            }
         }
     }
 
