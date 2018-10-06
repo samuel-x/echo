@@ -33,6 +33,7 @@ public class FirebaseAdapter {
     private final static String TASK_ID = "taskID";
     private final static String IS_ASSISTANT = "isAssistant";
     private final static String PHONE_NUMBER = "phoneNumber";
+    private final static String TOKEN_ROOT = "tokens";
 
     public final static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public final static DatabaseReference masterDbReference = database.getReference();
@@ -251,5 +252,18 @@ public class FirebaseAdapter {
         currentData.child(TASKS_ROOT).child(task.getId()).getRef().removeValue();
         currentData.child(USERS_ROOT).child(task.getAssistant()).child(TASK_ID).getRef().removeValue();
         currentData.child(USERS_ROOT).child(task.getAp()).child(TASK_ID).getRef().removeValue();
+    }
+
+    public static void sendRegistrationToServer(String token) {
+        tasksDbReference.child(TOKEN_ROOT).child(token).setValue("USER_PENDING");
+    }
+
+    public static void updateRegistrationToServer(String token, String user) {
+        tasksDbReference.child(USERS_ROOT).child(user).child("token").setValue(token);
+        tasksDbReference.child(TOKEN_ROOT).child(token).setValue(user);
+    }
+
+    public static String getUserRegistration(String user) {
+        return getUser(user).child("token").getValue(String.class);
     }
 }

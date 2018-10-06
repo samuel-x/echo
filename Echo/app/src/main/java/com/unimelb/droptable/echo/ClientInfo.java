@@ -7,6 +7,7 @@ public class ClientInfo {
     private static boolean isAssistant;
     private static ImmutableTask currentTask;
     private static String phoneNumber;
+    private static String currentToken;
 
     public static String getUsername() {
         return username;
@@ -14,6 +15,10 @@ public class ClientInfo {
 
     public static void setUsername(String username) {
         ClientInfo.username = username;
+    }
+
+    public static void setCurrentToken(String token) {
+        ClientInfo.currentToken = token;
     }
 
     public static boolean isAssistant() {
@@ -39,4 +44,8 @@ public class ClientInfo {
     public static String getPhoneNumber() {return phoneNumber;}
 
     public static void setPhoneNumber(String phoneNumber) { ClientInfo.phoneNumber = phoneNumber;}
+
+    public static String getToken() {
+        return currentToken;
+    }
 }

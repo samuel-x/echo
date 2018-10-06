@@ -1,6 +1,9 @@
 package com.unimelb.droptable.echo.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Button;
@@ -45,6 +48,21 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
     private void onCompleteTaskButton() {
         FirebaseAdapter.updateTaskStatus("COMPLETED", ClientInfo.getTask().getId());
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+        builder.setTitle("Complete Request")
+                .setMessage("Task Completion has been requested.")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     @Override

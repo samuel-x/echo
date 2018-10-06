@@ -97,7 +97,9 @@ public class LoginActivity extends AppCompatActivity {
         ClientInfo.setUsername(username);
         ClientInfo.setPhoneNumber(phoneNumber);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
-
+        if (ClientInfo.getToken() != null) {
+            FirebaseAdapter.updateRegistrationToServer(ClientInfo.getToken(), username);
+        }
         // Switch to the appropriate activity.
         if (ClientInfo.isAssistant()) {
             startActivity(new Intent(this, AssistantMapActivity.class));
