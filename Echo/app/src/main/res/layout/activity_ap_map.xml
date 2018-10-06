@@ -43,12 +43,13 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:clickable="true"
+        android:focusable="true"
         android:src="@android:drawable/ic_menu_help"
         android:tint="?attr/actionMenuTextColor"
         app:backgroundTint="?attr/colorBackgroundFloating"
+        app:fabSize="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="16dp"
-        android:focusable="true" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <Button
         android:id="@+id/apTaskButton"

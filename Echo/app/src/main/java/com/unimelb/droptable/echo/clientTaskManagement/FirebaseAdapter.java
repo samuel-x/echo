@@ -109,7 +109,9 @@ public class FirebaseAdapter {
     }
 
     public static String getCurrentTaskID() {
-        return currentData.child(USERS_ROOT).child(ClientInfo.getUsername())
+        return currentData
+                .child(USERS_ROOT)
+                .child(ClientInfo.getUsername())
                 .child(TASK_ID).getValue(String.class);
     }
 

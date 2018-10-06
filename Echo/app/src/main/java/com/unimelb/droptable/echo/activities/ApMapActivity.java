@@ -101,9 +101,6 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         } else {
             taskButton.setText(R.string.new_task_home_button);
         }
-
-
-
     }
 
     private void onTaskPress() {
@@ -236,7 +233,4 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         };
     }
-
-
 }
-

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import com.unimelb.droptable.echo.activities.AssistantMapActivity;
 import com.unimelb.droptable.echo.activities.ChatActivity;
 import com.unimelb.droptable.echo.activities.PaymentActivity;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.CompletionTaskDialog;
+import com.unimelb.droptable.echo.activities.HelperActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
@@ -43,6 +45,7 @@ public class TaskCurrent extends AppCompatActivity
     private ConstraintLayout searchingMessage;
     private ImageView messageButton;
     private ImageView callButton;
+    private FloatingActionButton helperButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,15 @@ public class TaskCurrent extends AppCompatActivity
 
         callButton = findViewById(R.id.callButton);
         callButton.setOnClickListener(view -> onCallButtonClick());
+
+        // Get a reference to the helper button and set its listener.
+        helperButton = findViewById(R.id.taskCurrentHelperButton);
+        helperButton.setOnClickListener(view -> {onHelperPress();});
+        if (ClientInfo.isAssistant()) {
+            // The user is an assistant, and we don't want to display the helper button to them.
+            helperButton.setAlpha(0f);
+            helperButton.setEnabled(false);
+        }
     }
 
     @Override
@@ -264,6 +276,10 @@ public class TaskCurrent extends AppCompatActivity
     }
 
     private void onMessageButtonClick() {
+        if (otherUserName.getText().toString().equals(getString(R.string.unknown_user))) {
+            // The task has not been accepted and thus there is not user to chat with.
+            return;
+        }
 
         startActivity(new Intent(this, ChatActivity.class)
                 .putExtra(getString(R.string.chat_partner),
@@ -301,5 +317,10 @@ public class TaskCurrent extends AppCompatActivity
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel:" + otherUserPhone.getText().toString()));
         startActivity(intent);
+    }
+
+    private void onHelperPress() {
+        HelperActivity.setCurrentHelperText(getString(R.string.task_current_helper_text));
+        startActivity(new Intent(this, HelperActivity.class));
     }
 }
