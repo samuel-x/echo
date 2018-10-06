@@ -1,5 +1,6 @@
 package com.unimelb.droptable.echo;
 
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class ClientInfo {
@@ -31,6 +32,10 @@ public class ClientInfo {
 
     public static ImmutableTask getTask() {
         return currentTask;
+    }
+
+    public static void updateTask() {
+        currentTask = FirebaseAdapter.getCurrentTask();
     }
 
     public static boolean hasTask() {
