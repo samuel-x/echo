@@ -1,5 +1,7 @@
 package com.unimelb.droptable.echo;
 
+import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +25,42 @@ public class ClientInfoTest {
 
         ClientInfo.setIsAssistant(true);
         assertEquals(true, ClientInfo.isAssistant());
+    }
+
+    @Test
+    public void testAssignTask() {
+        String testTitle = "MyTitle";
+        String testAddress = "MyAddress";
+        String testCategory = "MyCategory";
+        String testSubCategory = "MySubCategory";
+        String testNotes = "MyNotes";
+        String testStatus = "MyStatus";
+        String ap = "AP";
+        String assistant = "assistant";
+        String id = "ID";
+
+        ImmutableTask task = ImmutableTask.builder()
+                .title(testTitle)
+                .address(testAddress)
+                .category(testCategory)
+                .subCategory(testSubCategory)
+                .notes(testNotes)
+                .status(testStatus)
+                .ap(ap)
+                .assistant(assistant)
+                .id(id).build();
+
+        ClientInfo.setTask(task);
+        assertEquals(ClientInfo.getTask(), task);
+    }
+
+    @Test
+    public void testToken() {
+        String testToken = "ABC";
+
+        ClientInfo.setCurrentToken(testToken);
+
+        assertEquals(ClientInfo.getToken(), testToken);
     }
 
     @After
