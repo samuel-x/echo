@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(ImmutableTask.Builder.class)
+@PrepareForTest({ImmutableTask.Builder.class, TaskSubcategories.class})
 public class TaskSubcategoriesTest {
 
     private static String TEST_A_TEXT = "TESTA";
@@ -60,20 +60,26 @@ public class TaskSubcategoriesTest {
     }
 
     @Test
-    public void taskDetailsA() {
+    public void taskDetailsA() throws Exception {
         verify(Utility.currentTaskBuilder, times(0))
                 .subCategory(TEST_A_TEXT);
         taskSubCategories.taskDetailsA();
         verify(Utility.currentTaskBuilder, times(1))
                 .subCategory(TEST_A_TEXT);
+
+        // Verify activity change.
+        PowerMockito.verifyNew(Intent.class).withArguments(taskSubCategories, TaskDetails.class);
     }
 
     @Test
-    public void taskDetailsB() {
+    public void taskDetailsB() throws Exception {
         verify(Utility.currentTaskBuilder, times(0))
                 .subCategory(TEST_B_TEXT);
         taskSubCategories.taskDetailsB();
         verify(Utility.currentTaskBuilder, times(1))
                 .subCategory(TEST_B_TEXT);
+
+        // Verify activity change.
+        PowerMockito.verifyNew(Intent.class).withArguments(taskSubCategories, TaskDetails.class);
     }
 }

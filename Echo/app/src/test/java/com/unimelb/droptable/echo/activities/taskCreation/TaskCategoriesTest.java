@@ -48,30 +48,42 @@ public class TaskCategoriesTest {
     }
 
     @Test
-    public void otherTask() {
+    public void otherTask() throws Exception {
         verify(Utility.currentTaskBuilder, times(0)).category("Other");
         taskCategories.otherTask();
         verify(Utility.currentTaskBuilder, times(1)).category("Other");
+
+        // Verify activity change.
+        PowerMockito.verifyNew(Intent.class).withArguments(taskCategories, TaskDetails.class);
     }
 
     @Test
-    public void householdTask() {
+    public void householdTask() throws Exception {
         verify(Utility.currentTaskBuilder, times(0)).category("Household");
         taskCategories.householdTask();
         verify(Utility.currentTaskBuilder, times(1)).category("Household");
+
+        // Verify activity change.
+        PowerMockito.verifyNew(Intent.class).withArguments(taskCategories, TaskSubcategories.class);
     }
 
     @Test
-    public void deliveryTask() {
+    public void deliveryTask() throws Exception {
         verify(Utility.currentTaskBuilder, times(0)).category("Delivery");
         taskCategories.deliveryTask();
         verify(Utility.currentTaskBuilder, times(1)).category("Delivery");
+
+        // Verify activity change.
+        PowerMockito.verifyNew(Intent.class).withArguments(taskCategories, TaskSubcategories.class);
     }
 
     @Test
-    public void transportTask() {
+    public void transportTask() throws Exception {
         verify(Utility.currentTaskBuilder, times(0)).category("Transport");
         taskCategories.transportTask();
         verify(Utility.currentTaskBuilder, times(1)).category("Transport");
+
+        // Verify activity change.
+        PowerMockito.verifyNew(Intent.class).withArguments(taskCategories, TaskSubcategories.class);
     }
 }

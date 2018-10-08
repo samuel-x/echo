@@ -42,10 +42,7 @@ public class TaskDetailsTest {
         // Define mock behaviors.
         Mockito.doNothing().when(taskDetails).onCreate(any(Bundle.class));
         Mockito.doNothing().when(taskDetails).setContentView(any(int.class));
-        PowerMockito.whenNew(Intent.class)
-                .withParameterTypes(Context.class, Class.class)
-                .withArguments(eq(Context.class), eq(TaskConfirm.class))
-                .thenReturn(intentMock);
+        PowerMockito.whenNew(Intent.class).withAnyArguments().thenReturn(intentMock);
         when(intentMock.putExtra(any(String.class), any(String.class))).thenReturn(intentMock);
         Mockito.doNothing().when(taskDetails).finish();
         Mockito.doNothing().when(taskDetails).startActivity(any());
