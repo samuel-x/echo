@@ -28,8 +28,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
     private GoogleMap mMap;
 
-    private Button taskButton;
-    private Button completeTaskButton;
+    protected Button taskButton;
+    protected Button completeTaskButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +127,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
      * necessary dialog.
      * @return
      */
-     private ChildEventListener createListener() {
+     protected ChildEventListener createListener() {
         return new ChildEventListener() {
 
             // TODO: Implement these properly

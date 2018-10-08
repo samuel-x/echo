@@ -1,5 +1,7 @@
 package com.unimelb.droptable.echo.activities;
 
+import android.os.Bundle;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,13 +24,6 @@ public class LoginActivityTest {
         // Assign values
         login = new LoginActivity();
     }
-
-//    @Test
-//    public void testLogin() throws Exception {
-//        login.usernameText.setText(validUsername);
-//        login.phoneNumberText.setText(validPhoneNumber);
-//        login.attemptLogin();
-//    }
 
     @Test
     public void testUsername() throws Exception {

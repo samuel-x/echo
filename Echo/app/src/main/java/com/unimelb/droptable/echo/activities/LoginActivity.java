@@ -57,7 +57,14 @@ public class LoginActivity extends AppCompatActivity {
 
         // Get a reference to the sign in button and set its listener.
         signInButton = findViewById(R.id.signInButton);
-        signInButton.setOnClickListener((view) -> {attemptLogin();});
+        signInButton.setOnClickListener((view) -> {
+            try {
+                attemptLogin();
+            } catch (LoginError loginError) {
+                // TODO: Make a more obvious style of error
+                Toast.makeText(this, loginError.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         // Get a reference to the helper button and set its listener.
         helperButton = findViewById(R.id.loginHelperButton);
@@ -73,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    protected void attemptLogin() {
+    protected void attemptLogin() throws LoginError {
         showProgress(true);
 
         String username = usernameText.getText().toString();
@@ -82,19 +89,13 @@ public class LoginActivity extends AppCompatActivity {
         // Verify that the user name is valid.
         if (!isUsernameValid(username)) {
             showProgress(false);
-            // TODO: Show a more obvious error message.
-            Toast.makeText(LoginActivity.this, NAME_FAIL, Toast.LENGTH_LONG).show();
-            Log.d("Login", "Denied access based on invalid user name");
-            return;
+            throw new LoginError(NAME_FAIL);
         }
 
         // Verify that the phone number is valid.
         if(!isPhoneNumberValid(phoneNumber)) {
             showProgress(false);
-            // TODO: Show a more obvious error message.
-            Toast.makeText(LoginActivity.this, PHONE_FAIL, Toast.LENGTH_LONG).show();
-            Log.d("Login", "Denied access based on invalid phone number");
-            return;
+            throw new LoginError(PHONE_FAIL);
         }
 
         // Verify that the isAssistant checkbox matches the boolean on the database, if the username
@@ -102,10 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         if (FirebaseAdapter.userExists(username)
                 && isAssistantCheckBox.isChecked() != FirebaseAdapter.getIsAssistant(username)) {
             showProgress(false);
-            // TODO: Show a more obvious error message.
-            Toast.makeText(LoginActivity.this, LOGIN_FAIL, Toast.LENGTH_LONG).show();
-            Log.d("Login", "Denied access based on user type for existing user");
-            return;
+            throw new LoginError(LOGIN_FAIL);
         }
 
         FirebaseAdapter.pushUser(username, phoneNumber, isAssistantCheckBox.isChecked());
@@ -193,5 +191,13 @@ public class LoginActivity extends AppCompatActivity {
             // and hide the relevant UI components.
             signInView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    private class LoginError extends Exception {
+
+        public LoginError() { super(); }
+
+        public LoginError(String message) { super(message); }
+
     }
 }

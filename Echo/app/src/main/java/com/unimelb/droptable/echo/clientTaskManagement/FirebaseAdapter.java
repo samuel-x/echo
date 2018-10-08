@@ -36,13 +36,13 @@ public class FirebaseAdapter {
     private final static String ASSISTANT = "assistant";
     private final static String STATUS = "status";
 
-    public final static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public final static DatabaseReference masterDbReference = database.getReference();
-    public final static DatabaseReference tasksDbReference = database.getReference()
+    public static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public static DatabaseReference masterDbReference = database.getReference();
+    public final static DatabaseReference tasksDbReference = masterDbReference
             .child(TASKS_ROOT);
-    public final static DatabaseReference messagesDbReference = database.getReference()
+    public final static DatabaseReference messagesDbReference = masterDbReference
             .child(MESSAGES_ROOT);
-    public final static DatabaseReference usersDbReference = database.getReference()
+    public final static DatabaseReference usersDbReference = masterDbReference
             .child(USERS_ROOT);
 
     public static DataSnapshot currentData;
@@ -61,6 +61,15 @@ public class FirebaseAdapter {
 
     // Our base query for assistants
     public final static Query mostRecentTasks = tasksDbReference.orderByChild("status").equalTo("PENDING");
+
+    public FirebaseAdapter(DatabaseReference testDatabase, DataSnapshot testSnapshot) {
+        // Constructor for the test
+        masterDbReference = testDatabase;
+        currentData = testSnapshot;
+    }
+
+    public FirebaseAdapter() {
+    }
 
     /**
      * Pushes a task to the database and assigns it to the current user
@@ -228,6 +237,8 @@ public class FirebaseAdapter {
     }
 
     public static void goOffline() {
+        masterDbReference.removeEventListener(FirebaseAdapter.listener);
+        masterDbReference.removeEventListener(FirebaseAdapter.listener);
         database.goOffline();
     }
 

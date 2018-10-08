@@ -2,9 +2,13 @@ package com.unimelb.droptable.echo.activities.tasks;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -114,15 +118,59 @@ public class TaskCurrent extends AppCompatActivity
     }
 
     public void showDialog(String status) {
-        DialogFragment dialog = new CompletionTaskDialog();
-        Bundle args = new Bundle();
-        args.putString("type", status);
-        dialog.setArguments(args);
         if (hasWindowFocus()) {
+            Context currentContext = this;
             if (status.equals("COMPLETED")) {
-                dialog.show(getSupportFragmentManager(), "COMPLETED");
-            } else {
-                dialog.show(getSupportFragmentManager(), "CANCELLED");
+                // Create a dialog for the AP, requesting that the task be completed.
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(this,
+                            android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(this);
+                }
+                builder.setTitle("Complete Task Request")
+                        .setMessage("Task Completion has been requested by "
+                                + ClientInfo.getTask().getAssistant())
+                        .setPositiveButton(android.R.string.yes,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if (!ClientInfo.isAssistant()) {
+                                            startActivity(new Intent(currentContext,
+                                                    PaymentActivity.class));
+                                        }
+                                    }
+                                })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            } else if (status.equals("CANCELLED")) {
+                // Create a dialog for the AP/Assistant, notifying the user that the task has been
+                // cancelled.
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(this,
+                            android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(this);
+                }
+                builder.setTitle("Task Cancelled")
+                        .setMessage("Unfortunately, the task has been cancelled.")
+                        .setPositiveButton(android.R.string.yes,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // User touched the dialog's positive button
+                                        if (ClientInfo.isAssistant()) {
+                                            startActivity(new Intent(currentContext,
+                                                    AssistantMapActivity.class));
+                                            ClientInfo.setTask(null);
+                                        }
+                                        else {
+                                            ClientInfo.setTask(null);
+                                        }
+                                    }
+                                })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         }
     }
@@ -134,13 +182,7 @@ public class TaskCurrent extends AppCompatActivity
     public void onDialogPositiveClick(DialogFragment dialog) {
         // User touched the dialog's positive button
         if (dialog.getTag().equals("COMPLETED")) {
-            if (ClientInfo.isAssistant()) {
-                startActivity(new Intent(this, AssistantMapActivity.class));
-                ClientInfo.setTask(null);
-            }
-            else {
-                startActivity(new Intent(this, PaymentActivity.class));
-            }
+
         }
         else {
             if (ClientInfo.isAssistant()) {

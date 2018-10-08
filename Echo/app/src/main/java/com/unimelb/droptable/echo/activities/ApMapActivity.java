@@ -32,7 +32,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
 
-    private Button taskButton;
+    protected Button taskButton;
     private FloatingActionButton helperButton;
 
     private Query taskQuery;
@@ -57,9 +57,6 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Read from the database to see if the AP already has a task in progress.
-        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
 
         // Ensure that the task button's text is up to date.
         if (ClientInfo.hasTask()) {
@@ -133,10 +130,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         startActivity(new Intent(this, HelperActivity.class));
     }
 
-    public void toPayment() {
-        startActivity(new Intent(this, PaymentActivity.class));
-    }
-    private ChildEventListener createListener() {
+    protected ChildEventListener createListener() {
         return new ChildEventListener() {
 
             // Check that the added value is an assistant and show the dialog
@@ -190,7 +184,8 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                                     new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // User touched the dialog's positive button
-                                    startActivity(new Intent(currentContext, PaymentActivity.class));
+                                    startActivity(new Intent(currentContext,
+                                            PaymentActivity.class));
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -204,13 +199,15 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                 if (dataSnapshot.getKey().toString().equals("title")) {
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(ApMapActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                        builder = new AlertDialog.Builder(ApMapActivity.this,
+                                android.R.style.Theme_Material_Dialog_Alert);
                     } else {
                         builder = new AlertDialog.Builder(ApMapActivity.this);
                     }
                     builder.setTitle("Task Cancellation")
                             .setMessage("Unfortunately, the task has been cancelled.")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            .setPositiveButton(android.R.string.yes,
+                                    new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
 
                                 }

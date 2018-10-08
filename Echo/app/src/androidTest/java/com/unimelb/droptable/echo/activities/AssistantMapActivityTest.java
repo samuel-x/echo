@@ -31,17 +31,6 @@ public class AssistantMapActivityTest {
         assistantMapActivity = mActivityRule.getActivity();
     }
 
-    @Test
-    public void testChatButton() {
-        assertEquals(true, assistantMapActivity.hasWindowFocus());
-
-        // Prepare for the chat window.
-        ClientInfo.setUsername("TestUsername");
-
-        onView(withId(R.id.infoButton)).perform(click());
-        assertEquals(false, assistantMapActivity.hasWindowFocus());
-    }
-
     @After
     public void tearDown() throws Exception {
         ClientInfo.setUsername(null);

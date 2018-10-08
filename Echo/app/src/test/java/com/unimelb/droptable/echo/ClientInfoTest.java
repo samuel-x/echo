@@ -3,7 +3,6 @@ package com.unimelb.droptable.echo;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,11 +10,18 @@ import static org.junit.Assert.*;
 public class ClientInfoTest {
 
     private static final String TEST_USER_NAME = "AS&(8asdg";
+    private static final String TEST_PHONE_NUMBER = "0412356789";
 
     @Test
     public void testUsername() {
         ClientInfo.setUsername(TEST_USER_NAME);
         assertEquals(TEST_USER_NAME, ClientInfo.getUsername());
+    }
+
+    @Test
+    public void testPhoneNumber() {
+        ClientInfo.setPhoneNumber(TEST_PHONE_NUMBER);
+        assertEquals(TEST_PHONE_NUMBER, ClientInfo.getPhoneNumber());
     }
 
     @Test
