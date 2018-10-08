@@ -11,24 +11,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ImmutableTask.Builder.class, TaskCategories.class})
+@PrepareForTest(ImmutableTask.Builder.class)
 public class TaskSubcategoriesTest {
 
-    private static String subCategoryAText = "TESTA";
-    private static String subCategoryBText = "TESTB";
+    private static String TEST_A_TEXT = "TESTA";
+    private static String TEST_B_TEXT = "TESTB";
 
     private TaskSubcategories taskSubCategories;
 
@@ -51,9 +49,9 @@ public class TaskSubcategoriesTest {
 
         // Mock buttons.
         taskSubCategories.subcategoryA = PowerMockito.mock(Button.class);
-        when(taskSubCategories.subcategoryA.getText()).thenReturn(subCategoryAText);
+        when(taskSubCategories.subcategoryA.getText()).thenReturn(TEST_A_TEXT);
         taskSubCategories.subcategoryB = PowerMockito.mock(Button.class);
-        when(taskSubCategories.subcategoryB.getText()).thenReturn(subCategoryBText);
+        when(taskSubCategories.subcategoryB.getText()).thenReturn(TEST_B_TEXT);
     }
 
     @After
@@ -64,18 +62,18 @@ public class TaskSubcategoriesTest {
     @Test
     public void taskDetailsA() {
         verify(Utility.currentTaskBuilder, times(0))
-                .subCategory(subCategoryAText);
+                .subCategory(TEST_A_TEXT);
         taskSubCategories.taskDetailsA();
         verify(Utility.currentTaskBuilder, times(1))
-                .subCategory(subCategoryAText);
+                .subCategory(TEST_A_TEXT);
     }
 
     @Test
     public void taskDetailsB() {
         verify(Utility.currentTaskBuilder, times(0))
-                .subCategory(subCategoryBText);
+                .subCategory(TEST_B_TEXT);
         taskSubCategories.taskDetailsB();
         verify(Utility.currentTaskBuilder, times(1))
-                .subCategory(subCategoryBText);
+                .subCategory(TEST_B_TEXT);
     }
 }
