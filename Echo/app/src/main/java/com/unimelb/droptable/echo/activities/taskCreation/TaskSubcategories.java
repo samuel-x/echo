@@ -12,8 +12,8 @@ import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 public class TaskSubcategories extends AppCompatActivity {
 
     // Grab UI references
-    private Button subcategoryA;
-    private Button subcategoryB;
+    protected Button subcategoryA;
+    protected Button subcategoryB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +44,13 @@ public class TaskSubcategories extends AppCompatActivity {
         subcategoryB.setOnClickListener((view) -> {taskDetailsB();});
     }
 
-    private void taskDetailsA() {
+    protected void taskDetailsA() {
         Utility.currentTaskBuilder.subCategory(subcategoryA.getText().toString());
         startActivity(new Intent(this, TaskDetails.class));
         finish();
     }
 
-    private void taskDetailsB() {
+    protected void taskDetailsB() {
         Utility.currentTaskBuilder.subCategory(subcategoryB.getText().toString());
         startActivity(new Intent(this, TaskDetails.class));
         finish();

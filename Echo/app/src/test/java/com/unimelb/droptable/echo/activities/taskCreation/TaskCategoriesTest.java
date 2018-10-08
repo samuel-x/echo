@@ -37,7 +37,7 @@ public class TaskCategoriesTest {
         PowerMockito.whenNew(Intent.class).withAnyArguments().thenReturn(intentMock);
         when(intentMock.putExtra(any(String.class), any(String.class))).thenReturn(intentMock);
         Mockito.doNothing().when(taskCategories).finish();
-        Mockito.doNothing().when(taskCategories).startActivity(intentMock);
+        Mockito.doNothing().when(taskCategories).startActivity(any(Intent.class));
 
         // Mock task builder.
         Utility.currentTaskBuilder = PowerMockito.mock(ImmutableTask.Builder.class);
