@@ -42,7 +42,12 @@ dependencies {
     // FirebaseUI for Firebase Realtime Database
     implementation 'com.firebaseui:firebase-ui-database:4.2.0'
 
-    testImplementation "org.mockito:mockito-core:2.22.0"
+    // Mockito/Powermock
+//    testImplementation "org.mockito:mockito-core:2.22.0"
+    testImplementation "org.powermock:powermock-core:1.7.4"
+    testImplementation "org.powermock:powermock-module-junit4:1.7.4"
+    testImplementation "org.powermock:powermock-api-mockito2:1.7.4"
+
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.google.firebase:firebase-database:16.0.3'
     implementation 'com.google.firebase:firebase-messaging:17.3.3'
