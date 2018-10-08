@@ -39,6 +39,13 @@
         <activity android:name=".activities.ChatActivity" />
         <activity android:name=".activities.tasks.TaskCurrent" />
         <activity android:name=".activities.tasks.TaskAssistantList" />
+        <activity android:name=".activities.clientTaskManagement.FirebaseNotificationsAdapter" />
+
+        <service android:name=".activities.tasks.uiElements.NotificationService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqDcWb2dGBHZ_mOtFPRS7rJ72g2KnaIFk"/>
 
