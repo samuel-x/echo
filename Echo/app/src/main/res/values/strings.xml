@@ -77,4 +77,9 @@
     <string name="phone_number_child">phoneNumber</string>
 
     <string name="accept_task">accept</string>
+
+
+    <!--Payment-->
+    <string name = "title"> Payment Summary </string>
+
 </resources>

@@ -64,6 +64,7 @@ public class TaskCurrent extends AppCompatActivity{
         // Get a reference to the helper button and set its listener.
         helperButton = findViewById(R.id.taskCurrentHelperButton);
         helperButton.setOnClickListener(view -> {onHelperPress();});
+
         if (ClientInfo.isAssistant()) {
             // The user is an assistant, and we don't want to display the helper button to them.
             helperButton.setAlpha(0f);

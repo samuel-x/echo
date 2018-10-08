@@ -11,17 +11,17 @@
         android:layout_height="50dp">
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:gravity="center_horizontal"
             android:inputType="textPersonName"
-            android:paddingLeft="150dp"
-            android:text="Payment" />
+            tools:text="@string/title" />
     </ScrollView>
 
     <EditText
-        android:id="@+id/Summary"
+        android:id="@+id/taskTitle"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:ems="10"
@@ -30,16 +30,31 @@
         android:paddingBottom="-10dp"
         android:paddingLeft="50dp"
         android:paddingTop="-100dp"
-        android:text='Task "Buy Medication" Complete'
-        tools:layout_height="100dp" />
+        tools:layout_height="50dp" />
 
     <EditText
-        android:id="@+id/Tip"
+        android:id="@+id/details"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:ems="10"
-        android:inputType="numberDecimal"
-        android:text="Add Tip" />
+        android:gravity="top|bottom|left"
+        android:inputType="textPersonName"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        tools:layout_height="50dp" />
+
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:gravity="top|bottom|left"
+        android:inputType="textPersonName"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        tools:layout_height="50dp" />
 
     <Button
         android:id="@+id/confirmButton"
