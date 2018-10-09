@@ -10,6 +10,8 @@ public class ImmutableTaskTest {
     private final String testAddress = "MyAddress";
     private final String testCategory = "MyCategory";
     private final String testSubCategory = "MySubCategory";
+    private final String testStatus = "MyStatus";
+    private final String testAp = "MyAp";
     private final String testNotes = "MyNotes";
 
     @Test
@@ -19,6 +21,8 @@ public class ImmutableTaskTest {
                 .address(testAddress)
                 .category(testCategory)
                 .subCategory(testSubCategory)
+                .status(testStatus)
+                .ap(testAp)
                 .notes(testNotes)
                 .build();
 
