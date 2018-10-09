@@ -70,7 +70,10 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                     Log.d("Lat:", String.valueOf(locationResult.getLastLocation().getLatitude()));
                     Log.d("Lon:", String.valueOf(locationResult.getLastLocation().getLongitude()));
                     try {
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude())).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        if (currentLocation != null){
+                            mMap.clear();
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude())).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        }
                     }
                     catch (Exception e) {
                         Log.d("help:", "null marker");

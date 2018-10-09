@@ -193,6 +193,8 @@ public class FirebaseAdapter {
         String status = taskRef.child("status").getValue(String.class);
         String ap = taskRef.child("ap").getValue(String.class);
         String assistant = taskRef.child("assistant").getValue(String.class);
+        String latitude = taskRef.child("latitude").getValue(String.class);
+        String longitude = taskRef.child("longitude").getValue(String.class);
 
 
         return ImmutableTask.builder()
@@ -204,6 +206,8 @@ public class FirebaseAdapter {
                 .status(status)
                 .ap(ap)
                 .assistant(assistant)
+                .latitude(latitude)
+                .longitude(longitude)
                 .id(taskRef.getKey()).build();
     }
 

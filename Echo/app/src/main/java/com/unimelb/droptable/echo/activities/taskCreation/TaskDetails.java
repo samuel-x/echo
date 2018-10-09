@@ -53,6 +53,8 @@ public class TaskDetails extends AppCompatActivity {
                 // TODO: Get info about the selected place.
                 Log.i("TEST:", "Place: " + place.getName());
                 Utility.currentTaskBuilder.address(place.getName().toString());
+                Utility.currentTaskBuilder.latitude(Double.valueOf(place.getLatLng().latitude).toString());
+                Utility.currentTaskBuilder.longitude(Double.valueOf(place.getLatLng().longitude).toString());
             }
 
             @Override

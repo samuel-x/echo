@@ -16,7 +16,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -67,6 +69,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     private FloatingActionButton settingsButton;
     private FloatingActionButton infoButton;
     private Button paymentButton;
+    private TextView todoText;
 
 //    static Thread thread;
 
@@ -94,6 +97,9 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 //            newTask();
 //        });
 
+        todoText = findViewById(R.id.todoText);
+        todoText.setText("");
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationRequest = new LocationRequest();
@@ -118,12 +124,20 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                     LatLng startLL = new LatLng(startLat, startLon);
                     LatLng southbank = new LatLng(-37.8290, 144.9570);
                     LatLng endLL = southbank;
+
                     try {
                         mMap.clear();
                         mMap.addMarker(new MarkerOptions().position(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude())).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                         if (ClientInfo.hasTask()) {
 
+                            endLL = new LatLng(Double.parseDouble(ClientInfo.getTask().getLatitude()), Double.parseDouble(ClientInfo.getTask().getLongitude()));
+                            Log.d("dest loc from database:", endLL.toString());
                             doMap(mMap, startLL, endLL);
+                            //doMap(mMap, endLL, new LatLng(-37.8170, 144.9460));
+
+                            todoText.setText("Go to " + ClientInfo.getTask().getAddress());
+                           //todoText.setAllCaps(true);
+
                         }
                     }
                     catch (Exception e) {
@@ -144,6 +158,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         settingsButton = findViewById(R.id.settingsButton);
         infoButton = findViewById(R.id.infoButton);
+
     }
 
     @Override
@@ -193,6 +208,9 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         mMap = googleMap;
 
+
+        //LOCATIONS FOR TESTING
+
         // WORKSHOP LOCATION FOR TESTING: -37.800900, 144.958847
 
         LatLng melbourne = new LatLng(-37.8136, 144.9631);
@@ -236,9 +254,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         List<LatLng> path = new ArrayList();
 
         //Execute Directions API request
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyBrPt88vvoPDDn_imh-RzCXl5Ha2F2LYig")
-                .build();
+        GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyBrPt88vvoPDDn_imh-RzCXl5Ha2F2LYig").build();
         DirectionsApiRequest req = DirectionsApi.getDirections(context,
                 ("\"" + latitude + "," + longitude + "\""), ("\"" + destination.latitude + "," + destination.longitude + "\""));
         try {
