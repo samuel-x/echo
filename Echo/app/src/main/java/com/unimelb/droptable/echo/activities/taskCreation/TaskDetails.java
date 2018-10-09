@@ -20,7 +20,6 @@ public class TaskDetails extends AppCompatActivity {
     private TextView taskNotes;
     private ImageButton cameraButton;
     private Button submitNowButton;
-    private Button submitLaterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +33,8 @@ public class TaskDetails extends AppCompatActivity {
         taskNotes = findViewById(R.id.textTaskNotes);
         cameraButton = findViewById(R.id.buttonTaskCamera);
         submitNowButton = findViewById(R.id.buttonTaskNow);
-        submitLaterButton = findViewById(R.id.buttonTaskLater);
 
         submitNowButton.setOnClickListener((view) -> {submitNow();});
-        submitLaterButton.setOnClickListener((view) -> {submitNow();});
 
     }
 

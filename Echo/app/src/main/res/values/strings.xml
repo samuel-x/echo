@@ -9,7 +9,7 @@
     <string name="button_other_text">Other</string>
     <string name="task_notes">Task Notes</string>
     <string name="prompt_details">Details…</string>
-    <string name="button_task_now">Now</string>
+    <string name="button_task_now">Continue</string>
     <string name="button_task_later">Later</string>
     <string name="new_task">New Task</string>
     <string name="saved_tasks">Saved Tasks</string>

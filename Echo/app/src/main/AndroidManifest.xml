@@ -27,7 +27,6 @@
         <activity android:name=".activities.ApMapActivity" />
         <activity android:name=".activities.taskCreation.TaskCategories" />
         <activity android:name=".activities.taskCreation.TaskConfirm" />
-        <activity android:name=".activities.taskCreation.TaskCreation" />
         <activity android:name=".activities.taskCreation.TaskDetails" />
         <activity android:name=".activities.taskCreation.TaskSubcategories" />
         <activity android:name=".activities.PaymentActivity" />
