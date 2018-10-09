@@ -17,16 +17,13 @@ public class PaymentActivity extends AppCompatActivity {
     protected TextView taskCurrentTitle;
     protected TextView details;
     protected TextView amount;
-    protected ImmutableTask currentTask;
-
-
+    protected  ImmutableTask currentTask;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
         taskCurrentTitle = findViewById(R.id.taskTitle);
@@ -40,7 +37,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         String title = currentTask.getTitle();
         String details = currentTask.getNotes();
-        String amount = currentTask
+
 
 
 
