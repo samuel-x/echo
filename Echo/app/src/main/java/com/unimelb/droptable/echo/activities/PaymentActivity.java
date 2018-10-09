@@ -20,7 +20,8 @@ public class PaymentActivity extends AppCompatActivity {
         confirmPayment.setOnClickListener((view)->{goToRating();});
     }
 
-    private void goToRating(){
+    protected void goToRating(){
         startActivity(new Intent(this, RatingActivity.class));
+        finish();
     }
 }

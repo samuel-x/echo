@@ -57,14 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Get a reference to the sign in button and set its listener.
         signInButton = findViewById(R.id.signInButton);
-        signInButton.setOnClickListener((view) -> {
-            try {
-                attemptLogin();
-            } catch (LoginError loginError) {
-                // TODO: Make a more obvious style of error
-                Toast.makeText(this, loginError.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        signInButton.setOnClickListener((view) -> onSignInClick());
 
         // Get a reference to the helper button and set its listener.
         helperButton = findViewById(R.id.loginHelperButton);
@@ -73,6 +66,15 @@ public class LoginActivity extends AppCompatActivity {
         signInView = findViewById(R.id.signInView);
 
         FirebaseAdapter.goOnline();
+    }
+
+    protected void onSignInClick() {
+        try {
+            attemptLogin();
+        } catch (LoginError loginError) {
+            // TODO: Make a more obvious style of error
+            Toast.makeText(this, loginError.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
