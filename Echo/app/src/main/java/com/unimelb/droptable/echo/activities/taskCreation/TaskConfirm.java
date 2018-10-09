@@ -21,10 +21,7 @@ public class TaskConfirm extends AppCompatActivity {
     // Grab UI references
     private TextView title;
     private TextView address;
-    private TextView time;
     private TextView notes;
-    private Button setRecurringButton;
-    private Button setRecentButton;
     private Button confirmButton;
     private ImmutableTask task;
 
@@ -38,28 +35,14 @@ public class TaskConfirm extends AppCompatActivity {
         // Setup our buttons
         title = findViewById(R.id.textTaskConfirmTitle);
         address = findViewById(R.id.textTaskConfirmAddress);
-        time = findViewById(R.id.textTaskConfirmTime);
         notes = findViewById(R.id.textTaskConfirmNotes);
-        setRecentButton = findViewById(R.id.buttonTaskConfirmRecent);
-        setRecurringButton = findViewById(R.id.buttonTaskConfirmRecurring);
         confirmButton = findViewById(R.id.buttonTaskConfirmConfirm);
 
         title.setText(task.getTitle());
         address.setText(task.getAddress());
-        time.setText("Now");
         notes.setText(task.getNotes());
 
-        setRecentButton.setOnClickListener((view) -> {setRecent();});
-        setRecurringButton.setOnClickListener((view) -> {setRecurring();});
         confirmButton.setOnClickListener((view) -> {confirmSubmit();});
-    }
-
-    private void setRecurring() {
-        Log.d("test","recurring");
-    }
-
-    private void setRecent() {
-        Log.d("test","recent");
     }
 
     private void confirmSubmit() {
