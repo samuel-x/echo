@@ -1,6 +1,5 @@
 package com.unimelb.droptable.echo.activities.taskCreation;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -18,7 +17,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,8 +38,6 @@ public class TaskDetailsTest {
         Intent intentMock = Mockito.mock(Intent.class);
 
         // Define mock behaviors.
-        Mockito.doNothing().when(taskDetails).onCreate(any(Bundle.class));
-        Mockito.doNothing().when(taskDetails).setContentView(any(int.class));
         PowerMockito.whenNew(Intent.class).withAnyArguments().thenReturn(intentMock);
         when(intentMock.putExtra(any(String.class), any(String.class))).thenReturn(intentMock);
         Mockito.doNothing().when(taskDetails).finish();

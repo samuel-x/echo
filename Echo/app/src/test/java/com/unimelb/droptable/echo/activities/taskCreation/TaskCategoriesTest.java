@@ -24,12 +24,13 @@ import static org.mockito.Mockito.when;
 public class TaskCategoriesTest {
 
     private TaskCategories taskCategories;
+    private Intent intentMock;
 
     @Before
     public void setUp() throws Exception {
         // Create mocks.
         taskCategories = Mockito.spy(TaskCategories.class);
-        Intent intentMock = Mockito.mock(Intent.class);
+        intentMock = Mockito.mock(Intent.class);
 
         // Define mock behaviors.
         PowerMockito.whenNew(Intent.class).withAnyArguments().thenReturn(intentMock);
@@ -50,40 +51,48 @@ public class TaskCategoriesTest {
     @Test
     public void otherTask() throws Exception {
         verify(Utility.currentTaskBuilder, times(0)).category("Other");
-        taskCategories.otherTask();
-        verify(Utility.currentTaskBuilder, times(1)).category("Other");
+        verify(taskCategories, times(0)).startActivity(intentMock);
 
-        // Verify activity change.
+        taskCategories.otherTask();
+
+        verify(Utility.currentTaskBuilder, times(1)).category("Other");
         PowerMockito.verifyNew(Intent.class).withArguments(taskCategories, TaskDetails.class);
+        verify(taskCategories, times(1)).startActivity(intentMock);
     }
 
     @Test
     public void householdTask() throws Exception {
         verify(Utility.currentTaskBuilder, times(0)).category("Household");
-        taskCategories.householdTask();
-        verify(Utility.currentTaskBuilder, times(1)).category("Household");
+        verify(taskCategories, times(0)).startActivity(intentMock);
 
-        // Verify activity change.
+        taskCategories.householdTask();
+
+        verify(Utility.currentTaskBuilder, times(1)).category("Household");
         PowerMockito.verifyNew(Intent.class).withArguments(taskCategories, TaskSubcategories.class);
+        verify(taskCategories, times(1)).startActivity(intentMock);
     }
 
     @Test
     public void deliveryTask() throws Exception {
         verify(Utility.currentTaskBuilder, times(0)).category("Delivery");
-        taskCategories.deliveryTask();
-        verify(Utility.currentTaskBuilder, times(1)).category("Delivery");
+        verify(taskCategories, times(0)).startActivity(intentMock);
 
-        // Verify activity change.
+        taskCategories.deliveryTask();
+
+        verify(Utility.currentTaskBuilder, times(1)).category("Delivery");
         PowerMockito.verifyNew(Intent.class).withArguments(taskCategories, TaskSubcategories.class);
+        verify(taskCategories, times(1)).startActivity(intentMock);
     }
 
     @Test
     public void transportTask() throws Exception {
         verify(Utility.currentTaskBuilder, times(0)).category("Transport");
-        taskCategories.transportTask();
-        verify(Utility.currentTaskBuilder, times(1)).category("Transport");
+        verify(taskCategories, times(0)).startActivity(intentMock);
 
-        // Verify activity change.
+        taskCategories.transportTask();
+
+        verify(Utility.currentTaskBuilder, times(1)).category("Transport");
         PowerMockito.verifyNew(Intent.class).withArguments(taskCategories, TaskSubcategories.class);
+        verify(taskCategories, times(1)).startActivity(intentMock);
     }
 }

@@ -1,29 +1,24 @@
 package com.unimelb.droptable.echo.activities.taskCreation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.Api;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.ApMapActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 
 public class TaskConfirm extends AppCompatActivity {
 
-
     // Grab UI references
-    private TextView title;
-    private TextView address;
-    private TextView notes;
-    private Button confirmButton;
-    private ImmutableTask task;
+    protected TextView title;
+    protected TextView address;
+    protected TextView notes;
+    protected Button confirmButton;
+    protected ImmutableTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +40,7 @@ public class TaskConfirm extends AppCompatActivity {
         confirmButton.setOnClickListener((view) -> {confirmSubmit();});
     }
 
-    private void confirmSubmit() {
+    protected void confirmSubmit() {
         // Submit and remember the task.
         ClientInfo.setTask(task);
         FirebaseAdapter.pushTask(task);
