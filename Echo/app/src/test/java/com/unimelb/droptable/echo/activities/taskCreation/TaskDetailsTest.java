@@ -30,12 +30,13 @@ public class TaskDetailsTest {
     private static String TEST_TASK_NOTES = "TESTB";
 
     private TaskDetails taskDetails;
+    private Intent intentMock;
 
     @Before
     public void setUp() throws Exception {
         // Create mocks.
         taskDetails = Mockito.spy(TaskDetails.class);
-        Intent intentMock = Mockito.mock(Intent.class);
+        intentMock = Mockito.mock(Intent.class);
 
         // Define mock behaviors.
         PowerMockito.whenNew(Intent.class).withAnyArguments().thenReturn(intentMock);
@@ -62,22 +63,26 @@ public class TaskDetailsTest {
 
     @Test
     public void submitNow() throws Exception {
-        // Verify builder was used.
+        // Verify prior.
         verify(Utility.currentTaskBuilder, times(0))
                 .title(TEST_TITLE);
         verify(Utility.currentTaskBuilder, times(0))
                 .address(TEST_ADDRESS);
         verify(Utility.currentTaskBuilder, times(0))
                 .notes(TEST_TASK_NOTES);
-        taskDetails.submitNow();
-        verify(Utility.currentTaskBuilder, times(1))
-                .title(TEST_TITLE);
-        verify(Utility.currentTaskBuilder, times(1))
-                .address(TEST_ADDRESS);
-        verify(Utility.currentTaskBuilder, times(1))
-                .notes(TEST_TASK_NOTES);
+        verify(taskDetails, times(0)).startActivity(intentMock);
 
-        // Verify activity change.
+        // Execute.
+        taskDetails.submitNow();
+
+        // Verify post.
+        verify(Utility.currentTaskBuilder, times(1))
+                .title(TEST_TITLE);
+        verify(Utility.currentTaskBuilder, times(1))
+                .address(TEST_ADDRESS);
+        verify(Utility.currentTaskBuilder, times(1))
+                .notes(TEST_TASK_NOTES);
+        verify(taskDetails, times(1)).startActivity(intentMock);
         PowerMockito.verifyNew(Intent.class).withArguments(taskDetails, TaskConfirm.class);
     }
 }

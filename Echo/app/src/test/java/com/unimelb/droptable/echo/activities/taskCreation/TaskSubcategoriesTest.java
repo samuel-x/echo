@@ -29,16 +29,15 @@ public class TaskSubcategoriesTest {
     private static String TEST_B_TEXT = "TESTB";
 
     private TaskSubcategories taskSubCategories;
+    private Intent intentMock;
 
     @Before
     public void setUp() throws Exception {
         // Create mocks.
         taskSubCategories = Mockito.spy(TaskSubcategories.class);
-        Intent intentMock = Mockito.mock(Intent.class);
+        intentMock = Mockito.mock(Intent.class);
 
         // Define mock behaviors.
-        Mockito.doNothing().when(taskSubCategories).onCreate(any(Bundle.class));
-        Mockito.doNothing().when(taskSubCategories).setContentView(any(int.class));
         PowerMockito.whenNew(Intent.class).withAnyArguments().thenReturn(intentMock);
         when(intentMock.putExtra(any(String.class), any(String.class))).thenReturn(intentMock);
         Mockito.doNothing().when(taskSubCategories).finish();
@@ -61,25 +60,35 @@ public class TaskSubcategoriesTest {
 
     @Test
     public void taskDetailsA() throws Exception {
+        // Verify prior.
         verify(Utility.currentTaskBuilder, times(0))
                 .subCategory(TEST_A_TEXT);
+        verify(taskSubCategories, times(0)).startActivity(intentMock);
+
+        // Execute.
         taskSubCategories.taskDetailsA();
+
+        // Verify post.
         verify(Utility.currentTaskBuilder, times(1))
                 .subCategory(TEST_A_TEXT);
-
-        // Verify activity change.
+        verify(taskSubCategories, times(1)).startActivity(intentMock);
         PowerMockito.verifyNew(Intent.class).withArguments(taskSubCategories, TaskDetails.class);
     }
 
     @Test
     public void taskDetailsB() throws Exception {
+        // Verify prior.
         verify(Utility.currentTaskBuilder, times(0))
                 .subCategory(TEST_B_TEXT);
+        verify(taskSubCategories, times(0)).startActivity(intentMock);
+
+        // Execute.
         taskSubCategories.taskDetailsB();
+
+        // Verify post.
         verify(Utility.currentTaskBuilder, times(1))
                 .subCategory(TEST_B_TEXT);
-
-        // Verify activity change.
+        verify(taskSubCategories, times(1)).startActivity(intentMock);
         PowerMockito.verifyNew(Intent.class).withArguments(taskSubCategories, TaskDetails.class);
     }
 }
