@@ -5,8 +5,6 @@ import android.content.Intent;
 import com.google.firebase.database.ChildEventListener;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCategories;
-import com.unimelb.droptable.echo.activities.taskCreation.TaskCreation;
-import com.unimelb.droptable.echo.activities.taskCreation.TaskDetails;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
@@ -74,7 +72,7 @@ public class ApMapActivityTest {
         verify(apMapActivity, times(0)).onTaskPress();
         apMapActivity.onTaskPress();
         verify(apMapActivity, times(1)).onTaskPress();
-        PowerMockito.verifyNew(Intent.class).withArguments(apMapActivity, TaskCreation.class);
+        PowerMockito.verifyNew(Intent.class).withArguments(apMapActivity, TaskCategories.class);
     }
 
     @Test

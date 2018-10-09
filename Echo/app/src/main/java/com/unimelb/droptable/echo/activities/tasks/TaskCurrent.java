@@ -41,7 +41,6 @@ public class TaskCurrent extends AppCompatActivity
 
     private TextView taskCurrentTitle;
     private TextView taskCurrentAddress;
-    private TextView taskCurrentTime;
     private TextView taskCurrentNotes;
     private TextView otherUserName;
     private TextView otherUserPhone;
@@ -61,7 +60,6 @@ public class TaskCurrent extends AppCompatActivity
 
         taskCurrentTitle = findViewById(R.id.textTaskInProgressTitle);
         taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
-        taskCurrentTime = findViewById(R.id.textTaskInProgressTime);
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
         otherUserName = findViewById(R.id.userName);
         otherUserPhone = findViewById(R.id.userPhone);
