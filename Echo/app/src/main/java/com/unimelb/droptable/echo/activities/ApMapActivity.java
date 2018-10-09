@@ -100,7 +100,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
-    private void onTaskPress() {
+    protected void onTaskPress() {
         if (ClientInfo.hasTask()) {
             startActivity(new Intent(this, TaskCurrent.class));
         } else {
