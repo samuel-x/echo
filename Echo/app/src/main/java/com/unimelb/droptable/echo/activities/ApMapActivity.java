@@ -1,5 +1,6 @@
 package com.unimelb.droptable.echo.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -177,6 +178,11 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                         dataSnapshot.getValue(String.class).equals("COMPLETED")) {
 
                     Context currentContext = ApMapActivity.this;
+
+                    // Ensure that the activity is running.
+                    if (!((Activity) currentContext).hasWindowFocus()) {
+                        return;
+                    }
 
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

@@ -109,6 +109,10 @@ public class FirebaseAdapter {
     }
 
     public static String getCurrentTaskID() {
+        if (currentData == null) {
+            return null;
+        }
+
         return currentData
                 .child(USERS_ROOT)
                 .child(ClientInfo.getUsername())
