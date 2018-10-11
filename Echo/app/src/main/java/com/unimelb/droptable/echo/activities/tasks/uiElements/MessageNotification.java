@@ -2,33 +2,23 @@ package com.unimelb.droptable.echo.activities.tasks.uiElements;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
-import android.view.WindowManager;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ClientInfo;
-import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.ApMapActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
-import static android.app.AlertDialog.Builder;
 
 
 public class MessageNotification extends DialogFragment {
@@ -54,10 +44,8 @@ public class MessageNotification extends DialogFragment {
         builder.setTitle("Message received")
                 .setMessage(String.format("%s says: %s", sender, message))
                 .setPositiveButton(android.R.string.yes,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+                        (dialog, which) -> {
 
-                            }
                         })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
@@ -90,7 +78,8 @@ public class MessageNotification extends DialogFragment {
                 }
 
                 if (ClientInfo.getUsername().equals(data.get("receiver"))) {
-                    MessageNotification.showDialog(activity, (String) data.get("sender"), (String) data.get("messageText"));
+                    MessageNotification.showDialog(activity, (String) data.get("sender"),
+                            (String) data.get("messageText"));
                 }
             }
 
