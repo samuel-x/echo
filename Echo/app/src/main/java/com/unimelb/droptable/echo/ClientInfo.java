@@ -53,4 +53,12 @@ public class ClientInfo {
     public static String getToken() {
         return currentToken;
     }
+
+    public static boolean hasPartner() {
+        return isAssistant() || currentTask.getAssistant() != null;
+    }
+
+    public static void updateAssistant(String assistant) {
+        currentTask = ImmutableTask.builder().from(currentTask).assistant(assistant).build();
+    }
 }

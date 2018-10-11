@@ -29,6 +29,7 @@ import com.unimelb.droptable.echo.activities.ChatActivity;
 import com.unimelb.droptable.echo.activities.PaymentActivity;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.CompletionTaskDialog;
 import com.unimelb.droptable.echo.activities.HelperActivity;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
@@ -108,6 +109,11 @@ public class TaskCurrent extends AppCompatActivity
 
         if (ClientInfo.getTask().getStatus().equals("COMPLETED")) {
             showDialog("COMPLETED");
+        }
+
+        // Try to attach a chat listener.
+        if (ClientInfo.hasPartner()) {
+            MessageNotification.AttachListener(TaskCurrent.this);
         }
     }
 
