@@ -14,13 +14,12 @@ import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 public class TaskDetails extends AppCompatActivity {
 
     // Grab UI references
-    private TextView title;
-    private TextView address;
-    private FloatingActionButton micInputButton;
-    private TextView taskNotes;
-    private ImageButton cameraButton;
-    private Button submitNowButton;
-    private Button submitLaterButton;
+    protected TextView title;
+    protected TextView address;
+    protected FloatingActionButton micInputButton;
+    protected TextView taskNotes;
+    protected ImageButton cameraButton;
+    protected Button submitNowButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +33,12 @@ public class TaskDetails extends AppCompatActivity {
         taskNotes = findViewById(R.id.textTaskNotes);
         cameraButton = findViewById(R.id.buttonTaskCamera);
         submitNowButton = findViewById(R.id.buttonTaskNow);
-        submitLaterButton = findViewById(R.id.buttonTaskLater);
 
         submitNowButton.setOnClickListener((view) -> {submitNow();});
-        submitLaterButton.setOnClickListener((view) -> {submitNow();});
 
     }
 
-    private void submitNow() {
+    protected void submitNow() {
         Utility.currentTaskBuilder.title(title.getText().toString());
         Utility.currentTaskBuilder.address(address.getText().toString());
         Utility.currentTaskBuilder.notes(taskNotes.getText().toString());

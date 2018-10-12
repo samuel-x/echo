@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.taskCreation.TaskCreation;
+import com.unimelb.droptable.echo.activities.taskCreation.TaskCategories;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
@@ -107,7 +107,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         if (ClientInfo.hasTask()) {
             startActivity(new Intent(this, TaskCurrent.class));
         } else {
-            startActivity(new Intent(this, TaskCreation.class));
+            startActivity(new Intent(this, TaskCategories.class));
         }
     }
 
