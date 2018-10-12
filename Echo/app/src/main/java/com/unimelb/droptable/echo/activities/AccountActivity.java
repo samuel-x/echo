@@ -27,6 +27,7 @@ public class AccountActivity extends AppCompatActivity {
         username = findViewById(R.id.textAccountUsername);
         phone = findViewById(R.id.textAccountPhoneNumber);
         ratingBar = findViewById(R.id.userRatingAccount);
+        ratingBar.setIsIndicator(true);
 
         updateUI();
     }
