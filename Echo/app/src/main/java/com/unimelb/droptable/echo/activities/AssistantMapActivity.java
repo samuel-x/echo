@@ -62,7 +62,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         startActivity(new Intent(this, AccountActivity.class));
     }
 
-    private void onCompleteTaskButton() {
+    protected void onCompleteTaskButton() {
         ClientInfo.updateTask();
         FirebaseAdapter.updateTaskStatus("COMPLETED", ClientInfo.getTask().getId());
         AlertDialog.Builder builder;
@@ -103,12 +103,12 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         }
     }
 
-    private void enableCompleteTask() {
+    protected void enableCompleteTask() {
         completeTaskButton.setEnabled(true);
         completeTaskButton.setAlpha(1.0f);
     }
 
-    private void disableCompleteTask() {
+    protected void disableCompleteTask() {
         completeTaskButton.setEnabled(false);
         completeTaskButton.setAlpha(0.0f);
     }
@@ -127,7 +127,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         googleMap.setMinZoomPreference(12);
     }
 
-    private void onTaskButtonClick() {
+    protected void onTaskButtonClick() {
         if (ClientInfo.hasTask()) {
             startActivity(new Intent(this, TaskCurrent.class));
         } else {
@@ -140,7 +140,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
      * necessary dialog.
      * @return
      */
-     private ChildEventListener createListener() {
+     protected ChildEventListener createListener() {
         return new ChildEventListener() {
 
             // TODO: Implement these properly

@@ -32,6 +32,7 @@ public class TaskConfirmTest {
     @Test
     public void testTaskCreation() {
         // Check initial conditions.
+        ClientInfo.setUsername("TEST");
         assertEquals(true, taskConfirm.hasWindowFocus());
         assertNull(ClientInfo.getTask());
 

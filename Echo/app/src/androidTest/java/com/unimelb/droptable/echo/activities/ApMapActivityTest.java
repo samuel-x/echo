@@ -2,6 +2,7 @@ package com.unimelb.droptable.echo.activities;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.Button;
 
 import com.unimelb.droptable.echo.R;
 
@@ -23,11 +24,15 @@ public class ApMapActivityTest {
     public ActivityTestRule<ApMapActivity> mActivityRule =
             new ActivityTestRule<>(ApMapActivity.class);
 
+
+
     private ApMapActivity apMapActivity;
+    private Button taskButton;
 
     @Before
     public void setUp() throws Exception {
         apMapActivity = mActivityRule.getActivity();
+        taskButton = apMapActivity.taskButton;
     }
 
     @Test
@@ -42,6 +47,39 @@ public class ApMapActivityTest {
         assertEquals(true, apMapActivity.hasWindowFocus());
         onView(withId(R.id.apMapHelperButton)).perform(click());
         assertEquals(false, apMapActivity.hasWindowFocus());
+    }
+
+    @Test
+    public void testTaskButtonTextOnTaskAssign() {
+
+        assertEquals(apMapActivity.taskButton.getText(), "New Task");
+
+//        String testTitle = "MyTitle";
+//        String testAddress = "MyAddress";
+//        String testCategory = "MyCategory";
+//        String testSubCategory = "MySubCategory";
+//        String testNotes = "MyNotes";
+//        String testStatus = "MyStatus";
+//        String ap = "AP";
+//        String assistant = "assistant";
+//        String id = "ID";
+//
+//        ImmutableTask task = ImmutableTask.builder()
+//                .title(testTitle)
+//                .address(testAddress)
+//                .category(testCategory)
+//                .subCategory(testSubCategory)
+//                .notes(testNotes)
+//                .status(testStatus)
+//                .ap(ap)
+//                .assistant(assistant)
+//                .id(id).build();
+//
+//        ClientInfo.setTask(task);
+
+//        mActivityRule.finishActivity();
+//
+//        assertEquals(apMapActivity.taskButton.getText(), "Current Task");
     }
 
     @After

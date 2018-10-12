@@ -24,10 +24,14 @@ public class RatingActivity extends AppCompatActivity {
 
         ratingBar = findViewById(R.id.ratingBar);
         confirmRating = findViewById(R.id.ratingButton);
-        confirmRating.setOnClickListener((view)->{completeTask();});
+        confirmRating.setOnClickListener((view)->{onConfirmRating();});
     }
 
-    private void completeTask() {
+    protected void onConfirmRating() {
+        completeTask();
+    }
+
+    protected void completeTask() {
         ClientInfo.updateTask();
         ImmutableTask task = ClientInfo.getTask();
         try {
@@ -38,6 +42,7 @@ public class RatingActivity extends AppCompatActivity {
         }
         FirebaseAdapter.updateUserRating(ClientInfo.getTask().getAssistant(), ratingBar.getRating());
         FirebaseAdapter.completeTask(ClientInfo.getTask());
+        // TODO: upload rating here
         ClientInfo.setTask(null);
 
         startActivity(new Intent(this, ApMapActivity.class));
