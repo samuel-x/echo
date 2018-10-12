@@ -65,6 +65,9 @@
     <!-- Strings related to chat messaging screen -->
     <string name="message_prompt">"Enter message…"</string>
 
+    <!-- Strings related to account screen -->
+    <string name="user_assistant_text">"Assistant"</string>
+
     <!-- Intent extras values -->
     <string name="chat_partner">chat_partner</string>
 

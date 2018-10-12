@@ -1,10 +1,12 @@
 package com.unimelb.droptable.echo.activities;
 
+import android.accounts.Account;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Button;
 
@@ -30,6 +32,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     private GoogleMap mMap;
 
     private Button taskButton;
+    private FloatingActionButton accountButton;
     private Button completeTaskButton;
 
     @Override
@@ -50,7 +53,13 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         completeTaskButton = findViewById(R.id.completeTaskButton);
         completeTaskButton.setOnClickListener(view -> onCompleteTaskButton());
 
+        accountButton = findViewById((R.id.accountButtonAssistant));
+        accountButton.setOnClickListener(view -> onAccountButton());
 
+    }
+
+    protected void onAccountButton() {
+        startActivity(new Intent(this, AccountActivity.class));
     }
 
     private void onCompleteTaskButton() {

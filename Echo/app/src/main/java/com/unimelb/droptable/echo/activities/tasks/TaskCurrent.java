@@ -257,7 +257,7 @@ public class TaskCurrent extends AppCompatActivity
 
     private void enableAvatar() {
         for (int i = 0; i < avatar.getChildCount(); i++) {
-            avatar.getChildAt(i).setAlpha(1.0f);
+            avatar.setEnabled(true);
         }
 
         for (int i = 0; i < searchingMessage.getChildCount(); i++) {
@@ -268,7 +268,7 @@ public class TaskCurrent extends AppCompatActivity
 
     private void disableAvatar() {
         for (int i = 0; i < avatar.getChildCount(); i++) {
-            avatar.getChildAt(i).setAlpha(0.06f);
+            avatar.setEnabled(false);
         }
 
         for (int i = 0; i < searchingMessage.getChildCount(); i++) {

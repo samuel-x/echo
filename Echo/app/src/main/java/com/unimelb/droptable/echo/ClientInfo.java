@@ -9,6 +9,21 @@ public class ClientInfo {
     private static ImmutableTask currentTask;
     private static String phoneNumber;
     private static String currentToken;
+    private static float rating;
+
+    public static float getRating() {
+        if (isAssistant()) {
+            try {
+                rating = FirebaseAdapter.getUserRating(ClientInfo.getUsername());
+            } catch (Exception e){
+                return 0.0f;
+            }
+            return rating;
+        }
+        else {
+            return 0.0f;
+        }
+    }
 
     public static String getUsername() {
         return username;

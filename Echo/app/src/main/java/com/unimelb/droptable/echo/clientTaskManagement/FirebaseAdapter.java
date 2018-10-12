@@ -35,6 +35,7 @@ public class FirebaseAdapter {
     private final static String TOKEN_ROOT = "tokens";
     private final static String ASSISTANT = "assistant";
     private final static String STATUS = "status";
+    private static final String RATING = "rating";
 
     public final static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public final static DatabaseReference masterDbReference = database.getReference();
@@ -44,6 +45,7 @@ public class FirebaseAdapter {
             .child(MESSAGES_ROOT);
     public final static DatabaseReference usersDbReference = database.getReference()
             .child(USERS_ROOT);
+
 
     public static DataSnapshot currentData;
 
@@ -151,6 +153,23 @@ public class FirebaseAdapter {
 
         // TODO: Make the code returned actually reflect the true status.
         return HttpURLConnection.HTTP_OK;
+    }
+
+    public static int pushUser(String username, String phoneNumber, boolean isAssistant, float rating) {
+        usersDbReference.child(username).child(IS_ASSISTANT).setValue(isAssistant);
+        usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
+        usersDbReference.child(username).child(RATING).setValue(rating);
+
+        // TODO: Make the code returned actually reflect the true status.
+        return HttpURLConnection.HTTP_OK;
+    }
+
+    public static void updateUserRating(String username, float rating) {
+        usersDbReference.child(username).child(RATING).setValue(rating);
+    }
+
+    public static float getUserRating(String username) {
+        return getUser(username).child(RATING).getValue(float.class);
     }
 
     public static String getPhoneNumber(String username) {

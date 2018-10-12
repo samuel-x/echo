@@ -36,6 +36,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private Button taskButton;
     private FloatingActionButton helperButton;
+    private FloatingActionButton accountButton;
 
     private Query taskQuery;
 
@@ -52,6 +53,13 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
         helperButton = findViewById(R.id.apMapHelperButton);
         helperButton.setOnClickListener(view -> {onHelperPress();});
+
+        accountButton = findViewById(R.id.accountButtonAP);
+        accountButton.setOnClickListener(view -> {onAccountButton();});
+    }
+
+    protected void onAccountButton() {
+        startActivity(new Intent(this, AccountActivity.class));
     }
 
     @Override
