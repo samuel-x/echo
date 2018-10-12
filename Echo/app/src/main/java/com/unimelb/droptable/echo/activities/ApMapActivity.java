@@ -1,5 +1,6 @@
 package com.unimelb.droptable.echo.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +27,7 @@ import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCategories;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class ApMapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -50,8 +52,6 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
         helperButton = findViewById(R.id.apMapHelperButton);
         helperButton.setOnClickListener(view -> {onHelperPress();});
-
-
     }
 
     @Override
@@ -64,10 +64,10 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         // Ensure that the task button's text is up to date.
         if (ClientInfo.hasTask()) {
 
-            // Attach our listener
+            // Attach task listener.
             if (taskQuery == null) {
                 taskQuery = FirebaseAdapter.queryCurrentTask();
-                taskQuery.addChildEventListener(createListener());
+                taskQuery.addChildEventListener(createTaskListener());
             }
 
             taskButton.setText(R.string.current_task_home_button);
@@ -133,10 +133,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         startActivity(new Intent(this, HelperActivity.class));
     }
 
-    public void toPayment() {
-        startActivity(new Intent(this, PaymentActivity.class));
-    }
-    private ChildEventListener createListener() {
+    private ChildEventListener createTaskListener() {
         return new ChildEventListener() {
 
             // Check that the added value is an assistant and show the dialog
@@ -163,6 +160,12 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
+
+                    // Update task with assistant.
+                    ClientInfo.updateAssistant(assistantID);
+
+                    // Attach chat listener.
+                    MessageNotification.AttachListener(ApMapActivity.this);
                 }
             }
 
@@ -175,6 +178,11 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                         dataSnapshot.getValue(String.class).equals("COMPLETED")) {
 
                     Context currentContext = ApMapActivity.this;
+
+                    // Ensure that the activity is running.
+                    if (!((Activity) currentContext).hasWindowFocus()) {
+                        return;
+                    }
 
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -224,12 +232,10 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         };
     }

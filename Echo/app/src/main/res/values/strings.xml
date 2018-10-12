@@ -75,6 +75,10 @@
     <string name="messages_root">messages</string>
     <string name="task_id">taskID</string>
     <string name="phone_number_child">phoneNumber</string>
+    <string name="message_time">messageTime</string>
+    <string name="message_text">messageText</string>
+    <string name="message_receiver">receiver</string>
+    <string name="message_sender">sender</string>
 
     <string name="accept_task">accept</string>
     <string name="complete_task">Complete Task</string>

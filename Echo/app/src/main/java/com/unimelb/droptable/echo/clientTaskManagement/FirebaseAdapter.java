@@ -109,6 +109,10 @@ public class FirebaseAdapter {
     }
 
     public static String getCurrentTaskID() {
+        if (currentData == null) {
+            return null;
+        }
+
         return currentData
                 .child(USERS_ROOT)
                 .child(ClientInfo.getUsername())
@@ -220,11 +224,28 @@ public class FirebaseAdapter {
     }
 
     /**
+     * Returns a Query for the current user's current chat, if it exists.
+     * @return Query
+     */
+    public static Query queryCurrentChat() {
+        ImmutableTask currentTask = ClientInfo.getTask();
+        return queryChat(Utility.generateUserChatId(currentTask.getAp(), currentTask.getAssistant()));
+    }
+
+    /**
      * Returns a Query for a specified task id
      * @return
      */
     public static Query queryTask(String id) {
         return tasksDbReference.child(id);
+    }
+
+    /**
+     * Returns a Query for a specified chat id.
+     * @return
+     */
+    public static Query queryChat(String id) {
+        return messagesDbReference.child(id);
     }
 
     public static void goOffline() {

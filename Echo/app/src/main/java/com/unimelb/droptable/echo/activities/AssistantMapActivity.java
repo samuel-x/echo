@@ -22,6 +22,7 @@ import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -83,6 +84,9 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
             query.addChildEventListener(childEventListener);
             enableCompleteTask();
             taskButton.setText(R.string.current_task_home_button);
+
+            // Try to attach a chat listener.
+            MessageNotification.AttachListener(AssistantMapActivity.this);
         } else {
 
             disableCompleteTask();
