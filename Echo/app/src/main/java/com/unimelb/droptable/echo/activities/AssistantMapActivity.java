@@ -35,6 +35,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     private FloatingActionButton accountButton;
     private Button completeTaskButton;
 
+    private Query taskQuery;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,10 +89,17 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         // Ensure that the task button's text is up to date and update our listeners.
         if (ClientInfo.hasTask()) {
-            ClientInfo.updateTask();
-            ChildEventListener childEventListener = createListener();
-            Query query = FirebaseAdapter.queryCurrentTask();
-            query.addChildEventListener(childEventListener);
+
+            // Attach task listener.
+            while (taskQuery == null) {
+                try {
+                    taskQuery = FirebaseAdapter.queryCurrentTask();
+                    taskQuery.addChildEventListener(createTaskListener());
+                } catch (NullPointerException e) {
+                    taskQuery = null;
+                }
+            }
+
             enableCompleteTask();
             taskButton.setText(R.string.current_task_home_button);
 
@@ -140,7 +149,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
      * necessary dialog.
      * @return
      */
-     protected ChildEventListener createListener() {
+     protected ChildEventListener createTaskListener() {
         return new ChildEventListener() {
 
             // TODO: Implement these properly

@@ -47,7 +47,6 @@ public class TaskConfirm extends AppCompatActivity {
         ClientInfo.setTask(task);
         FirebaseAdapter.pushTask(task);
 
-        startActivity(new Intent(this, ApMapActivity.class));
         // End this activity.
         finish();
     }

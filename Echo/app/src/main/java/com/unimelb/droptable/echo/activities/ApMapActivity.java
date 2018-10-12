@@ -70,9 +70,13 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         if (ClientInfo.hasTask()) {
 
             // Attach task listener.
-            if (taskQuery == null) {
-                taskQuery = FirebaseAdapter.queryCurrentTask();
-                taskQuery.addChildEventListener(createTaskListener());
+            while (taskQuery == null) {
+                try {
+                    taskQuery = FirebaseAdapter.queryCurrentTask();
+                    taskQuery.addChildEventListener(createTaskListener());
+                } catch (NullPointerException e) {
+                    taskQuery = null;
+                }
             }
 
             taskButton.setText(R.string.current_task_home_button);

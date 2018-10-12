@@ -45,6 +45,7 @@ public class TaskCurrent extends AppCompatActivity {
     protected TextView taskCurrentNotes;
     protected TextView otherUserName;
     protected TextView otherUserPhone;
+    protected TextView otherUserRating;
     protected ConstraintLayout avatar;
     protected ConstraintLayout searchingMessage;
     protected ImageView messageButton;
@@ -64,6 +65,7 @@ public class TaskCurrent extends AppCompatActivity {
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
         otherUserName = findViewById(R.id.userName);
         otherUserPhone = findViewById(R.id.userPhone);
+        otherUserRating = findViewById(R.id.userRating);
         avatar = findViewById(R.id.avatarContainer);
         searchingMessage = findViewById(R.id.isReadyLayer);
 
@@ -78,7 +80,7 @@ public class TaskCurrent extends AppCompatActivity {
         helperButton.setOnClickListener(view -> {onHelperPress();});
         if (ClientInfo.isAssistant()) {
             // The user is an assistant, and we don't want to display the helper button to them.
-            helperButton.setAlpha(0f);
+            helperButton.setAlpha(0.0f);
             helperButton.setEnabled(false);
         }
     }
@@ -263,6 +265,7 @@ public class TaskCurrent extends AppCompatActivity {
             otherUserName.setText(assistantID);
             otherUserPhone.setText(user.child(getString(R.string.phone_number_child))
                     .getValue(String.class));
+            otherUserRating.setText("Rating " + user.child("rating").getValue(float.class).toString());
         }
 
         // enable our avatar
@@ -289,7 +292,7 @@ public class TaskCurrent extends AppCompatActivity {
         }
 
         for (int i = 0; i < searchingMessage.getChildCount(); i++) {
-            enableElement(searchingMessage.getChildAt(i));
+            disableElement(searchingMessage.getChildAt(i), true);
         }
     }
 
@@ -299,7 +302,7 @@ public class TaskCurrent extends AppCompatActivity {
         }
 
         for (int i = 0; i < searchingMessage.getChildCount(); i++) {
-            disableElement(searchingMessage.getChildAt(i), true);
+            enableElement(searchingMessage.getChildAt(i));
         }
 
         resetAssistant();
