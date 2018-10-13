@@ -203,6 +203,7 @@ public class FirebaseAdapter {
         String assistant = taskRef.child("assistant").getValue(String.class);
         String latitude = taskRef.child("latitude").getValue(String.class);
         String longitude = taskRef.child("longitude").getValue(String.class);
+        String lastPhase = taskRef.child("lastPhase").getValue(String.class);
 
 
         return ImmutableTask.builder()
@@ -216,6 +217,7 @@ public class FirebaseAdapter {
                 .assistant(assistant)
                 .latitude(latitude)
                 .longitude(longitude)
+                .lastPhase(lastPhase)
                 .id(taskRef.getKey()).build();
     }
 
@@ -274,6 +276,10 @@ public class FirebaseAdapter {
 
     private static void updateAssistantTask(String assistant, String id) {
         usersDbReference.child(assistant).child("taskID").setValue(id);
+    }
+
+    public static void updatePhase(String assistant) {
+        tasksDbReference.child(getCurrentTaskID()).child("lastPhase").setValue("true");
     }
 
     public static void completeTask(ImmutableTask task) {

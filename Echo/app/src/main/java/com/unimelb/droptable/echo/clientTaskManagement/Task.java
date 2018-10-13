@@ -15,6 +15,7 @@ public interface Task {
     String getNotes();
     String getStatus();
     String getAp();
+    String getLastPhase();
     @Nullable
     String getId();
     @Nullable

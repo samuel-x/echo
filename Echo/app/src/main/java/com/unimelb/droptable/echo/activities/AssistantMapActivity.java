@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -45,6 +46,7 @@ import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
+import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,6 +161,13 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     }
 
     private void onCompleteTaskButton() {
+
+        if (!ClientInfo.getTask().getLastPhase().equals("true")){
+            FirebaseAdapter.updatePhase(ClientInfo.getUsername());
+            ClientInfo.setTask(ImmutableTask.builder().from(ClientInfo.getTask()).lastPhase("true").build());
+            return;
+        }
+
         ClientInfo.updateTask();
         FirebaseAdapter.updateTaskStatus("COMPLETED", ClientInfo.getTask().getId());
         AlertDialog.Builder builder;

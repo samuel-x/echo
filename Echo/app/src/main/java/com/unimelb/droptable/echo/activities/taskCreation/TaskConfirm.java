@@ -25,7 +25,7 @@ public class TaskConfirm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creation_confirm);
 
-        task = Utility.currentTaskBuilder.status("PENDING").ap(ClientInfo.getUsername()).build();
+        task = Utility.currentTaskBuilder.status("PENDING").ap(ClientInfo.getUsername()).lastPhase("false").build();
 
         // Setup our buttons
         title = findViewById(R.id.textTaskConfirmTitle);
