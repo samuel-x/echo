@@ -1,33 +1,24 @@
 package com.unimelb.droptable.echo.activities;
+
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationManager;
-import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.AutocompletePredictionBufferResponse;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,12 +27,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
-import com.google.maps.PlaceAutocompleteRequest;
 import com.google.maps.model.DirectionsLeg;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
@@ -49,16 +41,15 @@ import com.google.maps.model.DirectionsStep;
 import com.google.maps.model.EncodedPolyline;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-
-import com.unimelb.droptable.echo.activities.taskCreation.TaskCreation;
 import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
-
-//import com.unimelb.droptable.echo.activities.tasks.TaskCreation;
 
 import java.util.ArrayList;
 import java.util.List;
+
+//import com.unimelb.droptable.echo.activities.tasks.TaskCreation;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -80,6 +71,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
     private Location currentLocation;
 
+    private Button completeTaskButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +82,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
 //        newTaskButton = findViewById(R.id.addTaskButton);
@@ -156,19 +149,52 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         taskButton = findViewById(R.id.assistantTaskButton);
         taskButton.setOnClickListener(view -> onTaskButtonClick());
 
-        settingsButton = findViewById(R.id.settingsButton);
-        infoButton = findViewById(R.id.infoButton);
+        //settingsButton = findViewById(R.id.settingsButton);
+        //infoButton = findViewById(R.id.infoButton);
 
+        completeTaskButton = findViewById(R.id.completeTaskButton);
+        completeTaskButton.setOnClickListener(view -> onCompleteTaskButton());
+
+
+    }
+
+    private void onCompleteTaskButton() {
+        ClientInfo.updateTask();
+        FirebaseAdapter.updateTaskStatus("COMPLETED", ClientInfo.getTask().getId());
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+        builder.setTitle("Complete Request")
+                .setMessage("Task Completion has been requested.")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        // Ensure that the task button's text is up to date.
+        // Ensure that the task button's text is up to date and update our listeners.
         if (ClientInfo.hasTask()) {
+            ClientInfo.updateTask();
+            ChildEventListener childEventListener = createListener();
+            Query query = FirebaseAdapter.queryCurrentTask();
+            query.addChildEventListener(childEventListener);
+            enableCompleteTask();
             taskButton.setText(R.string.current_task_home_button);
+
+            // Try to attach a chat listener.
+            MessageNotification.AttachListener(AssistantMapActivity.this);
         } else {
+
+            disableCompleteTask();
             taskButton.setText(R.string.new_task_home_button);
         }
     }
@@ -179,6 +205,16 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                 mLocationCallback,
                 null /* Looper */);
+    }
+
+    private void enableCompleteTask() {
+        completeTaskButton.setEnabled(true);
+        completeTaskButton.setAlpha(1.0f);
+    }
+
+    private void disableCompleteTask() {
+        completeTaskButton.setEnabled(false);
+        completeTaskButton.setAlpha(0.0f);
     }
 
     /**
@@ -312,9 +348,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(midPoint, 14));
     }
 
-    private void newTask() {
-        startActivity(new Intent(this, TaskCreation.class));
-    }
+
 
     private void onTaskButtonClick() {
         if (ClientInfo.hasTask()) {
@@ -322,5 +356,60 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         } else {
             startActivity(new Intent(this, TaskAssistantList.class));
         }
+    }
+
+    /**
+     * Create a listener to listen to changes on the task. If a task is removed, then show the
+     * necessary dialog.
+     * @return
+     */
+     private ChildEventListener createListener() {
+        return new ChildEventListener() {
+
+            // TODO: Implement these properly
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                ClientInfo.updateTask();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+                ClientInfo.updateTask();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getKey().toString().equals("title")) {
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(AssistantMapActivity.this,
+                                android.R.style.Theme_Material_Dialog_Alert);
+                    } else {
+                        builder = new AlertDialog.Builder(AssistantMapActivity.this);
+                    }
+                    builder.setTitle("Task Complete")
+                            .setMessage("The task was accepted by the AP!")
+                            .setPositiveButton(android.R.string.yes,
+                                    new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                    ClientInfo.setTask(null);
+                    disableCompleteTask();
+                    taskButton.setText(R.string.new_task_home_button);
+                }
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
     }
 }

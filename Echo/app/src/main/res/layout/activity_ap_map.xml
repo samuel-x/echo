@@ -43,12 +43,13 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:clickable="true"
+        android:focusable="true"
         android:src="@android:drawable/ic_menu_help"
         android:tint="?attr/actionMenuTextColor"
         app:backgroundTint="?attr/colorBackgroundFloating"
+        app:fabSize="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="16dp"
-        android:focusable="true" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <Button
         android:id="@+id/apTaskButton"
@@ -65,18 +66,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
+        app:layout_constraintTop_toBottomOf="@+id/map"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/paymentButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Payment demo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

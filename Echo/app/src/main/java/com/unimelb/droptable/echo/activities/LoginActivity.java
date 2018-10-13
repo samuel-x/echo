@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,7 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
@@ -24,6 +30,12 @@ import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 public class LoginActivity extends AppCompatActivity {
     private static final int MIN_USERNAME_LENGTH = 3;
     private static final int PHONENUMBER_LENGTH = 10;
+
+    // TODO: Replace these strings with strings.xml
+    private static String LOGIN_FAIL = "Login Failed! Are you sure you're an assistant?";
+    private static String PHONE_FAIL = "Phone number is incorrect. Please make sure you use only digits.";
+    private static String NAME_FAIL = "Please enter a valid username.";
+    private static String LOGIN_MESSAGE = "Successful Login!";
 
     // UI references.
     private EditText usernameText;
@@ -70,7 +82,8 @@ public class LoginActivity extends AppCompatActivity {
         // Verify that the user name is valid.
         if (!isUsernameValid(username)) {
             showProgress(false);
-            // TODO: Show error message.
+            // TODO: Show a more obvious error message.
+            Toast.makeText(LoginActivity.this, NAME_FAIL, Toast.LENGTH_LONG).show();
             Log.d("Login", "Denied access based on invalid user name");
             return;
         }
@@ -78,7 +91,8 @@ public class LoginActivity extends AppCompatActivity {
         // Verify that the phone number is valid.
         if(!isPhoneNumberValid(phoneNumber)) {
             showProgress(false);
-            // TODO: Show error message.
+            // TODO: Show a more obvious error message.
+            Toast.makeText(LoginActivity.this, PHONE_FAIL, Toast.LENGTH_LONG).show();
             Log.d("Login", "Denied access based on invalid phone number");
             return;
         }
@@ -88,7 +102,8 @@ public class LoginActivity extends AppCompatActivity {
         if (FirebaseAdapter.userExists(username)
                 && isAssistantCheckBox.isChecked() != FirebaseAdapter.getIsAssistant(username)) {
             showProgress(false);
-            // TODO: Show error message.
+            // TODO: Show a more obvious error message.
+            Toast.makeText(LoginActivity.this, LOGIN_FAIL, Toast.LENGTH_LONG).show();
             Log.d("Login", "Denied access based on user type for existing user");
             return;
         }
@@ -98,6 +113,29 @@ public class LoginActivity extends AppCompatActivity {
         ClientInfo.setPhoneNumber(phoneNumber);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
 
+        // Get our token for FCM
+        if (ClientInfo.getToken() != null) {
+            FirebaseAdapter.updateRegistrationToServer(ClientInfo.getToken(), username);
+        }
+        else {
+            FirebaseInstanceId.getInstance().getInstanceId()
+                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                            if (!task.isSuccessful()) {
+                                Log.w("FCM", "getInstanceId failed", task.getException());
+                                return;
+                            }
+
+                            // Get new Instance ID token
+                            String token = task.getResult().getToken();
+
+                            ClientInfo.setCurrentToken(token);
+                            FirebaseAdapter.updateRegistrationToServer(token, username);
+                        }
+                    });
+        }
+
         // Switch to the appropriate activity.
         if (ClientInfo.isAssistant()) {
             startActivity(new Intent(this, AssistantMapActivity.class));
@@ -106,6 +144,8 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, ApMapActivity.class));
         }
 
+        // Show a small successful login message.
+        Toast.makeText(LoginActivity.this, LOGIN_MESSAGE, Toast.LENGTH_SHORT).show();
         finish();
     }
 

@@ -21,6 +21,6 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private void goToRating(){
-        startActivity(new Intent(this, RatingAcitivity.class));
+        startActivity(new Intent(this, RatingActivity.class));
     }
 }

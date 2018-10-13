@@ -6,6 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/taskCurrentHelperButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_help"
+        android:tint="?attr/actionMenuTextColor"
+        app:backgroundTint="?attr/colorBackgroundFloating"
+        app:fabSize="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textTaskInProgressActivity"
         android:layout_width="0dp"
@@ -52,22 +67,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textTaskInProgressTitle"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textTaskInProgressTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="@string/prompt_time"
-        android:textSize="@dimen/echoApMedium"
-        app:layout_constraintBottom_toTopOf="@id/avatarContainer"
-        app:layout_constraintEnd_toEndOf="@+id/textTaskInProgressAddress"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textTaskInProgressAddress"
-        app:layout_constraintTop_toBottomOf="@+id/textTaskInProgressAddress"
-        app:layout_constraintVertical_bias="0.0" />
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/isReadyLayer"
         android:layout_width="0dp"
@@ -98,7 +97,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTaskInProgressTime">
+        app:layout_constraintTop_toBottomOf="@+id/textTaskInProgressAddress">
 
 
         <TextView

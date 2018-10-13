@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
@@ -21,15 +23,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.ApMapActivity;
+import com.unimelb.droptable.echo.activities.AssistantMapActivity;
 import com.unimelb.droptable.echo.activities.ChatActivity;
+import com.unimelb.droptable.echo.activities.PaymentActivity;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.CompletionTaskDialog;
+import com.unimelb.droptable.echo.activities.HelperActivity;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
-public class TaskCurrent extends AppCompatActivity{
+public class TaskCurrent extends AppCompatActivity
+        implements CompletionTaskDialog.NoticeDialogListener{
 
     private TextView taskCurrentTitle;
     private TextView taskCurrentAddress;
-    private TextView taskCurrentTime;
     private TextView taskCurrentNotes;
     private TextView otherUserName;
     private TextView otherUserPhone;
@@ -37,15 +45,18 @@ public class TaskCurrent extends AppCompatActivity{
     private ConstraintLayout searchingMessage;
     private ImageView messageButton;
     private ImageView callButton;
+    private FloatingActionButton helperButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_current);
 
+        // Read from the database to see if the AP already has a task in progress.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
+
         taskCurrentTitle = findViewById(R.id.textTaskInProgressTitle);
         taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
-        taskCurrentTime = findViewById(R.id.textTaskInProgressTime);
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
         otherUserName = findViewById(R.id.userName);
         otherUserPhone = findViewById(R.id.userPhone);
@@ -57,6 +68,15 @@ public class TaskCurrent extends AppCompatActivity{
 
         callButton = findViewById(R.id.callButton);
         callButton.setOnClickListener(view -> onCallButtonClick());
+
+        // Get a reference to the helper button and set its listener.
+        helperButton = findViewById(R.id.taskCurrentHelperButton);
+        helperButton.setOnClickListener(view -> {onHelperPress();});
+        if (ClientInfo.isAssistant()) {
+            // The user is an assistant, and we don't want to display the helper button to them.
+            helperButton.setAlpha(0f);
+            helperButton.setEnabled(false);
+        }
     }
 
     @Override
@@ -73,8 +93,70 @@ public class TaskCurrent extends AppCompatActivity{
         if (ClientInfo.getTask().getAssistant() == null) {
             disableAvatar();
         } else {
+            if (ClientInfo.getTask().getStatus().equals("COMPLETED")) {
+                showDialog("COMPLETED");
+            }
             enableAvatar();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Read from the database to see if the AP already has a task in progress.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
+
+        if (ClientInfo.getTask().getStatus().equals("COMPLETED")) {
+            showDialog("COMPLETED");
+        }
+
+        // Try to attach a chat listener.
+        if (ClientInfo.hasPartner()) {
+            MessageNotification.AttachListener(TaskCurrent.this);
+        }
+    }
+
+    public void showDialog(String status) {
+        DialogFragment dialog = new CompletionTaskDialog();
+        Bundle args = new Bundle();
+        args.putString("type", status);
+        dialog.setArguments(args);
+        if (hasWindowFocus()) {
+            if (status.equals("COMPLETED")) {
+                dialog.show(getSupportFragmentManager(), "COMPLETED");
+            } else {
+                dialog.show(getSupportFragmentManager(), "CANCELLED");
+            }
+        }
+    }
+
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the NoticeDialogFragment.NoticeDialogListener interface
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        // User touched the dialog's positive button
+        if (dialog.getTag().equals("COMPLETED")) {
+            if (ClientInfo.isAssistant()) {
+                startActivity(new Intent(this, AssistantMapActivity.class));
+                ClientInfo.setTask(null);
+            }
+            else {
+                startActivity(new Intent(this, PaymentActivity.class));
+            }
+        }
+        else {
+            if (ClientInfo.isAssistant()) {
+                startActivity(new Intent(this, AssistantMapActivity.class));
+                ClientInfo.setTask(null);
+            }
+            else {
+                startActivity(new Intent(this, ApMapActivity.class));
+                ClientInfo.setTask(null);
+            }
+        }
+        finish();
     }
 
     public void bind(@NonNull ImmutableTask task) {
@@ -118,12 +200,17 @@ public class TaskCurrent extends AppCompatActivity{
                     String assistantID = dataSnapshot.getValue(String.class);
                     updateAssistant(assistantID);
                 }
+                if (dataSnapshot.getKey().toString().equals("status") && dataSnapshot.getValue(String.class).equals("COMPLETED")) {
+                    showDialog("COMPLETED");
+                }
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 // Disable avatar section and begin search for new assistant
-                disableAvatar();
+                if (ClientInfo.isAssistant()) {
+                    showDialog("CANCELLED");
+                }
             }
 
             @Override
@@ -133,7 +220,9 @@ public class TaskCurrent extends AppCompatActivity{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                disableAvatar();
+                if (ClientInfo.isAssistant()) {
+                    showDialog("CANCELLED");
+                }
             }
         };
     }
@@ -191,6 +280,10 @@ public class TaskCurrent extends AppCompatActivity{
     }
 
     private void onMessageButtonClick() {
+        if (otherUserName.getText().toString().equals(getString(R.string.unknown_user))) {
+            // The task has not been accepted and thus there is not user to chat with.
+            return;
+        }
 
         startActivity(new Intent(this, ChatActivity.class)
                 .putExtra(getString(R.string.chat_partner),
@@ -228,5 +321,10 @@ public class TaskCurrent extends AppCompatActivity{
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel:" + otherUserPhone.getText().toString()));
         startActivity(intent);
+    }
+
+    private void onHelperPress() {
+        HelperActivity.setCurrentHelperText(getString(R.string.task_current_helper_text));
+        startActivity(new Intent(this, HelperActivity.class));
     }
 }

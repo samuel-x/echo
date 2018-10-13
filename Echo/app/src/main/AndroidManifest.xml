@@ -30,19 +30,25 @@
         <activity android:name=".activities.ApMapActivity" />
         <activity android:name=".activities.taskCreation.TaskCategories" />
         <activity android:name=".activities.taskCreation.TaskConfirm" />
-        <activity android:name=".activities.taskCreation.TaskCreation" />
         <activity android:name=".activities.taskCreation.TaskDetails" />
         <activity android:name=".activities.taskCreation.TaskSubcategories" />
         <activity android:name=".activities.PaymentActivity" />
-        <activity android:name=".activities.RatingAcitivity" />
-        <activity android:name=".activities.tasks.TaskAssistantList" />
-        <activity android:name=".activities.tasks.TaskCurrent" />
+        <activity android:name=".activities.RatingActivity" />
         <activity android:name=".activities.tasks.TaskAssistantDetails" />
-
 
         <activity android:name=".activities.AssistantMapActivity" />
         <activity android:name=".activities.HelperActivity" />
         <activity android:name=".activities.ChatActivity" />
+        <activity android:name=".activities.tasks.TaskCurrent" />
+        <activity android:name=".activities.tasks.TaskAssistantList" />
+        <activity android:name=".activities.clientTaskManagement.FirebaseNotificationsAdapter" />
+
+        <service android:name=".activities.tasks.uiElements.NotificationService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqDcWb2dGBHZ_mOtFPRS7rJ72g2KnaIFk"/>
 
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
