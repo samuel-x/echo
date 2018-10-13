@@ -83,29 +83,7 @@ public class TaskCurrentTest {
         testChildMessageCounter = 0;
     }
 
-//    @Test
-//    public void onCallButtonClickTest() throws Exception {
-//        verify(taskCurrent, times(0)).makeCall();
-//        taskCurrent.onCallButtonClick();
-//        verify(taskCurrent, times(1)).makeCall();
-//    }
-//
-//    @Test
-//    public void onMessageButtonClickTest() throws Exception {
-//        // Test for unknown user
-//        when(taskCurrent.otherUserName.getText().toString().equals(UNKNOWN)).thenReturn(true);
-//        verify(taskCurrent, times(0)).startActivity(any(Intent.class));
-//        taskCurrent.onMessageButtonClick();
-//        verify(taskCurrent, times(0)).startActivity(any(Intent.class));
-//    }
-//
-//    @Test
-//    public void onMessageButtonClickNullTest() throws Exception {
-//        // Test for unknown user
-//        when(taskCurrent.otherUserName.getText().toString().equals(UNKNOWN)).thenReturn(false);
-//        taskCurrent.onMessageButtonClick();
-//        PowerMockito.verifyNew(Intent.class).withArguments(taskCurrent, ChatActivity.class);
-//    }
+    // TODO: Write tests for makeCall() and the MessageButton.
 
     @Test
     public void testEnableAvatarElement() {

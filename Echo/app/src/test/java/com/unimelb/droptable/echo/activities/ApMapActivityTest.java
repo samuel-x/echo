@@ -19,6 +19,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -91,7 +92,7 @@ public class ApMapActivityTest {
          * Here, mocking the variables inside the listener created alters the hashed result
          * when asserting equals, so the best we can do is just check the type.
          */
-        assertEquals(apMapActivity.createListener(), instanceOf(ChildEventListener.class));
+        assertThat(apMapActivity.createTaskListener(), instanceOf(ChildEventListener.class));
     }
 
     @After

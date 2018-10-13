@@ -60,6 +60,7 @@ public class AssistantMapActivityTest {
         when(intentMock.putExtra(any(String.class), any(String.class))).thenReturn(intentMock);
         Mockito.doNothing().when(assistantMapActivity).finish();
         Mockito.doNothing().when(assistantMapActivity).startActivity(any(Intent.class));
+        Mockito.when(assistantMapActivity.createTaskListener()).thenCallRealMethod();
 
         task = ImmutableTask.builder()
                 .title(testTitle)
@@ -98,7 +99,7 @@ public class AssistantMapActivityTest {
          * Here, mocking the variables inside the listener created alters the hashed result
          * when asserting equals, so the best we can do is just check the type.
          */
-        assertEquals(assistantMapActivity.createListener(), instanceOf(ChildEventListener.class));
+        assertThat(assistantMapActivity.createTaskListener(), instanceOf(ChildEventListener.class));
     }
 
     @After

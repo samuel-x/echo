@@ -40,9 +40,11 @@ public class RatingActivity extends AppCompatActivity {
         catch (Exception e) {
 
         }
+
+        // TODO: Update Rating here (
         FirebaseAdapter.updateUserRating(ClientInfo.getTask().getAssistant(), ratingBar.getRating());
         FirebaseAdapter.completeTask(ClientInfo.getTask());
-        // TODO: upload rating here
+
         ClientInfo.setTask(null);
 
         startActivity(new Intent(this, ApMapActivity.class));

@@ -27,19 +27,30 @@ public class TaskConfirm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creation_confirm);
 
-        task = Utility.currentTaskBuilder.status("PENDING").ap(ClientInfo.getUsername()).build();
-
         // Setup our buttons
         title = findViewById(R.id.textTaskConfirmTitle);
         address = findViewById(R.id.textTaskConfirmAddress);
         notes = findViewById(R.id.textTaskConfirmNotes);
         confirmButton = findViewById(R.id.buttonTaskConfirmConfirm);
 
+
+
+        confirmButton.setOnClickListener((view) -> {confirmSubmit();});
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Condition for tests
+        if (ClientInfo.getUsername() == null) {
+            ClientInfo.setUsername("TEST");
+        }
+
+        task = Utility.currentTaskBuilder.status("PENDING").ap(ClientInfo.getUsername()).build();
         title.setText(task.getTitle());
         address.setText(task.getAddress());
         notes.setText(task.getNotes());
-
-        confirmButton.setOnClickListener((view) -> {confirmSubmit();});
     }
 
     protected void confirmSubmit() {

@@ -58,10 +58,6 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         accountButton.setOnClickListener(view -> {onAccountButton();});
     }
 
-    protected void onAccountButton() {
-        startActivity(new Intent(this, AccountActivity.class));
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -110,6 +106,10 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         } else {
             taskButton.setText(R.string.new_task_home_button);
         }
+    }
+
+    protected void onAccountButton() {
+        startActivity(new Intent(this, AccountActivity.class));
     }
 
     protected void onTaskPress() {

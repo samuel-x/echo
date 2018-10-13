@@ -31,9 +31,9 @@ public class FirebaseAdapterTest {
 
     private FirebaseAdapter adapter;
 
-    private String testID = "123";
-    private String testAssistant = "Assistant";
-    private Boolean testIsAssistant = true;
+    private final String testID = "123";
+    private final String testAssistant = "Assistant";
+    private final Boolean testIsAssistant = true;
 
     private final String testTitle = "MyTitle";
     private final String testAddress = "MyAddress";
@@ -46,7 +46,7 @@ public class FirebaseAdapterTest {
     private final String id = "ID";
 
     private ImmutableTask testTask;
-    private String testToken = "123";
+    private final String testToken = "123";
 
     @Before
     public void setUp() throws Exception {
@@ -107,52 +107,10 @@ public class FirebaseAdapterTest {
         adapter.updateTaskAssistant(testAssistant, testID);
     }
 
-//    @Test
-//    public void getCurrentTaskID() {
-//        assertThat(adapter.getCurrentTaskID(), instanceOf(String.class));
-//    }
-
-//    @Test
-//    public void getUser() {
-//        assertThat(adapter.getUser(testAssistant), instanceOf(String.class));
-//    }
-
-//    @Test
-//    public void getIsAssistant() {
-//        assertThat(adapter.getIsAssistant(testAssistant), instanceOf(Boolean.class));
-//    }
-
-//    @Test
-//    public void userExists() {
-//        assertThat(adapter.userExists(testAssistant), instanceOf(Boolean.class));
-//    }
-
     @Test
     public void pushUser() {
         adapter.pushUser(testAssistant, testID, testIsAssistant);
     }
-
-//    @Test
-//    public void getPhoneNumber() {
-//        assertThat(adapter.getPhoneNumber(testAssistant), instanceOf(String.class));
-//    }
-
-//    @Test
-//    public void getCurrentTask() {
-//    }
-//
-//    @Test
-//    public void getTask() {
-//    }
-
-//    @Test
-//    public void queryCurrentTask() {
-//        assertThat(adapter.queryCurrentTask(), instanceOf(Query.class));
-//    }
-
-//    @Test
-//    public void queryTask() {
-//    }
 
     @Test
     public void pushMessage() {
@@ -163,11 +121,6 @@ public class FirebaseAdapterTest {
     public void assignTask() {
         adapter.assignTask(testAssistant, testID);
     }
-
-//    @Test
-//    public void completeTask() {
-//    }
-
     @Test
     public void sendRegistrationToServer() {
         adapter.sendRegistrationToServer(testToken);
@@ -178,7 +131,4 @@ public class FirebaseAdapterTest {
         adapter.updateRegistrationToServer(testToken, testAssistant);
     }
 
-//    @Test
-//    public void getUserRegistration() {
-//    }
 }

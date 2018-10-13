@@ -14,7 +14,6 @@ public class ImmutableTaskTest {
     private final String testAp = "MyAp";
     private final String testNotes = "MyNotes";
     private final String ap = "AP";
-    private final String testStatus = "MyStatus";
     private final String assistant = "assistant";
     private final String id = "ID";
 
