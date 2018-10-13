@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -30,6 +32,32 @@ public class AccountActivity extends AppCompatActivity {
         ratingBar.setIsIndicator(true);
 
         updateUI();
+    }
+
+    @Override
+    protected void onResume() {
+        // Attach our task listener
+        super.onResume();
+        if (ClientInfo.hasTask()) {
+            if (ClientInfo.isAssistant()) {
+                try {
+                    TaskNotification.AttachAssistantListener(this);
+                } catch (TaskNotification.IncorrectListenerException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    TaskNotification.AttachAPListener(this);
+                } catch (TaskNotification.IncorrectListenerException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if (ClientInfo.hasPartner()) {
+            // Try to attach a chat listener.
+            MessageNotification.AttachListener(AccountActivity.this);
+        }
     }
 
     private void updateUI() {

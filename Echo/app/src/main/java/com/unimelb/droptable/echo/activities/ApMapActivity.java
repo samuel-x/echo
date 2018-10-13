@@ -28,6 +28,7 @@ import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCategories;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class ApMapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -37,8 +38,6 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
     protected Button taskButton;
     private FloatingActionButton helperButton;
     private FloatingActionButton accountButton;
-
-    private Query taskQuery;
 
 
     @Override
@@ -65,14 +64,14 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         // Ensure that the task button's text is up to date.
         if (ClientInfo.hasTask()) {
 
-            // Attach task listener.
-            while (taskQuery == null) {
-                try {
-                    taskQuery = FirebaseAdapter.queryCurrentTask();
-                    taskQuery.addChildEventListener(createTaskListener());
-                } catch (NullPointerException e) {
-                    taskQuery = null;
-                }
+            // Attach chat listener.
+            MessageNotification.AttachListener(ApMapActivity.this);
+
+            // Attach Task listener.
+            try {
+                TaskNotification.AttachAPListener(ApMapActivity.this);
+            } catch (TaskNotification.IncorrectListenerException e) {
+                e.printStackTrace();
             }
 
             taskButton.setText(R.string.current_task_home_button);
@@ -83,25 +82,15 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                 Context currentContext = this;
 
                 // Show dialog
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(this,
-                            android.R.style.Theme_Material_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(this);
-                }
-                builder.setTitle("Complete Task Request")
-                        .setMessage("Task Completion has been requested by "
-                                + ClientInfo.getTask().getAssistant())
-                        .setPositiveButton(android.R.string.yes,
-                                new DialogInterface.OnClickListener() {
+                TaskNotification.showDialog(this,
+                        TaskNotification.TASK_COMPLETE_REQUEST_TITLE,
+                        TaskNotification.TASK_COMPLETE_REQUEST_MESSAGE,
+                        new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // User touched the dialog's positive button
                                 startActivity(new Intent(currentContext, PaymentActivity.class));
                             }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                        });
             }
         } else {
             taskButton.setText(R.string.new_task_home_button);
@@ -142,113 +131,5 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         startActivity(new Intent(this, HelperActivity.class));
     }
 
-    protected ChildEventListener createTaskListener() {
-        return new ChildEventListener() {
 
-            // Check that the added value is an assistant and show the dialog
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (dataSnapshot != null &&
-                        dataSnapshot.getValue(String.class) != null &&
-                        dataSnapshot.getKey().toString().equals("assistant")) {
-                    String assistantID = dataSnapshot.getValue(String.class);
-                    AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(ApMapActivity.this,
-                                android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(ApMapActivity.this);
-                    }
-                    builder.setTitle("Task Accepted!")
-                            .setMessage("Your task has been accepted by " + assistantID + "!")
-                            .setPositiveButton(android.R.string.yes,
-                                    new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-
-                    // Update task with assistant.
-                    ClientInfo.updateAssistant(assistantID);
-
-                    // Attach chat listener.
-                    MessageNotification.AttachListener(ApMapActivity.this);
-                }
-            }
-
-            // Check that the task has been completed.
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (dataSnapshot != null &&
-                        dataSnapshot.getValue(String.class) != null &&
-                        dataSnapshot.getKey().toString().equals("status") &&
-                        dataSnapshot.getValue(String.class).equals("COMPLETED")) {
-
-                    Context currentContext = ApMapActivity.this;
-
-                    // Ensure that the activity is running.
-                    if (!((Activity) currentContext).hasWindowFocus()) {
-                        return;
-                    }
-
-                    AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(currentContext,
-                                android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(currentContext);
-                    }
-                    builder.setTitle("Complete Task Request")
-                            .setMessage("Task Completion has been requested by " +
-                                    ClientInfo.getTask().getAssistant())
-                            .setPositiveButton(android.R.string.yes,
-                                    new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // User touched the dialog's positive button
-                                    startActivity(new Intent(currentContext,
-                                            PaymentActivity.class));
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            }
-
-            // If a task has been removed, show an error.
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getKey().toString().equals("title")) {
-                    AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(ApMapActivity.this,
-                                android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(ApMapActivity.this);
-                    }
-                    builder.setTitle("Task Cancellation")
-                            .setMessage("Unfortunately, the task has been cancelled.")
-                            .setPositiveButton(android.R.string.yes,
-                                    new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                    ClientInfo.setTask(null);
-                    taskButton.setText(R.string.new_task_home_button);
-                }
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        };
-    }
 }
