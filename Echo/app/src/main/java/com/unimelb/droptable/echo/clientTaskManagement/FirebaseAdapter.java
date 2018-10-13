@@ -26,24 +26,24 @@ public class FirebaseAdapter {
 //    private final static String MESSAGES_ROOT
 //            = Resources.getSystem().getString(R.string.messages_root);
 
-    private final static String TASKS_ROOT = "tasks";
-    private final static String MESSAGES_ROOT = "messages";
-    private final static String USERS_ROOT = "users";
-    private final static String TASK_ID = "taskID";
-    private final static String IS_ASSISTANT = "isAssistant";
-    private final static String PHONE_NUMBER = "phoneNumber";
-    private final static String TOKEN_ROOT = "tokens";
-    private final static String ASSISTANT = "assistant";
-    private final static String STATUS = "status";
+    private static final String TASKS_ROOT = "tasks";
+    private static final String MESSAGES_ROOT = "messages";
+    private static final String USERS_ROOT = "users";
+    private static final String TASK_ID = "taskID";
+    private static final String IS_ASSISTANT = "isAssistant";
+    private static final String PHONE_NUMBER = "phoneNumber";
+    private static final String TOKEN_ROOT = "tokens";
+    private static final String ASSISTANT = "assistant";
+    private static final String STATUS = "status";
     private static final String RATING = "rating";
 
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference masterDbReference = database.getReference();
-    public final static DatabaseReference tasksDbReference = masterDbReference
+    public static DatabaseReference tasksDbReference = masterDbReference
             .child(TASKS_ROOT);
-    public final static DatabaseReference messagesDbReference = masterDbReference
+    public static DatabaseReference messagesDbReference = masterDbReference
             .child(MESSAGES_ROOT);
-    public final static DatabaseReference usersDbReference = masterDbReference
+    public static DatabaseReference usersDbReference = masterDbReference
             .child(USERS_ROOT);
 
 
