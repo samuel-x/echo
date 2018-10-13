@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,7 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
@@ -25,7 +31,14 @@ public class LoginActivity extends AppCompatActivity {
     private static final int MIN_USERNAME_LENGTH = 3;
     private static final int PHONENUMBER_LENGTH = 10;
 
+    // TODO: Replace these strings with strings.xml
+    private static String LOGIN_FAIL = "Login Failed! Are you sure you're an assistant?";
+    private static String PHONE_FAIL = "Phone number is incorrect. Please make sure you use only digits.";
+    private static String NAME_FAIL = "Please enter a valid username.";
+    private static String LOGIN_MESSAGE = "Successful Login!";
+
     // UI references.
+<<<<<<< HEAD
     private EditText usernameText;
     private EditText phoneNumberText;
     private CheckBox isAssistantCheckBox;
@@ -33,6 +46,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private FloatingActionButton helperButton;
     private View signInView;
+=======
+    protected EditText usernameText;
+    protected EditText phoneNumberText;
+    protected CheckBox isAssistantCheckBox;
+    protected Button signInButton;
+    protected FloatingActionButton helperButton;
+    protected View signInView;
+>>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Get a reference to the sign in button and set its listener.
         signInButton = findViewById(R.id.signInButton);
-        signInButton.setOnClickListener((view) -> {attemptLogin();});
+        signInButton.setOnClickListener((view) -> onSignInClick());
 
         // Get a reference to the helper button and set its listener.
         helperButton = findViewById(R.id.loginHelperButton);
@@ -59,17 +80,32 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAdapter.goOnline();
     }
 
+<<<<<<< HEAD
+=======
+    protected void onSignInClick() {
+        try {
+            attemptLogin();
+        } catch (LoginError loginError) {
+            // TODO: Make a more obvious style of error
+            Toast.makeText(this, loginError.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+>>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
 
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+<<<<<<< HEAD
 
 
 
 
     private void attemptLogin() {
+=======
+    protected void attemptLogin() throws LoginError {
+>>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
         showProgress(true);
 
         String username = usernameText.getText().toString();
@@ -78,17 +114,13 @@ public class LoginActivity extends AppCompatActivity {
         // Verify that the user name is valid.
         if (!isUsernameValid(username)) {
             showProgress(false);
-            // TODO: Show error message.
-            Log.d("Login", "Denied access based on invalid user name");
-            return;
+            throw new LoginError(NAME_FAIL);
         }
 
         // Verify that the phone number is valid.
         if(!isPhoneNumberValid(phoneNumber)) {
             showProgress(false);
-            // TODO: Show error message.
-            Log.d("Login", "Denied access based on invalid phone number");
-            return;
+            throw new LoginError(PHONE_FAIL);
         }
 
         // Verify that the isAssistant checkbox matches the boolean on the database, if the username
@@ -96,15 +128,36 @@ public class LoginActivity extends AppCompatActivity {
         if (FirebaseAdapter.userExists(username)
                 && isAssistantCheckBox.isChecked() != FirebaseAdapter.getIsAssistant(username)) {
             showProgress(false);
-            // TODO: Show error message.
-            Log.d("Login", "Denied access based on user type for existing user");
-            return;
+            throw new LoginError(LOGIN_FAIL);
         }
 
         FirebaseAdapter.pushUser(username, phoneNumber, isAssistantCheckBox.isChecked());
         ClientInfo.setUsername(username);
         ClientInfo.setPhoneNumber(phoneNumber);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());
+
+        // Get our token for FCM
+        if (ClientInfo.getToken() != null) {
+            FirebaseAdapter.updateRegistrationToServer(ClientInfo.getToken(), username);
+        }
+        else {
+            FirebaseInstanceId.getInstance().getInstanceId()
+                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                            if (!task.isSuccessful()) {
+                                Log.w("FCM", "getInstanceId failed", task.getException());
+                                return;
+                            }
+
+                            // Get new Instance ID token
+                            String token = task.getResult().getToken();
+
+                            ClientInfo.setCurrentToken(token);
+                            FirebaseAdapter.updateRegistrationToServer(token, username);
+                        }
+                    });
+        }
 
         // Switch to the appropriate activity.
         if (ClientInfo.isAssistant()) {
@@ -113,20 +166,22 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, ApMapActivity.class));
         }
 
+        // Show a small successful login message.
+        Toast.makeText(LoginActivity.this, LOGIN_MESSAGE, Toast.LENGTH_SHORT).show();
         finish();
     }
 
-    private boolean isUsernameValid(String username) {
+    protected boolean isUsernameValid(String username) {
         return username.length() >= MIN_USERNAME_LENGTH;
     }
 
-    private boolean isPhoneNumberValid(String phoneNumber) {
+    protected boolean isPhoneNumberValid(String phoneNumber) {
         return phoneNumber.length() == PHONENUMBER_LENGTH
                 && phoneNumber.matches("[0-9]+")
                 && phoneNumber.startsWith("04");
     }
 
-    private void onHelperPress() {
+    protected void onHelperPress() {
         HelperActivity.setCurrentHelperText(
                 String.format(
                         getString(R.string.login_help_text),
@@ -141,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
      * Shows the progress UI and hides the login form. Partially auto-generated by Android Studio.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
+    protected void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
@@ -161,5 +216,13 @@ public class LoginActivity extends AppCompatActivity {
             // and hide the relevant UI components.
             signInView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    private class LoginError extends Exception {
+
+        public LoginError() { super(); }
+
+        public LoginError(String message) { super(message); }
+
     }
 }

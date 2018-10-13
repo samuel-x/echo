@@ -9,7 +9,7 @@
     <string name="button_other_text">Other</string>
     <string name="task_notes">Task Notes</string>
     <string name="prompt_details">Details…</string>
-    <string name="button_task_now">Now</string>
+    <string name="button_task_now">Continue</string>
     <string name="button_task_later">Later</string>
     <string name="new_task">New Task</string>
     <string name="saved_tasks">Saved Tasks</string>
@@ -65,6 +65,9 @@
     <!-- Strings related to chat messaging screen -->
     <string name="message_prompt">"Enter message…"</string>
 
+    <!-- Strings related to account screen -->
+    <string name="user_assistant_text">"Assistant"</string>
+
     <!-- Intent extras values -->
     <string name="chat_partner">chat_partner</string>
 
@@ -75,11 +78,19 @@
     <string name="messages_root">messages</string>
     <string name="task_id">taskID</string>
     <string name="phone_number_child">phoneNumber</string>
+    <string name="message_time">messageTime</string>
+    <string name="message_text">messageText</string>
+    <string name="message_receiver">receiver</string>
+    <string name="message_sender">sender</string>
 
     <string name="accept_task">accept</string>
+<<<<<<< HEAD
 
 
     <!--Payment-->
     <string name = "title"> Payment Summary </string>
 
+=======
+    <string name="complete_task">Complete Task</string>
+>>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
 </resources>

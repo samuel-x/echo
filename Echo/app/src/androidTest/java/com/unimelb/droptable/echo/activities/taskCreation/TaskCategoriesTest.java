@@ -49,13 +49,6 @@ public class TaskCategoriesTest {
         assertEquals(false, taskCategory.hasWindowFocus());
     }
 
-    @Test
-    public void testOtherCategory() {
-        assertEquals(true, taskCategory.hasWindowFocus());
-        onView(ViewMatchers.withId(R.id.buttonTaskOther)).perform(ViewActions.click());
-        assertEquals(false, taskCategory.hasWindowFocus());
-    }
-
     @After
     public void tearDown() throws Exception {
         // Reset task builder.

@@ -6,14 +6,16 @@ import android.text.method.ScrollingMovementMethod;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 
 public class HelperActivity extends AppCompatActivity {
 
-    private static String currentHelperText;
+    protected static String currentHelperText;
 
-    private TextView helperText;
-    private Button okButton;
+    protected TextView helperText;
+    protected Button okButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +34,21 @@ public class HelperActivity extends AppCompatActivity {
         helperText.setText(currentHelperText);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (ClientInfo.hasPartner()) {
+            // Try to attach a chat listener.
+            MessageNotification.AttachListener(HelperActivity.this);
+        }
+    }
+
     public static void setCurrentHelperText(String currentHelperText) {
         HelperActivity.currentHelperText = currentHelperText;
     }
 
-    private void onOkPress() {
+    protected void onOkPress() {
         finish();
     }
 }

@@ -50,8 +50,13 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
+<<<<<<< HEAD
     private void goToMap() {
         startActivity(new Intent(this, ApMapActivity.class));
+=======
+    protected void goToRating(){
+        startActivity(new Intent(this, RatingActivity.class));
+>>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
         finish();
     }
 

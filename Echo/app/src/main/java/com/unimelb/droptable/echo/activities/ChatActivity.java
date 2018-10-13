@@ -1,7 +1,6 @@
 package com.unimelb.droptable.echo.activities;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
@@ -12,22 +11,18 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
-import com.firebase.ui.database.SnapshotParser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ChatMessage;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
-import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 
 public class ChatActivity extends AppCompatActivity {
 
     public String currentChatPartner;
 
-    private FloatingActionButton sendButton;
-    private EditText inputText;
+    protected FloatingActionButton sendButton;
+    protected EditText inputText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,17 +80,24 @@ public class ChatActivity extends AppCompatActivity {
     /**
      * A method which, when called, sends the current message.
      */
-    private void onMessageSend() {
+    protected void onMessageSend() {
         if (inputText.getText().toString().equals("")) {
             // There's nothing to send. Don't send anything.
             return;
         }
 
-        // There's something to send. Create a ChatMessage and push it.
-        FirebaseAdapter.pushMessage(new ChatMessage(inputText.getText().toString(),
-                ClientInfo.getUsername(), currentChatPartner));
+        sendMessage();
 
         // Clear the input field.
         inputText.setText("");
+    }
+
+    /**
+     * A method to separate Firebase functions when testing
+     */
+    protected void sendMessage() {
+        // There's something to send. Create a ChatMessage and push it.
+        FirebaseAdapter.pushMessage(new ChatMessage(inputText.getText().toString(),
+                ClientInfo.getUsername(), currentChatPartner));
     }
 }

@@ -1,0 +1,70 @@
+package com.unimelb.droptable.echo.activities.tasks.uiElements;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.util.Log;
+
+import com.unimelb.droptable.echo.R;
+
+import static android.app.AlertDialog.Builder;
+
+
+public class CompletionTaskDialog extends DialogFragment {
+
+    final private String ERROR = "CANCELLED";
+    final private String COMPLETE = "COMPLETED";
+
+    /* The activity that creates an instance of this dialog fragment must
+     * implement this interface in order to receive event callbacks.
+     * Each method passes the DialogFragment in case the host needs to query it. */
+    public interface NoticeDialogListener {
+        public void onDialogPositiveClick(DialogFragment dialog);
+    }
+
+    // Use this instance of the interface to deliver action events
+    NoticeDialogListener mListener;
+
+    // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        // Verify that the host activity implements the callback interface
+        try {
+            // Instantiate the NoticeDialogListener so we can send events to the host
+            mListener = (NoticeDialogListener) context;
+        } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException("Error: Activity needs to implement NoticeDialogListener");
+        }
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // Build the dialog and set up the button click handlers
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(getDialog(getArguments().getString("type")))
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Send the positive button event back to the host activity
+                        mListener.onDialogPositiveClick(CompletionTaskDialog.this);
+                    }
+                });
+        return builder.create();
+    }
+
+    public String getDialog(String type) {
+        Log.d("test", type);
+        String str = "Message";
+        if (type.equals(COMPLETE)) {
+            str = "Task has been completed.";
+        }
+        else if (type.equals(ERROR)) {
+            str = "Task has been cancelled.";
+        }
+        return str;
+    }
+}
