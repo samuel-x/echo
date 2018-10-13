@@ -5,10 +5,25 @@ import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class ClientInfo {
     private static String username;
-    private static boolean isAssistant;
+    private static Boolean isAssistant;
     private static ImmutableTask currentTask;
     private static String phoneNumber;
     private static String currentToken;
+    private static Float rating;
+
+    public static float getRating() {
+        if (isAssistant()) {
+            try {
+                rating = FirebaseAdapter.getUserRating(ClientInfo.getUsername());
+            } catch (Exception e){
+                return 0.0f;
+            }
+            return rating;
+        }
+        else {
+            return 0.0f;
+        }
+    }
 
     public static String getUsername() {
         return username;
@@ -60,5 +75,14 @@ public class ClientInfo {
 
     public static void updateAssistant(String assistant) {
         currentTask = ImmutableTask.builder().from(currentTask).assistant(assistant).build();
+    }
+
+    public static void resetClientInfo() {
+        username = null;
+        isAssistant = null;
+        currentTask = null;
+        phoneNumber = null;
+        currentToken = null;
+        rating = null;
     }
 }

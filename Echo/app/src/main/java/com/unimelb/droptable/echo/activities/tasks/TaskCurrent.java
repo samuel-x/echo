@@ -2,9 +2,13 @@ package com.unimelb.droptable.echo.activities.tasks;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,19 +38,19 @@ import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotificatio
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
-public class TaskCurrent extends AppCompatActivity
-        implements CompletionTaskDialog.NoticeDialogListener{
+public class TaskCurrent extends AppCompatActivity {
 
-    private TextView taskCurrentTitle;
-    private TextView taskCurrentAddress;
-    private TextView taskCurrentNotes;
-    private TextView otherUserName;
-    private TextView otherUserPhone;
-    private ConstraintLayout avatar;
-    private ConstraintLayout searchingMessage;
-    private ImageView messageButton;
-    private ImageView callButton;
-    private FloatingActionButton helperButton;
+    protected TextView taskCurrentTitle;
+    protected TextView taskCurrentAddress;
+    protected TextView taskCurrentNotes;
+    protected TextView otherUserName;
+    protected TextView otherUserPhone;
+    protected TextView otherUserRating;
+    protected ConstraintLayout avatar;
+    protected ConstraintLayout searchingMessage;
+    protected ImageView messageButton;
+    protected ImageView callButton;
+    protected FloatingActionButton helperButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,7 @@ public class TaskCurrent extends AppCompatActivity
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
         otherUserName = findViewById(R.id.userName);
         otherUserPhone = findViewById(R.id.userPhone);
+        otherUserRating = findViewById(R.id.userRating);
         avatar = findViewById(R.id.avatarContainer);
         searchingMessage = findViewById(R.id.isReadyLayer);
 
@@ -74,7 +80,7 @@ public class TaskCurrent extends AppCompatActivity
         helperButton.setOnClickListener(view -> {onHelperPress();});
         if (ClientInfo.isAssistant()) {
             // The user is an assistant, and we don't want to display the helper button to them.
-            helperButton.setAlpha(0f);
+            helperButton.setAlpha(0.0f);
             helperButton.setEnabled(false);
         }
     }
@@ -118,45 +124,61 @@ public class TaskCurrent extends AppCompatActivity
     }
 
     public void showDialog(String status) {
-        DialogFragment dialog = new CompletionTaskDialog();
-        Bundle args = new Bundle();
-        args.putString("type", status);
-        dialog.setArguments(args);
         if (hasWindowFocus()) {
+            Context currentContext = this;
             if (status.equals("COMPLETED")) {
-                dialog.show(getSupportFragmentManager(), "COMPLETED");
-            } else {
-                dialog.show(getSupportFragmentManager(), "CANCELLED");
+                // Create a dialog for the AP, requesting that the task be completed.
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(this,
+                            android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(this);
+                }
+                builder.setTitle("Complete Task Request")
+                        .setMessage("Task Completion has been requested by "
+                                + ClientInfo.getTask().getAssistant())
+                        .setPositiveButton(android.R.string.yes,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if (!ClientInfo.isAssistant()) {
+                                            startActivity(new Intent(currentContext,
+                                                    PaymentActivity.class));
+                                        }
+                                    }
+                                })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            } else if (status.equals("CANCELLED")) {
+                // Create a dialog for the AP/Assistant, notifying the user that the task has been
+                // cancelled.
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(this,
+                            android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(this);
+                }
+                builder.setTitle("Task Cancelled")
+                        .setMessage("Unfortunately, the task has been cancelled.")
+                        .setPositiveButton(android.R.string.yes,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // User touched the dialog's positive button
+                                        if (ClientInfo.isAssistant()) {
+                                            startActivity(new Intent(currentContext,
+                                                    AssistantMapActivity.class));
+                                            ClientInfo.setTask(null);
+                                        }
+                                        else {
+                                            ClientInfo.setTask(null);
+                                        }
+                                    }
+                                })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         }
-    }
-
-    // The dialog fragment receives a reference to this Activity through the
-    // Fragment.onAttach() callback, which it uses to call the following methods
-    // defined by the NoticeDialogFragment.NoticeDialogListener interface
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        // User touched the dialog's positive button
-        if (dialog.getTag().equals("COMPLETED")) {
-            if (ClientInfo.isAssistant()) {
-                startActivity(new Intent(this, AssistantMapActivity.class));
-                ClientInfo.setTask(null);
-            }
-            else {
-                startActivity(new Intent(this, PaymentActivity.class));
-            }
-        }
-        else {
-            if (ClientInfo.isAssistant()) {
-                startActivity(new Intent(this, AssistantMapActivity.class));
-                ClientInfo.setTask(null);
-            }
-            else {
-                startActivity(new Intent(this, ApMapActivity.class));
-                ClientInfo.setTask(null);
-            }
-        }
-        finish();
     }
 
     public void bind(@NonNull ImmutableTask task) {
@@ -200,7 +222,8 @@ public class TaskCurrent extends AppCompatActivity
                     String assistantID = dataSnapshot.getValue(String.class);
                     updateAssistant(assistantID);
                 }
-                if (dataSnapshot.getKey().toString().equals("status") && dataSnapshot.getValue(String.class).equals("COMPLETED")) {
+                if (dataSnapshot.getKey().toString().equals("status") && dataSnapshot
+                        .getValue(String.class).equals("COMPLETED")) {
                     showDialog("COMPLETED");
                 }
             }
@@ -227,26 +250,29 @@ public class TaskCurrent extends AppCompatActivity
         };
     }
 
-    private void updateAssistant(String assistantID) {
+    protected void updateAssistant(String assistantID) {
         DataSnapshot user;
         // Update it with the AP's information if we are currently an assistant
         if (ClientInfo.isAssistant()) {
             String AP = ClientInfo.getTask().getAp();
             user = FirebaseAdapter.getUser(AP);
             otherUserName.setText(AP);
-            otherUserPhone.setText(user.child(getString(R.string.phone_number_child)).getValue(String.class));
+            otherUserPhone.setText(user.child(getString(R.string.phone_number_child))
+                    .getValue(String.class));
         }
         else {
             user = FirebaseAdapter.getUser(assistantID);
             otherUserName.setText(assistantID);
-            otherUserPhone.setText(user.child(getString(R.string.phone_number_child)).getValue(String.class));
+            otherUserPhone.setText(user.child(getString(R.string.phone_number_child))
+                    .getValue(String.class));
+            otherUserRating.setText("Rating " + user.child("rating").getValue(float.class).toString());
         }
 
         // enable our avatar
         enableAvatar();
     }
 
-    private void resetAssistant() {
+    protected void resetAssistant() {
         otherUserName.setText(getString(R.string.unknown_user));
         otherUserPhone.setText(getString(R.string.empty_phone_number));
 
@@ -255,31 +281,44 @@ public class TaskCurrent extends AppCompatActivity
         }
     }
 
-    private void enableAvatar() {
+    protected void enableElement(View view) {
+        view.setAlpha(1.0f);
+        view.setEnabled(true);
+    }
+
+    protected void enableAvatar() {
         for (int i = 0; i < avatar.getChildCount(); i++) {
-            avatar.getChildAt(i).setAlpha(1.0f);
+            enableElement(avatar.getChildAt(i));
         }
 
         for (int i = 0; i < searchingMessage.getChildCount(); i++) {
-            searchingMessage.getChildAt(i).setEnabled(false);
-            searchingMessage.getChildAt(i).setAlpha(0.0f);
+            disableElement(searchingMessage.getChildAt(i), true);
         }
     }
 
-    private void disableAvatar() {
+    protected void disableAvatar() {
         for (int i = 0; i < avatar.getChildCount(); i++) {
-            avatar.getChildAt(i).setAlpha(0.06f);
+            disableElement(avatar.getChildAt(i), false);
         }
 
         for (int i = 0; i < searchingMessage.getChildCount(); i++) {
-            searchingMessage.getChildAt(i).setEnabled(true);
-            searchingMessage.getChildAt(i).setAlpha(1.0f);
+            enableElement(searchingMessage.getChildAt(i));
         }
 
         resetAssistant();
     }
 
-    private void onMessageButtonClick() {
+    protected void disableElement(View view, boolean zeroOpacity) {
+        if (zeroOpacity) {
+            view.setAlpha(0.0f);
+        }
+        else {
+            view.setAlpha(0.06f);
+        }
+        view.setEnabled(false);
+    }
+
+    protected void onMessageButtonClick() {
         if (otherUserName.getText().toString().equals(getString(R.string.unknown_user))) {
             // The task has not been accepted and thus there is not user to chat with.
             return;
@@ -292,7 +331,7 @@ public class TaskCurrent extends AppCompatActivity
                                 : ClientInfo.getTask().getAssistant())));
     }
 
-    private void onCallButtonClick() {
+    protected void onCallButtonClick() {
         if(otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
             // Assistant has no phone number so do nothing
             return;
@@ -317,13 +356,13 @@ public class TaskCurrent extends AppCompatActivity
     }
 
     @SuppressLint("MissingPermission")
-    private void makeCall() {
+    protected void makeCall() {
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel:" + otherUserPhone.getText().toString()));
         startActivity(intent);
     }
 
-    private void onHelperPress() {
+    protected void onHelperPress() {
         HelperActivity.setCurrentHelperText(getString(R.string.task_current_helper_text));
         startActivity(new Intent(this, HelperActivity.class));
     }

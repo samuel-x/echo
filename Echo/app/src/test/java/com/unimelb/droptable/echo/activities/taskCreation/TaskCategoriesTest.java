@@ -49,18 +49,6 @@ public class TaskCategoriesTest {
     }
 
     @Test
-    public void otherTask() throws Exception {
-        verify(Utility.currentTaskBuilder, times(0)).category("Other");
-        verify(taskCategories, times(0)).startActivity(intentMock);
-
-        taskCategories.otherTask();
-
-        verify(Utility.currentTaskBuilder, times(1)).category("Other");
-        PowerMockito.verifyNew(Intent.class).withArguments(taskCategories, TaskDetails.class);
-        verify(taskCategories, times(1)).startActivity(intentMock);
-    }
-
-    @Test
     public void householdTask() throws Exception {
         verify(Utility.currentTaskBuilder, times(0)).category("Household");
         verify(taskCategories, times(0)).startActivity(intentMock);

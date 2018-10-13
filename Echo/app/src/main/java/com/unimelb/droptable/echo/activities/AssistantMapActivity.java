@@ -1,10 +1,12 @@
 package com.unimelb.droptable.echo.activities;
 
+import android.accounts.Account;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Button;
 
@@ -30,7 +32,10 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     private GoogleMap mMap;
 
     private Button taskButton;
+    private FloatingActionButton accountButton;
     private Button completeTaskButton;
+
+    private Query taskQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +55,55 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         completeTaskButton = findViewById(R.id.completeTaskButton);
         completeTaskButton.setOnClickListener(view -> onCompleteTaskButton());
 
+        accountButton = findViewById((R.id.accountButtonAssistant));
+        accountButton.setOnClickListener(view -> onAccountButton());
 
     }
 
-    private void onCompleteTaskButton() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Ensure that the task button's text is up to date and update our listeners.
+        if (ClientInfo.hasTask()) {
+
+            // Attach task listener.
+            while (taskQuery == null) {
+                try {
+                    taskQuery = FirebaseAdapter.queryCurrentTask();
+                    taskQuery.addChildEventListener(createTaskListener());
+                } catch (NullPointerException e) {
+                    taskQuery = null;
+                }
+            }
+
+            enableCompleteTask();
+            taskButton.setText(R.string.current_task_home_button);
+
+            // Try to attach a chat listener.
+            MessageNotification.AttachListener(AssistantMapActivity.this);
+        } else {
+
+            disableCompleteTask();
+            taskButton.setText(R.string.new_task_home_button);
+        }
+    }
+
+    protected void enableCompleteTask() {
+        completeTaskButton.setEnabled(true);
+        completeTaskButton.setAlpha(1.0f);
+    }
+
+    protected void disableCompleteTask() {
+        completeTaskButton.setEnabled(false);
+        completeTaskButton.setAlpha(0.0f);
+    }
+
+    protected void onAccountButton() {
+        startActivity(new Intent(this, AccountActivity.class));
+    }
+
+    protected void onCompleteTaskButton() {
         ClientInfo.updateTask();
         FirebaseAdapter.updateTaskStatus("COMPLETED", ClientInfo.getTask().getId());
         AlertDialog.Builder builder;
@@ -72,38 +122,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                 .show();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Ensure that the task button's text is up to date and update our listeners.
-        if (ClientInfo.hasTask()) {
-            ClientInfo.updateTask();
-            ChildEventListener childEventListener = createListener();
-            Query query = FirebaseAdapter.queryCurrentTask();
-            query.addChildEventListener(childEventListener);
-            enableCompleteTask();
-            taskButton.setText(R.string.current_task_home_button);
-
-            // Try to attach a chat listener.
-            MessageNotification.AttachListener(AssistantMapActivity.this);
-        } else {
-
-            disableCompleteTask();
-            taskButton.setText(R.string.new_task_home_button);
-        }
-    }
-
-    private void enableCompleteTask() {
-        completeTaskButton.setEnabled(true);
-        completeTaskButton.setAlpha(1.0f);
-    }
-
-    private void disableCompleteTask() {
-        completeTaskButton.setEnabled(false);
-        completeTaskButton.setAlpha(0.0f);
-    }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -118,7 +136,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         googleMap.setMinZoomPreference(12);
     }
 
-    private void onTaskButtonClick() {
+    protected void onTaskButtonClick() {
         if (ClientInfo.hasTask()) {
             startActivity(new Intent(this, TaskCurrent.class));
         } else {
@@ -131,7 +149,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
      * necessary dialog.
      * @return
      */
-     private ChildEventListener createListener() {
+     protected ChildEventListener createTaskListener() {
         return new ChildEventListener() {
 
             // TODO: Implement these properly

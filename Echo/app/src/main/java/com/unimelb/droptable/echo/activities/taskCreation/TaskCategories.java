@@ -15,7 +15,6 @@ public class TaskCategories extends AppCompatActivity {
     private Button categoryTransportButton;
     private Button categoryDeliveryButton;
     private Button categoryHouseholdButton;
-    private Button categoryOtherButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,22 +25,14 @@ public class TaskCategories extends AppCompatActivity {
         categoryTransportButton = findViewById(R.id.buttonTaskTransport);
         categoryDeliveryButton = findViewById(R.id.buttonTaskDelivery);
         categoryHouseholdButton = findViewById(R.id.buttonTaskHousehold);
-        categoryOtherButton = findViewById(R.id.buttonTaskOther);
 
         // Subscribe to click events.
         categoryTransportButton.setOnClickListener((view) -> {transportTask();});
         categoryDeliveryButton.setOnClickListener((view) -> {deliveryTask();});
         categoryHouseholdButton.setOnClickListener((view) -> {householdTask();});
-        categoryOtherButton.setOnClickListener((view) -> {otherTask();});
 
         // Begin a new taskBuilder object.
         Utility.currentTaskBuilder = ImmutableTask.builder();
-    }
-
-    protected void otherTask() {
-        Utility.currentTaskBuilder.category("Other");
-        startActivity(new Intent(this, TaskDetails.class).putExtra("category", "Other"));
-        finish();
     }
 
     protected void householdTask() {
