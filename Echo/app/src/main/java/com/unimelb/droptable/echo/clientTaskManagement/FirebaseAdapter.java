@@ -26,16 +26,16 @@ public class FirebaseAdapter {
 //    private final static String MESSAGES_ROOT
 //            = Resources.getSystem().getString(R.string.messages_root);
 
-    private static final String TASKS_ROOT = "tasks";
-    private static final String MESSAGES_ROOT = "messages";
-    private static final String USERS_ROOT = "users";
-    private static final String TASK_ID = "taskID";
-    private static final String IS_ASSISTANT = "isAssistant";
-    private static final String PHONE_NUMBER = "phoneNumber";
-    private static final String TOKEN_ROOT = "tokens";
-    private static final String ASSISTANT = "assistant";
-    private static final String STATUS = "status";
-    private static final String RATING = "rating";
+    protected static final String TASKS_ROOT = "tasks";
+    protected static final String MESSAGES_ROOT = "messages";
+    protected static final String USERS_ROOT = "users";
+    protected static final String TASK_ID = "taskID";
+    protected static final String IS_ASSISTANT = "isAssistant";
+    protected static final String PHONE_NUMBER = "phoneNumber";
+    protected static final String TOKEN_ROOT = "tokens";
+    protected static final String ASSISTANT = "assistant";
+    protected static final String STATUS = "status";
+    protected static final String RATING = "rating";
 
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference masterDbReference = database.getReference();
@@ -119,6 +119,11 @@ public class FirebaseAdapter {
         return HttpURLConnection.HTTP_OK;
     }
 
+    /**
+     * Returns the task id for the current task that the user is associated with. Retrieves it
+     * from Firebase.
+     * @return the task ID as a String.
+     */
     public static String getCurrentTaskID() {
         if (currentData == null) {
             return null;
