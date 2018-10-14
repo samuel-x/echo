@@ -16,7 +16,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     protected TextView taskCurrentTitle;
     protected TextView details;
-    protected TextView amount;
+    protected TextView paymentAmount;
     protected ImmutableTask currentTask;
 
 
@@ -26,39 +26,26 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        taskCurrentTitle = findViewById(R.id.taskTitle);
-        details = findViewById(R.id.details);
-        amount = findViewById(R.id.amount);
-
-        taskCurrentTitle.setText("FUCKKKKK");
-
 //        currentTask = FirebaseAdapter.getCurrentTask();
 //        String title = currentTask.getTitle();
-//        String details = currentTask.getNotes();
 
-//        taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
-//        taskCurrentTime = findViewById(R.id.textTaskInProgressTime);
-//        taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
+//        paymentAmount = findViewById(R.id.paymentAmount);
+//
+//        paymentAmount.setText("Fuck my ass");
 
         confirmPayment = findViewById(R.id.submit);
-        confirmPayment.setOnClickListener((view)->{goToRating();});
-
-
-
-
-
+        confirmPayment.setOnClickListener((view)->{goToMap();});
 
     }
 
-<<<<<<< HEAD
     private void goToMap() {
         startActivity(new Intent(this, ApMapActivity.class));
-=======
-    protected void goToRating(){
-        startActivity(new Intent(this, RatingActivity.class));
->>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
-        finish();
     }
+
+    private void populate(){
+
+    }
+
 
     // TODO: Update view with information from database about completed task
 

@@ -35,13 +35,13 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
 
-<<<<<<< HEAD
-    private Button taskButton;
+
+
     private Button paymentDemo;
 
-=======
+
     protected Button taskButton;
->>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
+
     private FloatingActionButton helperButton;
     private FloatingActionButton accountButton;
 
@@ -59,14 +59,14 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         helperButton = findViewById(R.id.apMapHelperButton);
         helperButton.setOnClickListener(view -> {onHelperPress();});
 
-<<<<<<< HEAD
+
         paymentDemo = findViewById(R.id.payment);
         paymentDemo.setOnClickListener(view -> {goToPayment();});
 
-=======
+
         accountButton = findViewById(R.id.accountButtonAP);
         accountButton.setOnClickListener(view -> {onAccountButton();});
->>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
+
     }
 
     private void goToPayment(){

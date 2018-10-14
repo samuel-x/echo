@@ -84,13 +84,8 @@
     <string name="message_sender">sender</string>
 
     <string name="accept_task">accept</string>
-<<<<<<< HEAD
-
 
     <!--Payment-->
     <string name = "title"> Payment Summary </string>
-
-=======
     <string name="complete_task">Complete Task</string>
->>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
 </resources>

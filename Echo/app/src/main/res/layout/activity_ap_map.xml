@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/map"
         app:layout_constraintVertical_bias="1.0" />
 
-<<<<<<< HEAD
+
     <Button
         android:id="@+id/payment"
         android:layout_width="wrap_content"
@@ -96,7 +96,5 @@
         android:text="Payment Demo"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
-=======
->>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
 
 </android.support.constraint.ConstraintLayout>

@@ -38,22 +38,16 @@ public class LoginActivity extends AppCompatActivity {
     private static String LOGIN_MESSAGE = "Successful Login!";
 
     // UI references.
-<<<<<<< HEAD
-    private EditText usernameText;
-    private EditText phoneNumberText;
-    private CheckBox isAssistantCheckBox;
-    private Button signInButton;
 
-    private FloatingActionButton helperButton;
-    private View signInView;
-=======
+
+
     protected EditText usernameText;
     protected EditText phoneNumberText;
     protected CheckBox isAssistantCheckBox;
     protected Button signInButton;
     protected FloatingActionButton helperButton;
     protected View signInView;
->>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAdapter.goOnline();
     }
 
-<<<<<<< HEAD
-=======
+
     protected void onSignInClick() {
         try {
             attemptLogin();
@@ -90,22 +83,22 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, loginError.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
->>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
+
 
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-<<<<<<< HEAD
 
 
 
 
-    private void attemptLogin() {
-=======
+
+
+
     protected void attemptLogin() throws LoginError {
->>>>>>> bd878e0c2894f9b448c5f09c83e2aa4b687ed28c
+
         showProgress(true);
 
         String username = usernameText.getText().toString();
