@@ -14,6 +14,7 @@ import com.firebase.ui.database.FirebaseListOptions;
 import com.unimelb.droptable.echo.ChatMessage;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 
@@ -39,6 +40,27 @@ public class ChatActivity extends AppCompatActivity {
 
         // Retrieve and show existing messages.
         displayMessages(Utility.generateUserChatId(ClientInfo.getUsername(), currentChatPartner));
+    }
+
+    @Override
+    protected void onResume() {
+        // Attach our task listener
+        super.onResume();
+        if (ClientInfo.hasTask()) {
+            if (ClientInfo.isAssistant()) {
+                try {
+                    TaskNotification.AttachAssistantListener(this);
+                } catch (TaskNotification.IncorrectListenerException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    TaskNotification.AttachAPListener(this);
+                } catch (TaskNotification.IncorrectListenerException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
