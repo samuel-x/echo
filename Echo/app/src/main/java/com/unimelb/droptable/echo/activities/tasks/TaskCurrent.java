@@ -175,7 +175,9 @@ public class TaskCurrent extends AppCompatActivity {
             otherUserName.setText(assistantID);
             otherUserPhone.setText(user.child(getString(R.string.phone_number_child))
                     .getValue(String.class));
-            otherUserRating.setText("Rating " + user.child("rating").getValue(float.class).toString());
+            Float rating = user.child("rating").getValue(Float.class);
+            rating = rating == null ? 0f : rating;
+            otherUserRating.setText("Rating " + rating.toString());
         }
 
         // enable our avatar
