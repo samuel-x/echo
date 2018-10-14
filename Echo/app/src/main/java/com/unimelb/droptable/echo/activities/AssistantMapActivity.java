@@ -75,6 +75,9 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
     private Button completeTaskButton;
 
+    private String fstInstruction;
+    private String sndInstruction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +94,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 //        newTaskButton.setOnClickListener((view) -> {
 //            newTask();
 //        });
+
+
 
         todoText = findViewById(R.id.todoText);
         todoText.setText("");
@@ -127,12 +132,27 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
                             endLL = new LatLng(Double.parseDouble(ClientInfo.getTask().getLatitude()), Double.parseDouble(ClientInfo.getTask().getLongitude()));
                             Log.d("dest loc from database:", endLL.toString());
-                            doMap(mMap, startLL, endLL);
-                            //doMap(mMap, endLL, new LatLng(-37.8170, 144.9460));
 
-                            todoText.setText("Go to " + ClientInfo.getTask().getAddress());
-                           //todoText.setAllCaps(true);
 
+                            LatLng midStop = thirdStop();
+                            boolean goHome = goHomeFirst();
+
+                            if (!goHome){
+                                LatLng temp = endLL;
+                                endLL = midStop;
+                                midStop = temp;
+                            }
+
+                            if (ClientInfo.getTask().getLastPhase().equals("false")){
+                                doMap(mMap, startLL, midStop);
+                                completeTaskButton.setText(fstInstruction);
+                            } else {
+                                doMap(mMap, startLL, endLL);
+                                completeTaskButton.setText(sndInstruction);
+                            }
+
+
+                            //doMap(mMap, startLL, endLL);
                         }
                     }
                     catch (Exception e) {
@@ -354,7 +374,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(midPoint, 14));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(midPoint, 14));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(startLL));
     }
 
 
@@ -372,7 +393,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
      * necessary dialog.
      * @return
      */
-     private ChildEventListener createListener() {
+    private ChildEventListener createListener() {
         return new ChildEventListener() {
 
             // TODO: Implement these properly
@@ -400,10 +421,10 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                             .setMessage("The task was accepted by the AP!")
                             .setPositiveButton(android.R.string.yes,
                                     new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                                }
-                            })
+                                        }
+                                    })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                     ClientInfo.setTask(null);
@@ -420,5 +441,54 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
             public void onCancelled(DatabaseError databaseError) {
             }
         };
+    }
+
+    private boolean goHomeFirst(){
+
+        if (ClientInfo.getTask().getCategory().equals("Transport")){
+
+            fstInstruction = "COMPLETE PICK UP";
+            sndInstruction = "COMPLETE DROP OFF";
+
+            if (ClientInfo.getTask().getSubCategory().equals("From My House")){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        if (ClientInfo.getTask().getCategory().equals("Delivery")){
+
+            fstInstruction = "COMPLETE ITEM(S) PICK UP";
+            sndInstruction = "COMPLETE ITEM(S) DROP OFF";
+
+            if (ClientInfo.getTask().getSubCategory().equals("From My House")){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        if (ClientInfo.getTask().getCategory().equals("Household")){
+
+            fstInstruction = "ARRIVE AT HOUSE";
+            sndInstruction = "COMPLETE ASSIGNED TASK(S)";
+
+            return true;
+        }
+
+        completeTaskButton.setText("yeeet");
+
+        return false;
+    }
+
+    private LatLng thirdStop(){
+
+        // NEED TO HAVE USERS STORE THEIR HOME LAT LONGS / CURRENT LOCATIONS
+
+        // placeholder is fitzroy
+        LatLng APLocation = new LatLng(-37.8011, 144.9789);
+
+        return APLocation;
     }
 }
