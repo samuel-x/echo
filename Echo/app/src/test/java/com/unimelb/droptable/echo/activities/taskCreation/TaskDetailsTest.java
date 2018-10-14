@@ -1,7 +1,6 @@
 package com.unimelb.droptable.echo.activities.taskCreation;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.TextView;
 
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
@@ -73,7 +72,7 @@ public class TaskDetailsTest {
         verify(taskDetails, times(0)).startActivity(intentMock);
 
         // Execute.
-        taskDetails.submitNow();
+        taskDetails.onContinue();
 
         // Verify post.
         verify(Utility.currentTaskBuilder, times(1))

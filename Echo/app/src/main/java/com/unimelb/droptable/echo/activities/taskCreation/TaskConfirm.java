@@ -13,6 +13,8 @@ import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 public class TaskConfirm extends AppCompatActivity {
 
     // Grab UI references
@@ -32,20 +34,12 @@ public class TaskConfirm extends AppCompatActivity {
         address = findViewById(R.id.textTaskConfirmAddress);
         notes = findViewById(R.id.textTaskConfirmNotes);
         confirmButton = findViewById(R.id.buttonTaskConfirmConfirm);
-
-
-
         confirmButton.setOnClickListener((view) -> {confirmSubmit();});
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Condition for tests
-        if (ClientInfo.getUsername() == null) {
-            ClientInfo.setUsername("TEST");
-        }
 
         task = Utility.currentTaskBuilder.status("PENDING").ap(ClientInfo.getUsername()).build();
         title.setText(task.getTitle());
@@ -58,7 +52,8 @@ public class TaskConfirm extends AppCompatActivity {
         ClientInfo.setTask(task);
         FirebaseAdapter.pushTask(task);
 
-        // End this activity.
+        // Go back to the map and end the activity.
+        startActivity(new Intent(this, ApMapActivity.class).addFlags(FLAG_ACTIVITY_CLEAR_TOP));
         finish();
     }
 }
