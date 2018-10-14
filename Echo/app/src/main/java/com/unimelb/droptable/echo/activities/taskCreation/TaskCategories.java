@@ -38,18 +38,15 @@ public class TaskCategories extends AppCompatActivity {
     protected void householdTask() {
         Utility.currentTaskBuilder.category("Household");
         startActivity(new Intent(this, TaskSubcategories.class).putExtra("category", "Household"));
-        finish();
     }
 
     protected void deliveryTask() {
         Utility.currentTaskBuilder.category("Delivery");
         startActivity(new Intent(this, TaskSubcategories.class).putExtra("category", "Delivery"));
-        finish();
     }
 
     protected void transportTask() {
         Utility.currentTaskBuilder.category("Transport");
         startActivity(new Intent(this, TaskSubcategories.class).putExtra("category", "Transport"));
-        finish();
     }
 }

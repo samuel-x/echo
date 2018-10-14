@@ -26,24 +26,24 @@ public class FirebaseAdapter {
 //    private final static String MESSAGES_ROOT
 //            = Resources.getSystem().getString(R.string.messages_root);
 
-    private final static String TASKS_ROOT = "tasks";
-    private final static String MESSAGES_ROOT = "messages";
-    private final static String USERS_ROOT = "users";
-    private final static String TASK_ID = "taskID";
-    private final static String IS_ASSISTANT = "isAssistant";
-    private final static String PHONE_NUMBER = "phoneNumber";
-    private final static String TOKEN_ROOT = "tokens";
-    private final static String ASSISTANT = "assistant";
-    private final static String STATUS = "status";
-    private static final String RATING = "rating";
+    protected static final String TASKS_ROOT = "tasks";
+    protected static final String MESSAGES_ROOT = "messages";
+    protected static final String USERS_ROOT = "users";
+    protected static final String TASK_ID = "taskID";
+    protected static final String IS_ASSISTANT = "isAssistant";
+    protected static final String PHONE_NUMBER = "phoneNumber";
+    protected static final String TOKEN_ROOT = "tokens";
+    protected static final String ASSISTANT = "assistant";
+    protected static final String STATUS = "status";
+    protected static final String RATING = "rating";
 
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference masterDbReference = database.getReference();
-    public final static DatabaseReference tasksDbReference = masterDbReference
+    public static DatabaseReference tasksDbReference = masterDbReference
             .child(TASKS_ROOT);
-    public final static DatabaseReference messagesDbReference = masterDbReference
+    public static DatabaseReference messagesDbReference = masterDbReference
             .child(MESSAGES_ROOT);
-    public final static DatabaseReference usersDbReference = masterDbReference
+    public static DatabaseReference usersDbReference = masterDbReference
             .child(USERS_ROOT);
 
 
@@ -119,6 +119,11 @@ public class FirebaseAdapter {
         return HttpURLConnection.HTTP_OK;
     }
 
+    /**
+     * Returns the task id for the current task that the user is associated with. Retrieves it
+     * from Firebase.
+     * @return the task ID as a String.
+     */
     public static String getCurrentTaskID() {
         if (currentData == null) {
             return null;
@@ -138,8 +143,14 @@ public class FirebaseAdapter {
         return currentData.child(USERS_ROOT).child(user);
     }
 
-    public static Boolean getIsAssistant(String username) {
-        if (!currentData.child(USERS_ROOT).hasChild(username)) {
+    public static boolean userExists(String username) {
+        return currentData
+                .child(USERS_ROOT)
+                .hasChild(username);
+    }
+
+    public static Boolean isAssistant(String username) {
+        if (!userExists(username)) {
             return null;
         }
 
@@ -148,12 +159,6 @@ public class FirebaseAdapter {
                 .child(username)
                 .child(IS_ASSISTANT)
                 .getValue(Boolean.class);
-    }
-
-    public static boolean userExists(String username) {
-        return currentData
-                .child(USERS_ROOT)
-                .hasChild(username);
     }
 
     public static int pushUser(String username, String phoneNumber, boolean isAssistant) {
@@ -197,20 +202,6 @@ public class FirebaseAdapter {
                 .getValue(String.class);
     }
 
-    /**
-     * Get current user's task once (if they have one)
-     */
-    public static ImmutableTask getCurrentTask() {
-        String currentTaskId = getCurrentTaskID();
-
-        if (currentTaskId == null) {
-            // This user does not have any task assigned to them.
-            return null;
-        }
-
-        return getTask(currentTaskId);
-    }
-
     public static ImmutableTask getTask(String id) {
         DataSnapshot taskRef = currentData.child(TASKS_ROOT).child(id);
 
@@ -241,6 +232,20 @@ public class FirebaseAdapter {
                 .ap(ap)
                 .assistant(assistant)
                 .id(taskRef.getKey()).build();
+    }
+
+    /**
+     * Get current user's task once (if they have one)
+     */
+    public static ImmutableTask getCurrentTask() {
+        String currentTaskId = getCurrentTaskID();
+
+        if (currentTaskId == null) {
+            // This user does not have any task assigned to them.
+            return null;
+        }
+
+        return getTask(currentTaskId);
     }
 
     /**
@@ -298,10 +303,6 @@ public class FirebaseAdapter {
         updateAssistantTask(assistant, id);
     }
 
-    private static void updateAssistantTask(String assistant, String id) {
-        usersDbReference.child(assistant).child("taskID").setValue(id);
-    }
-
     public static void completeTask(ImmutableTask task) {
         currentData.child(TASKS_ROOT).child(task.getId()).getRef().removeValue();
         currentData.child(USERS_ROOT).child(task.getAssistant()).child(TASK_ID).getRef().removeValue();
@@ -333,5 +334,9 @@ public class FirebaseAdapter {
      */
     public static String getUserRegistration(String user) {
         return getUser(user).child("token").getValue(String.class);
+    }
+
+    protected static void updateAssistantTask(String assistant, String id) {
+        usersDbReference.child(assistant).child("taskID").setValue(id);
     }
 }

@@ -60,7 +60,7 @@ public class AssistantMapActivityTest {
         when(intentMock.putExtra(any(String.class), any(String.class))).thenReturn(intentMock);
         Mockito.doNothing().when(assistantMapActivity).finish();
         Mockito.doNothing().when(assistantMapActivity).startActivity(any(Intent.class));
-        Mockito.when(assistantMapActivity.createTaskListener()).thenCallRealMethod();
+//        Mockito.when(assistantMapActivity.createTaskListener()).thenCallRealMethod();
 
         task = ImmutableTask.builder()
                 .title(testTitle)
@@ -77,9 +77,7 @@ public class AssistantMapActivityTest {
     @Test
     public void testTaskButtonNoTask() throws Exception {
         // Verify activity change without task.
-        verify(assistantMapActivity, times(0)).onTaskButtonClick();
         assistantMapActivity.onTaskButtonClick();
-        verify(assistantMapActivity, times(1)).onTaskButtonClick();
         PowerMockito.verifyNew(Intent.class).withArguments(assistantMapActivity, TaskAssistantList.class);
     }
 
@@ -87,23 +85,22 @@ public class AssistantMapActivityTest {
     public void testTaskButtonTask() throws Exception {
         // Verify activity change with task.
         ClientInfo.setTask(task);
-        verify(assistantMapActivity, times(0)).onTaskButtonClick();
         assistantMapActivity.onTaskButtonClick();
-        verify(assistantMapActivity, times(1)).onTaskButtonClick();
         PowerMockito.verifyNew(Intent.class).withArguments(assistantMapActivity, TaskCurrent.class);
     }
 
-    @Test
-    public void createListener() {
-        /**
-         * Here, mocking the variables inside the listener created alters the hashed result
-         * when asserting equals, so the best we can do is just check the type.
-         */
-        assertThat(assistantMapActivity.createTaskListener(), instanceOf(ChildEventListener.class));
-    }
+//    @Test
+//    public void createListener() {
+//        /**
+//         * Here, mocking the variables inside the listener created alters the hashed result
+//         * when asserting equals, so the best we can do is just check the type.
+//         */
+//        assertThat(assistantMapActivity.createTaskListener(), instanceOf(ChildEventListener.class));
+//    }
 
     @After
     public void tearDown() {
+        ClientInfo.resetClientInfo();
         assistantMapActivity = null;
     }
 }
