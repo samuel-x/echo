@@ -77,9 +77,7 @@ public class AssistantMapActivityTest {
     @Test
     public void testTaskButtonNoTask() throws Exception {
         // Verify activity change without task.
-        verify(assistantMapActivity, times(0)).onTaskButtonClick();
         assistantMapActivity.onTaskButtonClick();
-        verify(assistantMapActivity, times(1)).onTaskButtonClick();
         PowerMockito.verifyNew(Intent.class).withArguments(assistantMapActivity, TaskAssistantList.class);
     }
 
@@ -87,9 +85,7 @@ public class AssistantMapActivityTest {
     public void testTaskButtonTask() throws Exception {
         // Verify activity change with task.
         ClientInfo.setTask(task);
-        verify(assistantMapActivity, times(0)).onTaskButtonClick();
         assistantMapActivity.onTaskButtonClick();
-        verify(assistantMapActivity, times(1)).onTaskButtonClick();
         PowerMockito.verifyNew(Intent.class).withArguments(assistantMapActivity, TaskCurrent.class);
     }
 
@@ -104,6 +100,7 @@ public class AssistantMapActivityTest {
 
     @After
     public void tearDown() {
+        ClientInfo.resetClientInfo();
         assistantMapActivity = null;
     }
 }
