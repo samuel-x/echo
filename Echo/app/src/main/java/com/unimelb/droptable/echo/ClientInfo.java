@@ -70,11 +70,7 @@ public class ClientInfo {
     }
 
     public static boolean hasPartner() {
-        if (hasTask()) {
-            return isAssistant() || currentTask.getAssistant() != null;
-        } else {
-            return false;
-        }
+        return isAssistant() || (currentTask != null && currentTask.getAssistant() != null);
     }
 
     public static void updateAssistant(String assistant) {

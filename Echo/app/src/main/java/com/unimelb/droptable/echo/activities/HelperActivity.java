@@ -39,7 +39,7 @@ public class HelperActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (ClientInfo.hasPartner()) {
+        if (ClientInfo.getUsername() != null && ClientInfo.hasPartner()) {
             // Try to attach a chat listener.
             MessageNotification.AttachListener(HelperActivity.this);
         }

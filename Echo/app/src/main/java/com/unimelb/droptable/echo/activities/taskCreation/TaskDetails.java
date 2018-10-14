@@ -34,15 +34,15 @@ public class TaskDetails extends AppCompatActivity {
         cameraButton = findViewById(R.id.buttonTaskCamera);
         submitNowButton = findViewById(R.id.buttonTaskNow);
 
-        submitNowButton.setOnClickListener((view) -> {submitNow();});
+        submitNowButton.setOnClickListener((view) -> {
+            onContinue();});
 
     }
 
-    protected void submitNow() {
+    protected void onContinue() {
         Utility.currentTaskBuilder.title(title.getText().toString());
         Utility.currentTaskBuilder.address(address.getText().toString());
         Utility.currentTaskBuilder.notes(taskNotes.getText().toString());
         startActivity(new Intent(this, TaskConfirm.class));
-        finish();
     }
 }
