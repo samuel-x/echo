@@ -30,6 +30,8 @@ public class LoginActivityTest {
 
     private static final String VALID_USERNAME = "Ah*&S46";
     private static final String VALID_PHONE = "0412356789";
+    private static final String VALID_USERNAME_AP = "Aasdh*&S46";
+    private static final String VALID_PHONE_AP = "0412356789";
     private static final String VALID_ASSISTANT = "assistant";
     private static final String INVALID_USERNAME = "Ha";
     private static final String INVALID_PHONE = "0";
@@ -85,8 +87,9 @@ public class LoginActivityTest {
 
     @Test
     public void testAssistantNotChecked() {
-        onView(withId(R.id.usernameText)).perform(typeText(VALID_USERNAME), closeSoftKeyboard());
+        onView(withId(R.id.usernameText)).perform(typeText(VALID_USERNAME_AP), closeSoftKeyboard());
         onView(withId(R.id.phoneNumberText)).perform(typeText(VALID_PHONE), closeSoftKeyboard());
+        onView(withId(R.id.signInButton)).perform(click());
         assertEquals(false, ClientInfo.isAssistant());
     }
 

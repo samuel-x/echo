@@ -25,13 +25,14 @@ import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.tasks.TaskAssistantList;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    private Button taskButton;
+    public Button taskButton;
     private FloatingActionButton accountButton;
     private Button completeTaskButton;
 
@@ -67,14 +68,11 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         // Ensure that the task button's text is up to date and update our listeners.
         if (ClientInfo.hasTask()) {
 
-            // Attach task listener.
-            while (taskQuery == null) {
-                try {
-                    taskQuery = FirebaseAdapter.queryCurrentTask();
-                    taskQuery.addChildEventListener(createTaskListener());
-                } catch (NullPointerException e) {
-                    taskQuery = null;
-                }
+            // Attach Task Listener
+            try {
+                TaskNotification.AttachAssistantListener(AssistantMapActivity.this);
+            } catch (TaskNotification.IncorrectListenerException e) {
+                e.printStackTrace();
             }
 
             enableCompleteTask();
@@ -94,7 +92,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         completeTaskButton.setAlpha(1.0f);
     }
 
-    protected void disableCompleteTask() {
+    public void disableCompleteTask() {
         completeTaskButton.setEnabled(false);
         completeTaskButton.setAlpha(0.0f);
     }
@@ -142,60 +140,5 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         } else {
             startActivity(new Intent(this, TaskAssistantList.class));
         }
-    }
-
-    /**
-     * Create a listener to listen to changes on the task. If a task is removed, then show the
-     * necessary dialog.
-     * @return
-     */
-     protected ChildEventListener createTaskListener() {
-        return new ChildEventListener() {
-
-            // TODO: Implement these properly
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                ClientInfo.updateTask();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                ClientInfo.updateTask();
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getKey().toString().equals("title")) {
-                    AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(AssistantMapActivity.this,
-                                android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(AssistantMapActivity.this);
-                    }
-                    builder.setTitle("Task Complete")
-                            .setMessage("The task was accepted by the AP!")
-                            .setPositiveButton(android.R.string.yes,
-                                    new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                    ClientInfo.setTask(null);
-                    disableCompleteTask();
-                    taskButton.setText(R.string.new_task_home_button);
-                }
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        };
     }
 }

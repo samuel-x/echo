@@ -57,6 +57,11 @@ public class MessageNotification extends DialogFragment {
             return;
         }
 
+        if (!ClientInfo.hasPartner()) {
+            // Client doesn't have a partner, so no chat is active.
+            return;
+        }
+
         Query chatQuery = FirebaseAdapter.queryCurrentChat();
         chatQuery.addChildEventListener(createChatListener(activity));
         attachedListeners.add(activity);

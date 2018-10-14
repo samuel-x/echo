@@ -35,6 +35,7 @@ import com.unimelb.droptable.echo.activities.PaymentActivity;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.CompletionTaskDialog;
 import com.unimelb.droptable.echo.activities.HelperActivity;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
@@ -86,98 +87,54 @@ public class TaskCurrent extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        ChildEventListener childEventListener = createListener();
-        Query query = FirebaseAdapter.queryCurrentTask();
-        query.addChildEventListener(childEventListener);
-        ImmutableTask currentTask = FirebaseAdapter.getCurrentTask();
-        bind(currentTask);
-        ClientInfo.setTask(currentTask);
-
-        if (ClientInfo.getTask().getAssistant() == null) {
-            disableAvatar();
-        } else {
-            if (ClientInfo.getTask().getStatus().equals("COMPLETED")) {
-                showDialog("COMPLETED");
-            }
-            enableAvatar();
-        }
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
 
         // Read from the database to see if the AP already has a task in progress.
         ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
 
-        if (ClientInfo.getTask().getStatus().equals("COMPLETED")) {
-            showDialog("COMPLETED");
+        ImmutableTask currentTask = FirebaseAdapter.getCurrentTask();
+        bind(currentTask);
+        ClientInfo.setTask(currentTask);
+
+        // Attach our task listener
+        if (ClientInfo.isAssistant()) {
+            try {
+                TaskNotification.AttachAssistantListener(this);
+            } catch (TaskNotification.IncorrectListenerException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                TaskNotification.AttachAPListener(this);
+            } catch (TaskNotification.IncorrectListenerException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (ClientInfo.getTask().getAssistant() == null) {
+            disableAvatar();
+        } else {
+            if (ClientInfo.getTask().getStatus().equals("COMPLETED")) {
+                TaskNotification.showDialog(this,
+                        TaskNotification.TASK_COMPLETE_ASSISTANT_TITLE,
+                        TaskNotification.TASK_COMPLETE_ASSISTANT_MESSAGE,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // User touched the dialog's positive button
+                                startActivity(new Intent(TaskCurrent.this,
+                                        AssistantMapActivity.class));
+                                finish();
+                            }
+                        });
+            }
+            enableAvatar();
         }
 
         // Try to attach a chat listener.
         if (ClientInfo.hasPartner()) {
             MessageNotification.AttachListener(TaskCurrent.this);
-        }
-    }
-
-    public void showDialog(String status) {
-        if (hasWindowFocus()) {
-            Context currentContext = this;
-            if (status.equals("COMPLETED")) {
-                // Create a dialog for the AP, requesting that the task be completed.
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(this,
-                            android.R.style.Theme_Material_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(this);
-                }
-                builder.setTitle("Complete Task Request")
-                        .setMessage("Task Completion has been requested by "
-                                + ClientInfo.getTask().getAssistant())
-                        .setPositiveButton(android.R.string.yes,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        if (!ClientInfo.isAssistant()) {
-                                            startActivity(new Intent(currentContext,
-                                                    PaymentActivity.class));
-                                        }
-                                    }
-                                })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            } else if (status.equals("CANCELLED")) {
-                // Create a dialog for the AP/Assistant, notifying the user that the task has been
-                // cancelled.
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(this,
-                            android.R.style.Theme_Material_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(this);
-                }
-                builder.setTitle("Task Cancelled")
-                        .setMessage("Unfortunately, the task has been cancelled.")
-                        .setPositiveButton(android.R.string.yes,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // User touched the dialog's positive button
-                                        if (ClientInfo.isAssistant()) {
-                                            startActivity(new Intent(currentContext,
-                                                    AssistantMapActivity.class));
-                                            ClientInfo.setTask(null);
-                                        }
-                                        else {
-                                            ClientInfo.setTask(null);
-                                        }
-                                    }
-                                })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }
         }
     }
 
@@ -203,54 +160,7 @@ public class TaskCurrent extends AppCompatActivity {
         taskCurrentAddress.setText(address);
     }
 
-    private ChildEventListener createListener() {
-        return new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                // Check if the new child added is an assistant, if so, then update our avatar card
-                if (dataSnapshot.getKey().toString().equals("assistant")) {
-                    String assistantID = dataSnapshot.getValue(String.class);
-                    updateAssistant(assistantID);
-                }
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                // Check if the new child added is an assistant, if so, then update our avatar card
-                if (dataSnapshot.getKey().toString().equals("assistant")) {
-                    String assistantID = dataSnapshot.getValue(String.class);
-                    updateAssistant(assistantID);
-                }
-                if (dataSnapshot.getKey().toString().equals("status") && dataSnapshot
-                        .getValue(String.class).equals("COMPLETED")) {
-                    showDialog("COMPLETED");
-                }
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                // Disable avatar section and begin search for new assistant
-                if (ClientInfo.isAssistant()) {
-                    showDialog("CANCELLED");
-                }
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-                disableAvatar();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                if (ClientInfo.isAssistant()) {
-                    showDialog("CANCELLED");
-                }
-            }
-        };
-    }
-
-    protected void updateAssistant(String assistantID) {
+    public void updateAssistant(String assistantID) {
         DataSnapshot user;
         // Update it with the AP's information if we are currently an assistant
         if (ClientInfo.isAssistant()) {
@@ -265,7 +175,9 @@ public class TaskCurrent extends AppCompatActivity {
             otherUserName.setText(assistantID);
             otherUserPhone.setText(user.child(getString(R.string.phone_number_child))
                     .getValue(String.class));
-            otherUserRating.setText("Rating " + user.child("rating").getValue(float.class).toString());
+            Float rating = user.child("rating").getValue(Float.class);
+            rating = rating == null ? 0f : rating;
+            otherUserRating.setText("Rating " + rating.toString());
         }
 
         // enable our avatar
@@ -296,7 +208,7 @@ public class TaskCurrent extends AppCompatActivity {
         }
     }
 
-    protected void disableAvatar() {
+    public void disableAvatar() {
         for (int i = 0; i < avatar.getChildCount(); i++) {
             disableElement(avatar.getChildAt(i), false);
         }
