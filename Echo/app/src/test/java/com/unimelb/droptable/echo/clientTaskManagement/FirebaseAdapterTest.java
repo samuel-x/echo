@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -71,6 +72,16 @@ public class FirebaseAdapterTest {
         FirebaseAdapter.isAssistant(any());
         PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
         FirebaseAdapter.pushUser(any(), any(), anyBoolean());
+        PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
+        FirebaseAdapter.updateUserRating(any(), anyFloat());
+        PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
+        FirebaseAdapter.getUserRating(any());
+        PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
+        FirebaseAdapter.getPhoneNumber(any());
+        PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
+        FirebaseAdapter.getCurrentTask();
+        PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
+        FirebaseAdapter.assignTask(any(), any());
     }
 
     /**
@@ -350,6 +361,144 @@ public class FirebaseAdapterTest {
         verify(usersMock, times(1)).child(FirebaseAdapter.IS_ASSISTANT);
         verify(usersMock, times(1)).child(FirebaseAdapter.PHONE_NUMBER);
         verify(usersMock, times(2)).setValue(any());
+    }
+
+    /**
+     * Checks that the specified rating is applied.
+     */
+    @Test
+    public void updateUserRating() {
+        final String TEST_USERNAME = "TEST_USERNAME";
+        final float rating = 2.4f;
+
+        // Prepare test.
+        when(FirebaseAdapter.usersDbReference.child(any())).thenReturn(usersMock);
+        Mockito.doReturn(null).when(usersMock).setValue(any());
+
+        // Verify prior.
+        verify(FirebaseAdapter.usersDbReference, times(0)).child(TEST_USERNAME);
+        verify(usersMock, times(0)).child(FirebaseAdapter.RATING);
+        verify(usersMock, times(0)).setValue(rating);
+
+        // Execute.
+        FirebaseAdapter.updateUserRating(TEST_USERNAME, rating);
+
+        // Verify post.
+        verify(FirebaseAdapter.usersDbReference, times(1)).child(TEST_USERNAME);
+        verify(usersMock, times(1)).child(FirebaseAdapter.RATING);
+        verify(usersMock, times(1)).setValue(rating);
+    }
+
+    /**
+     * Checks that a rating is retrieved.
+     */
+    @Test
+    public void getUserRating() {
+        final String TEST_USERNAME = "TEST_USERNAME";
+        final float rating = 2.4f;
+
+        // Prepare test.
+        DataSnapshot snapshotMock = mock(DataSnapshot.class);
+        PowerMockito.doReturn(snapshotMock).when(FirebaseAdapter.class);
+        FirebaseAdapter.getUser(any());
+        when(snapshotMock.child(any())).thenReturn(snapshotMock);
+        when(snapshotMock.getValue(float.class)).thenReturn(rating);
+
+        // Execute.
+        float result = FirebaseAdapter.getUserRating(TEST_USERNAME);
+
+        // Verify post.
+        assertEquals(rating, result, 0.001);
+    }
+
+    /**
+     * Checks that a phone number is applied.
+     */
+    @Test
+    public void getPhoneNumber() {
+        final String TEST_USERNAME = "TEST_USERNAME";
+        final String TEST_PHONE_NUMBER = "TEST_PHONE_NUMBER";
+
+        // Prepare test.
+        DataSnapshot snapshotMock = mock(DataSnapshot.class);
+        FirebaseAdapter.currentData = snapshotMock;
+        when(snapshotMock.child(any())).thenReturn(snapshotMock);
+        when(snapshotMock.hasChild(any())).thenReturn(true);
+        when(snapshotMock.getValue(String.class)).thenReturn(TEST_PHONE_NUMBER);
+
+        // Execute.
+        String result = FirebaseAdapter.getPhoneNumber(TEST_USERNAME);
+
+        // Verify post.
+        assertEquals(TEST_PHONE_NUMBER, result);
+    }
+
+    /**
+     * Checks a specific task is returned.
+     */
+    @Test
+    public void getCurrentTask() {
+        final String TEST_USERNAME = "TEST_USERNAME";
+        final String TEST_PHONE_NUMBER = "TEST_PHONE_NUMBER";
+        final String TEST_ID = "TEST_ID";
+        final ImmutableTask TEST_TASK = ImmutableTask.builder()
+                .title("title")
+                .address("address")
+                .category("category")
+                .subCategory("subCategory")
+                .notes("notes")
+                .status("status")
+                .ap("ap")
+                .assistant("assistant")
+                .id("id").build();
+
+        // Prepare test.
+        PowerMockito.doReturn(TEST_ID).when(FirebaseAdapter.class);
+        FirebaseAdapter.getCurrentTaskID();
+        PowerMockito.doReturn(TEST_TASK).when(FirebaseAdapter.class);
+        FirebaseAdapter.getTask(TEST_ID);
+
+        // Execute.
+        ImmutableTask result = FirebaseAdapter.getCurrentTask();
+
+        // Verify post.
+        assertEquals(TEST_TASK, result);
+    }
+
+    /**
+     * Checks that a phone number is applied.
+     */
+    @Test
+    public void assignTask() {
+        final String TEST_ASSISTANT = "TEST_ASSISTANT";
+        final String TEST_ID = "TEST_ID";
+
+        // Prepare test.
+        PowerMockito.doReturn(0).when(FirebaseAdapter.class);
+        FirebaseAdapter.updateTaskStatus("ACCEPTED", TEST_ID);
+        PowerMockito.doReturn(0).when(FirebaseAdapter.class);
+        FirebaseAdapter.updateTaskAssistant(TEST_ASSISTANT, TEST_ID);
+        PowerMockito.doNothing().when(FirebaseAdapter.class);
+        FirebaseAdapter.updateAssistantTask(TEST_ASSISTANT, TEST_ID);
+
+        // Verify prior.
+        PowerMockito.verifyStatic(FirebaseAdapter.class, times(0));
+        FirebaseAdapter.updateTaskStatus("ACCEPTED", TEST_ID);
+        PowerMockito.verifyStatic(FirebaseAdapter.class, times(0));
+        FirebaseAdapter.updateTaskAssistant(TEST_ASSISTANT, TEST_ID);
+        PowerMockito.verifyStatic(FirebaseAdapter.class, times(0));
+        FirebaseAdapter.updateAssistantTask(TEST_ASSISTANT, TEST_ID);
+
+        // Execute.
+        FirebaseAdapter.assignTask(TEST_ASSISTANT, TEST_ID);
+
+        // Verify post.
+        PowerMockito.verifyStatic(FirebaseAdapter.class, times(1));
+        FirebaseAdapter.updateTaskStatus("ACCEPTED", TEST_ID);
+        PowerMockito.verifyStatic(FirebaseAdapter.class, times(1));
+        FirebaseAdapter.updateTaskAssistant(TEST_ASSISTANT, TEST_ID);
+        PowerMockito.verifyStatic(FirebaseAdapter.class, times(1));
+        FirebaseAdapter.updateAssistantTask(TEST_ASSISTANT, TEST_ID);
     }
 
     @After

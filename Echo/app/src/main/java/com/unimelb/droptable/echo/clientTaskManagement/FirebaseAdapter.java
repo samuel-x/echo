@@ -202,20 +202,6 @@ public class FirebaseAdapter {
                 .getValue(String.class);
     }
 
-    /**
-     * Get current user's task once (if they have one)
-     */
-    public static ImmutableTask getCurrentTask() {
-        String currentTaskId = getCurrentTaskID();
-
-        if (currentTaskId == null) {
-            // This user does not have any task assigned to them.
-            return null;
-        }
-
-        return getTask(currentTaskId);
-    }
-
     public static ImmutableTask getTask(String id) {
         DataSnapshot taskRef = currentData.child(TASKS_ROOT).child(id);
 
@@ -246,6 +232,20 @@ public class FirebaseAdapter {
                 .ap(ap)
                 .assistant(assistant)
                 .id(taskRef.getKey()).build();
+    }
+
+    /**
+     * Get current user's task once (if they have one)
+     */
+    public static ImmutableTask getCurrentTask() {
+        String currentTaskId = getCurrentTaskID();
+
+        if (currentTaskId == null) {
+            // This user does not have any task assigned to them.
+            return null;
+        }
+
+        return getTask(currentTaskId);
     }
 
     /**
@@ -303,10 +303,6 @@ public class FirebaseAdapter {
         updateAssistantTask(assistant, id);
     }
 
-    private static void updateAssistantTask(String assistant, String id) {
-        usersDbReference.child(assistant).child("taskID").setValue(id);
-    }
-
     public static void completeTask(ImmutableTask task) {
         currentData.child(TASKS_ROOT).child(task.getId()).getRef().removeValue();
         currentData.child(USERS_ROOT).child(task.getAssistant()).child(TASK_ID).getRef().removeValue();
@@ -338,5 +334,9 @@ public class FirebaseAdapter {
      */
     public static String getUserRegistration(String user) {
         return getUser(user).child("token").getValue(String.class);
+    }
+
+    protected static void updateAssistantTask(String assistant, String id) {
+        usersDbReference.child(assistant).child("taskID").setValue(id);
     }
 }
