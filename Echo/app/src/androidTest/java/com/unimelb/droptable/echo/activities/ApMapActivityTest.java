@@ -56,17 +56,8 @@ public class ApMapActivityTest {
 
     @Test
     public void testHelperButton() {
-        ImmutableTask task = ImmutableTask.builder()
-                .title(TEST_TITLE)
-                .address(TEST_ADDRESS)
-                .notes(TEST_NOTES)
-                .status(TEST_STATUS)
-                .ap(TEST_AP)
-                .assistant(TEST_ASSISTANT)
-                .build();
         ClientInfo.setUsername("test");
         ClientInfo.setCurrentToken("test");
-        ClientInfo.setTask(task);
         ClientInfo.setIsAssistant(false);
         ClientInfo.setPhoneNumber("0412356789");
         assertEquals(true, apMapActivity.hasWindowFocus());
