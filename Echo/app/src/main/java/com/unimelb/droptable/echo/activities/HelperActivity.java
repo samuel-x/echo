@@ -46,18 +46,10 @@ public class HelperActivity extends AppCompatActivity {
 
         if (ClientInfo.hasTask()) {
             // Attach our task listener
-            if (ClientInfo.isAssistant()) {
-                try {
-                    TaskNotification.AttachAssistantListener(this);
-                } catch (TaskNotification.IncorrectListenerException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    TaskNotification.AttachAPListener(this);
-                } catch (TaskNotification.IncorrectListenerException e) {
-                    e.printStackTrace();
-                }
+            try {
+                TaskNotification.AttachAPListener(this);
+            } catch (TaskNotification.IncorrectListenerException e) {
+                e.printStackTrace();
             }
         }
 

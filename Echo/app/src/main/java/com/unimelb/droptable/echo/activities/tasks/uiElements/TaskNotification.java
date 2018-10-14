@@ -98,8 +98,8 @@ public class TaskNotification extends DialogFragment {
             taskQuery.addChildEventListener(createAPTaskListener(activity));
             attachedListeners.add(activity);
         } else {
-            throw new IncorrectListenerException("Please make sure you are attaching the correct" +
-                    "listener for the current user type.");
+            throw new IncorrectListenerException("Error attaching listener: Expected AP, " +
+                    "but user is assistant.");
         }
 
     }
@@ -117,8 +117,8 @@ public class TaskNotification extends DialogFragment {
             attachedListeners.add(activity);
         }
         else {
-            throw new IncorrectListenerException("Please make sure you are attaching the correct" +
-                    "listener for the current user type.");
+            throw new IncorrectListenerException("Error attaching listener: Expected assistant, " +
+                    "but user is AP.");
         }
     }
 
