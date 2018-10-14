@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         // Verify that the isAssistant checkbox matches the boolean on the database, if the username
         // already exists.
         if (FirebaseAdapter.userExists(username)
-                && isAssistantCheckBox.isChecked() != FirebaseAdapter.getIsAssistant(username)) {
+                && isAssistantCheckBox.isChecked() != FirebaseAdapter.isAssistant(username)) {
             showProgress(false);
             throw new LoginError(LOGIN_FAIL);
         }

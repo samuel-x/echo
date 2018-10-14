@@ -18,6 +18,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -51,6 +52,7 @@ public class FirebaseAdapterTest {
         FirebaseAdapter.messagesDbReference = messagesMock;
         FirebaseAdapter.usersDbReference = usersMock;
 
+        // Tell PowerMockito to call the real methods for methods tested.
         PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
         FirebaseAdapter.pushTask(any());
         PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
@@ -63,6 +65,12 @@ public class FirebaseAdapterTest {
         FirebaseAdapter.getCurrentTaskID();
         PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
         FirebaseAdapter.getUser(any());
+        PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
+        FirebaseAdapter.userExists(any());
+        PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
+        FirebaseAdapter.isAssistant(any());
+        PowerMockito.doCallRealMethod().when(FirebaseAdapter.class);
+        FirebaseAdapter.pushUser(any(), any(), anyBoolean());
     }
 
     /**
@@ -237,6 +245,111 @@ public class FirebaseAdapterTest {
         verify(FirebaseAdapter.currentData, times(1))
                 .child(FirebaseAdapter.USERS_ROOT);
         verify(snapshotMock, times(1)).child(TEST_USERNAME);
+    }
+
+    /**
+     * Checks that the specified user is checked.
+     */
+    @Test
+    public void userExists() {
+        final String INVALID_USERNAME = "INVALID_USERNAME";
+        final String VALID_USERNAME = "VALID_USERNAME";
+
+        // Prepare test.
+        DataSnapshot snapshotMock = mock(DataSnapshot.class);
+        FirebaseAdapter.currentData = snapshotMock;
+        when(FirebaseAdapter.currentData.child(FirebaseAdapter.USERS_ROOT)).thenReturn(snapshotMock);
+        when(snapshotMock.hasChild(INVALID_USERNAME)).thenReturn(false);
+        when(snapshotMock.hasChild(VALID_USERNAME)).thenReturn(true);
+
+        // Verify prior.
+        verify(FirebaseAdapter.currentData, times(0))
+                .child(FirebaseAdapter.USERS_ROOT);
+        verify(snapshotMock, times(0)).hasChild(INVALID_USERNAME);
+        verify(snapshotMock, times(0)).hasChild(VALID_USERNAME);
+
+        // Execute with invalid username.
+        FirebaseAdapter.userExists(INVALID_USERNAME);
+
+        // Verify post 1.
+        verify(snapshotMock, times(1)).hasChild(INVALID_USERNAME);
+        verify(snapshotMock, times(0)).hasChild(VALID_USERNAME);
+
+        // Execute with valid username.
+        FirebaseAdapter.userExists(VALID_USERNAME);
+
+        // Verify post 2.
+        verify(snapshotMock, times(1)).hasChild(INVALID_USERNAME);
+        verify(snapshotMock, times(1)).hasChild(VALID_USERNAME);
+    }
+
+    /**
+     * Checks that the specified user is retrieved and checked.
+     */
+    @Test
+    public void isAssistant() {
+        final String INVALID_USERNAME = "INVALID_USERNAME";
+        final String VALID_USERNAME = "VALID_USERNAME";
+        final boolean IS_ASSISTANT = true;
+
+        // Prepare test.
+        DataSnapshot snapshotMock = mock(DataSnapshot.class);
+        FirebaseAdapter.currentData = snapshotMock;
+        when(FirebaseAdapter.currentData.child(FirebaseAdapter.USERS_ROOT)).thenReturn(snapshotMock);
+        when(snapshotMock.hasChild(INVALID_USERNAME)).thenReturn(false);
+        when(snapshotMock.hasChild(VALID_USERNAME)).thenReturn(true);
+        when(snapshotMock.child(VALID_USERNAME)).thenReturn(snapshotMock);
+        when(snapshotMock.child(FirebaseAdapter.IS_ASSISTANT)).thenReturn(snapshotMock);
+        when(snapshotMock.getValue(Boolean.class)).thenReturn(IS_ASSISTANT);
+
+        // Verify prior.
+        verify(FirebaseAdapter.currentData, times(0))
+                .child(FirebaseAdapter.USERS_ROOT);
+        verify(snapshotMock, times(0)).hasChild(INVALID_USERNAME);
+        verify(snapshotMock, times(0)).hasChild(VALID_USERNAME);
+        verify(snapshotMock, times(0)).getValue(Boolean.class);
+
+        // Execute with invalid username.
+        FirebaseAdapter.isAssistant(INVALID_USERNAME);
+
+        // Verify post 1.
+        verify(snapshotMock, times(1)).hasChild(INVALID_USERNAME);
+        verify(snapshotMock, times(0)).hasChild(VALID_USERNAME);
+        verify(snapshotMock, times(0)).getValue(Boolean.class);
+
+        // Execute with valid username.
+        FirebaseAdapter.isAssistant(VALID_USERNAME);
+
+        // Verify post 2.
+        verify(snapshotMock, times(1)).hasChild(VALID_USERNAME);
+        verify(snapshotMock, times(1)).getValue(Boolean.class);
+    }
+
+    /**
+     * Checks that the specified information is pushed.
+     */
+    @Test
+    public void pushUser() {
+        final String TEST_USERNAME = "TEST_USERNAME";
+        final String TEST_PHONE_NUMBER = "0406488925";
+        final boolean IS_ASSISTANT = true;
+
+        // Prepare test.
+        when(FirebaseAdapter.usersDbReference.child(any())).thenReturn(usersMock);
+        Mockito.doReturn(null).when(usersMock).setValue(any());
+
+        // Verify prior.
+        verify(usersMock, times(0)).child(FirebaseAdapter.IS_ASSISTANT);
+        verify(usersMock, times(0)).child(FirebaseAdapter.PHONE_NUMBER);
+        verify(usersMock, times(0)).setValue(any());
+
+        // Execute.
+        FirebaseAdapter.pushUser(TEST_USERNAME, TEST_PHONE_NUMBER, IS_ASSISTANT);
+
+        // Verify post.
+        verify(usersMock, times(1)).child(FirebaseAdapter.IS_ASSISTANT);
+        verify(usersMock, times(1)).child(FirebaseAdapter.PHONE_NUMBER);
+        verify(usersMock, times(2)).setValue(any());
     }
 
     @After

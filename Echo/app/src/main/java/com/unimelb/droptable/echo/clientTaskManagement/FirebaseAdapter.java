@@ -143,8 +143,14 @@ public class FirebaseAdapter {
         return currentData.child(USERS_ROOT).child(user);
     }
 
-    public static Boolean getIsAssistant(String username) {
-        if (!currentData.child(USERS_ROOT).hasChild(username)) {
+    public static boolean userExists(String username) {
+        return currentData
+                .child(USERS_ROOT)
+                .hasChild(username);
+    }
+
+    public static Boolean isAssistant(String username) {
+        if (!userExists(username)) {
             return null;
         }
 
@@ -153,12 +159,6 @@ public class FirebaseAdapter {
                 .child(username)
                 .child(IS_ASSISTANT)
                 .getValue(Boolean.class);
-    }
-
-    public static boolean userExists(String username) {
-        return currentData
-                .child(USERS_ROOT)
-                .hasChild(username);
     }
 
     public static int pushUser(String username, String phoneNumber, boolean isAssistant) {
