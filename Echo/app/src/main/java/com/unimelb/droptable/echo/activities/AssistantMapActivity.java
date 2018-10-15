@@ -143,6 +143,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                                 midStop = temp;
                             }
 
+                            ClientInfo.updateTask();
+
                             if (ClientInfo.getTask().getLastPhase().equals("false")){
                                 doMap(mMap, startLL, midStop);
                                 completeTaskButton.setText(fstInstruction);
@@ -459,8 +461,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         if (ClientInfo.getTask().getCategory().equals("Delivery")){
 
-            fstInstruction = "COMPLETE ITEM(S) PICK UP";
-            sndInstruction = "COMPLETE ITEM(S) DROP OFF";
+            fstInstruction = "PICK UP ITEM(S)";
+            sndInstruction = "DROP OFF ITEM(S)";
 
             if (ClientInfo.getTask().getSubCategory().equals("From My House")){
                 return true;
@@ -472,7 +474,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         if (ClientInfo.getTask().getCategory().equals("Household")){
 
             fstInstruction = "ARRIVE AT HOUSE";
-            sndInstruction = "COMPLETE ASSIGNED TASK(S)";
+            sndInstruction = "COMPLETE TASK(S)";
 
             return true;
         }
