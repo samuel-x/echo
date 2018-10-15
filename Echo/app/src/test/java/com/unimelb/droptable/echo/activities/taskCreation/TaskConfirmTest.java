@@ -1,15 +1,11 @@
 package com.unimelb.droptable.echo.activities.taskCreation;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.widget.TextView;
 
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +18,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.net.HttpURLConnection;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

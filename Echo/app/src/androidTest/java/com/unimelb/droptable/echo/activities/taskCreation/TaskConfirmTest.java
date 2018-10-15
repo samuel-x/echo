@@ -7,7 +7,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,12 +26,21 @@ public class TaskConfirmTest {
 
     @Before
     public void setUp() throws Exception {
+        ClientInfo.setUsername("TEST");
         taskConfirm = mActivityRule.getActivity();
     }
 
     @Test
     public void testTaskCreation() {
         // Check initial conditions.
+        Utility.currentTaskBuilder = ImmutableTask.builder()
+                .title("Placeholder Title")
+                .address("Placeholder Address")
+                .category("Placeholder Category")
+                .subCategory("Placeholder Subcategory")
+                .notes("Placeholder Notes")
+                .ap("Placeholder AP");
+        ClientInfo.setUsername("TEST");
         assertEquals(true, taskConfirm.hasWindowFocus());
         assertNull(ClientInfo.getTask());
 
@@ -51,6 +60,7 @@ public class TaskConfirmTest {
                 .address("Placeholder Address")
                 .category("Placeholder Category")
                 .subCategory("Placeholder Subcategory")
-                .notes("Placeholder Notes");
+                .notes("Placeholder Notes")
+                .ap("Placeholder AP");
     }
 }

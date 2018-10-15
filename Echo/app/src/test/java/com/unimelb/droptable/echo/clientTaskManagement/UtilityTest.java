@@ -1,5 +1,7 @@
 package com.unimelb.droptable.echo.clientTaskManagement;
 
+import com.unimelb.droptable.echo.Utility;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

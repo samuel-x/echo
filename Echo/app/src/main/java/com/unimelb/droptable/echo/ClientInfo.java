@@ -1,16 +1,47 @@
 package com.unimelb.droptable.echo;
 
+import android.location.Location;
+
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.maps.model.LatLng;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class ClientInfo {
     private static String username;
-    private static boolean isAssistant;
+    private static Boolean isAssistant;
     private static ImmutableTask currentTask;
     private static String phoneNumber;
     private static Place currentPlace;
     private static String currentToken;
+    private static Float rating;
+    private static Location currentLocation;
+
+    public static Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public static void setCurrentLocation(Location location) {
+        currentLocation = location;
+    }
+
+    public static LatLng getCurrentLocationAsLatLng() {
+        return new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+    }
+
+    public static float getRating() {
+        if (isAssistant()) {
+            try {
+                rating = FirebaseAdapter.getUserRating(ClientInfo.getUsername());
+            } catch (Exception e){
+                return 0.0f;
+            }
+            return rating;
+        }
+        else {
+            return 0.0f;
+        }
+    }
 
     public static String getUsername() {
         return username;
@@ -57,7 +88,7 @@ public class ClientInfo {
     }
 
     public static boolean hasPartner() {
-        return isAssistant() || currentTask.getAssistant() != null;
+        return isAssistant() || (currentTask != null && currentTask.getAssistant() != null);
     }
 
     public static void updateAssistant(String assistant) {
@@ -68,5 +99,14 @@ public class ClientInfo {
 
     public static Place getCurrentPlace() {
         return currentPlace;
+    }
+
+    public static void resetClientInfo() {
+        username = null;
+        isAssistant = null;
+        currentTask = null;
+        phoneNumber = null;
+        currentToken = null;
+        rating = null;
     }
 }

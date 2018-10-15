@@ -1,10 +1,8 @@
 package com.unimelb.droptable.echo;
 
-import com.google.android.gms.common.api.Api;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -21,11 +19,18 @@ public class ClientInfoTest {
     private final String testAssistant1 = "MyAssistant1";
     private final String testAssistant2 = "MyAssistant2";
     private final String testNotes = "MyNotes";
+    private static final String TEST_PHONE_NUMBER = "0412356789";
 
     @Test
     public void testUsername() {
         ClientInfo.setUsername(TEST_USER_NAME);
         assertEquals(TEST_USER_NAME, ClientInfo.getUsername());
+    }
+
+    @Test
+    public void testPhoneNumber() {
+        ClientInfo.setPhoneNumber(TEST_PHONE_NUMBER);
+        assertEquals(TEST_PHONE_NUMBER, ClientInfo.getPhoneNumber());
     }
 
     @Test

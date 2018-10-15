@@ -2,8 +2,11 @@ package com.unimelb.droptable.echo.activities;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.Button;
 
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 import org.junit.After;
 import org.junit.Before;
@@ -25,9 +28,23 @@ public class ApMapActivityTest {
 
     private ApMapActivity apMapActivity;
 
+    private static final String TEST_TITLE = "Test TEST_TITLE";
+    private static final String TEST_ADDRESS = "TEST_ADDRESS";
+    private static final String TEST_NOTES = "TEST_NOTES";
+    private static final String TEST_STATUS = "TEST_STATUS";
+    private static final String TEST_AP = "TEST_AP";
+    private static final String TEST_ASSISTANT = "TEST_ASSISTANT";
+
     @Before
     public void setUp() throws Exception {
         apMapActivity = mActivityRule.getActivity();
+    }
+
+    @Test
+    public void testTaskButtonTextOnTaskAssign() {
+        assertEquals(true, apMapActivity.hasWindowFocus());
+        assertEquals(apMapActivity.taskButton.getText().toString(), "New Task");
+        // TODO: Implement a full test for checking whether the text changes on task assignment
     }
 
     @Test
@@ -39,6 +56,10 @@ public class ApMapActivityTest {
 
     @Test
     public void testHelperButton() {
+        ClientInfo.setUsername("test");
+        ClientInfo.setCurrentToken("test");
+        ClientInfo.setIsAssistant(false);
+        ClientInfo.setPhoneNumber("0412356789");
         assertEquals(true, apMapActivity.hasWindowFocus());
         onView(withId(R.id.apMapHelperButton)).perform(click());
         assertEquals(false, apMapActivity.hasWindowFocus());
@@ -47,5 +68,6 @@ public class ApMapActivityTest {
     @After
     public void tearDown() throws Exception {
         apMapActivity = null;
+        ClientInfo.resetClientInfo();
     }
 }

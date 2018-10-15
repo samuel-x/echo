@@ -39,23 +39,23 @@ import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCategories;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
+import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class ApMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    private Button taskButton;
+    protected Button taskButton;
     private FloatingActionButton helperButton;
-
-    private Button paymentButton;
-    private Query taskQuery;
+    private FloatingActionButton accountButton;
 
 
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
 
     private LocationRequest mLocationRequest;
+    private PlaceAutocompleteFragment address;
 
     private Location currentLocation;
 
@@ -63,7 +63,8 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ap_map);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         // setup our location provider
@@ -75,29 +76,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         // Setup our location callback
-        mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    Log.d("NO LOCATION: ", "NO LOC DETECTED");
-                    return;
-                }
-                else {
-                    currentLocation = locationResult.getLastLocation();
-                    Log.d("Lat:", String.valueOf(locationResult.getLastLocation().getLatitude()));
-                    Log.d("Lon:", String.valueOf(locationResult.getLastLocation().getLongitude()));
-                    try {
-                        if (currentLocation != null){
-                            mMap.clear();
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude())).title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                        }
-                    }
-                    catch (Exception e) {
-                        Log.d("help:", "null marker");
-                    }
-                }
-            };
-        };
+        mLocationCallback = createNewAPCallback();
 
         // Read from the database to see if the AP already has a task in progress.
         ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
@@ -109,22 +88,28 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
         helperButton = findViewById(R.id.apMapHelperButton);
         helperButton.setOnClickListener(view -> {onHelperPress();});
+
+        accountButton = findViewById(R.id.accountButtonAP);
+        accountButton.setOnClickListener(view -> {onAccountButton();});
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        // Read from the database to see if the AP already has a task in progress.
-        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
+        ClientInfo.updateTask();
 
         // Ensure that the task button's text is up to date.
         if (ClientInfo.hasTask()) {
 
-            // Attach task listener.
-            if (taskQuery == null) {
-                taskQuery = FirebaseAdapter.queryCurrentTask();
-                taskQuery.addChildEventListener(createTaskListener());
+            // Attach chat listener.
+            MessageNotification.AttachListener(ApMapActivity.this);
+
+            // Attach Task listener.
+            try {
+                TaskNotification.AttachAPListener(ApMapActivity.this);
+            } catch (TaskNotification.IncorrectListenerException e) {
+                e.printStackTrace();
             }
 
             taskButton.setText(R.string.current_task_home_button);
@@ -135,25 +120,15 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                 Context currentContext = this;
 
                 // Show dialog
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(this,
-                            android.R.style.Theme_Material_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(this);
-                }
-                builder.setTitle("Complete Task Request")
-                        .setMessage("Task Completion has been requested by "
-                                + ClientInfo.getTask().getAssistant())
-                        .setPositiveButton(android.R.string.yes,
-                                new DialogInterface.OnClickListener() {
+                TaskNotification.showDialog(this,
+                        TaskNotification.TASK_COMPLETE_REQUEST_TITLE,
+                        TaskNotification.TASK_COMPLETE_REQUEST_MESSAGE,
+                        new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // User touched the dialog's positive button
                                 startActivity(new Intent(currentContext, PaymentActivity.class));
                             }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                        });
             }
         } else {
             taskButton.setText(R.string.new_task_home_button);
@@ -168,31 +143,30 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                 null /* Looper */);
     }
 
-    private void onTaskPress() {
-        if (ClientInfo.hasTask()) {
-            startActivity(new Intent(this, TaskCurrent.class));
-        } else {
-            startActivity(new Intent(this, TaskCategories.class));
-        }
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
 
-//        // Add a marker in Sydney, Australia,
-//        // and move the map's camera to the same location.
         LatLng melbourne = new LatLng(-37.8136, 144.9631);
-
-//        googleMap.addMarker(new MarkerOptions().position(melbourne)
-//                .title("Marker in Melbourne"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(melbourne));
 
         googleMap.setMinZoomPreference(12);
         startLocationUpdates();
     }
 
+
+    protected void onAccountButton() {
+        startActivity(new Intent(this, AccountActivity.class));
+    }
+
+    protected void onTaskPress() {
+        if (ClientInfo.hasTask()) {
+            startActivity(new Intent(this, TaskCurrent.class));
+        } else {
+            startActivity(new Intent(this, TaskCategories.class));
+        }
+    }
     private void onHelperPress() {
         HelperActivity.setCurrentHelperText(String.format(
                 getString(R.string.home_help_text),
@@ -202,113 +176,33 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         startActivity(new Intent(this, HelperActivity.class));
     }
 
-        private PlaceAutocompleteFragment address;
-
-    private ChildEventListener createTaskListener() {
-        return new ChildEventListener() {
-
-            // Check that the added value is an assistant and show the dialog
+    private LocationCallback createNewAPCallback() {
+        return new LocationCallback() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (dataSnapshot != null &&
-                        dataSnapshot.getValue(String.class) != null &&
-                        dataSnapshot.getKey().toString().equals("assistant")) {
-                    String assistantID = dataSnapshot.getValue(String.class);
-                    AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(ApMapActivity.this,
-                                android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(ApMapActivity.this);
-                    }
-                    builder.setTitle("Task Accepted!")
-                            .setMessage("Your task has been accepted by " + assistantID + "!")
-                            .setPositiveButton(android.R.string.yes,
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                        }
-                                    })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-
-                    // Update task with assistant.
-                    ClientInfo.updateAssistant(assistantID);
-
-                    // Attach chat listener.
-                    MessageNotification.AttachListener(ApMapActivity.this);
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    Log.d("NO LOCATION: ", "NO LOC DETECTED");
+                    return;
                 }
-            }
-
-
-            // Check that the task has been completed.
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (dataSnapshot != null &&
-                        dataSnapshot.getValue(String.class) != null &&
-                        dataSnapshot.getKey().toString().equals("status") &&
-                        dataSnapshot.getValue(String.class).equals("COMPLETED")) {
-
-                    Context currentContext = ApMapActivity.this;
-
-                    // Ensure that the activity is running.
-                    if (!((Activity) currentContext).hasWindowFocus()) {
-                        return;
+                else {
+                    ClientInfo.setCurrentLocation(locationResult.getLastLocation());
+                    try {
+                        if (currentLocation != null){
+                            mMap.clear();
+                            mMap.addMarker(new MarkerOptions().position(new
+                                    LatLng(locationResult.getLastLocation().getLatitude(),
+                                    locationResult.getLastLocation().getLongitude()))
+                                    .title("Your Location")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(
+                                            BitmapDescriptorFactory.HUE_AZURE)));
+                        }
                     }
-
-                    AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(currentContext,
-                                android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(currentContext);
+                    catch (Exception e) {
+                        Log.d("help:", "null marker");
                     }
-                    builder.setTitle("Complete Task Request")
-                            .setMessage("Task Completion has been requested by " +
-                                    ClientInfo.getTask().getAssistant())
-                            .setPositiveButton(android.R.string.yes,
-                                    new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // User touched the dialog's positive button
-                                    startActivity(new Intent(currentContext, PaymentActivity.class));
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
                 }
-            }
-
-            // If a task has been removed, show an error.
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getKey().toString().equals("title")) {
-                    AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(ApMapActivity.this, android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(ApMapActivity.this);
-                    }
-                    builder.setTitle("Task Cancellation")
-                            .setMessage("Unfortunately, the task has been cancelled.")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                    ClientInfo.setTask(null);
-                    taskButton.setText(R.string.new_task_home_button);
-                }
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         };
     }
+
 }

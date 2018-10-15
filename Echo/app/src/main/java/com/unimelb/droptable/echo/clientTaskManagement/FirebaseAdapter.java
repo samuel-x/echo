@@ -11,6 +11,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.unimelb.droptable.echo.ChatMessage;
 import com.unimelb.droptable.echo.ClientInfo;
+import com.unimelb.droptable.echo.Utility;
 
 import java.net.HttpURLConnection;
 
@@ -26,24 +27,26 @@ public class FirebaseAdapter {
 //    private final static String MESSAGES_ROOT
 //            = Resources.getSystem().getString(R.string.messages_root);
 
-    private final static String TASKS_ROOT = "tasks";
-    private final static String MESSAGES_ROOT = "messages";
-    private final static String USERS_ROOT = "users";
-    private final static String TASK_ID = "taskID";
-    private final static String IS_ASSISTANT = "isAssistant";
-    private final static String PHONE_NUMBER = "phoneNumber";
-    private final static String TOKEN_ROOT = "tokens";
-    private final static String ASSISTANT = "assistant";
-    private final static String STATUS = "status";
+    protected static final String TASKS_ROOT = "tasks";
+    protected static final String MESSAGES_ROOT = "messages";
+    protected static final String USERS_ROOT = "users";
+    protected static final String TASK_ID = "taskID";
+    protected static final String IS_ASSISTANT = "isAssistant";
+    protected static final String PHONE_NUMBER = "phoneNumber";
+    protected static final String TOKEN_ROOT = "tokens";
+    protected static final String ASSISTANT = "assistant";
+    protected static final String STATUS = "status";
+    protected static final String RATING = "rating";
 
-    public final static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public final static DatabaseReference masterDbReference = database.getReference();
-    public final static DatabaseReference tasksDbReference = database.getReference()
+    public static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public static DatabaseReference masterDbReference = database.getReference();
+    public static DatabaseReference tasksDbReference = masterDbReference
             .child(TASKS_ROOT);
-    public final static DatabaseReference messagesDbReference = database.getReference()
+    public static DatabaseReference messagesDbReference = masterDbReference
             .child(MESSAGES_ROOT);
-    public final static DatabaseReference usersDbReference = database.getReference()
+    public static DatabaseReference usersDbReference = masterDbReference
             .child(USERS_ROOT);
+
 
     public static DataSnapshot currentData;
 
@@ -61,6 +64,15 @@ public class FirebaseAdapter {
 
     // Our base query for assistants
     public final static Query mostRecentTasks = tasksDbReference.orderByChild("status").equalTo("PENDING");
+
+    public FirebaseAdapter(DatabaseReference testDatabase, DataSnapshot testSnapshot) {
+        // Constructor for the test
+        masterDbReference = testDatabase;
+        currentData = testSnapshot;
+    }
+
+    public FirebaseAdapter() {
+    }
 
     /**
      * Pushes a task to the database and assigns it to the current user
@@ -108,6 +120,11 @@ public class FirebaseAdapter {
         return HttpURLConnection.HTTP_OK;
     }
 
+    /**
+     * Returns the task id for the current task that the user is associated with. Retrieves it
+     * from Firebase.
+     * @return the task ID as a String.
+     */
     public static String getCurrentTaskID() {
         if (currentData == null) {
             return null;
@@ -127,8 +144,14 @@ public class FirebaseAdapter {
         return currentData.child(USERS_ROOT).child(user);
     }
 
-    public static Boolean getIsAssistant(String username) {
-        if (!currentData.child(USERS_ROOT).hasChild(username)) {
+    public static boolean userExists(String username) {
+        return currentData
+                .child(USERS_ROOT)
+                .hasChild(username);
+    }
+
+    public static Boolean isAssistant(String username) {
+        if (!userExists(username)) {
             return null;
         }
 
@@ -139,18 +162,29 @@ public class FirebaseAdapter {
                 .getValue(Boolean.class);
     }
 
-    public static boolean userExists(String username) {
-        return currentData
-                .child(USERS_ROOT)
-                .hasChild(username);
-    }
-
     public static int pushUser(String username, String phoneNumber, boolean isAssistant) {
         usersDbReference.child(username).child(IS_ASSISTANT).setValue(isAssistant);
         usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
 
         // TODO: Make the code returned actually reflect the true status.
         return HttpURLConnection.HTTP_OK;
+    }
+
+    public static int pushUser(String username, String phoneNumber, boolean isAssistant, float rating) {
+        usersDbReference.child(username).child(IS_ASSISTANT).setValue(isAssistant);
+        usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
+        usersDbReference.child(username).child(RATING).setValue(rating);
+
+        // TODO: Make the code returned actually reflect the true status.
+        return HttpURLConnection.HTTP_OK;
+    }
+
+    public static void updateUserRating(String username, float rating) {
+        usersDbReference.child(username).child(RATING).setValue(rating);
+    }
+
+    public static float getUserRating(String username) {
+        return getUser(username).child(RATING).getValue(float.class);
     }
 
     public static String getPhoneNumber(String username) {
@@ -167,20 +201,6 @@ public class FirebaseAdapter {
                 .child(username)
                 .child(PHONE_NUMBER)
                 .getValue(String.class);
-    }
-
-    /**
-     * Get current user's task once (if they have one)
-     */
-    public static ImmutableTask getCurrentTask() {
-        String currentTaskId = getCurrentTaskID();
-
-        if (currentTaskId == null) {
-            // This user does not have any task assigned to them.
-            return null;
-        }
-
-        return getTask(currentTaskId);
     }
 
     public static ImmutableTask getTask(String id) {
@@ -222,6 +242,20 @@ public class FirebaseAdapter {
     }
 
     /**
+     * Get current user's task once (if they have one)
+     */
+    public static ImmutableTask getCurrentTask() {
+        String currentTaskId = getCurrentTaskID();
+
+        if (currentTaskId == null) {
+            // This user does not have any task assigned to them.
+            return null;
+        }
+
+        return getTask(currentTaskId);
+    }
+
+    /**
      * Returns a Query for the current user's task
      * @return Query
      */
@@ -255,6 +289,8 @@ public class FirebaseAdapter {
     }
 
     public static void goOffline() {
+        masterDbReference.removeEventListener(FirebaseAdapter.listener);
+        masterDbReference.removeEventListener(FirebaseAdapter.listener);
         database.goOffline();
     }
 

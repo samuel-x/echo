@@ -7,7 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 public class TaskSubcategories extends AppCompatActivity {
 
@@ -47,12 +47,10 @@ public class TaskSubcategories extends AppCompatActivity {
     protected void taskDetailsA() {
         Utility.currentTaskBuilder.subCategory(subcategoryA.getText().toString());
         startActivity(new Intent(this, TaskDetails.class));
-        finish();
     }
 
     protected void taskDetailsB() {
         Utility.currentTaskBuilder.subCategory(subcategoryB.getText().toString());
         startActivity(new Intent(this, TaskDetails.class));
-        finish();
     }
 }

@@ -3,7 +3,6 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
@@ -15,7 +14,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 public class TaskDetails extends AppCompatActivity {
 
@@ -44,7 +43,8 @@ public class TaskDetails extends AppCompatActivity {
         submitNowButton = findViewById(R.id.buttonTaskNow);
 
 
-        submitNowButton.setOnClickListener((view) -> {submitNow();});
+        submitNowButton.setOnClickListener((view) -> {
+            onContinue();});
 
         address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -65,7 +65,7 @@ public class TaskDetails extends AppCompatActivity {
 
     }
 
-    protected void submitNow() {
+    protected void onContinue() {
         Utility.currentTaskBuilder.title(title.getText().toString());
         //Utility.currentTaskBuilder.address(address.getText().toString());
         Utility.currentTaskBuilder.notes(taskNotes.getText().toString());

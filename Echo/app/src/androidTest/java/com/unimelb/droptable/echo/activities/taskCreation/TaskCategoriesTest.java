@@ -5,7 +5,7 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 import org.junit.After;
 import org.junit.Before;
@@ -46,13 +46,6 @@ public class TaskCategoriesTest {
     public void testHouseholdCategory() {
         assertEquals(true, taskCategory.hasWindowFocus());
         onView(ViewMatchers.withId(R.id.buttonTaskHousehold)).perform(ViewActions.click());
-        assertEquals(false, taskCategory.hasWindowFocus());
-    }
-
-    @Test
-    public void testOtherCategory() {
-        assertEquals(true, taskCategory.hasWindowFocus());
-        onView(ViewMatchers.withId(R.id.buttonTaskOther)).perform(ViewActions.click());
         assertEquals(false, taskCategory.hasWindowFocus());
     }
 

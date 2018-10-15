@@ -3,7 +3,7 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 import android.content.Intent;
 
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 import org.junit.After;
 import org.junit.Before;
@@ -46,18 +46,6 @@ public class TaskCategoriesTest {
     public void tearDown() throws Exception {
         // Begin a new taskBuilder object.
         Utility.currentTaskBuilder = null;
-    }
-
-    @Test
-    public void otherTask() throws Exception {
-        verify(Utility.currentTaskBuilder, times(0)).category("Other");
-        verify(taskCategories, times(0)).startActivity(intentMock);
-
-        taskCategories.otherTask();
-
-        verify(Utility.currentTaskBuilder, times(1)).category("Other");
-        PowerMockito.verifyNew(Intent.class).withArguments(taskCategories, TaskDetails.class);
-        verify(taskCategories, times(1)).startActivity(intentMock);
     }
 
     @Test
