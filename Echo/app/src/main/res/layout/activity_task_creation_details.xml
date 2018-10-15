@@ -58,32 +58,17 @@
         android:id="@+id/textTaskNotesTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="@string/task_notes"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="@dimen/echoApLarge"
-        app:layout_constraintEnd_toStartOf="@+id/buttonTaskCamera"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-    <ImageButton
-        android:id="@+id/buttonTaskCamera"
-        android:layout_width="63dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toEndOf="@+id/textTaskNotesTitle"
-        app:layout_constraintTop_toTopOf="@+id/textTaskNotesTitle"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <EditText
         android:id="@+id/textTaskNotes"
