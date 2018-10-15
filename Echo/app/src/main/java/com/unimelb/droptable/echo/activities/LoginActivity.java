@@ -31,17 +31,17 @@ public class LoginActivity extends AppCompatActivity {
     private static final int MIN_USERNAME_LENGTH = 3;
     private static final int PHONENUMBER_LENGTH = 10;
 
-    // TODO: Replace these strings with strings.xml
-    private static String LOGIN_FAIL = "Login Failed! Are you sure you're an assistant?";
-    private static String PHONE_FAIL = "Phone number is incorrect. Please make sure you use only digits.";
-    private static String NAME_FAIL = "Please enter a valid username.";
-    private static String LOGIN_MESSAGE = "Successful Login!";
+    private static String ASSISTANT_AP_STATUS_FAIL;
+    private static String PHONE_FAIL;
+    private static String NAME_FAIL;
+    private static String SUCCESSFUL_LOGIN;
 
     // UI references.
     protected EditText usernameText;
     protected EditText phoneNumberText;
     protected CheckBox isAssistantCheckBox;
     protected Button signInButton;
+
     protected FloatingActionButton helperButton;
     protected View signInView;
 
@@ -64,6 +64,12 @@ public class LoginActivity extends AppCompatActivity {
         helperButton.setOnClickListener(view -> {onHelperPress();});
 
         signInView = findViewById(R.id.signInView);
+
+        // Define constants from resources.
+        ASSISTANT_AP_STATUS_FAIL = getString(R.string.invalid_assistant_or_ap);
+        PHONE_FAIL = getString(R.string.invalid_phone_number);
+        NAME_FAIL = getString(R.string.invalid_user_name);
+        SUCCESSFUL_LOGIN = getString(R.string.successful_login);
 
         FirebaseAdapter.goOnline();
     }
@@ -105,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         if (FirebaseAdapter.userExists(username)
                 && isAssistantCheckBox.isChecked() != FirebaseAdapter.isAssistant(username)) {
             showProgress(false);
-            throw new LoginError(LOGIN_FAIL);
+            throw new LoginError(ASSISTANT_AP_STATUS_FAIL);
         }
 
         FirebaseAdapter.pushUser(username, phoneNumber, isAssistantCheckBox.isChecked());
@@ -145,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Show a small successful login message.
-        Toast.makeText(LoginActivity.this, LOGIN_MESSAGE, Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivity.this, SUCCESSFUL_LOGIN, Toast.LENGTH_SHORT).show();
         finish();
     }
 

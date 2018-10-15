@@ -4,6 +4,8 @@ import android.location.Location;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
+import android.util.Log;
+
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
@@ -88,7 +90,7 @@ public class ClientInfo {
     }
 
     public static boolean hasPartner() {
-        return isAssistant() || (currentTask != null && currentTask.getAssistant() != null);
+        return currentTask != null && (isAssistant() || currentTask.getAssistant() != null);
     }
 
     public static void updateAssistant(String assistant) {

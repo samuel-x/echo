@@ -97,7 +97,8 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
     protected void onResume() {
         super.onResume();
 
-        ClientInfo.updateTask();
+        // Check Firebase for an existing task.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
 
         // Ensure that the task button's text is up to date.
         if (ClientInfo.hasTask()) {

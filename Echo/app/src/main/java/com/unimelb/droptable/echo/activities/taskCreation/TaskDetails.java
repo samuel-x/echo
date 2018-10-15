@@ -22,10 +22,7 @@ public class TaskDetails extends AppCompatActivity {
     protected TextView title;
     //protected TextView address;
     protected PlaceAutocompleteFragment address;
-
-    protected FloatingActionButton micInputButton;
     protected TextView taskNotes;
-    protected ImageButton cameraButton;
     protected Button submitNowButton;
 
     @Override
@@ -37,9 +34,7 @@ public class TaskDetails extends AppCompatActivity {
         title = findViewById(R.id.textTaskTitle);
         address = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.textTaskAddress);;
-        micInputButton = findViewById(R.id.buttonTaskMic);
         taskNotes = findViewById(R.id.textTaskNotes);
-        cameraButton = findViewById(R.id.buttonTaskCamera);
         submitNowButton = findViewById(R.id.buttonTaskNow);
 
 

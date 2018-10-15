@@ -73,8 +73,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(500);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         // Setup our location callback
@@ -103,7 +103,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     protected void onResume() {
         super.onResume();
 
-        ClientInfo.updateTask();
+        // Read from the database to see if the assistant already has a task in progress.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
 
         // Ensure that the task button's text is up to date and update our listeners.
         if (ClientInfo.hasTask()) {
