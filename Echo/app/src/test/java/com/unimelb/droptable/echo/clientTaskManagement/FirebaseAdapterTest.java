@@ -438,8 +438,6 @@ public class FirebaseAdapterTest {
      */
     @Test
     public void getCurrentTask() {
-        final String TEST_USERNAME = "TEST_USERNAME";
-        final String TEST_PHONE_NUMBER = "TEST_PHONE_NUMBER";
         final String TEST_ID = "TEST_ID";
         final ImmutableTask TEST_TASK = ImmutableTask.builder()
                 .title("title")

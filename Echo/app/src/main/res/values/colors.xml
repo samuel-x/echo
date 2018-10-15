@@ -22,4 +22,5 @@
 
     <!-- Echo Custom Colors -->
     <color name="messageSenderColor">#FFFFCC</color>
+    <color name="messageReceiverColor">#FFFFFF</color>
 </resources>
