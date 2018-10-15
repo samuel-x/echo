@@ -2,11 +2,9 @@ package com.unimelb.droptable.echo.activities;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.widget.Button;
 
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 import org.junit.After;
 import org.junit.Before;

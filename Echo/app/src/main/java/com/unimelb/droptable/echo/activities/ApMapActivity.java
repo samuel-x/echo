@@ -1,28 +1,28 @@
 package com.unimelb.droptable.echo.activities;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
+import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Button;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCategories;
@@ -46,12 +46,37 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
     private FloatingActionButton accountButton;
 
 
+    private FusedLocationProviderClient mFusedLocationClient;
+    private LocationCallback mLocationCallback;
+
+    private LocationRequest mLocationRequest;
+    private PlaceAutocompleteFragment address;
+
+    private Location currentLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ap_map);
-        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // setup our location provider
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        // Setup our location callback
+        mLocationCallback = createNewAPCallback();
+
+        // Read from the database to see if the AP already has a task in progress.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
+
+        // Get references and set listeners.
 
         taskButton = findViewById(R.id.apTaskButton);
         taskButton.setOnClickListener((view) -> {onTaskPress();});
@@ -118,6 +143,27 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+    @SuppressLint("MissingPermission")
+    private void startLocationUpdates() {
+
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                mLocationCallback,
+                null /* Looper */);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        mMap = googleMap;
+
+        LatLng melbourne = new LatLng(-37.8136, 144.9631);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(melbourne));
+
+        googleMap.setMinZoomPreference(12);
+        startLocationUpdates();
+    }
+
+
     protected void onAccountButton() {
         startActivity(new Intent(this, AccountActivity.class));
     }
@@ -129,20 +175,6 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
             startActivity(new Intent(this, TaskCategories.class));
         }
     }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        // Add a marker in Sydney, Australia,
-        // and move the map's camera to the same location.
-        LatLng melbourne = new LatLng(-37.8136, 144.9631);
-
-        googleMap.addMarker(new MarkerOptions().position(melbourne)
-                .title("Marker in Melbourne"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(melbourne));
-
-        googleMap.setMinZoomPreference(12);
-    }
-
     private void onHelperPress() {
         HelperActivity.setCurrentHelperText(String.format(
                 getString(R.string.home_help_text),
@@ -152,5 +184,32 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         startActivity(new Intent(this, HelperActivity.class));
     }
 
+    private LocationCallback createNewAPCallback() {
+        return new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                else {
+                    ClientInfo.setCurrentLocation(locationResult.getLastLocation());
+                    try {
+                        if (currentLocation != null){
+                            mMap.clear();
+                            mMap.addMarker(new MarkerOptions().position(new
+                                    LatLng(locationResult.getLastLocation().getLatitude(),
+                                    locationResult.getLastLocation().getLongitude()))
+                                    .title("Your Location")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(
+                                            BitmapDescriptorFactory.HUE_AZURE)));
+                        }
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+    }
 
 }

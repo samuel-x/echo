@@ -3,7 +3,7 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 import android.support.test.rule.ActivityTestRule;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 import org.junit.After;
 import org.junit.Before;

@@ -11,7 +11,7 @@ import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.ApMapActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
@@ -29,6 +29,9 @@ public class TaskConfirm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creation_confirm);
+
+        task = Utility.currentTaskBuilder.status("PENDING").ap(ClientInfo.getUsername())
+                .lastPhase("false").build();
 
         // Setup our buttons
         title = findViewById(R.id.textTaskConfirmTitle);

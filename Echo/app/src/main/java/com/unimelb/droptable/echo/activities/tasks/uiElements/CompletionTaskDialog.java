@@ -6,11 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
-
-import com.unimelb.droptable.echo.R;
-
-import static android.app.AlertDialog.Builder;
 
 
 public class CompletionTaskDialog extends DialogFragment {
@@ -57,7 +52,6 @@ public class CompletionTaskDialog extends DialogFragment {
     }
 
     public String getDialog(String type) {
-        Log.d("test", type);
         String str = "Message";
         if (type.equals(COMPLETE)) {
             str = "Task has been completed.";

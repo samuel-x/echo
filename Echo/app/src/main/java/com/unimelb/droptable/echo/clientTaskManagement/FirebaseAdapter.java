@@ -11,6 +11,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.unimelb.droptable.echo.ChatMessage;
 import com.unimelb.droptable.echo.ClientInfo;
+import com.unimelb.droptable.echo.Utility;
 
 import java.net.HttpURLConnection;
 
@@ -221,6 +222,10 @@ public class FirebaseAdapter {
         String ap = taskRef.child("ap").getValue(String.class);
         String assistant = taskRef.child("assistant").getValue(String.class);
         String paymentAmount = taskRef.child("paymentAmount").getValue(String.class);
+        String latitude = taskRef.child("latitude").getValue(String.class);
+        String longitude = taskRef.child("longitude").getValue(String.class);
+        String lastPhase = taskRef.child("lastPhase").getValue(String.class);
+
 
         return ImmutableTask.builder()
                 .title(title)
@@ -232,6 +237,9 @@ public class FirebaseAdapter {
                 .ap(ap)
                 .assistant(assistant)
                 .paymentAmount(paymentAmount)
+                .latitude(latitude)
+                .longitude(longitude)
+                .lastPhase(lastPhase)
                 .id(taskRef.getKey()).build();
     }
 
@@ -304,6 +312,14 @@ public class FirebaseAdapter {
         updateAssistantTask(assistant, id);
     }
 
+    protected static void updateAssistantTask(String assistant, String id) {
+        usersDbReference.child(assistant).child("taskID").setValue(id);
+    }
+
+    public static void updatePhase(String assistant) {
+        tasksDbReference.child(getCurrentTaskID()).child("lastPhase").setValue("true");
+    }
+
     public static void completeTask(ImmutableTask task) {
         currentData.child(TASKS_ROOT).child(task.getId()).getRef().removeValue();
         currentData.child(USERS_ROOT).child(task.getAssistant()).child(TASK_ID).getRef().removeValue();
@@ -335,9 +351,5 @@ public class FirebaseAdapter {
      */
     public static String getUserRegistration(String user) {
         return getUser(user).child("token").getValue(String.class);
-    }
-
-    protected static void updateAssistantTask(String assistant, String id) {
-        usersDbReference.child(assistant).child("taskID").setValue(id);
     }
 }

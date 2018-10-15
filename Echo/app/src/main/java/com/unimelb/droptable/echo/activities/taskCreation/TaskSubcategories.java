@@ -7,7 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 public class TaskSubcategories extends AppCompatActivity {
 

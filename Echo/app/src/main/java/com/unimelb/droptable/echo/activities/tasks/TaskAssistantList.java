@@ -62,6 +62,7 @@ public class TaskAssistantList extends AppCompatActivity {
                                             .paymentAmount(snapshot.child("paymentAmount").getValue(String.class))
                                             .status(snapshot.child("status").getValue(String.class))
                                             .ap(snapshot.child("ap").getValue(String.class))
+                                            .lastPhase(snapshot.child("lastPhase").getValue(String.class))
                                             .id(snapshot.child("id").getValue(String.class)).build();
                             }
                         })

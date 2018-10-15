@@ -3,7 +3,7 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 import android.content.Intent;
 
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 import org.junit.After;
 import org.junit.Before;
