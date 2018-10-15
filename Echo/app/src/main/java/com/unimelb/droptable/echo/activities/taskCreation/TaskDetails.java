@@ -16,9 +16,7 @@ public class TaskDetails extends AppCompatActivity {
     // Grab UI references
     protected TextView title;
     protected TextView address;
-    protected FloatingActionButton micInputButton;
     protected TextView taskNotes;
-    protected ImageButton cameraButton;
     protected Button submitNowButton;
 
     @Override
@@ -29,9 +27,7 @@ public class TaskDetails extends AppCompatActivity {
         // Setup our buttons
         title = findViewById(R.id.textTaskTitle);
         address = findViewById(R.id.textTaskAddress);
-        micInputButton = findViewById(R.id.buttonTaskMic);
         taskNotes = findViewById(R.id.textTaskNotes);
-        cameraButton = findViewById(R.id.buttonTaskCamera);
         submitNowButton = findViewById(R.id.buttonTaskNow);
 
         submitNowButton.setOnClickListener((view) -> {

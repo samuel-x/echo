@@ -45,9 +45,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        // Read from the database to see if the assistant already has a task in progress.
-        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
-
         // Get references to UI elements.
 
         taskButton = findViewById(R.id.assistantTaskButton);
@@ -64,6 +61,9 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Read from the database to see if the assistant already has a task in progress.
+        ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
 
         // Ensure that the task button's text is up to date and update our listeners.
         if (ClientInfo.hasTask()) {
