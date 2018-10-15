@@ -1,5 +1,6 @@
 package com.unimelb.droptable.echo.activities;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -72,6 +74,10 @@ public class LoginActivity extends AppCompatActivity {
         SUCCESSFUL_LOGIN = getString(R.string.successful_login);
 
         FirebaseAdapter.goOnline();
+
+        //Request for Location permissions
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
     }
 
     protected void onSignInClick() {
