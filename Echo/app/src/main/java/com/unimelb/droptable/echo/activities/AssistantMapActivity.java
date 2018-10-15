@@ -193,9 +193,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         mMap = googleMap;
 
-        mMap.addMarker(new MarkerOptions().position(endLL)
-                .title("Destination: " + "Southbank"));
-
         // to center the map, need to have midpoint of start and end points
         LatLng midPoint = Utility.getMidPoint(startLL, endLL);
 
@@ -294,9 +291,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                                         BitmapDescriptorFactory.HUE_AZURE)));
 
                         if (ClientInfo.hasTask()) {
-
                             checkStatus();
-
+                            FirebaseAdapter.updateLocationOfUser(locationResult.getLastLocation());
                         }
                     } catch (Exception e) {
                         Log.d("help:", "null marker");

@@ -1,8 +1,11 @@
 package com.unimelb.droptable.echo.clientTaskManagement;
 
 
+import android.location.Location;
 import android.util.Log;
 
+import com.google.android.gms.common.api.Api;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -349,5 +352,14 @@ public class FirebaseAdapter {
      */
     public static String getUserRegistration(String user) {
         return getUser(user).child("token").getValue(String.class);
+    }
+
+    public static void updateLocationOfUser(Location location) {
+        LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+        usersDbReference.child(ClientInfo.getUsername()).child("location").setValue(loc);
+    }
+
+    public static LatLng getAssistantLocation() {
+        return getUser(ClientInfo.getTask().getAssistant()).child("location").getValue(LatLng.class);
     }
 }

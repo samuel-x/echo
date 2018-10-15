@@ -71,8 +71,8 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(500);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         // Setup our location callback
@@ -194,6 +194,14 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                                     LatLng(locationResult.getLastLocation().getLatitude(),
                                     locationResult.getLastLocation().getLongitude()))
                                     .title("Your Location")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(
+                                            BitmapDescriptorFactory.HUE_AZURE)));
+                        }
+                        if (ClientInfo.hasPartner()) {
+                            LatLng assistant = FirebaseAdapter.getAssistantLocation();
+                            Log.d("assistant:", assistant.toString());
+                            mMap.addMarker(new MarkerOptions().position(assistant)
+                                    .title(ClientInfo.getTask().getAssistant() + "'s Location")
                                     .icon(BitmapDescriptorFactory.defaultMarker(
                                             BitmapDescriptorFactory.HUE_AZURE)));
                         }
