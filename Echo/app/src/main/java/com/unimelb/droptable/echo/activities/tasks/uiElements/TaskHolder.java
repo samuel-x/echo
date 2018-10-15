@@ -38,7 +38,8 @@ public class TaskHolder extends RecyclerView.ViewHolder {
     }
 
     private void onAcceptButton() {
-        parentContext.startActivity(new Intent(parentContext, TaskAssistantDetails.class).putExtra("task", thisTask));
+        parentContext.startActivity(new Intent(parentContext, TaskAssistantDetails.class)
+                .putExtra("task", thisTask));
     }
 
     public void bind(@NonNull ImmutableTask task) {
