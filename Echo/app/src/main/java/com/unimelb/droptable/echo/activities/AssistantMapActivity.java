@@ -5,14 +5,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -28,14 +26,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.Query;
-import com.google.maps.DirectionsApi;
-import com.google.maps.DirectionsApiRequest;
-import com.google.maps.GeoApiContext;
-import com.google.maps.model.DirectionsLeg;
-import com.google.maps.model.DirectionsResult;
-import com.google.maps.model.DirectionsRoute;
-import com.google.maps.model.DirectionsStep;
-import com.google.maps.model.EncodedPolyline;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.Utility;
@@ -44,9 +34,7 @@ import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
-import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -115,6 +103,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     protected void onResume() {
         super.onResume();
 
+        ClientInfo.updateTask();
+
         // Ensure that the task button's text is up to date and update our listeners.
         if (ClientInfo.hasTask()) {
 
@@ -140,6 +130,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         if (!ClientInfo.getTask().getLastPhase().equals("true")){
             FirebaseAdapter.updatePhase(ClientInfo.getUsername());
+            Log.d("Task", "updating phase");
             return;
         }
 
@@ -147,7 +138,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         FirebaseAdapter.updateTaskStatus("COMPLETED", ClientInfo.getTask().getId());
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+            builder = new AlertDialog.Builder(this,
+                    android.R.style.Theme_Material_Dialog_Alert);
         } else {
             builder = new AlertDialog.Builder(this);
         }
@@ -315,6 +307,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
     private void checkStatus() {
         ClientInfo.updateTask();
+
+        Log.d("task:", ClientInfo.getTask().toString());
 
         LatLng startLL = ClientInfo.getCurrentLocationAsLatLng();
 
