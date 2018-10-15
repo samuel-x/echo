@@ -320,7 +320,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         //Define list to get all latlng for the route
         List<LatLng> path = new ArrayList();
 
-        //Execute Directions API request
+        //Directions API request
         GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyBrPt88vvoPDDn_imh-RzCXl5Ha2F2LYig").build();
         DirectionsApiRequest req = DirectionsApi.getDirections(context,
                 ("\"" + latitude + "," + longitude + "\""), ("\"" + destination.latitude + "," + destination.longitude + "\""));
@@ -479,7 +479,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
             return true;
         }
 
-        completeTaskButton.setText("yeeet");
+        completeTaskButton.setText("COMPLETE TASK");
 
         return false;
     }
