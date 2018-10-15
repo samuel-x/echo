@@ -360,6 +360,11 @@ public class FirebaseAdapter {
     }
 
     public static LatLng getAssistantLocation() {
-        return getUser(ClientInfo.getTask().getAssistant()).child("location").getValue(LatLng.class);
+        LatLng loc = new LatLng(
+                getUser(ClientInfo.getTask().getAssistant()).child("location")
+                        .child("latitude").getValue(double.class),
+                getUser(ClientInfo.getTask().getAssistant()).child("location")
+                        .child("longitude").getValue(double.class));
+        return loc;
     }
 }

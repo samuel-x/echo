@@ -40,6 +40,8 @@ public class TaskNotification extends DialogFragment {
     public static final String TASK_CANCELLED_MESSAGE = "Unfortunately, the task has been cancelled.";
     public static final String TASK_COMPLETE_ASSISTANT_TITLE = "Task Complete!";
     public static final String TASK_COMPLETE_ASSISTANT_MESSAGE = "The task was accepted by the AP!";
+    public static final String TASK_PHASE_ONE_COMPLETE_TITLE = "Task updated!";
+    public static final String TASK_PHASE_ONE_COMPLETE_MESSAGE = "The task has been updated.";
 
     private static Set<Activity> attachedListeners = new HashSet<>();
 
@@ -241,6 +243,21 @@ public class TaskNotification extends DialogFragment {
                                             activity.finish();
                                         }
                                     });
+                }
+                if (dataSnapshot != null &&
+                        dataSnapshot.getValue(String.class) != null &&
+                        dataSnapshot.getKey().toString().equals("lastPhase") &&
+                        dataSnapshot.getValue(String.class).equals("true")) {
+
+                    Context currentContext = activity;
+
+                    String assistantID = ClientInfo.getTask().getAssistant();
+                    String message = TASK_PHASE_ONE_COMPLETE_MESSAGE;
+                    TaskNotification.showDialog(activity, TASK_PHASE_ONE_COMPLETE_TITLE, message,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
                 }
             }
 

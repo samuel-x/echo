@@ -188,22 +188,21 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                 else {
                     ClientInfo.setCurrentLocation(locationResult.getLastLocation());
                     try {
-                        if (currentLocation != null){
-                            mMap.clear();
-                            mMap.addMarker(new MarkerOptions().position(new
-                                    LatLng(locationResult.getLastLocation().getLatitude(),
-                                    locationResult.getLastLocation().getLongitude()))
-                                    .title("Your Location")
-                                    .icon(BitmapDescriptorFactory.defaultMarker(
-                                            BitmapDescriptorFactory.HUE_AZURE)));
-                        }
+                        mMap.clear();
+                        mMap.addMarker(new MarkerOptions().position(new
+                                LatLng(locationResult.getLastLocation().getLatitude(),
+                                locationResult.getLastLocation().getLongitude()))
+                                .title("Your Location")
+                                .icon(BitmapDescriptorFactory.defaultMarker(
+                                        BitmapDescriptorFactory.HUE_AZURE)));
+                        Log.d("AP:", String.valueOf(ClientInfo.hasPartner()));
                         if (ClientInfo.hasPartner()) {
                             LatLng assistant = FirebaseAdapter.getAssistantLocation();
-                            Log.d("assistant:", assistant.toString());
+                            Log.d("AP:", assistant.toString());
                             mMap.addMarker(new MarkerOptions().position(assistant)
                                     .title(ClientInfo.getTask().getAssistant() + "'s Location")
                                     .icon(BitmapDescriptorFactory.defaultMarker(
-                                            BitmapDescriptorFactory.HUE_AZURE)));
+                                            BitmapDescriptorFactory.HUE_GREEN)));
                         }
                     }
                     catch (Exception e) {

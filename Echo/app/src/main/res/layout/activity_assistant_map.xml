@@ -42,7 +42,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/complete_task"
+        android:text="@string/loading_task"
         android:textSize="@dimen/echoAssistantHuge"
         app:layout_constraintBottom_toTopOf="@+id/assistantTaskButton"
         app:layout_constraintEnd_toEndOf="parent"

@@ -73,8 +73,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(500);
+        mLocationRequest.setInterval(500);
+        mLocationRequest.setFastestInterval(100);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         // Setup our location callback
@@ -131,6 +131,21 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         if (!ClientInfo.getTask().getLastPhase().equals("true")){
             FirebaseAdapter.updatePhase(ClientInfo.getUsername());
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this,
+                        android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+            builder.setTitle("Task Update Sent")
+                    .setMessage("Task Updated!")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
             Log.d("Task", "updating phase");
             return;
         }
@@ -192,6 +207,21 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     private void doMap(GoogleMap googleMap, LatLng startLL, LatLng endLL) {
 
         mMap = googleMap;
+
+        if (ClientInfo.getTask().getLastPhase().equals("false")) {
+            mMap.addMarker(new MarkerOptions().
+                    position(endLL)
+                    .title("Destination Pick Up")
+                    .icon(BitmapDescriptorFactory.defaultMarker(
+                            BitmapDescriptorFactory.HUE_RED)));
+        }
+        else if (ClientInfo.getTask().getLastPhase().equals("true")) {
+            mMap.addMarker(new MarkerOptions().
+                    position(endLL)
+                    .title("Final Destination")
+                    .icon(BitmapDescriptorFactory.defaultMarker(
+                            BitmapDescriptorFactory.HUE_RED)));
+        }
 
         // to center the map, need to have midpoint of start and end points
         LatLng midPoint = Utility.getMidPoint(startLL, endLL);
@@ -324,17 +354,17 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         if (ClientInfo.getTask().getLastPhase().equals("false")) {
             doMap(mMap, startLL, midStop);
-            if (Utility.distance(startLL, midStop) < 10.0) {
+            if (Utility.distance(startLL, midStop) < 100.0) {
                 completeTaskButton.setText(fstInstruction);
                 enableCompleteTask();
-                Log.d("test", "test");
+                Log.d("Assistant", "Check Status");
             }
             else {
                 disableCompleteTask();
             }
         } else {
             doMap(mMap, startLL, endLL);
-            if (Utility.distance(startLL, endLL) < 10.0) {
+            if (Utility.distance(startLL, endLL) < 100.0) {
                 completeTaskButton.setText(sndInstruction);
                 enableCompleteTask();
             }
