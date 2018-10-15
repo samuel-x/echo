@@ -146,7 +146,6 @@ public class LoginActivity extends AppCompatActivity {
         if (ClientInfo.isAssistant()) {
             startActivity(new Intent(this, AssistantMapActivity.class));
         } else {
-            Log.d("AP_start","start map for AP");
             startActivity(new Intent(this, ApMapActivity.class));
         }
 

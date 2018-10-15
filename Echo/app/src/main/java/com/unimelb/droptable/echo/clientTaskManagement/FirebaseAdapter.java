@@ -310,7 +310,7 @@ public class FirebaseAdapter {
         updateAssistantTask(assistant, id);
     }
 
-    private static void updateAssistantTask(String assistant, String id) {
+    protected static void updateAssistantTask(String assistant, String id) {
         usersDbReference.child(assistant).child("taskID").setValue(id);
     }
 

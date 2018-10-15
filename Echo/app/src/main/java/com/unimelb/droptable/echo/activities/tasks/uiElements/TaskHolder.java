@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.tasks.TaskAssistantDetails;
-import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class TaskHolder extends RecyclerView.ViewHolder {
@@ -51,7 +48,6 @@ public class TaskHolder extends RecyclerView.ViewHolder {
         setCategory(task.getCategory());
         setSubCategory(task.getSubCategory());
         setNotes(task.getNotes());
-        Log.d("Bind:", "what the heck");
     }
 
     private void setTitle(@Nullable String title) {

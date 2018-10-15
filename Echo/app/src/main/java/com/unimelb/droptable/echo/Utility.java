@@ -1,7 +1,5 @@
 package com.unimelb.droptable.echo;
 
-import android.util.Log;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
@@ -111,7 +109,6 @@ public class Utility {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            Log.d("Request", "help");
         }
 
         return path;

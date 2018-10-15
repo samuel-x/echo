@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -41,7 +40,6 @@ public class TaskAssistantDetails extends AppCompatActivity {
         setTitle(task.getTitle());
         setAddress(task.getAddress());
         setNotes(task.getNotes());
-        Log.d("Bind:", "what the heck");
     }
 
     private void setTitle(@Nullable String title) {

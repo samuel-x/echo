@@ -59,6 +59,7 @@ public class TaskCurrentTest {
     private final String testStatus = "MyStatus";
     private final String testAp = "MyAp";
     private final String testAssistant = "MyAssistant";
+    private final String testLastPhase = "MyLastPhase";
     private final String testNotes = "MyNotes";
     private static final String TEST_PHONE_NUMBER = "0412356789";
 
@@ -193,6 +194,7 @@ public class TaskCurrentTest {
                 .status(testStatus)
                 .ap(testAp)
                 .notes(testNotes)
+                .lastPhase(testLastPhase)
                 .build();
 
         // Define mock behavior.
@@ -243,6 +245,7 @@ public class TaskCurrentTest {
                 .subCategory(testSubCategory)
                 .status(testStatus)
                 .ap(testAp)
+                .lastPhase(testLastPhase)
                 .notes(testNotes)
                 .build();
         ClientInfo.setTask(task);

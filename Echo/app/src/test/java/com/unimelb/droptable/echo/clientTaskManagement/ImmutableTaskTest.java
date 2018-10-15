@@ -16,6 +16,7 @@ public class ImmutableTaskTest {
     private final String ap = "AP";
     private final String assistant = "assistant";
     private final String id = "ID";
+    private final String lastPhase = "lastPhase";
 
     @Test
     public void testBuilder() {
@@ -30,7 +31,9 @@ public class ImmutableTaskTest {
                 .status(testStatus)
                 .ap(ap)
                 .assistant(assistant)
-                .id(id).build();
+                .id(id)
+                .lastPhase(lastPhase)
+                .build();
 
         assertEquals(testTitle, task.getTitle());
         assertEquals(testAddress, task.getAddress());
