@@ -37,6 +37,10 @@
     <string name="prompt_assistant">Assistant?</string>
     <string name="error_invalid_username">This username is invalid</string>
     <string name="prompt_phone_number">Enter phone number…</string>
+    <string name="invalid_assistant_or_ap">Login Failed! Are you sure about your assistant status?</string>
+    <string name="invalid_phone_number">Phone number is incorrect. Please make sure you\'re entering a valid, numerical phone number.</string>
+    <string name="invalid_user_name">Please enter a valid username.</string>
+    <string name="successful_login">Successful Login!</string>
 
     <string name="action_submit_rating">Submit Rating</string>
 
