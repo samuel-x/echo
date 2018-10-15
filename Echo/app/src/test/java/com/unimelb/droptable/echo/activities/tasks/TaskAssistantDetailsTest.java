@@ -101,6 +101,7 @@ public class TaskAssistantDetailsTest {
         FirebaseAdapter.assignTask(TEST_USER, TEST_ID);
         verify(taskAssistantDetails,times(0)).startActivity(any());
         verify(taskAssistantDetails, times(0)).finish();
+
         taskAssistantDetails.onAccept();
 
         // Verify that static methods were called.
