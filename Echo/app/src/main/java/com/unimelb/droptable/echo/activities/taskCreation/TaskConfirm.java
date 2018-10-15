@@ -21,6 +21,7 @@ public class TaskConfirm extends AppCompatActivity {
     protected TextView title;
     protected TextView address;
     protected TextView notes;
+    protected TextView paymentAmount;
     protected Button confirmButton;
     protected ImmutableTask task;
 
@@ -33,6 +34,7 @@ public class TaskConfirm extends AppCompatActivity {
         title = findViewById(R.id.textTaskConfirmTitle);
         address = findViewById(R.id.textTaskConfirmAddress);
         notes = findViewById(R.id.textTaskConfirmNotes);
+        paymentAmount = findViewById(R.id.paymentAmount);
         confirmButton = findViewById(R.id.buttonTaskConfirmConfirm);
         confirmButton.setOnClickListener((view) -> {confirmSubmit();});
     }
@@ -45,6 +47,7 @@ public class TaskConfirm extends AppCompatActivity {
         title.setText(task.getTitle());
         address.setText(task.getAddress());
         notes.setText(task.getNotes());
+        paymentAmount.setText(task.getPaymentAmount());
     }
 
     protected void confirmSubmit() {

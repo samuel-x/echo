@@ -19,6 +19,7 @@ public class TaskAssistantDetails extends AppCompatActivity {
     private TextView taskCurrentTitle;
     private TextView taskCurrentAddress;
     private TextView taskCurrentNotes;
+    private TextView taskCurrentPaymentAmount;
     private Button acceptButton;
     private ImmutableTask task;
 
@@ -31,7 +32,7 @@ public class TaskAssistantDetails extends AppCompatActivity {
         taskCurrentAddress = findViewById(R.id.textAssistantTaskListAddress);
         taskCurrentNotes = findViewById(R.id.textAssistantTaskListNotes);
         acceptButton = findViewById(R.id.buttonAcceptTask);
-
+        taskCurrentPaymentAmount = findViewById(R.id.taskCurrentPaymentAmount);
         acceptButton.setOnClickListener((view) -> onAccept());
     }
 
@@ -41,6 +42,7 @@ public class TaskAssistantDetails extends AppCompatActivity {
         setTitle(task.getTitle());
         setAddress(task.getAddress());
         setNotes(task.getNotes());
+        setPaymentAmount(task.getPaymentAmount());
         Log.d("Bind:", "what the heck");
     }
 
@@ -50,6 +52,10 @@ public class TaskAssistantDetails extends AppCompatActivity {
 
     private void setNotes(@Nullable String notes) {
         taskCurrentNotes.setText(notes);
+    }
+
+    private void setPaymentAmount(@Nullable String amount) {
+        taskCurrentPaymentAmount.setText(amount);
     }
 
     private void setAddress(@Nullable String address) {

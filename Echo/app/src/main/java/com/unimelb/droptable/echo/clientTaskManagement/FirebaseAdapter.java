@@ -220,7 +220,7 @@ public class FirebaseAdapter {
         String status = taskRef.child("status").getValue(String.class);
         String ap = taskRef.child("ap").getValue(String.class);
         String assistant = taskRef.child("assistant").getValue(String.class);
-
+        String paymentAmount = taskRef.child("paymentAmount").getValue(String.class);
 
         return ImmutableTask.builder()
                 .title(title)
@@ -231,6 +231,7 @@ public class FirebaseAdapter {
                 .status(status)
                 .ap(ap)
                 .assistant(assistant)
+                .paymentAmount(paymentAmount)
                 .id(taskRef.getKey()).build();
     }
 

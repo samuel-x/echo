@@ -44,6 +44,7 @@ public class TaskCurrent extends AppCompatActivity {
     protected TextView taskCurrentTitle;
     protected TextView taskCurrentAddress;
     protected TextView taskCurrentNotes;
+    protected TextView taskCurrentPaymentAmount;
     protected TextView otherUserName;
     protected TextView otherUserPhone;
     protected TextView otherUserRating;
@@ -64,6 +65,7 @@ public class TaskCurrent extends AppCompatActivity {
         taskCurrentTitle = findViewById(R.id.textTaskInProgressTitle);
         taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
+        taskCurrentNotes = findViewById(R.id.textTaskInProgressPaymentAmount);
         otherUserName = findViewById(R.id.userName);
         otherUserPhone = findViewById(R.id.userPhone);
         otherUserRating = findViewById(R.id.userRating);
@@ -143,6 +145,7 @@ public class TaskCurrent extends AppCompatActivity {
         setTitle(task.getTitle());
         setAddress(task.getAddress());
         setNotes(task.getNotes());
+        setPaymentAmount(task.getPaymentAmount());
         if (task.getAssistant() != null) {
             updateAssistant(task.getAssistant());
         }
@@ -155,6 +158,10 @@ public class TaskCurrent extends AppCompatActivity {
 
     private void setNotes(@Nullable String notes) {
         taskCurrentNotes.setText(notes);
+    }
+
+    private void setPaymentAmount(@Nullable String amount) {
+        taskCurrentPaymentAmount.setText(amount);
     }
 
     private void setAddress(@Nullable String address) {

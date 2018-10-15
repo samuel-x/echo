@@ -20,6 +20,7 @@ public class TaskDetails extends AppCompatActivity {
     protected TextView taskNotes;
     protected ImageButton cameraButton;
     protected Button submitNowButton;
+    protected TextView paymentAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class TaskDetails extends AppCompatActivity {
         taskNotes = findViewById(R.id.textTaskNotes);
         cameraButton = findViewById(R.id.buttonTaskCamera);
         submitNowButton = findViewById(R.id.buttonTaskNow);
+        paymentAmount = findViewById(R.id.paymentAmount);
 
         submitNowButton.setOnClickListener((view) -> {
             onContinue();});
@@ -43,6 +45,7 @@ public class TaskDetails extends AppCompatActivity {
         Utility.currentTaskBuilder.title(title.getText().toString());
         Utility.currentTaskBuilder.address(address.getText().toString());
         Utility.currentTaskBuilder.notes(taskNotes.getText().toString());
+        Utility.currentTaskBuilder.paymentAmount(paymentAmount.getText().toString());
         startActivity(new Intent(this, TaskConfirm.class));
     }
 }

@@ -4,19 +4,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
+import com.unimelb.droptable.echo.clientTaskManagement.FirebaseNotificationsAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
+
+
+
 
 public class PaymentActivity extends AppCompatActivity {
 
-    private Button confirmPayment;
+    private Button confirmPaymentAndSubmit;
 
-    protected TextView taskCurrentTitle;
-    protected TextView details;
+    protected TextView taskTitle;
+    protected TextView notes;
     protected TextView paymentAmount;
+    protected TextView userRating;
+    protected TextView userName;
+
+    private RatingBar ratingBar;
+
     protected ImmutableTask currentTask;
 
 
@@ -26,28 +37,62 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-//        currentTask = FirebaseAdapter.getCurrentTask();
-//        String title = currentTask.getTitle();
 
-//        paymentAmount = findViewById(R.id.paymentAmount);
+
+        currentTask = FirebaseAdapter.getCurrentTask();
+        String title = currentTask.getTitle();
 //
-//        paymentAmount.setText("Fuck my ass");
+//
+        ratingBar = findViewById(R.id.ratingBar);
 
-        confirmPayment = findViewById(R.id.submit);
-        confirmPayment.setOnClickListener((view)->{goToMap();});
+
+        paymentAmount = findViewById(R.id.paymentAmount);
+        paymentAmount.setText("$69.90");
+//
+        userName = findViewById(R.id.userName);
+        userName.setText(currentTask.getAssistant());
+
+        taskTitle = findViewById(R.id.taskTitle);
+        taskTitle.setText(currentTask.getTitle());
+
+        notes = findViewById(R.id.taskNotes);
+        notes.setText(currentTask.getNotes());
+        confirmPaymentAndSubmit = findViewById(R.id.submit);
+        confirmPaymentAndSubmit.setOnClickListener((view)->{onSubmit();});
 
     }
 
+    protected void onSubmit() {
+        completeTask();
+    }
+
+    protected void completeTask() {
+
+        ClientInfo.updateTask();
+        ImmutableTask task = ClientInfo.getTask();
+
+        try {
+            FirebaseNotificationsAdapter.sendAssistantCompleteMessage(task);
+        }
+        catch (Exception e) {
+
+        }
+        // TODO: Update Rating here (
+        FirebaseAdapter.updateUserRating(ClientInfo.getTask().getAssistant(), ratingBar.getRating());
+        FirebaseAdapter.completeTask(ClientInfo.getTask());
+
+        ClientInfo.setTask(null);
+
+        goToMap();
+        finish();
+    }
+
+
     private void goToMap() {
+
         startActivity(new Intent(this, ApMapActivity.class));
     }
 
-    private void populate(){
-
-    }
-
-
     // TODO: Update view with information from database about completed task
-
 
 }

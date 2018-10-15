@@ -80,17 +80,17 @@
     <TextView
         android:id="@+id/textAssistantTaskListNotes"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="132dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@id/buttonAcceptTask"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textAssistantTaskListNotesTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textAssistantTaskListNotesTitle"
-        app:layout_constraintBottom_toTopOf="@id/buttonAcceptTask"/>
+        app:layout_constraintTop_toBottomOf="@+id/textAssistantTaskListNotesTitle" />
 
     <Button
         android:id="@+id/buttonAcceptTask"
@@ -106,5 +106,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAssistantTaskListNotes" />
+
+    <TextView
+        android:id="@+id/taskCurrentPaymentAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="314dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="314dp"
+        android:layout_marginStart="32dp"
+        android:text="PRICE"
+        app:layout_constraintBottom_toTopOf="@+id/textAssistantTaskListNotesTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textAssistantTaskListTime" />
 
 </android.support.constraint.ConstraintLayout>
