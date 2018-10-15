@@ -33,6 +33,9 @@ import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 public class ApMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final int MS_LOCATION_UPDATE = 1000;
+    private static final int MS_LOCATION_FAST_UPDATE = 500;
+
     private GoogleMap mMap;
 
     protected Button taskButton;
@@ -60,8 +63,8 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setInterval(MS_LOCATION_UPDATE);
+        mLocationRequest.setFastestInterval(MS_LOCATION_FAST_UPDATE);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         // Setup our location callback

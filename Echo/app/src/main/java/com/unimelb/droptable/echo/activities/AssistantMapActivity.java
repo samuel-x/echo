@@ -38,6 +38,11 @@ import java.util.List;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final int MS_LOCATION_UPDATE = 1000;
+    private static final int MS_LOCATION_FAST_UPDATE = 500;
+
+    private float COMPLETION_DISTANCE = 50;
+
     private GoogleMap mMap;
 
     public Button taskButton;
@@ -66,8 +71,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(500);
+        mLocationRequest.setInterval(MS_LOCATION_UPDATE);
+        mLocationRequest.setFastestInterval(MS_LOCATION_FAST_UPDATE);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         // Setup our location callback
@@ -317,7 +322,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         if (ClientInfo.getTask().getLastPhase().equals("false")) {
             doMap(mMap, startLL, midStop);
-            if (Utility.distance(startLL, midStop) < 10.0) {
+            if (Utility.distance(startLL, midStop) < COMPLETION_DISTANCE) {
                 completeTaskButton.setText(fstInstruction);
                 enableCompleteTask();
             }
@@ -326,7 +331,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
             }
         } else {
             doMap(mMap, startLL, endLL);
-            if (Utility.distance(startLL, endLL) < 10.0) {
+            if (Utility.distance(startLL, endLL) < COMPLETION_DISTANCE) {
                 completeTaskButton.setText(sndInstruction);
                 enableCompleteTask();
             }
