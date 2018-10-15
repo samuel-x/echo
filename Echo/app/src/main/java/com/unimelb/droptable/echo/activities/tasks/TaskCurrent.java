@@ -65,7 +65,7 @@ public class TaskCurrent extends AppCompatActivity {
         taskCurrentTitle = findViewById(R.id.textTaskInProgressTitle);
         taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
-        taskCurrentNotes = findViewById(R.id.textTaskInProgressPaymentAmount);
+        taskCurrentPaymentAmount = findViewById(R.id.textTaskInProgressPaymentAmount);
         otherUserName = findViewById(R.id.userName);
         otherUserPhone = findViewById(R.id.userPhone);
         otherUserRating = findViewById(R.id.userRating);

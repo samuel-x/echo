@@ -227,8 +227,15 @@
         android:id="@+id/textTaskInProgressPaymentAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="90dp"
+        android:layout_marginStart="64dp"
         android:text="TASK AMOUNT"
-        tools:layout_editor_absoluteX="198dp"
-        tools:layout_editor_absoluteY="459dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textTaskInProgressNotes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textTaskInProgressNotesTitle"
+        app:layout_constraintTop_toBottomOf="@+id/avatarContainer" />
 
 </android.support.constraint.ConstraintLayout>

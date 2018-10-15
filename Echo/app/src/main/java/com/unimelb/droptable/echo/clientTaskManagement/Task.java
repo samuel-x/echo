@@ -13,6 +13,7 @@ public interface Task {
     String getNotes();
     String getStatus();
     String getAp();
+    @Nullable
     String getPaymentAmount();
     @Nullable
     String getId();

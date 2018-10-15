@@ -30,7 +30,6 @@ public class TaskAssistantList extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.taskList);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
 
