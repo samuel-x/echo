@@ -35,7 +35,7 @@ public class ClientInfo {
             try {
                 rating = FirebaseAdapter.getUserRating(ClientInfo.getUsername());
             } catch (Exception e){
-                return 0.0f;
+                return 5.0f;
             }
             return rating;
         }
@@ -79,6 +79,8 @@ public class ClientInfo {
     public static void setTask(ImmutableTask task) {
         ClientInfo.currentTask = task;
     }
+
+
 
     public static String getPhoneNumber() {return phoneNumber;}
 

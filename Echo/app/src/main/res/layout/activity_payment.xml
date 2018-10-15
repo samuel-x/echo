@@ -56,7 +56,6 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/userRating"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paymentAmount" />
 
@@ -165,8 +164,8 @@
 
     <TextView
         android:id="@+id/servedBy"
-        android:layout_width="206dp"
-        android:layout_height="22dp"
+        android:layout_width="207dp"
+        android:layout_height="23dp"
         android:layout_marginBottom="5dp"
         android:layout_marginEnd="90dp"
         android:layout_marginLeft="90dp"

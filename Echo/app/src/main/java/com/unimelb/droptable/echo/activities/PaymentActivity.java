@@ -51,7 +51,10 @@ public class PaymentActivity extends AppCompatActivity {
         paymentAmount.setText(amount);
 
 
+        userRating = findViewById(R.id.userRating);
+//        float assistantRating = FirebaseAdapter.getUserRating(currentTask.getAssistant());
 
+        userRating.setText("Rating: 5 Stars");
         userName = findViewById(R.id.userName);
         userName.setText(currentTask.getAssistant());
 
