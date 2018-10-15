@@ -135,19 +135,6 @@ public class TaskCurrent extends AppCompatActivity {
         if (task.getAssistant() != null) {
             updateAssistant(task.getAssistant());
         }
-        Log.d("Bind:", "Current Task UI AP");
-    }
-
-    private void setTitle(@Nullable String title) {
-        taskCurrentTitle.setText(title);
-    }
-
-    private void setNotes(@Nullable String notes) {
-        taskCurrentNotes.setText(notes);
-    }
-
-    private void setAddress(@Nullable String address) {
-        taskCurrentAddress.setText(address);
     }
 
     public void updateAssistant(String assistantID) {
@@ -172,6 +159,18 @@ public class TaskCurrent extends AppCompatActivity {
 
         // enable our avatar
         enableAvatar();
+    }
+
+    protected void setTitle(@Nullable String title) {
+        taskCurrentTitle.setText(title);
+    }
+
+    protected void setNotes(@Nullable String notes) {
+        taskCurrentNotes.setText(notes);
+    }
+
+    protected void setAddress(@Nullable String address) {
+        taskCurrentAddress.setText(address);
     }
 
     protected void resetAssistant() {
