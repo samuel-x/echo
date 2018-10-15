@@ -161,7 +161,8 @@ public class TaskCurrent extends AppCompatActivity {
     }
 
     private void setPaymentAmount(@Nullable String amount) {
-        taskCurrentPaymentAmount.setText(amount);
+        String s1 = "Task Price: $"+amount;
+        taskCurrentPaymentAmount.setText(s1);
     }
 
     private void setAddress(@Nullable String address) {

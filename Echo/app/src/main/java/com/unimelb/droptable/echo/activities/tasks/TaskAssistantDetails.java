@@ -28,7 +28,7 @@ public class TaskAssistantDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_assistant_accept);
         task = (ImmutableTask) getIntent().getSerializableExtra("task");
-        taskCurrentTitle = findViewById(R.id.textAssistantTaskListActivity);
+//        taskCurrentTitle = findViewById(R.id.textAssistantTaskListActivity);
         taskCurrentAddress = findViewById(R.id.textAssistantTaskListAddress);
         taskCurrentNotes = findViewById(R.id.textAssistantTaskListNotes);
         acceptButton = findViewById(R.id.buttonAcceptTask);

@@ -47,7 +47,9 @@ public class TaskConfirm extends AppCompatActivity {
         title.setText(task.getTitle());
         address.setText(task.getAddress());
         notes.setText(task.getNotes());
-        paymentAmount.setText(task.getPaymentAmount());
+        String amountString = task.getPaymentAmount();
+        amountString = "Task Price: $"+amountString;
+        paymentAmount.setText(amountString);
     }
 
     protected void confirmSubmit() {

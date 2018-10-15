@@ -47,8 +47,11 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         paymentAmount = findViewById(R.id.paymentAmount);
-        paymentAmount.setText("$69.90");
-//
+        String amount = "$"+currentTask.getPaymentAmount();
+        paymentAmount.setText(amount);
+
+
+
         userName = findViewById(R.id.userName);
         userName.setText(currentTask.getAssistant());
 
