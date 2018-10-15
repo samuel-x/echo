@@ -54,10 +54,10 @@ public class AccountActivity extends AppCompatActivity {
             }
         }
 
-        if (ClientInfo.hasPartner()) {
-            // Try to attach a chat listener.
-            MessageNotification.AttachListener(AccountActivity.this);
-        }
+//        if (ClientInfo.hasPartner()) {
+//            // Try to attach a chat listener.
+//            MessageNotification.AttachListener(this);
+//        }
     }
 
     private void updateUI() {

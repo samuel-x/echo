@@ -37,6 +37,9 @@ public class LoginActivity extends AppCompatActivity {
     private static String SUCCESSFUL_LOGIN;
 
     // UI references.
+
+
+
     protected EditText usernameText;
     protected EditText phoneNumberText;
     protected CheckBox isAssistantCheckBox;
@@ -44,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     protected FloatingActionButton helperButton;
     protected View signInView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAdapter.goOnline();
     }
 
+
     protected void onSignInClick() {
         try {
             attemptLogin();
@@ -83,12 +88,21 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+
+
+
+
+
+
+
     protected void attemptLogin() throws LoginError {
+
         showProgress(true);
 
         String username = usernameText.getText().toString();
@@ -146,7 +160,6 @@ public class LoginActivity extends AppCompatActivity {
         if (ClientInfo.isAssistant()) {
             startActivity(new Intent(this, AssistantMapActivity.class));
         } else {
-            Log.d("AP_start","start map for AP");
             startActivity(new Intent(this, ApMapActivity.class));
         }
 

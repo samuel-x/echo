@@ -1,16 +1,11 @@
 package com.unimelb.droptable.echo.activities;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -24,16 +19,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCategories;
@@ -47,6 +37,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
 
     protected Button taskButton;
+
     private FloatingActionButton helperButton;
     private FloatingActionButton accountButton;
 
@@ -89,10 +80,12 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         helperButton = findViewById(R.id.apMapHelperButton);
         helperButton.setOnClickListener(view -> {onHelperPress();});
 
+
         accountButton = findViewById(R.id.accountButtonAP);
         accountButton.setOnClickListener(view -> {onAccountButton();});
-    }
 
+    }
+    
     @Override
     protected void onResume() {
         super.onResume();
@@ -182,7 +175,6 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 if (locationResult == null) {
-                    Log.d("NO LOCATION: ", "NO LOC DETECTED");
                     return;
                 }
                 else {
@@ -206,7 +198,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                         }
                     }
                     catch (Exception e) {
-                        Log.d("help:", "null marker");
+                        e.printStackTrace();
                     }
                 }
             }

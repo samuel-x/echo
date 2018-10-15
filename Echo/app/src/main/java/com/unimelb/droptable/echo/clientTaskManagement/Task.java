@@ -2,8 +2,6 @@ package com.unimelb.droptable.echo.clientTaskManagement;
 
 import android.support.annotation.Nullable;
 
-import com.google.android.gms.location.places.Place;
-
 import org.immutables.serial.Serial;
 import org.immutables.value.Value;
 
@@ -16,6 +14,8 @@ public interface Task {
     String getStatus();
     String getAp();
     String getLastPhase();
+    @Nullable
+    String getPaymentAmount();
     @Nullable
     String getId();
     @Nullable

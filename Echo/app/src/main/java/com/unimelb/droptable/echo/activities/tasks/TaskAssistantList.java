@@ -30,7 +30,6 @@ public class TaskAssistantList extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.taskList);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
 
@@ -60,6 +59,7 @@ public class TaskAssistantList extends AppCompatActivity {
                                             .category(snapshot.child("category").getValue(String.class))
                                             .subCategory(snapshot.child("subCategory").getValue(String.class))
                                             .notes(snapshot.child("notes").getValue(String.class))
+                                            .paymentAmount(snapshot.child("paymentAmount").getValue(String.class))
                                             .status(snapshot.child("status").getValue(String.class))
                                             .ap(snapshot.child("ap").getValue(String.class))
                                             .lastPhase(snapshot.child("lastPhase").getValue(String.class))

@@ -32,6 +32,7 @@ public class TaskConfirmTest {
     private static final String TEST_NOTES = "TEST_NOTES";
     private static final String TEST_STATUS = "TEST_STATUS";
     private static final String TEST_AP = "TEST_AP";
+    private static final String TEST_LAST_PHASE = "TEST_LAST_PHASE";
 
     private TaskConfirm taskConfirm;
     private ImmutableTask task;
@@ -64,6 +65,7 @@ public class TaskConfirmTest {
                 .notes(TEST_NOTES)
                 .status(TEST_STATUS)
                 .ap(TEST_AP)
+                .lastPhase(TEST_LAST_PHASE)
                 .build();
         taskConfirm.task = task;
     }

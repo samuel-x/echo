@@ -7,22 +7,6 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textAssistantTaskListActivity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/text_task_in_progress"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="@dimen/echoApHuge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textAssistantTaskListTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -36,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAssistantTaskListActivity" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textAssistantTaskListAddress"
@@ -68,7 +52,7 @@
     <TextView
         android:id="@+id/textAssistantTaskListNotesTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="18dp"
         android:layout_marginTop="8dp"
         android:text="@string/task_notes"
         app:layout_constraintBottom_toTopOf="@+id/textAssistantTaskListNotes"
@@ -80,17 +64,17 @@
     <TextView
         android:id="@+id/textAssistantTaskListNotes"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="94dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@id/buttonAcceptTask"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textAssistantTaskListNotesTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textAssistantTaskListNotesTitle"
-        app:layout_constraintBottom_toTopOf="@id/buttonAcceptTask"/>
+        app:layout_constraintTop_toBottomOf="@+id/textAssistantTaskListNotesTitle" />
 
     <Button
         android:id="@+id/buttonAcceptTask"
@@ -106,5 +90,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAssistantTaskListNotes" />
+
+    <TextView
+        android:id="@+id/taskCurrentPaymentAmount"
+        android:layout_width="101dp"
+        android:layout_height="14dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:text="PRICE"
+        app:layout_constraintBottom_toTopOf="@+id/textAssistantTaskListNotesTitle"
+        app:layout_constraintEnd_toEndOf="@+id/textAssistantTaskListTime"
+        app:layout_constraintStart_toStartOf="@+id/textAssistantTaskListTime"
+        app:layout_constraintTop_toBottomOf="@+id/textAssistantTaskListTime" />
 
 </android.support.constraint.ConstraintLayout>

@@ -224,6 +224,7 @@ public class FirebaseAdapter {
         String status = taskRef.child("status").getValue(String.class);
         String ap = taskRef.child("ap").getValue(String.class);
         String assistant = taskRef.child("assistant").getValue(String.class);
+        String paymentAmount = taskRef.child("paymentAmount").getValue(String.class);
         String latitude = taskRef.child("latitude").getValue(String.class);
         String longitude = taskRef.child("longitude").getValue(String.class);
         String lastPhase = taskRef.child("lastPhase").getValue(String.class);
@@ -238,6 +239,7 @@ public class FirebaseAdapter {
                 .status(status)
                 .ap(ap)
                 .assistant(assistant)
+                .paymentAmount(paymentAmount)
                 .latitude(latitude)
                 .longitude(longitude)
                 .lastPhase(lastPhase)
@@ -313,7 +315,7 @@ public class FirebaseAdapter {
         updateAssistantTask(assistant, id);
     }
 
-    private static void updateAssistantTask(String assistant, String id) {
+    protected static void updateAssistantTask(String assistant, String id) {
         usersDbReference.child(assistant).child("taskID").setValue(id);
     }
 

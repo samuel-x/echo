@@ -448,7 +448,9 @@ public class FirebaseAdapterTest {
                 .status("status")
                 .ap("ap")
                 .assistant("assistant")
-                .id("id").build();
+                .id("id")
+                .lastPhase("lastPhase")
+                .build();
 
         // Prepare test.
         PowerMockito.doReturn(TEST_ID).when(FirebaseAdapter.class);

@@ -23,8 +23,9 @@
         android:ems="10"
         android:hint="@string/prompt_title"
         android:inputType="text"
-        android:textSize="@dimen/echoApHuge"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:selectAllOnFocus="false"
+        android:singleLine="false"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,13 +75,14 @@
     <EditText
         android:id="@+id/textTaskNotes"
         android:layout_width="0dp"
-        android:layout_height="148dp"
+        android:layout_height="57dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:gravity="top"
         android:hint="@string/prompt_details"
         android:inputType="textMultiLine"
         android:textSize="@dimen/echoApSmall"
@@ -101,6 +103,24 @@
         android:text="@string/button_task_now"
         android:textSize="@dimen/echoApHuge"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paymentAmount" />
+
+    <EditText
+        android:id="@+id/paymentAmount"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="11dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/buttonTaskNow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTaskNotes" />

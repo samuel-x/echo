@@ -25,7 +25,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.Utility;
@@ -40,13 +39,9 @@ import java.util.List;
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String TAG = "so47492459";
 
     public Button taskButton;
     private FloatingActionButton accountButton;
-    private FloatingActionButton settingsButton;
-    private FloatingActionButton infoButton;
-    private Button paymentButton;
 
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
@@ -54,8 +49,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     private LocationRequest mLocationRequest;
 
     private Button completeTaskButton;
-
-    private Query taskQuery;
 
     private String fstInstruction;
     private String sndInstruction;
@@ -87,9 +80,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         taskButton = findViewById(R.id.assistantTaskButton);
         taskButton.setOnClickListener(view -> onTaskButtonClick());
-
-        //settingsButton = findViewById(R.id.settingsButton);
-        //infoButton = findViewById(R.id.infoButton);
 
         completeTaskButton = findViewById(R.id.completeTaskButton);
         completeTaskButton.setOnClickListener(view -> onCompleteTaskButton());
@@ -325,7 +315,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                             FirebaseAdapter.updateLocationOfUser(locationResult.getLastLocation());
                         }
                     } catch (Exception e) {
-                        Log.d("help:", "null marker");
+                        e.printStackTrace();
                     }
                 }
             }
