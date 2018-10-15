@@ -2,37 +2,27 @@ package com.unimelb.droptable.echo.activities.tasks;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.ApMapActivity;
 import com.unimelb.droptable.echo.activities.AssistantMapActivity;
 import com.unimelb.droptable.echo.activities.ChatActivity;
-import com.unimelb.droptable.echo.activities.PaymentActivity;
-import com.unimelb.droptable.echo.activities.tasks.uiElements.CompletionTaskDialog;
 import com.unimelb.droptable.echo.activities.HelperActivity;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
@@ -145,19 +135,6 @@ public class TaskCurrent extends AppCompatActivity {
         if (task.getAssistant() != null) {
             updateAssistant(task.getAssistant());
         }
-        Log.d("Bind:", "Current Task UI AP");
-    }
-
-    private void setTitle(@Nullable String title) {
-        taskCurrentTitle.setText(title);
-    }
-
-    private void setNotes(@Nullable String notes) {
-        taskCurrentNotes.setText(notes);
-    }
-
-    private void setAddress(@Nullable String address) {
-        taskCurrentAddress.setText(address);
     }
 
     public void updateAssistant(String assistantID) {
@@ -184,6 +161,18 @@ public class TaskCurrent extends AppCompatActivity {
         enableAvatar();
     }
 
+    protected void setTitle(@Nullable String title) {
+        taskCurrentTitle.setText(title);
+    }
+
+    protected void setNotes(@Nullable String notes) {
+        taskCurrentNotes.setText(notes);
+    }
+
+    protected void setAddress(@Nullable String address) {
+        taskCurrentAddress.setText(address);
+    }
+
     protected void resetAssistant() {
         otherUserName.setText(getString(R.string.unknown_user));
         otherUserPhone.setText(getString(R.string.empty_phone_number));
@@ -191,11 +180,6 @@ public class TaskCurrent extends AppCompatActivity {
         if (ClientInfo.isAssistant()) {
             ClientInfo.setTask(null);
         }
-    }
-
-    protected void enableElement(View view) {
-        view.setAlpha(1.0f);
-        view.setEnabled(true);
     }
 
     protected void enableAvatar() {
@@ -218,6 +202,11 @@ public class TaskCurrent extends AppCompatActivity {
         }
 
         resetAssistant();
+    }
+
+    protected void enableElement(View view) {
+        view.setAlpha(1.0f);
+        view.setEnabled(true);
     }
 
     protected void disableElement(View view, boolean zeroOpacity) {
@@ -244,10 +233,10 @@ public class TaskCurrent extends AppCompatActivity {
     }
 
     protected void onCallButtonClick() {
-        if(otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
+        if (otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
             // Assistant has no phone number so do nothing
             return;
-        }else {
+        } else {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Permission is allowed so call is made
