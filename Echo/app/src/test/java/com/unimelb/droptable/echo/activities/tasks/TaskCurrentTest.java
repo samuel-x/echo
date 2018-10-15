@@ -6,10 +6,6 @@ import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.TextView;
 
-import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.ChatActivity;
-import com.unimelb.droptable.echo.activities.RatingActivity;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +17,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static android.provider.Settings.Global.getString;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -87,15 +82,15 @@ public class TaskCurrentTest {
 
     @Test
     public void testEnableAvatarElement() {
-        assertEquals(testChildAvatarCounter, 0);
-        assertEquals(testChildMessageCounter, 0);
+        assertEquals(0, testChildAvatarCounter);
+        assertEquals(0, testChildMessageCounter);
         verify(taskCurrent.avatar, times(0)).getChildCount();
         verify(taskCurrent.searchingMessage, times(0)).getChildCount();
         taskCurrent.enableAvatar();
         verify(taskCurrent.avatar, times(4)).getChildCount();
         verify(taskCurrent.searchingMessage, times(3)).getChildCount();
-        assertEquals(testChildAvatarCounter, 3);
-        assertEquals(testChildMessageCounter, 2);
+        assertEquals(3, testChildAvatarCounter);
+        assertEquals(2, testChildMessageCounter);
     }
 
     @Test
@@ -126,14 +121,14 @@ public class TaskCurrentTest {
 
     @Test
     public void testDisableAvatarElement() {
-        assertEquals(testChildAvatarCounter, 0);
-        assertEquals(testChildMessageCounter, 0);
+        assertEquals(0, testChildAvatarCounter);
+        assertEquals(0, testChildMessageCounter);
         verify(taskCurrent.avatar, times(0)).getChildCount();
         verify(taskCurrent.searchingMessage, times(0)).getChildCount();
         taskCurrent.disableAvatar();
         verify(taskCurrent.avatar, times(4)).getChildCount();
         verify(taskCurrent.searchingMessage, times(3)).getChildCount();
-        assertEquals(testChildAvatarCounter, 3);
-        assertEquals(testChildMessageCounter, 2);
+        assertEquals(3, testChildAvatarCounter);
+        assertEquals(2, testChildMessageCounter);
     }
 }
