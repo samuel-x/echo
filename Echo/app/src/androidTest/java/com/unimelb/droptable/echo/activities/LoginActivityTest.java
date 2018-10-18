@@ -19,7 +19,10 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityTest {
@@ -55,7 +58,7 @@ public class LoginActivityTest {
         onView(withId(R.id.phoneNumberText)).perform(typeText(VALID_PHONE), closeSoftKeyboard());
         onView(withId(R.id.signInButton)).perform(click());
         assertEquals(VALID_USERNAME, ClientInfo.getUsername());
-        assertEquals(false, loginActivity.hasWindowFocus());
+        assertFalse(loginActivity.hasWindowFocus());
     }
 
     @Test
@@ -63,8 +66,8 @@ public class LoginActivityTest {
         onView(withId(R.id.usernameText)).perform(typeText(INVALID_USERNAME), closeSoftKeyboard());
         onView(withId(R.id.phoneNumberText)).perform(typeText(VALID_PHONE), closeSoftKeyboard());
         onView(withId(R.id.signInButton)).perform(click());
-        assertEquals(null, ClientInfo.getUsername());
-        assertEquals(true, loginActivity.hasWindowFocus());
+        assertNull(ClientInfo.getUsername());
+        assertTrue(loginActivity.hasWindowFocus());
     }
 
     @Test
@@ -72,8 +75,8 @@ public class LoginActivityTest {
         onView(withId(R.id.usernameText)).perform(typeText(VALID_USERNAME), closeSoftKeyboard());
         onView(withId(R.id.phoneNumberText)).perform(typeText(INVALID_PHONE), closeSoftKeyboard());
         onView(withId(R.id.signInButton)).perform(click());
-        assertEquals(null, ClientInfo.getUsername());
-        assertEquals(true, loginActivity.hasWindowFocus());
+        assertNull(ClientInfo.getUsername());
+        assertTrue(loginActivity.hasWindowFocus());
     }
 
     @Test
@@ -82,7 +85,7 @@ public class LoginActivityTest {
         onView(withId(R.id.phoneNumberText)).perform(typeText(VALID_PHONE), closeSoftKeyboard());
         onView(withId(R.id.isAssistantCheckBox)).perform(click());
         onView(withId(R.id.signInButton)).perform(click());
-        assertEquals(true, ClientInfo.isAssistant());
+        assertTrue(ClientInfo.isAssistant());
     }
 
     @Test
@@ -90,7 +93,7 @@ public class LoginActivityTest {
         onView(withId(R.id.usernameText)).perform(typeText(VALID_USERNAME_AP), closeSoftKeyboard());
         onView(withId(R.id.phoneNumberText)).perform(typeText(VALID_PHONE), closeSoftKeyboard());
         onView(withId(R.id.signInButton)).perform(click());
-        assertEquals(false, ClientInfo.isAssistant());
+        assertFalse(ClientInfo.isAssistant());
     }
 
     @Test
@@ -109,9 +112,9 @@ public class LoginActivityTest {
         ClientInfo.setTask(task);
         ClientInfo.setIsAssistant(false);
         ClientInfo.setPhoneNumber("0412356789");
-        assertEquals(true, loginActivity.hasWindowFocus());
+        assertTrue(loginActivity.hasWindowFocus());
         onView(withId(R.id.loginHelperButton)).perform(click());
-        assertEquals(false, loginActivity.hasWindowFocus());
+        assertFalse(loginActivity.hasWindowFocus());
     }
 
     @Test

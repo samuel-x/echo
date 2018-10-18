@@ -2,7 +2,6 @@ package com.unimelb.droptable.echo.activities;
 
 import android.content.Intent;
 
-import com.google.firebase.database.ChildEventListener;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.activities.taskCreation.TaskCategories;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
@@ -17,9 +16,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -40,6 +36,7 @@ public class ApMapActivityTest {
     private final String testStatus = "MyStatus";
     private final String assistant = "assistant";
     private final String id = "ID";
+    private final String lastPhase = "lastPhase";
 
     private ImmutableTask task;
 
@@ -64,7 +61,9 @@ public class ApMapActivityTest {
                 .status(testStatus)
                 .ap(ap)
                 .assistant(assistant)
-                .id(id).build();
+                .id(id)
+                .lastPhase(lastPhase)
+                .build();
     }
 
     @Test
@@ -85,15 +84,6 @@ public class ApMapActivityTest {
         verify(apMapActivity, times(1)).onTaskPress();
         PowerMockito.verifyNew(Intent.class).withArguments(apMapActivity, TaskCurrent.class);
     }
-
-//    @Test
-//    public void createListener() {
-//        /**
-//         * Here, mocking the variables inside the listener created alters the hashed result
-//         * when asserting equals, so the best we can do is just check the type.
-//         */
-//        assertThat(apMapActivity.createTaskListener(), instanceOf(ChildEventListener.class));
-//    }
 
     @After
     public void tearDown() {

@@ -29,7 +29,7 @@ public class HelperActivity extends AppCompatActivity {
 
         // Get ok button and set its listener.
         okButton = findViewById(R.id.okButton);
-        okButton.setOnClickListener(view -> {onOkPress();});
+        okButton.setOnClickListener(view -> onOkPress());
 
         // Set helper text.
         helperText.setText(currentHelperText);

@@ -1,25 +1,22 @@
 package com.unimelb.droptable.echo.activities;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
@@ -30,18 +27,17 @@ import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 public class LoginActivity extends AppCompatActivity {
     private static final int MIN_USERNAME_LENGTH = 3;
     private static final int PHONENUMBER_LENGTH = 10;
-
-    // TODO: Replace these strings with strings.xml
-    private static String LOGIN_FAIL = "Login Failed! Are you sure you're an assistant?";
-    private static String PHONE_FAIL = "Phone number is incorrect. Please make sure you use only digits.";
-    private static String NAME_FAIL = "Please enter a valid username.";
-    private static String LOGIN_MESSAGE = "Successful Login!";
+    private static String ASSISTANT_AP_STATUS_FAIL;
+    private static String PHONE_FAIL;
+    private static String NAME_FAIL;
+    private static String SUCCESSFUL_LOGIN;
 
     // UI references.
     protected EditText usernameText;
     protected EditText phoneNumberText;
     protected CheckBox isAssistantCheckBox;
     protected Button signInButton;
+
     protected FloatingActionButton helperButton;
     protected View signInView;
 
@@ -61,11 +57,21 @@ public class LoginActivity extends AppCompatActivity {
 
         // Get a reference to the helper button and set its listener.
         helperButton = findViewById(R.id.loginHelperButton);
-        helperButton.setOnClickListener(view -> {onHelperPress();});
+        helperButton.setOnClickListener(view -> onHelperPress());
 
         signInView = findViewById(R.id.signInView);
 
+        // Define constants from resources.
+        ASSISTANT_AP_STATUS_FAIL = getString(R.string.invalid_assistant_or_ap);
+        PHONE_FAIL = getString(R.string.invalid_phone_number);
+        NAME_FAIL = getString(R.string.invalid_user_name);
+        SUCCESSFUL_LOGIN = getString(R.string.successful_login);
+
         FirebaseAdapter.goOnline();
+
+        //Request for Location permissions
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
     }
 
     protected void onSignInClick() {
@@ -83,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
      * errors are presented and no actual login attempt is made.
      */
     protected void attemptLogin() throws LoginError {
+
         showProgress(true);
 
         String username = usernameText.getText().toString();
@@ -105,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         if (FirebaseAdapter.userExists(username)
                 && isAssistantCheckBox.isChecked() != FirebaseAdapter.isAssistant(username)) {
             showProgress(false);
-            throw new LoginError(LOGIN_FAIL);
+            throw new LoginError(ASSISTANT_AP_STATUS_FAIL);
         }
 
         FirebaseAdapter.pushUser(username, phoneNumber, isAssistantCheckBox.isChecked());
@@ -119,20 +126,16 @@ public class LoginActivity extends AppCompatActivity {
         }
         else {
             FirebaseInstanceId.getInstance().getInstanceId()
-                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                            if (!task.isSuccessful()) {
-                                Log.w("FCM", "getInstanceId failed", task.getException());
-                                return;
-                            }
-
-                            // Get new Instance ID token
-                            String token = task.getResult().getToken();
-
-                            ClientInfo.setCurrentToken(token);
-                            FirebaseAdapter.updateRegistrationToServer(token, username);
+                    .addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            return;
                         }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        ClientInfo.setCurrentToken(token);
+                        FirebaseAdapter.updateRegistrationToServer(token, username);
                     });
         }
 
@@ -144,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Show a small successful login message.
-        Toast.makeText(LoginActivity.this, LOGIN_MESSAGE, Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivity.this, SUCCESSFUL_LOGIN, Toast.LENGTH_SHORT).show();
         finish();
     }
 

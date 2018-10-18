@@ -5,7 +5,7 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +13,8 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onView;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TaskCategoriesTest {
 
@@ -24,33 +25,33 @@ public class TaskCategoriesTest {
     private TaskCategories taskCategory;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         taskCategory = mActivityRule.getActivity();
     }
 
     @Test
     public void testTransportCategory() {
-        assertEquals(true, taskCategory.hasWindowFocus());
+        assertTrue(taskCategory.hasWindowFocus());
         onView(ViewMatchers.withId(R.id.buttonTaskTransport)).perform(ViewActions.click());
-        assertEquals(false, taskCategory.hasWindowFocus());
+        assertFalse(taskCategory.hasWindowFocus());
     }
 
     @Test
     public void testDeliveryCategory() {
-        assertEquals(true, taskCategory.hasWindowFocus());
+        assertTrue(taskCategory.hasWindowFocus());
         onView(ViewMatchers.withId(R.id.buttonTaskDelivery)).perform(ViewActions.click());
-        assertEquals(false, taskCategory.hasWindowFocus());
+        assertFalse(taskCategory.hasWindowFocus());
     }
 
     @Test
     public void testHouseholdCategory() {
-        assertEquals(true, taskCategory.hasWindowFocus());
+        assertTrue(taskCategory.hasWindowFocus());
         onView(ViewMatchers.withId(R.id.buttonTaskHousehold)).perform(ViewActions.click());
-        assertEquals(false, taskCategory.hasWindowFocus());
+        assertFalse(taskCategory.hasWindowFocus());
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         // Reset task builder.
         Utility.currentTaskBuilder = ImmutableTask.builder()
                 .title("Placeholder Title")

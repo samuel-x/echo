@@ -13,7 +13,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -57,15 +58,15 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void testValidUsername() throws Exception {
-        assertEquals(loginActivity.isUsernameValid(VALID_USERNAME), true);
-        assertEquals(loginActivity.isUsernameValid(INVALID_USERNAME), false);
+    public void testValidUsername() {
+        assertTrue(loginActivity.isUsernameValid(VALID_USERNAME));
+        assertFalse(loginActivity.isUsernameValid(INVALID_USERNAME));
     }
 
     @Test
-    public void testValidPhoneNumber() throws Exception {
-        assertEquals(loginActivity.isPhoneNumberValid(VALID_PHONE), true);
-        assertEquals(loginActivity.isPhoneNumberValid(INVALID_PHONE), false);
+    public void testValidPhoneNumber() {
+        assertTrue(loginActivity.isPhoneNumberValid(VALID_PHONE));
+        assertFalse(loginActivity.isPhoneNumberValid(INVALID_PHONE));
     }
 
 }

@@ -16,7 +16,7 @@ import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -92,6 +92,9 @@ public class ChatActivity extends AppCompatActivity {
                 // Tint the background for the message if *this* user sent it.
                 if (model.getSender().equals(ClientInfo.getUsername())) {
                     v.setBackgroundResource(R.color.messageSenderColor);
+                } else {
+                    // We're receiving, so set a standard background.
+                    v.setBackgroundResource(R.color.messageReceiverColor);
                 }
             }
         };

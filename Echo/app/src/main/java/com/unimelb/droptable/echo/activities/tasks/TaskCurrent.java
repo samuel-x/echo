@@ -2,37 +2,26 @@ package com.unimelb.droptable.echo.activities.tasks;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.ApMapActivity;
 import com.unimelb.droptable.echo.activities.AssistantMapActivity;
 import com.unimelb.droptable.echo.activities.ChatActivity;
-import com.unimelb.droptable.echo.activities.PaymentActivity;
-import com.unimelb.droptable.echo.activities.tasks.uiElements.CompletionTaskDialog;
 import com.unimelb.droptable.echo.activities.HelperActivity;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
@@ -44,6 +33,7 @@ public class TaskCurrent extends AppCompatActivity {
     protected TextView taskCurrentTitle;
     protected TextView taskCurrentAddress;
     protected TextView taskCurrentNotes;
+    protected TextView taskCurrentPaymentAmount;
     protected TextView otherUserName;
     protected TextView otherUserPhone;
     protected TextView otherUserRating;
@@ -64,6 +54,7 @@ public class TaskCurrent extends AppCompatActivity {
         taskCurrentTitle = findViewById(R.id.textTaskInProgressTitle);
         taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
+        taskCurrentPaymentAmount = findViewById(R.id.textTaskInProgressPaymentAmount);
         otherUserName = findViewById(R.id.userName);
         otherUserPhone = findViewById(R.id.userPhone);
         otherUserRating = findViewById(R.id.userRating);
@@ -78,7 +69,8 @@ public class TaskCurrent extends AppCompatActivity {
 
         // Get a reference to the helper button and set its listener.
         helperButton = findViewById(R.id.taskCurrentHelperButton);
-        helperButton.setOnClickListener(view -> {onHelperPress();});
+        helperButton.setOnClickListener(view -> onHelperPress());
+
         if (ClientInfo.isAssistant()) {
             // The user is an assistant, and we don't want to display the helper button to them.
             helperButton.setAlpha(0.0f);
@@ -120,13 +112,11 @@ public class TaskCurrent extends AppCompatActivity {
                 TaskNotification.showDialog(this,
                         TaskNotification.TASK_COMPLETE_ASSISTANT_TITLE,
                         TaskNotification.TASK_COMPLETE_ASSISTANT_MESSAGE,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // User touched the dialog's positive button
-                                startActivity(new Intent(TaskCurrent.this,
-                                        AssistantMapActivity.class));
-                                finish();
-                            }
+                        (dialog, which) -> {
+                            // User touched the dialog's positive button
+                            startActivity(new Intent(TaskCurrent.this,
+                                    AssistantMapActivity.class));
+                            finish();
                         });
             }
             enableAvatar();
@@ -142,6 +132,7 @@ public class TaskCurrent extends AppCompatActivity {
         setTitle(task.getTitle());
         setAddress(task.getAddress());
         setNotes(task.getNotes());
+        setPaymentAmount(task.getPaymentAmount());
         if (task.getAssistant() != null) {
             updateAssistant(task.getAssistant());
         }
@@ -154,6 +145,11 @@ public class TaskCurrent extends AppCompatActivity {
 
     private void setNotes(@Nullable String notes) {
         taskCurrentNotes.setText(notes);
+    }
+
+    private void setPaymentAmount(@Nullable String amount) {
+        String s1 = "Task Price: $"+amount;
+        taskCurrentPaymentAmount.setText(s1);
     }
 
     private void setAddress(@Nullable String address) {
@@ -244,10 +240,7 @@ public class TaskCurrent extends AppCompatActivity {
     }
 
     protected void onCallButtonClick() {
-        if(otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
-            // Assistant has no phone number so do nothing
-            return;
-        }else {
+        if (!otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))) {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Permission is allowed so call is made
@@ -259,9 +252,6 @@ public class TaskCurrent extends AppCompatActivity {
                         == PackageManager.PERMISSION_GRANTED) {
                     //Permission has been granted
                     makeCall();
-                } else {
-                    //Permission denied
-                    return;
                 }
             }
         }

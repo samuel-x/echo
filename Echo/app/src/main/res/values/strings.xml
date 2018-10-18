@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Echo</string>
 
-    <string name="prompt_address">Address</string>
-    <string name="prompt_title">Title</string>
+    <string name="prompt_address">ADDRESS</string>
+    <string name="prompt_title">TITLE</string>
     <string name="button_transport_text">Transport</string>
     <string name="button_delivery_text" >Delivery</string>
     <string name="button_household_text">Household</string>
     <string name="button_other_text">Other</string>
-    <string name="task_notes">Task Notes</string>
+    <string name="task_notes">TASK NOTES</string>
     <string name="prompt_details">Details…</string>
     <string name="button_task_now">Continue</string>
     <string name="button_task_later">Later</string>
@@ -37,6 +37,10 @@
     <string name="prompt_assistant">Assistant?</string>
     <string name="error_invalid_username">This username is invalid</string>
     <string name="prompt_phone_number">Enter phone number…</string>
+    <string name="invalid_assistant_or_ap">Login Failed! Are you sure about your assistant status?</string>
+    <string name="invalid_phone_number">Phone number is incorrect. Please make sure you\'re entering a valid, numerical phone number.</string>
+    <string name="invalid_user_name">Please enter a valid username.</string>
+    <string name="successful_login">Successful Login!</string>
 
     <string name="action_submit_rating">Submit Rating</string>
 
@@ -85,5 +89,9 @@
     <string name="message_sender">sender</string>
 
     <string name="accept_task">accept</string>
-    <string name="complete_task">Complete Task</string>
+    <string name="loading_task">Loading Task…</string>
+
+    <!--Payment-->
+    <string name = "title"> Payment Summary </string>
+
 </resources>

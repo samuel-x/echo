@@ -1,5 +1,8 @@
 package com.unimelb.droptable.echo;
 
+import android.location.Location;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
@@ -10,13 +13,26 @@ public class ClientInfo {
     private static String phoneNumber;
     private static String currentToken;
     private static Float rating;
+    private static Location currentLocation;
+
+    public static Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public static void setCurrentLocation(Location location) {
+        currentLocation = location;
+    }
+
+    public static LatLng getCurrentLocationAsLatLng() {
+        return new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+    }
 
     public static float getRating() {
         if (isAssistant()) {
             try {
                 rating = FirebaseAdapter.getUserRating(ClientInfo.getUsername());
             } catch (Exception e){
-                return 0.0f;
+                return 5.0f;
             }
             return rating;
         }
@@ -70,7 +86,7 @@ public class ClientInfo {
     }
 
     public static boolean hasPartner() {
-        return isAssistant() || (currentTask != null && currentTask.getAssistant() != null);
+        return currentTask != null && (isAssistant() || currentTask.getAssistant() != null);
     }
 
     public static void updateAssistant(String assistant) {

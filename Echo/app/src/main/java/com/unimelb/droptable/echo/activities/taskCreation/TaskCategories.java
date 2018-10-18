@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 public class TaskCategories extends AppCompatActivity {
 
@@ -27,9 +27,9 @@ public class TaskCategories extends AppCompatActivity {
         categoryHouseholdButton = findViewById(R.id.buttonTaskHousehold);
 
         // Subscribe to click events.
-        categoryTransportButton.setOnClickListener((view) -> {transportTask();});
-        categoryDeliveryButton.setOnClickListener((view) -> {deliveryTask();});
-        categoryHouseholdButton.setOnClickListener((view) -> {householdTask();});
+        categoryTransportButton.setOnClickListener((view) -> transportTask());
+        categoryDeliveryButton.setOnClickListener((view) -> deliveryTask());
+        categoryHouseholdButton.setOnClickListener((view) -> householdTask());
 
         // Begin a new taskBuilder object.
         Utility.currentTaskBuilder = ImmutableTask.builder();

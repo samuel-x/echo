@@ -13,6 +13,9 @@ public interface Task {
     String getNotes();
     String getStatus();
     String getAp();
+    String getLastPhase();
+    @Nullable
+    String getPaymentAmount();
     @Nullable
     String getId();
     @Nullable
@@ -21,4 +24,8 @@ public interface Task {
     String getCategory();
     @Nullable
     String getSubCategory();
+    @Nullable
+    String getLatitude();
+    @Nullable
+    String getLongitude();
 }
