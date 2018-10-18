@@ -71,6 +71,7 @@ public class TaskAssistantDetails extends AppCompatActivity {
         ClientInfo.setTask(task);
         FirebaseAdapter.assignTask(ClientInfo.getUsername(), task.getId());
         startActivity(new Intent(this, AssistantMapActivity.class));
+
     }
 }
 
