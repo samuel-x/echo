@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,8 +14,6 @@ import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class TaskAssistantDetails extends AppCompatActivity {
-
-    private final int DEBUG = 0;
 
     private TextView taskCurrentTitle;
     private TextView taskCurrentAddress;
@@ -45,10 +42,6 @@ public class TaskAssistantDetails extends AppCompatActivity {
         setAddress(task.getAddress());
         setNotes(task.getNotes());
         setPaymentAmount(task.getPaymentAmount());
-        if (DEBUG==1){
-            Log.d("Bind:", "onStartDebugLinePrinted");
-        }
-
     }
 
     private void setTitle(@Nullable String title) {
@@ -71,7 +64,6 @@ public class TaskAssistantDetails extends AppCompatActivity {
         ClientInfo.setTask(task);
         FirebaseAdapter.assignTask(ClientInfo.getUsername(), task.getId());
         startActivity(new Intent(this, AssistantMapActivity.class));
-
     }
 }
 

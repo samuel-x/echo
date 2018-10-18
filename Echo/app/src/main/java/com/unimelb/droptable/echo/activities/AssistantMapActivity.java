@@ -43,8 +43,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
     private float COMPLETION_DISTANCE = 50;
 
-    public final int DEBUG = 0;
-
     private GoogleMap mMap;
 
     public Button taskButton;
@@ -143,9 +141,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-            if(DEBUG==1){
-                Log.d("Task", "updating phase");
-            }
 
             return;
         }
@@ -334,11 +329,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
     private void checkStatus() {
         ClientInfo.updateTask();
-
-        if(DEBUG==1){
-            Log.d("task:", ClientInfo.getTask().toString());
-        }
-
 
         LatLng startLL = ClientInfo.getCurrentLocationAsLatLng();
 

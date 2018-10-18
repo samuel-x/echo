@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
-import com.unimelb.droptable.echo.clientTaskManagement.FirebaseNotificationsAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 
@@ -88,12 +87,6 @@ public class PaymentActivity extends AppCompatActivity {
         ClientInfo.updateTask();
         ImmutableTask task = ClientInfo.getTask();
 
-        try {
-            FirebaseNotificationsAdapter.sendAssistantCompleteMessage(task);
-        }
-        catch (Exception e) {
-
-        }
         FirebaseAdapter.updateUserRating(ClientInfo.getTask().getAssistant(), ratingBar.getRating());
         FirebaseAdapter.completeTask(ClientInfo.getTask());
 

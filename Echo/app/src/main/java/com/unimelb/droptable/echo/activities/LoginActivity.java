@@ -32,16 +32,12 @@ import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 public class LoginActivity extends AppCompatActivity {
     private static final int MIN_USERNAME_LENGTH = 3;
     private static final int PHONENUMBER_LENGTH = 10;
-    private final int DEBUG = 0;
     private static String ASSISTANT_AP_STATUS_FAIL;
     private static String PHONE_FAIL;
     private static String NAME_FAIL;
     private static String SUCCESSFUL_LOGIN;
 
     // UI references.
-
-
-
     protected EditText usernameText;
     protected EditText phoneNumberText;
     protected CheckBox isAssistantCheckBox;
@@ -49,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
 
     protected FloatingActionButton helperButton;
     protected View signInView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +79,6 @@ public class LoginActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
     }
 
-
     protected void onSignInClick() {
         try {
             attemptLogin();
@@ -94,19 +88,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-
-
-
-
-
-
-
     protected void attemptLogin() throws LoginError {
 
         showProgress(true);
@@ -149,9 +135,6 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<InstanceIdResult> task) {
                             if (!task.isSuccessful()) {
-                                if(DEBUG==1){
-                                    Log.w("FCM", "getInstanceId failed", task.getException());
-                                }
                                 return;
                             }
 

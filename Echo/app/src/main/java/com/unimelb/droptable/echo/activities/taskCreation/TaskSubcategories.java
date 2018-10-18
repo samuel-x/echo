@@ -3,14 +3,12 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.Utility;
 
 public class TaskSubcategories extends AppCompatActivity {
-    private final int DEBUG = 0;
     // Grab UI references
     protected Button subcategoryA;
     protected Button subcategoryB;
@@ -25,9 +23,7 @@ public class TaskSubcategories extends AppCompatActivity {
         subcategoryB = findViewById(R.id.buttonTaskSubcategoryB);
 
         if (!getIntent().hasExtra("category")) {
-            if(DEBUG==1){
-                Log.d("Warning", "Missing key 'category'");
-            }
+            throw new RuntimeException("Missing key 'category'");
         }
         else if (getIntent().getExtras().getString("category").equals("Household")) {
             subcategoryA.setText("Cooking");

@@ -9,7 +9,6 @@ import android.widget.RatingBar;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
-import com.unimelb.droptable.echo.clientTaskManagement.FirebaseNotificationsAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class RatingActivity extends AppCompatActivity {
@@ -34,12 +33,6 @@ public class RatingActivity extends AppCompatActivity {
     protected void completeTask() {
         ClientInfo.updateTask();
         ImmutableTask task = ClientInfo.getTask();
-        try {
-            FirebaseNotificationsAdapter.sendAssistantCompleteMessage(task);
-        }
-        catch (Exception e) {
-
-        }
 
         // TODO: Update Rating here (
         FirebaseAdapter.updateUserRating(ClientInfo.getTask().getAssistant(), ratingBar.getRating());

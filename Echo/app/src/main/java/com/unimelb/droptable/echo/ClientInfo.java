@@ -2,9 +2,7 @@ package com.unimelb.droptable.echo;
 
 import android.location.Location;
 
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
-
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
@@ -13,7 +11,6 @@ public class ClientInfo {
     private static Boolean isAssistant;
     private static ImmutableTask currentTask;
     private static String phoneNumber;
-    private static Place currentPlace;
     private static String currentToken;
     private static Float rating;
     private static Location currentLocation;
@@ -80,8 +77,6 @@ public class ClientInfo {
         ClientInfo.currentTask = task;
     }
 
-
-
     public static String getPhoneNumber() {return phoneNumber;}
 
     public static void setPhoneNumber(String phoneNumber) { ClientInfo.phoneNumber = phoneNumber;}
@@ -96,12 +91,6 @@ public class ClientInfo {
 
     public static void updateAssistant(String assistant) {
         currentTask = ImmutableTask.builder().from(currentTask).assistant(assistant).build();
-    }
-
-    public static void setCurrentPlace(Place place) { ClientInfo.currentPlace = place; }
-
-    public static Place getCurrentPlace() {
-        return currentPlace;
     }
 
     public static void resetClientInfo() {

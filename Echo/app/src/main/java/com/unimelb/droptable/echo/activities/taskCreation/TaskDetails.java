@@ -3,7 +3,6 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.Utility;
 
 public class TaskDetails extends AppCompatActivity {
-    private final int DEBUG = 0;
     // Grab UI references
     protected TextView title;
     protected PlaceAutocompleteFragment address;
@@ -44,9 +42,6 @@ public class TaskDetails extends AppCompatActivity {
             @Override
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
-                if(DEBUG==1) {
-                    Log.i("TEST:", "Place: " + place.getName());
-                }
                 Utility.currentTaskBuilder.address(place.getName().toString());
                 Utility.currentTaskBuilder.latitude(Double.valueOf(place.getLatLng().latitude).toString());
                 Utility.currentTaskBuilder.longitude(Double.valueOf(place.getLatLng().longitude).toString());
@@ -55,9 +50,6 @@ public class TaskDetails extends AppCompatActivity {
             @Override
             public void onError(Status status) {
                 // TODO: Handle the error.
-                if(DEBUG==1){
-                    Log.i("TEST:", "An error occurred: " + status);
-                }
             }
         });
 
