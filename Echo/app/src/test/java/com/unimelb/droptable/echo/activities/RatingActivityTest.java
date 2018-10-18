@@ -41,7 +41,7 @@ public class RatingActivityTest {
     }
 
     @Test
-    public void testConfirm() throws Exception {
+    public void testConfirm() {
         // Test that the confirm method is run.
         verify(ratingActivity, times(0)).completeTask();
         ratingActivity.onConfirmRating();

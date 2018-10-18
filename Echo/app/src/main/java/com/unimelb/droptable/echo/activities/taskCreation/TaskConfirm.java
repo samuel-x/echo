@@ -39,7 +39,7 @@ public class TaskConfirm extends AppCompatActivity {
         notes = findViewById(R.id.textTaskConfirmNotes);
         paymentAmount = findViewById(R.id.paymentAmount);
         confirmButton = findViewById(R.id.buttonTaskConfirmConfirm);
-        confirmButton.setOnClickListener((view) -> {confirmSubmit();});
+        confirmButton.setOnClickListener((view) -> confirmSubmit());
     }
 
     @Override

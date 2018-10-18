@@ -37,10 +37,10 @@ public class ClientInfoTest {
     @Test
     public void testIsAssistant() {
         ClientInfo.setIsAssistant(false);
-        assertEquals(false, ClientInfo.isAssistant());
+        assertFalse(ClientInfo.isAssistant());
 
         ClientInfo.setIsAssistant(true);
-        assertEquals(true, ClientInfo.isAssistant());
+        assertTrue(ClientInfo.isAssistant());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class ClientInfoTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         // Reset ClientInfo.
         ClientInfo.setIsAssistant(false);
         ClientInfo.setUsername(null);

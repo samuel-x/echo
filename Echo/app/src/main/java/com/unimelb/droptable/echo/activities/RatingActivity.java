@@ -23,7 +23,7 @@ public class RatingActivity extends AppCompatActivity {
 
         ratingBar = findViewById(R.id.ratingBar);
         confirmRating = findViewById(R.id.ratingButton);
-        confirmRating.setOnClickListener((view)->{onConfirmRating();});
+        confirmRating.setOnClickListener((view)-> onConfirmRating());
     }
 
     protected void onConfirmRating() {

@@ -25,7 +25,7 @@ public class TaskConfirmTest {
     private TaskConfirm taskConfirm;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         ClientInfo.setUsername("TEST");
         taskConfirm = mActivityRule.getActivity();
     }
@@ -41,7 +41,7 @@ public class TaskConfirmTest {
                 .notes("Placeholder Notes")
                 .ap("Placeholder AP");
         ClientInfo.setUsername("TEST");
-        assertEquals(true, taskConfirm.hasWindowFocus());
+        assertTrue(taskConfirm.hasWindowFocus());
         assertNull(ClientInfo.getTask());
 
         // Perform action.
@@ -49,11 +49,11 @@ public class TaskConfirmTest {
 
         // Check final conditions.
         assertNotNull(ClientInfo.getTask());
-        assertEquals(false, taskConfirm.hasWindowFocus());
+        assertFalse(taskConfirm.hasWindowFocus());
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         // Reset task builder.
         Utility.currentTaskBuilder = ImmutableTask.builder()
                 .title("Placeholder Title")

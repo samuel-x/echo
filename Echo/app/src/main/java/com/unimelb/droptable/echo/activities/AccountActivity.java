@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 
 public class AccountActivity extends AppCompatActivity {

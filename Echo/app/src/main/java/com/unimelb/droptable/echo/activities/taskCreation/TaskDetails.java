@@ -29,14 +29,13 @@ public class TaskDetails extends AppCompatActivity {
         // Setup our buttons
         title = findViewById(R.id.textTaskTitle);
         address = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.textTaskAddress);;
+                getFragmentManager().findFragmentById(R.id.textTaskAddress);
         taskNotes = findViewById(R.id.textTaskNotes);
         submitNowButton = findViewById(R.id.buttonTaskNow);
         paymentAmount = findViewById(R.id.paymentAmount);
 
 
-        submitNowButton.setOnClickListener((view) -> {
-            onContinue();});
+        submitNowButton.setOnClickListener((view) -> onContinue());
 
         address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override

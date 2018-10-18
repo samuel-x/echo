@@ -43,7 +43,7 @@ public class TaskCategoriesTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         // Begin a new taskBuilder object.
         Utility.currentTaskBuilder = null;
     }

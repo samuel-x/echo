@@ -7,21 +7,16 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
@@ -62,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Get a reference to the helper button and set its listener.
         helperButton = findViewById(R.id.loginHelperButton);
-        helperButton.setOnClickListener(view -> {onHelperPress();});
+        helperButton.setOnClickListener(view -> onHelperPress());
 
         signInView = findViewById(R.id.signInView);
 
@@ -131,19 +126,16 @@ public class LoginActivity extends AppCompatActivity {
         }
         else {
             FirebaseInstanceId.getInstance().getInstanceId()
-                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                            if (!task.isSuccessful()) {
-                                return;
-                            }
-
-                            // Get new Instance ID token
-                            String token = task.getResult().getToken();
-
-                            ClientInfo.setCurrentToken(token);
-                            FirebaseAdapter.updateRegistrationToServer(token, username);
+                    .addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            return;
                         }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        ClientInfo.setCurrentToken(token);
+                        FirebaseAdapter.updateRegistrationToServer(token, username);
                     });
         }
 

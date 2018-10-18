@@ -2,14 +2,12 @@ package com.unimelb.droptable.echo.activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.widget.Button;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -135,9 +133,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
             }
             builder.setTitle("Task Update Sent")
                     .setMessage("Task Updated!")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
@@ -156,9 +152,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         }
         builder.setTitle("Complete Request")
                 .setMessage("Task Completion has been requested.")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
@@ -254,11 +248,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
             fstInstruction = "COMPLETE PICK UP";
             sndInstruction = "COMPLETE DROP OFF";
 
-            if (ClientInfo.getTask().getSubCategory().equals("From My House")){
-                return true;
-            } else {
-                return false;
-            }
+            return ClientInfo.getTask().getSubCategory().equals("From My House");
         }
 
         if (ClientInfo.getTask().getCategory().equals("Delivery")){
@@ -266,11 +256,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
             fstInstruction = "PICK UP ITEM(S)";
             sndInstruction = "DROP OFF ITEM(S)";
 
-            if (ClientInfo.getTask().getSubCategory().equals("From My House")){
-                return true;
-            } else {
-                return false;
-            }
+            return ClientInfo.getTask().getSubCategory().equals("From My House");
         }
 
         if (ClientInfo.getTask().getCategory().equals("Household")){
@@ -291,18 +277,15 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         // TODO: NEED TO HAVE USERS STORE THEIR HOME LAT LONGS / CURRENT LOCATIONS
 
         // placeholder is Arts West
-        LatLng APLocation = new LatLng(-37.7976, 144.9594);
 
-        return APLocation;
+        return new LatLng(-37.7976, 144.9594);
     }
 
     private LocationCallback newCallBack() {
         return new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                } else {
+                if (locationResult != null) {
                     ClientInfo.setCurrentLocation(locationResult.getLastLocation());
 
                     try {

@@ -2,7 +2,6 @@ package com.unimelb.droptable.echo.activities.tasks;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -70,7 +69,7 @@ public class TaskCurrent extends AppCompatActivity {
 
         // Get a reference to the helper button and set its listener.
         helperButton = findViewById(R.id.taskCurrentHelperButton);
-        helperButton.setOnClickListener(view -> {onHelperPress();});
+        helperButton.setOnClickListener(view -> onHelperPress());
 
         if (ClientInfo.isAssistant()) {
             // The user is an assistant, and we don't want to display the helper button to them.
@@ -113,13 +112,11 @@ public class TaskCurrent extends AppCompatActivity {
                 TaskNotification.showDialog(this,
                         TaskNotification.TASK_COMPLETE_ASSISTANT_TITLE,
                         TaskNotification.TASK_COMPLETE_ASSISTANT_MESSAGE,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // User touched the dialog's positive button
-                                startActivity(new Intent(TaskCurrent.this,
-                                        AssistantMapActivity.class));
-                                finish();
-                            }
+                        (dialog, which) -> {
+                            // User touched the dialog's positive button
+                            startActivity(new Intent(TaskCurrent.this,
+                                    AssistantMapActivity.class));
+                            finish();
                         });
             }
             enableAvatar();
@@ -243,10 +240,7 @@ public class TaskCurrent extends AppCompatActivity {
     }
 
     protected void onCallButtonClick() {
-        if (otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
-            // Assistant has no phone number so do nothing
-            return;
-        } else {
+        if (!otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))) {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Permission is allowed so call is made
@@ -258,9 +252,6 @@ public class TaskCurrent extends AppCompatActivity {
                         == PackageManager.PERMISSION_GRANTED) {
                     //Permission has been granted
                     makeCall();
-                } else {
-                    //Permission denied
-                    return;
                 }
             }
         }

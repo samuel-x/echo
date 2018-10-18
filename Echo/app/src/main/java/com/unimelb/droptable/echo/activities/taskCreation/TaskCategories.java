@@ -27,9 +27,9 @@ public class TaskCategories extends AppCompatActivity {
         categoryHouseholdButton = findViewById(R.id.buttonTaskHousehold);
 
         // Subscribe to click events.
-        categoryTransportButton.setOnClickListener((view) -> {transportTask();});
-        categoryDeliveryButton.setOnClickListener((view) -> {deliveryTask();});
-        categoryHouseholdButton.setOnClickListener((view) -> {householdTask();});
+        categoryTransportButton.setOnClickListener((view) -> transportTask());
+        categoryDeliveryButton.setOnClickListener((view) -> deliveryTask());
+        categoryHouseholdButton.setOnClickListener((view) -> householdTask());
 
         // Begin a new taskBuilder object.
         Utility.currentTaskBuilder = ImmutableTask.builder();

@@ -74,7 +74,7 @@ public class PaymentActivity extends AppCompatActivity {
         notes = findViewById(R.id.taskNotes);
         notes.setText(currentTask.getNotes());
         confirmPaymentAndSubmit = findViewById(R.id.submit);
-        confirmPaymentAndSubmit.setOnClickListener((view)->{onSubmit();});
+        confirmPaymentAndSubmit.setOnClickListener((view)-> onSubmit());
 
     }
 

@@ -38,8 +38,8 @@ public class TaskSubcategories extends AppCompatActivity {
             subcategoryB.setText("To My House");
         }
 
-        subcategoryA.setOnClickListener((view) -> {taskDetailsA();});
-        subcategoryB.setOnClickListener((view) -> {taskDetailsB();});
+        subcategoryA.setOnClickListener((view) -> taskDetailsA());
+        subcategoryB.setOnClickListener((view) -> taskDetailsB());
     }
 
     protected void taskDetailsA() {
