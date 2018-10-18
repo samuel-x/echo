@@ -18,6 +18,8 @@ import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class PaymentActivity extends AppCompatActivity {
 
+    private final int DEFAULT_RATING = 5;
+
     private Button confirmPaymentAndSubmit;
 
     protected TextView taskTitle;
@@ -25,7 +27,7 @@ public class PaymentActivity extends AppCompatActivity {
     protected TextView paymentAmount;
     protected TextView userRating;
     protected TextView userName;
-
+    private String ratingText;
     private RatingBar ratingBar;
 
     protected ImmutableTask currentTask;
@@ -40,11 +42,14 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         currentTask = FirebaseAdapter.getCurrentTask();
-        String title = currentTask.getTitle();
-//
-//
-        ratingBar = findViewById(R.id.ratingBar);
+        try {
+            String title = currentTask.getTitle();
+        }
+        catch(Exception e){
+            String title = "Task";
+        }
 
+        ratingBar = findViewById(R.id.ratingBar);
 
         paymentAmount = findViewById(R.id.paymentAmount);
         String amount = "$"+currentTask.getPaymentAmount();
@@ -52,9 +57,15 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         userRating = findViewById(R.id.userRating);
-//        float assistantRating = FirebaseAdapter.getUserRating(currentTask.getAssistant());
+        try {
+            float rating = FirebaseAdapter.getUserRating(currentTask.getAssistant());
+            String ratingText = "Rating: " + Float.toString(rating) + " Stars";
 
-        userRating.setText("Rating: 5 Stars");
+        } catch (Exception e){
+            String ratingText = "Rating: " + Integer.toString(DEFAULT_RATING) + " Stars";
+        }
+
+        userRating.setText(ratingText);
         userName = findViewById(R.id.userName);
         userName.setText(currentTask.getAssistant());
 
@@ -93,11 +104,10 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
 
-    private void goToMap() {
+    protected void goToMap() {
 
         startActivity(new Intent(this, ApMapActivity.class));
     }
 
     // TODO: Update view with information from database about completed task
-
 }
