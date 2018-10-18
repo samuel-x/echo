@@ -39,7 +39,7 @@ public class PaymentActivityTest {
     @Test
     public void testContinue() throws Exception {
         // Verify activity change.
-        paymentActivity.goToRating();
+        paymentActivity.onSubmit();
         PowerMockito.verifyNew(Intent.class).withArguments(paymentActivity, RatingActivity.class);
     }
 }

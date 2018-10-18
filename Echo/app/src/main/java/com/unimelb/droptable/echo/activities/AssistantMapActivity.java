@@ -38,6 +38,11 @@ import java.util.List;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final int MS_LOCATION_UPDATE = 15000;
+    private static final int MS_LOCATION_FAST_UPDATE = 10000;
+
+    private float COMPLETION_DISTANCE = 50;
+
     public final int DEBUG = 0;
 
     private GoogleMap mMap;
@@ -68,8 +73,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(500);
-        mLocationRequest.setFastestInterval(100);
+        mLocationRequest.setInterval(MS_LOCATION_UPDATE);
+        mLocationRequest.setFastestInterval(MS_LOCATION_FAST_UPDATE);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         // Setup our location callback
@@ -290,8 +295,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         // TODO: NEED TO HAVE USERS STORE THEIR HOME LAT LONGS / CURRENT LOCATIONS
 
-        // placeholder is fitzroy
-        LatLng APLocation = new LatLng(-37.8011, 144.9789);
+        // placeholder is Arts West
+        LatLng APLocation = new LatLng(-37.7976, 144.9594);
 
         return APLocation;
     }
@@ -352,22 +357,19 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         if (ClientInfo.getTask().getLastPhase().equals("false")) {
             doMap(mMap, startLL, midStop);
-            if (Utility.distance(startLL, midStop) < 100.0) {
+            if (Utility.distance(startLL, midStop) < COMPLETION_DISTANCE) {
                 completeTaskButton.setText(fstInstruction);
                 enableCompleteTask();
-                if (DEBUG==1){
-                    Log.d("Assistant", "Check Status");
-                }
-            }
+            } // Note: Else was disabled for the demo
             else {
                 disableCompleteTask();
             }
         } else {
             doMap(mMap, startLL, endLL);
-            if (Utility.distance(startLL, endLL) < 100.0) {
+            if (Utility.distance(startLL, endLL) < COMPLETION_DISTANCE) {
                 completeTaskButton.setText(sndInstruction);
                 enableCompleteTask();
-            }
+            } // Note: Else was disabled for the demo
             else {
                 disableCompleteTask();
             }
