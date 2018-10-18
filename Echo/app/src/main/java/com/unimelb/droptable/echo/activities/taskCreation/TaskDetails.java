@@ -14,15 +14,28 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.Utility;
 
+/**
+ * The Task Details activity.
+ * This activity is for an AP to fill out the specific details of their task
+ */
 public class TaskDetails extends AppCompatActivity {
 
-    // Grab UI references
+    // UI references
+    /** The Title. */
     protected TextView title;
+    /** The Address. */
     protected PlaceAutocompleteFragment address;
+    /** The Task notes. */
     protected TextView taskNotes;
+    /** The Submit now button.*/
     protected Button submitNowButton;
+    /** The Payment amount. */
     protected TextView paymentAmount;
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +49,11 @@ public class TaskDetails extends AppCompatActivity {
         submitNowButton = findViewById(R.id.buttonTaskNow);
         paymentAmount = findViewById(R.id.paymentAmount);
 
-
+        // Subscribe to click events.
         submitNowButton.setOnClickListener((view) -> {
             onContinue();});
 
+        //Set up and implement the auto-fill feature for the address bar
         address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
@@ -51,6 +65,7 @@ public class TaskDetails extends AppCompatActivity {
             }
 
             @Override
+            //This is called when there is an error with the auto-fill
             public void onError(Status status) {
                 // TODO: Handle the error.
                 Log.i("TEST:", "An error occurred: " + status);
@@ -59,10 +74,18 @@ public class TaskDetails extends AppCompatActivity {
 
     }
 
+    /**
+     * On continue. <p>
+     * Called when submitNowButton is pressed. <p>
+     * Builds a task from the entered details and continues to the TaskConfirm Activity.
+     */
     protected void onContinue() {
+        //Store the entered information
         Utility.currentTaskBuilder.title(title.getText().toString());
         Utility.currentTaskBuilder.notes(taskNotes.getText().toString());
         Utility.currentTaskBuilder.paymentAmount(paymentAmount.getText().toString());
+
+        //Start the new Activity and close this one
         startActivity(new Intent(this, TaskConfirm.class));
         finish();
     }
