@@ -14,7 +14,6 @@ import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 
 
-
 public class PaymentActivity extends AppCompatActivity {
 
     private final int DEFAULT_RATING = 5;
@@ -102,5 +101,4 @@ public class PaymentActivity extends AppCompatActivity {
         startActivity(new Intent(this, ApMapActivity.class));
     }
 
-    // TODO: Update view with information from database about completed task
 }
