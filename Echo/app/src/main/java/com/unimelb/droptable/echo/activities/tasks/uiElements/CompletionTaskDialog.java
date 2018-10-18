@@ -3,7 +3,6 @@ package com.unimelb.droptable.echo.activities.tasks.uiElements;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
@@ -17,7 +16,7 @@ public class CompletionTaskDialog extends DialogFragment {
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface NoticeDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog);
+        void onDialogPositiveClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events
@@ -42,11 +41,9 @@ public class CompletionTaskDialog extends DialogFragment {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getDialog(getArguments().getString("type")))
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Send the positive button event back to the host activity
-                        mListener.onDialogPositiveClick(CompletionTaskDialog.this);
-                    }
+                .setPositiveButton("OK", (dialog, id) -> {
+                    // Send the positive button event back to the host activity
+                    mListener.onDialogPositiveClick(CompletionTaskDialog.this);
                 });
         return builder.create();
     }

@@ -16,6 +16,8 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class ApMapActivityTest {
@@ -34,22 +36,22 @@ public class ApMapActivityTest {
     private static final String TEST_ASSISTANT = "TEST_ASSISTANT";
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         apMapActivity = mActivityRule.getActivity();
     }
 
     @Test
     public void testTaskButtonTextOnTaskAssign() {
-        assertEquals(true, apMapActivity.hasWindowFocus());
+        assertTrue(apMapActivity.hasWindowFocus());
         assertEquals(apMapActivity.taskButton.getText().toString(), "New Task");
         // TODO: Implement a full test for checking whether the text changes on task assignment
     }
 
     @Test
     public void testTaskButton() {
-        assertEquals(true, apMapActivity.hasWindowFocus());
+        assertTrue(apMapActivity.hasWindowFocus());
         onView(withId(R.id.apTaskButton)).perform(click());
-        assertEquals(false, apMapActivity.hasWindowFocus());
+        assertFalse(apMapActivity.hasWindowFocus());
     }
 
     @Test
@@ -58,13 +60,13 @@ public class ApMapActivityTest {
         ClientInfo.setCurrentToken("test");
         ClientInfo.setIsAssistant(false);
         ClientInfo.setPhoneNumber("0412356789");
-        assertEquals(true, apMapActivity.hasWindowFocus());
+        assertTrue(apMapActivity.hasWindowFocus());
         onView(withId(R.id.apMapHelperButton)).perform(click());
-        assertEquals(false, apMapActivity.hasWindowFocus());
+        assertFalse(apMapActivity.hasWindowFocus());
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         apMapActivity = null;
         ClientInfo.resetClientInfo();
     }

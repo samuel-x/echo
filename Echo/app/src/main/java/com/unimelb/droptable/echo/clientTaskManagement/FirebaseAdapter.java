@@ -2,9 +2,7 @@ package com.unimelb.droptable.echo.clientTaskManagement;
 
 
 import android.location.Location;
-import android.util.Log;
 
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,8 +13,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.unimelb.droptable.echo.ChatMessage;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.Utility;
-
-import java.net.HttpURLConnection;
 
 public class FirebaseAdapter {
 
@@ -50,9 +46,7 @@ public class FirebaseAdapter {
     public static DatabaseReference usersDbReference = masterDbReference
             .child(USERS_ROOT);
 
-
     public static DataSnapshot currentData;
-
     public static ValueEventListener listener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot snapshot) {
@@ -61,7 +55,6 @@ public class FirebaseAdapter {
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
-            Log.d("Error:", "Error reading task from Database");
         }
     };
 
@@ -82,15 +75,12 @@ public class FirebaseAdapter {
      * @param task
      * @return
      */
-    public static int pushTask(ImmutableTask task) {
+    public static void pushTask(ImmutableTask task) {
         DatabaseReference pushTask = tasksDbReference.push();
         pushTask.setValue(task);
         pushTask.child("id").setValue(pushTask.getKey());
 
         usersDbReference.child(ClientInfo.getUsername()).child(TASK_ID).setValue(pushTask.getKey());
-
-        // TODO: Make the code returned actually reflect the true status.
-        return HttpURLConnection.HTTP_OK;
     }
 
     /**
@@ -99,28 +89,25 @@ public class FirebaseAdapter {
      * @param id
      * @return
      */
-    public static int updateTask(ImmutableTask task, String id) {
+    public static void updateTask(ImmutableTask task, String id) {
         DatabaseReference push = tasksDbReference.child(id);
         push.setValue(task);
-        return HttpURLConnection.HTTP_OK;
     }
 
     /**
      * Updates the status of a task
      * @return
      */
-    public static int updateTaskStatus(String newStatus, String id) {
+    public static void updateTaskStatus(String newStatus, String id) {
         tasksDbReference.child(id).child("status").setValue(newStatus);
-        return HttpURLConnection.HTTP_OK;
     }
 
     /**
      * Updates the assistant id of a task
      * @return
      */
-    public static int updateTaskAssistant(String newAssistant, String id) {
+    public static void updateTaskAssistant(String newAssistant, String id) {
         tasksDbReference.child(id).child("assistant").setValue(newAssistant);
-        return HttpURLConnection.HTTP_OK;
     }
 
     /**
@@ -165,21 +152,15 @@ public class FirebaseAdapter {
                 .getValue(Boolean.class);
     }
 
-    public static int pushUser(String username, String phoneNumber, boolean isAssistant) {
+    public static void pushUser(String username, String phoneNumber, boolean isAssistant) {
         usersDbReference.child(username).child(IS_ASSISTANT).setValue(isAssistant);
         usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
-
-        // TODO: Make the code returned actually reflect the true status.
-        return HttpURLConnection.HTTP_OK;
     }
 
-    public static int pushUser(String username, String phoneNumber, boolean isAssistant, float rating) {
+    public static void pushUser(String username, String phoneNumber, boolean isAssistant, float rating) {
         usersDbReference.child(username).child(IS_ASSISTANT).setValue(isAssistant);
         usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
         usersDbReference.child(username).child(RATING).setValue(rating);
-
-        // TODO: Make the code returned actually reflect the true status.
-        return HttpURLConnection.HTTP_OK;
     }
 
     public static void updateUserRating(String username, float rating) {
@@ -362,11 +343,10 @@ public class FirebaseAdapter {
     }
 
     public static LatLng getAssistantLocation() {
-        LatLng loc = new LatLng(
+        return new LatLng(
                 getUser(ClientInfo.getTask().getAssistant()).child("location")
                         .child("latitude").getValue(double.class),
                 getUser(ClientInfo.getTask().getAssistant()).child("location")
                         .child("longitude").getValue(double.class));
-        return loc;
     }
 }

@@ -20,8 +20,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
@@ -93,27 +91,21 @@ public class TaskCurrentTest {
 
         taskCurrent.avatar = PowerMockito.mock(ConstraintLayout.class);
         when(taskCurrent.avatar.getChildCount()).thenReturn(TEST_CHILD_AVATAR);
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                testChildAvatarCounter++;
-                return PowerMockito.mock(View.class);
-            };
+        Mockito.doAnswer(invocation -> {
+            testChildAvatarCounter++;
+            return PowerMockito.mock(View.class);
         }).when(taskCurrent.avatar).getChildAt(any(int.class));
 
         taskCurrent.searchingMessage = PowerMockito.mock(ConstraintLayout.class);
         when(taskCurrent.searchingMessage.getChildCount()).thenReturn(TEST_CHILD_MESSAGE);
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                testChildMessageCounter++;
-                return PowerMockito.mock(View.class);
-            };
+        Mockito.doAnswer(invocation -> {
+            testChildMessageCounter++;
+            return PowerMockito.mock(View.class);
         }).when(taskCurrent.searchingMessage).getChildAt(any(int.class));
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         testChildAvatarCounter = 0;
         testChildMessageCounter = 0;
         ClientInfo.resetClientInfo();

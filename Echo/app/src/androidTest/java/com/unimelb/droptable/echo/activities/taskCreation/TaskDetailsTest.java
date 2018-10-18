@@ -30,22 +30,22 @@ public class TaskDetailsTest {
     private final String TEST_NOTES = "Test Text";
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         taskDetails = mActivityRule.getActivity();
     }
 
     @Test
     public void testFormFillIn() {
-        assertEquals(true, taskDetails.hasWindowFocus());
+        assertTrue(taskDetails.hasWindowFocus());
         onView(withId(R.id.textTaskTitle)).perform(typeText(TEST_STR), closeSoftKeyboard());
         onView(withId(R.id.textTaskAddress)).perform(typeText(TEST_ADDRESS), closeSoftKeyboard());
         onView(withId(R.id.textTaskNotes)).perform(typeText(TEST_NOTES), closeSoftKeyboard());
         onView(withId(R.id.buttonTaskNow)).perform(click());
-        assertEquals(false, taskDetails.hasWindowFocus());
+        assertFalse(taskDetails.hasWindowFocus());
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         // Reset task builder.
         Utility.currentTaskBuilder = ImmutableTask.builder()
                 .title("Placeholder Title")

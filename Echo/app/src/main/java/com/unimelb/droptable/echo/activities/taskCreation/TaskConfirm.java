@@ -55,7 +55,8 @@ public class TaskConfirm extends AppCompatActivity {
         confirmButton = findViewById(R.id.buttonTaskConfirmConfirm);
 
         //Subscribe to click events
-        confirmButton.setOnClickListener((view) -> {confirmSubmit();});
+        confirmButton.setOnClickListener((view) -> confirmSubmit());
+
     }
 
     /**

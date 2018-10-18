@@ -38,7 +38,7 @@ public class FirebaseAdapterTest {
     private DatabaseReference usersMock;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         // Mock FirebaseAdapter.
         PowerMockito.mockStatic(FirebaseAdapter.class);
 
@@ -502,7 +502,7 @@ public class FirebaseAdapterTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         ClientInfo.resetClientInfo();
         FirebaseAdapter.currentData = null;
     }

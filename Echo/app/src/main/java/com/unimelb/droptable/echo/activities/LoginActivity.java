@@ -7,21 +7,16 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
@@ -32,16 +27,12 @@ import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 public class LoginActivity extends AppCompatActivity {
     private static final int MIN_USERNAME_LENGTH = 3;
     private static final int PHONENUMBER_LENGTH = 10;
-
     private static String ASSISTANT_AP_STATUS_FAIL;
     private static String PHONE_FAIL;
     private static String NAME_FAIL;
     private static String SUCCESSFUL_LOGIN;
 
     // UI references.
-
-
-
     protected EditText usernameText;
     protected EditText phoneNumberText;
     protected CheckBox isAssistantCheckBox;
@@ -49,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
 
     protected FloatingActionButton helperButton;
     protected View signInView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Get a reference to the helper button and set its listener.
         helperButton = findViewById(R.id.loginHelperButton);
-        helperButton.setOnClickListener(view -> {onHelperPress();});
+        helperButton.setOnClickListener(view -> onHelperPress());
 
         signInView = findViewById(R.id.signInView);
 
@@ -84,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
     }
 
-
     protected void onSignInClick() {
         try {
             attemptLogin();
@@ -94,19 +83,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-
-
-
-
-
-
-
     protected void attemptLogin() throws LoginError {
 
         showProgress(true);
@@ -145,20 +126,16 @@ public class LoginActivity extends AppCompatActivity {
         }
         else {
             FirebaseInstanceId.getInstance().getInstanceId()
-                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                            if (!task.isSuccessful()) {
-                                Log.w("FCM", "getInstanceId failed", task.getException());
-                                return;
-                            }
-
-                            // Get new Instance ID token
-                            String token = task.getResult().getToken();
-
-                            ClientInfo.setCurrentToken(token);
-                            FirebaseAdapter.updateRegistrationToServer(token, username);
+                    .addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            return;
                         }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        ClientInfo.setCurrentToken(token);
+                        FirebaseAdapter.updateRegistrationToServer(token, username);
                     });
         }
 

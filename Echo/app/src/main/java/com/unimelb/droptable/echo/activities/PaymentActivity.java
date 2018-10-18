@@ -10,13 +10,13 @@ import android.widget.TextView;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
-import com.unimelb.droptable.echo.clientTaskManagement.FirebaseNotificationsAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 
 
-
 public class PaymentActivity extends AppCompatActivity {
+
+    private final int DEFAULT_RATING = 5;
 
     private Button confirmPaymentAndSubmit;
 
@@ -25,7 +25,7 @@ public class PaymentActivity extends AppCompatActivity {
     protected TextView paymentAmount;
     protected TextView userRating;
     protected TextView userName;
-
+    private String ratingText;
     private RatingBar ratingBar;
 
     protected ImmutableTask currentTask;
@@ -40,11 +40,14 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         currentTask = FirebaseAdapter.getCurrentTask();
-        String title = currentTask.getTitle();
-//
-//
-        ratingBar = findViewById(R.id.ratingBar);
+        try {
+            String title = currentTask.getTitle();
+        }
+        catch(Exception e){
+            String title = "Task";
+        }
 
+        ratingBar = findViewById(R.id.ratingBar);
 
         paymentAmount = findViewById(R.id.paymentAmount);
         String amount = "$"+currentTask.getPaymentAmount();
@@ -52,9 +55,15 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         userRating = findViewById(R.id.userRating);
-//        float assistantRating = FirebaseAdapter.getUserRating(currentTask.getAssistant());
+        try {
+            float rating = FirebaseAdapter.getUserRating(currentTask.getAssistant());
+            String ratingText = "Rating: " + Float.toString(rating) + " Stars";
 
-        userRating.setText("Rating: 5 Stars");
+        } catch (Exception e){
+            String ratingText = "Rating: " + Integer.toString(DEFAULT_RATING) + " Stars";
+        }
+
+        userRating.setText(ratingText);
         userName = findViewById(R.id.userName);
         userName.setText(currentTask.getAssistant());
 
@@ -64,7 +73,7 @@ public class PaymentActivity extends AppCompatActivity {
         notes = findViewById(R.id.taskNotes);
         notes.setText(currentTask.getNotes());
         confirmPaymentAndSubmit = findViewById(R.id.submit);
-        confirmPaymentAndSubmit.setOnClickListener((view)->{onSubmit();});
+        confirmPaymentAndSubmit.setOnClickListener((view)-> onSubmit());
 
     }
 
@@ -77,12 +86,6 @@ public class PaymentActivity extends AppCompatActivity {
         ClientInfo.updateTask();
         ImmutableTask task = ClientInfo.getTask();
 
-        try {
-            FirebaseNotificationsAdapter.sendAssistantCompleteMessage(task);
-        }
-        catch (Exception e) {
-
-        }
         FirebaseAdapter.updateUserRating(ClientInfo.getTask().getAssistant(), ratingBar.getRating());
         FirebaseAdapter.completeTask(ClientInfo.getTask());
 
@@ -93,11 +96,9 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
 
-    private void goToMap() {
+    protected void goToMap() {
 
         startActivity(new Intent(this, ApMapActivity.class));
     }
-
-    // TODO: Update view with information from database about completed task
 
 }

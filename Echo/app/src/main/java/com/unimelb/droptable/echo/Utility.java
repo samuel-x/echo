@@ -49,7 +49,7 @@ public class Utility {
      */
     public static List<LatLng> getPath(LatLng startLL, LatLng destination) {
 
-        List<LatLng> path = new ArrayList<LatLng>();
+        List<LatLng> path = new ArrayList<>();
 
         double startLatitude = startLL.latitude;
         double destinationLatitude = destination.latitude;

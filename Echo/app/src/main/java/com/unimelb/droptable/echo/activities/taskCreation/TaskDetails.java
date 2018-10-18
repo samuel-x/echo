@@ -3,7 +3,6 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -44,21 +43,19 @@ public class TaskDetails extends AppCompatActivity {
         // Setup our buttons
         title = findViewById(R.id.textTaskTitle);
         address = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.textTaskAddress);;
+                getFragmentManager().findFragmentById(R.id.textTaskAddress);
         taskNotes = findViewById(R.id.textTaskNotes);
         submitNowButton = findViewById(R.id.buttonTaskNow);
         paymentAmount = findViewById(R.id.paymentAmount);
 
         // Subscribe to click events.
-        submitNowButton.setOnClickListener((view) -> {
-            onContinue();});
+        submitNowButton.setOnClickListener((view) -> onContinue());
 
         //Set up and implement the auto-fill feature for the address bar
         address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
-                Log.i("TEST:", "Place: " + place.getName());
                 Utility.currentTaskBuilder.address(place.getName().toString());
                 Utility.currentTaskBuilder.latitude(Double.valueOf(place.getLatLng().latitude).toString());
                 Utility.currentTaskBuilder.longitude(Double.valueOf(place.getLatLng().longitude).toString());
@@ -68,7 +65,6 @@ public class TaskDetails extends AppCompatActivity {
             //This is called when there is an error with the auto-fill
             public void onError(Status status) {
                 // TODO: Handle the error.
-                Log.i("TEST:", "An error occurred: " + status);
             }
         });
 

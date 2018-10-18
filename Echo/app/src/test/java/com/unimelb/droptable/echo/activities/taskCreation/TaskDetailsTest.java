@@ -56,7 +56,7 @@ public class TaskDetailsTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         Utility.currentTaskBuilder = null;
     }
 

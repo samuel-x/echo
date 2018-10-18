@@ -1,14 +1,12 @@
 package com.unimelb.droptable.echo.activities;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.widget.Button;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -76,13 +74,13 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         ClientInfo.setTask(FirebaseAdapter.getCurrentTask());
 
         taskButton = findViewById(R.id.apTaskButton);
-        taskButton.setOnClickListener((view) -> {onTaskPress();});
+        taskButton.setOnClickListener((view) -> onTaskPress());
 
         helperButton = findViewById(R.id.apMapHelperButton);
-        helperButton.setOnClickListener(view -> {onHelperPress();});
+        helperButton.setOnClickListener(view -> onHelperPress());
 
         accountButton = findViewById(R.id.accountButtonAP);
-        accountButton.setOnClickListener(view -> {onAccountButton();});
+        accountButton.setOnClickListener(view -> onAccountButton());
     }
 
     @Override
@@ -116,11 +114,9 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                 TaskNotification.showDialog(this,
                         TaskNotification.TASK_COMPLETE_REQUEST_TITLE,
                         TaskNotification.TASK_COMPLETE_REQUEST_MESSAGE,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // User touched the dialog's positive button
-                                startActivity(new Intent(currentContext, PaymentActivity.class));
-                            }
+                        (dialog, which) -> {
+                            // User touched the dialog's positive button
+                            startActivity(new Intent(currentContext, PaymentActivity.class));
                         });
             }
         } else {
@@ -173,10 +169,7 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
         return new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                else {
+                if (locationResult != null) {
                     ClientInfo.setCurrentLocation(locationResult.getLastLocation());
                     try {
                         mMap.clear();
@@ -186,10 +179,8 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                                 .title("Your Location")
                                 .icon(BitmapDescriptorFactory.defaultMarker(
                                         BitmapDescriptorFactory.HUE_AZURE)));
-                        Log.d("AP:", String.valueOf(ClientInfo.hasPartner()));
                         if (ClientInfo.hasPartner()) {
                             LatLng assistant = FirebaseAdapter.getAssistantLocation();
-                            Log.d("AP:", assistant.toString());
                             mMap.addMarker(new MarkerOptions().position(assistant)
                                     .title(ClientInfo.getTask().getAssistant() + "'s Location")
                                     .icon(BitmapDescriptorFactory.defaultMarker(
