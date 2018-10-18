@@ -66,8 +66,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(500);
-        mLocationRequest.setFastestInterval(100);
+        mLocationRequest.setInterval(15000);
+        mLocationRequest.setFastestInterval(10000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         // Setup our location callback
@@ -286,7 +286,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         // TODO: NEED TO HAVE USERS STORE THEIR HOME LAT LONGS / CURRENT LOCATIONS
 
         // placeholder is fitzroy
-        LatLng APLocation = new LatLng(-37.8011, 144.9789);
+        LatLng APLocation = new LatLng(-37.7976, 144.9594);
 
         return APLocation;
     }
@@ -323,9 +323,8 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     }
 
     private void checkStatus() {
-        ClientInfo.updateTask();
 
-        Log.d("task:", ClientInfo.getTask().toString());
+//        Log.d("task:", ClientInfo.getTask().toString());
 
         LatLng startLL = ClientInfo.getCurrentLocationAsLatLng();
 
@@ -344,23 +343,19 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
         if (ClientInfo.getTask().getLastPhase().equals("false")) {
             doMap(mMap, startLL, midStop);
-            if (Utility.distance(startLL, midStop) < 100.0) {
                 completeTaskButton.setText(fstInstruction);
                 enableCompleteTask();
                 Log.d("Assistant", "Check Status");
-            }
-            else {
-                disableCompleteTask();
-            }
+
         } else {
             doMap(mMap, startLL, endLL);
-            if (Utility.distance(startLL, endLL) < 100.0) {
+//            if (Utility.distance(startLL, endLL) < 100.0) {
                 completeTaskButton.setText(sndInstruction);
                 enableCompleteTask();
-            }
-            else {
-                disableCompleteTask();
-            }
+//            }
+//            else {
+//                disableCompleteTask();
+//            }
         }
     }
 }
