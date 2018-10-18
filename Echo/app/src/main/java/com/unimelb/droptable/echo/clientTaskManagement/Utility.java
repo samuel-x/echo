@@ -7,7 +7,8 @@ public class Utility {
             .address("Placeholder Address")
             .category("Placeholder Category")
             .subCategory("Placeholder Subcategory")
-            .notes("Placeholder Notes");
+            .notes("Placeholder Notes")
+            .paymentAmount("Placeholder Amount");
 
     /**
      * Given two user names, creates a unique chat ID for them, which simply involves sorting them

@@ -2,7 +2,6 @@ package com.unimelb.droptable.echo.activities.tasks;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -34,6 +33,7 @@ public class TaskCurrent extends AppCompatActivity {
     protected TextView taskCurrentTitle;
     protected TextView taskCurrentAddress;
     protected TextView taskCurrentNotes;
+    protected TextView taskCurrentPaymentAmount;
     protected TextView otherUserName;
     protected TextView otherUserPhone;
     protected TextView otherUserRating;
@@ -54,6 +54,7 @@ public class TaskCurrent extends AppCompatActivity {
         taskCurrentTitle = findViewById(R.id.textTaskInProgressTitle);
         taskCurrentAddress = findViewById(R.id.textTaskInProgressAddress);
         taskCurrentNotes = findViewById(R.id.textTaskInProgressNotes);
+        taskCurrentPaymentAmount = findViewById(R.id.textTaskInProgressPaymentAmount);
         otherUserName = findViewById(R.id.userName);
         otherUserPhone = findViewById(R.id.userPhone);
         otherUserRating = findViewById(R.id.userRating);
@@ -68,7 +69,8 @@ public class TaskCurrent extends AppCompatActivity {
 
         // Get a reference to the helper button and set its listener.
         helperButton = findViewById(R.id.taskCurrentHelperButton);
-        helperButton.setOnClickListener(view -> {onHelperPress();});
+        helperButton.setOnClickListener(view -> onHelperPress());
+
         if (ClientInfo.isAssistant()) {
             // The user is an assistant, and we don't want to display the helper button to them.
             helperButton.setAlpha(0.0f);
@@ -110,13 +112,11 @@ public class TaskCurrent extends AppCompatActivity {
                 TaskNotification.showDialog(this,
                         TaskNotification.TASK_COMPLETE_ASSISTANT_TITLE,
                         TaskNotification.TASK_COMPLETE_ASSISTANT_MESSAGE,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // User touched the dialog's positive button
-                                startActivity(new Intent(TaskCurrent.this,
-                                        AssistantMapActivity.class));
-                                finish();
-                            }
+                        (dialog, which) -> {
+                            // User touched the dialog's positive button
+                            startActivity(new Intent(TaskCurrent.this,
+                                    AssistantMapActivity.class));
+                            finish();
                         });
             }
             enableAvatar();
@@ -132,9 +132,28 @@ public class TaskCurrent extends AppCompatActivity {
         setTitle(task.getTitle());
         setAddress(task.getAddress());
         setNotes(task.getNotes());
+        setPaymentAmount(task.getPaymentAmount());
         if (task.getAssistant() != null) {
             updateAssistant(task.getAssistant());
         }
+        Log.d("Bind:", "Current Task UI AP");
+    }
+
+    private void setTitle(@Nullable String title) {
+        taskCurrentTitle.setText(title);
+    }
+
+    private void setNotes(@Nullable String notes) {
+        taskCurrentNotes.setText(notes);
+    }
+
+    private void setPaymentAmount(@Nullable String amount) {
+        String s1 = "Task Price: $"+amount;
+        taskCurrentPaymentAmount.setText(s1);
+    }
+
+    private void setAddress(@Nullable String address) {
+        taskCurrentAddress.setText(address);
     }
 
     public void updateAssistant(String assistantID) {
@@ -161,18 +180,6 @@ public class TaskCurrent extends AppCompatActivity {
         enableAvatar();
     }
 
-    protected void setTitle(@Nullable String title) {
-        taskCurrentTitle.setText(title);
-    }
-
-    protected void setNotes(@Nullable String notes) {
-        taskCurrentNotes.setText(notes);
-    }
-
-    protected void setAddress(@Nullable String address) {
-        taskCurrentAddress.setText(address);
-    }
-
     protected void resetAssistant() {
         otherUserName.setText(getString(R.string.unknown_user));
         otherUserPhone.setText(getString(R.string.empty_phone_number));
@@ -180,6 +187,11 @@ public class TaskCurrent extends AppCompatActivity {
         if (ClientInfo.isAssistant()) {
             ClientInfo.setTask(null);
         }
+    }
+
+    protected void enableElement(View view) {
+        view.setAlpha(1.0f);
+        view.setEnabled(true);
     }
 
     protected void enableAvatar() {
@@ -202,11 +214,6 @@ public class TaskCurrent extends AppCompatActivity {
         }
 
         resetAssistant();
-    }
-
-    protected void enableElement(View view) {
-        view.setAlpha(1.0f);
-        view.setEnabled(true);
     }
 
     protected void disableElement(View view, boolean zeroOpacity) {
@@ -233,10 +240,7 @@ public class TaskCurrent extends AppCompatActivity {
     }
 
     protected void onCallButtonClick() {
-        if (otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))){
-            // Assistant has no phone number so do nothing
-            return;
-        } else {
+        if (!otherUserPhone.getText().toString().equals(getString(R.string.empty_phone_number))) {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Permission is allowed so call is made
@@ -248,9 +252,6 @@ public class TaskCurrent extends AppCompatActivity {
                         == PackageManager.PERMISSION_GRANTED) {
                     //Permission has been granted
                     makeCall();
-                } else {
-                    //Permission denied
-                    return;
                 }
             }
         }

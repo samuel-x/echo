@@ -19,6 +19,7 @@ public class ClientInfoTest {
     private final String testAssistant1 = "MyAssistant1";
     private final String testAssistant2 = "MyAssistant2";
     private final String testNotes = "MyNotes";
+    private final String testLastPhase = "MyLastPhase";
     private static final String TEST_PHONE_NUMBER = "0412356789";
 
     @Test
@@ -36,10 +37,10 @@ public class ClientInfoTest {
     @Test
     public void testIsAssistant() {
         ClientInfo.setIsAssistant(false);
-        assertEquals(false, ClientInfo.isAssistant());
+        assertFalse(ClientInfo.isAssistant());
 
         ClientInfo.setIsAssistant(true);
-        assertEquals(true, ClientInfo.isAssistant());
+        assertTrue(ClientInfo.isAssistant());
     }
 
     @Test
@@ -53,6 +54,7 @@ public class ClientInfoTest {
                 .status(testStatus)
                 .ap(testAp)
                 .notes(testNotes)
+                .lastPhase(testLastPhase)
                 .build();
 
         // Setup prior.
@@ -75,6 +77,7 @@ public class ClientInfoTest {
                 .ap(testAp)
                 .assistant(testAssistant1)
                 .notes(testNotes)
+                .lastPhase(testLastPhase)
                 .build();
 
         // Setup prior.
@@ -97,6 +100,7 @@ public class ClientInfoTest {
                 .ap(testAp)
                 .assistant(testAssistant1)
                 .notes(testNotes)
+                .lastPhase(testLastPhase)
                 .build();
 
         // Setup prior.
@@ -119,6 +123,7 @@ public class ClientInfoTest {
                 .ap(testAp)
                 .assistant(testAssistant1)
                 .notes(testNotes)
+                .lastPhase(testLastPhase)
                 .build();
 
         // Setup prior.
@@ -136,7 +141,7 @@ public class ClientInfoTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         // Reset ClientInfo.
         ClientInfo.setIsAssistant(false);
         ClientInfo.setUsername(null);

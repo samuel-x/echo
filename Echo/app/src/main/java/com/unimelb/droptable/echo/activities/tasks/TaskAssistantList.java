@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.firebase.ui.database.SnapshotParser;
-import com.google.firebase.database.DataSnapshot;
 import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskHolder;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
@@ -30,7 +28,6 @@ public class TaskAssistantList extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.taskList);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
 
@@ -41,30 +38,21 @@ public class TaskAssistantList extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
     @NonNull
     protected RecyclerView.Adapter newAdapter() {
         FirebaseRecyclerOptions<ImmutableTask> options =
                 new FirebaseRecyclerOptions.Builder<ImmutableTask>()
-                        .setQuery(FirebaseAdapter.mostRecentTasks, new SnapshotParser<ImmutableTask>() {
-                            @NonNull
-                            @Override
-                            public ImmutableTask parseSnapshot(@NonNull DataSnapshot snapshot) {
-                                return ImmutableTask.builder()
-                                        .title(snapshot.child("title").getValue(String.class))
-                                            .address(snapshot.child("address").getValue(String.class))
-                                            .category(snapshot.child("category").getValue(String.class))
-                                            .subCategory(snapshot.child("subCategory").getValue(String.class))
-                                            .notes(snapshot.child("notes").getValue(String.class))
-                                            .status(snapshot.child("status").getValue(String.class))
-                                            .ap(snapshot.child("ap").getValue(String.class))
-                                            .id(snapshot.child("id").getValue(String.class)).build();
-                            }
-                        })
+                        .setQuery(FirebaseAdapter.mostRecentTasks, snapshot -> ImmutableTask.builder()
+                                .title(snapshot.child("title").getValue(String.class))
+                                    .address(snapshot.child("address").getValue(String.class))
+                                    .category(snapshot.child("category").getValue(String.class))
+                                    .subCategory(snapshot.child("subCategory").getValue(String.class))
+                                    .notes(snapshot.child("notes").getValue(String.class))
+                                    .paymentAmount(snapshot.child("paymentAmount").getValue(String.class))
+                                    .status(snapshot.child("status").getValue(String.class))
+                                    .ap(snapshot.child("ap").getValue(String.class))
+                                    .lastPhase(snapshot.child("lastPhase").getValue(String.class))
+                                    .id(snapshot.child("id").getValue(String.class)).build())
                         .setLifecycleOwner(this)
                         .build();
 

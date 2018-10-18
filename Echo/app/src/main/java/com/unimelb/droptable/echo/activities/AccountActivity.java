@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.tasks.uiElements.MessageNotification;
 import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 
 public class AccountActivity extends AppCompatActivity {
@@ -54,10 +53,10 @@ public class AccountActivity extends AppCompatActivity {
             }
         }
 
-        if (ClientInfo.hasPartner()) {
-            // Try to attach a chat listener.
-            MessageNotification.AttachListener(AccountActivity.this);
-        }
+//        if (ClientInfo.hasPartner()) {
+//            // Try to attach a chat listener.
+//            MessageNotification.AttachListener(this);
+//        }
     }
 
     private void updateUI() {

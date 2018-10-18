@@ -3,7 +3,7 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 import android.content.Intent;
 
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.clientTaskManagement.Utility;
+import com.unimelb.droptable.echo.Utility;
 
 import org.junit.After;
 import org.junit.Before;
@@ -43,7 +43,7 @@ public class TaskCategoriesTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         // Begin a new taskBuilder object.
         Utility.currentTaskBuilder = null;
     }

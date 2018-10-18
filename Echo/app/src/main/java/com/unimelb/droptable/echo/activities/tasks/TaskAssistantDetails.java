@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,6 +18,7 @@ public class TaskAssistantDetails extends AppCompatActivity {
     private TextView taskCurrentTitle;
     private TextView taskCurrentAddress;
     private TextView taskCurrentNotes;
+    private TextView taskCurrentPaymentAmount;
     private Button acceptButton;
     private ImmutableTask task;
 
@@ -27,11 +27,11 @@ public class TaskAssistantDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_assistant_accept);
         task = (ImmutableTask) getIntent().getSerializableExtra("task");
-        taskCurrentTitle = findViewById(R.id.textAssistantTaskListActivity);
+        taskCurrentTitle = findViewById(R.id.textAssistantTaskListTitle);
         taskCurrentAddress = findViewById(R.id.textAssistantTaskListAddress);
         taskCurrentNotes = findViewById(R.id.textAssistantTaskListNotes);
         acceptButton = findViewById(R.id.buttonAcceptTask);
-
+        taskCurrentPaymentAmount = findViewById(R.id.taskCurrentPaymentAmount);
         acceptButton.setOnClickListener((view) -> onAccept());
     }
 
@@ -41,7 +41,7 @@ public class TaskAssistantDetails extends AppCompatActivity {
         setTitle(task.getTitle());
         setAddress(task.getAddress());
         setNotes(task.getNotes());
-        Log.d("Bind:", "what the heck");
+        setPaymentAmount(task.getPaymentAmount());
     }
 
     private void setTitle(@Nullable String title) {
@@ -52,6 +52,10 @@ public class TaskAssistantDetails extends AppCompatActivity {
         taskCurrentNotes.setText(notes);
     }
 
+    private void setPaymentAmount(@Nullable String amount) {
+        taskCurrentPaymentAmount.setText(amount);
+    }
+
     private void setAddress(@Nullable String address) {
         taskCurrentAddress.setText(address);
     }
@@ -60,7 +64,6 @@ public class TaskAssistantDetails extends AppCompatActivity {
         ClientInfo.setTask(task);
         FirebaseAdapter.assignTask(ClientInfo.getUsername(), task.getId());
         startActivity(new Intent(this, AssistantMapActivity.class));
-        finish();
     }
 }
 

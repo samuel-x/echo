@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 
-import com.google.android.gms.common.api.Api;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,8 +22,6 @@ import com.unimelb.droptable.echo.activities.PaymentActivity;
 import com.unimelb.droptable.echo.activities.tasks.TaskCurrent;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,6 +37,8 @@ public class TaskNotification extends DialogFragment {
     public static final String TASK_CANCELLED_MESSAGE = "Unfortunately, the task has been cancelled.";
     public static final String TASK_COMPLETE_ASSISTANT_TITLE = "Task Complete!";
     public static final String TASK_COMPLETE_ASSISTANT_MESSAGE = "The task was accepted by the AP!";
+    public static final String TASK_PHASE_ONE_COMPLETE_TITLE = "Task updated!";
+    public static final String TASK_PHASE_ONE_COMPLETE_MESSAGE = "The task has been updated.";
 
     private static Set<Activity> attachedListeners = new HashSet<>();
 
@@ -160,25 +159,21 @@ public class TaskNotification extends DialogFragment {
                         currentActivity.disableAvatar();
                         TaskNotification.showDialog(activity, TASK_COMPLETE_ASSISTANT_TITLE,
                                 TASK_COMPLETE_ASSISTANT_TITLE,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // User touched the dialog's positive button
-                                        activity.startActivity(new Intent(activity,
-                                                AssistantMapActivity.class));
-                                        activity.finish();
-                                    }
+                                (dialog, which) -> {
+                                    // User touched the dialog's positive button
+                                    activity.startActivity(new Intent(activity,
+                                            AssistantMapActivity.class));
+                                    activity.finish();
                                 });
                     } else {
                         // Otherwise, just show the dialog and return to the AssistantMapActivity.
                         TaskNotification.showDialog(activity, TASK_COMPLETE_ASSISTANT_TITLE,
                                 TASK_COMPLETE_ASSISTANT_TITLE,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // User touched the dialog's positive button
-                                        activity.startActivity(new Intent(activity,
-                                                AssistantMapActivity.class));
-                                        activity.finish();
-                                    }
+                                (dialog, which) -> {
+                                    // User touched the dialog's positive button
+                                    activity.startActivity(new Intent(activity,
+                                            AssistantMapActivity.class));
+                                    activity.finish();
                                 });
                     }
 
@@ -228,19 +223,26 @@ public class TaskNotification extends DialogFragment {
                         dataSnapshot.getKey().toString().equals("status") &&
                         dataSnapshot.getValue(String.class).equals("COMPLETED")) {
 
-                    Context currentContext = activity;
-
                     String assistantID = ClientInfo.getTask().getAssistant();
                     String message = TASK_COMPLETE_REQUEST_MESSAGE + assistantID + "!";
                     TaskNotification.showDialog(activity, TASK_COMPLETE_REQUEST_TITLE, message,
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            // User touched the dialog's positive button
-                                            activity.startActivity(new Intent(currentContext,
-                                                    PaymentActivity.class));
-                                            activity.finish();
-                                        }
-                                    });
+                            (dialog, which) -> {
+                                // User touched the dialog's positive button
+                                activity.startActivity(new Intent(activity,
+                                        PaymentActivity.class));
+                                activity.finish();
+                            });
+                }
+                if (dataSnapshot != null &&
+                        dataSnapshot.getValue(String.class) != null &&
+                        dataSnapshot.getKey().toString().equals("lastPhase") &&
+                        dataSnapshot.getValue(String.class).equals("true")) {
+
+                    String assistantID = ClientInfo.getTask().getAssistant();
+                    TaskNotification.showDialog(activity, TASK_PHASE_ONE_COMPLETE_TITLE,
+                            TASK_PHASE_ONE_COMPLETE_MESSAGE,
+                            (dialog, which) -> {
+                            });
                 }
             }
 
@@ -249,13 +251,11 @@ public class TaskNotification extends DialogFragment {
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getKey().toString().equals("title")) {
                     TaskNotification.showDialog(activity, TASK_CANCELLED_TITLE,
-                            TASK_CANCELLED_MESSAGE, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // User touched the dialog's positive button
-                                    activity.startActivity(new Intent(activity,
-                                            ApMapActivity.class));
-                                    activity.finish();
-                                }
+                            TASK_CANCELLED_MESSAGE, (dialog, which) -> {
+                                // User touched the dialog's positive button
+                                activity.startActivity(new Intent(activity,
+                                        ApMapActivity.class));
+                                activity.finish();
                             });
                     ClientInfo.setTask(null);
                 }

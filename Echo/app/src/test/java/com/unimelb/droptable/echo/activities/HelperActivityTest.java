@@ -44,7 +44,7 @@ public class HelperActivityTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         HelperActivity.setCurrentHelperText(null);
     }
 

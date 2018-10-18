@@ -9,8 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 
@@ -51,22 +49,19 @@ public class ChatActivityTest {
         Editable mockEdit = PowerMockito.mock(Editable.class);
         when(chatActivity.inputText.getText()).thenReturn(mockEdit);
         when(chatActivity.inputText.getText().toString()).thenReturn(TEST_MESSAGE);
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                setTextNull++;
-                return null;
-            };
+        Mockito.doAnswer(invocation -> {
+            setTextNull++;
+            return null;
         }).when(chatActivity.inputText).setText("");
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         setTextNull = 0;
     }
 
     @Test
-    public void testSendMessage() throws Exception {
+    public void testSendMessage() {
         // Test sending a message
         when(chatActivity.inputText.getText().toString()).thenReturn(TEST_MESSAGE);
         verify(chatActivity, times(0)).sendMessage();
@@ -77,7 +72,7 @@ public class ChatActivityTest {
     }
 
     @Test
-    public void testNullMessage() throws Exception {
+    public void testNullMessage() {
         when(chatActivity.inputText.getText().toString()).thenReturn("");
         verify(chatActivity, times(0)).sendMessage();
         assertEquals(setTextNull, 0);
