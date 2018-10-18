@@ -25,8 +25,8 @@ public class PaymentActivity extends AppCompatActivity {
     protected TextView paymentAmount;
     protected TextView userRating;
     protected TextView userName;
-    private String ratingText;
-    private RatingBar ratingBar;
+    protected String ratingText;
+    protected RatingBar ratingBar;
 
     protected ImmutableTask currentTask;
 
@@ -86,8 +86,8 @@ public class PaymentActivity extends AppCompatActivity {
         ClientInfo.updateTask();
         ImmutableTask task = ClientInfo.getTask();
 
-        FirebaseAdapter.updateUserRating(ClientInfo.getTask().getAssistant(), ratingBar.getRating());
-        FirebaseAdapter.completeTask(ClientInfo.getTask());
+        FirebaseAdapter.updateUserRating(task.getAssistant(), ratingBar.getRating());
+        FirebaseAdapter.completeTask(task);
 
         ClientInfo.setTask(null);
 

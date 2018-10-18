@@ -18,6 +18,7 @@ public class TaskAssistantDetails extends AppCompatActivity {
     protected TextView taskCurrentTitle;
     protected TextView taskCurrentAddress;
     protected TextView taskCurrentNotes;
+    protected TextView taskCurrentPaymentAmount;
     protected Button acceptButton;
     protected ImmutableTask task;
 

@@ -55,6 +55,7 @@ public class TaskAssistantDetailsTest {
     private static final String TEST_AP = "TEST_AP";
     private static final String TEST_USER = "TEST_USER";
     private static final String TEST_ID = "TEST_ID";
+    private static final String TEST_LAST_PHASE = "TEST_LAST_PHASE";
 
     @Before
     public void setUp() throws Exception {
@@ -87,6 +88,7 @@ public class TaskAssistantDetailsTest {
                 .status(TEST_STATUS)
                 .ap(TEST_AP)
                 .id(TEST_ID)
+                .lastPhase(TEST_LAST_PHASE)
                 .build();
         taskAssistantDetails.task = task;
     }
@@ -100,8 +102,8 @@ public class TaskAssistantDetailsTest {
         PowerMockito.verifyStatic(FirebaseAdapter.class,times(0));
         FirebaseAdapter.assignTask(TEST_USER, TEST_ID);
         verify(taskAssistantDetails,times(0)).startActivity(any());
-        verify(taskAssistantDetails, times(0)).finish();
 
+        // Execute
         taskAssistantDetails.onAccept();
 
         // Verify that static methods were called.
@@ -112,7 +114,6 @@ public class TaskAssistantDetailsTest {
         PowerMockito.verifyStatic(FirebaseAdapter.class, times(1));
         FirebaseAdapter.assignTask(TEST_USER, TEST_ID);
         verify(taskAssistantDetails,times(1)).startActivity(any());
-        verify(taskAssistantDetails, times(1)).finish();
 
     }
 }

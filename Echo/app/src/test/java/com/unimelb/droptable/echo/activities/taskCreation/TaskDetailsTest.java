@@ -21,12 +21,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ImmutableTask.Builder.class, TaskDetails.class})
+@PrepareForTest({ImmutableTask.Builder.class, TaskDetails.class, Utility.class})
 public class TaskDetailsTest {
 
-    private static String TEST_TITLE = "TESTA";
-    private static String TEST_ADDRESS = "TESTB";
-    private static String TEST_TASK_NOTES = "TESTB";
+    private static String TEST_TITLE = "TEST_A";
+    private static String TEST_TASK_NOTES = "TEST_B";
+    private static String TEST__PAYMENT_AMOUNT = "1000";
 
     private TaskDetails taskDetails;
     private Intent intentMock;
@@ -36,6 +36,9 @@ public class TaskDetailsTest {
         // Create mocks.
         taskDetails = Mockito.spy(TaskDetails.class);
         intentMock = Mockito.mock(Intent.class);
+
+        // Mock Utility
+        PowerMockito.mockStatic(Utility.class);
 
         // Define mock behaviors.
         PowerMockito.whenNew(Intent.class).withAnyArguments().thenReturn(intentMock);
@@ -49,10 +52,10 @@ public class TaskDetailsTest {
         // Mock input text.
         taskDetails.title = PowerMockito.mock(TextView.class);
         when(taskDetails.title.getText()).thenReturn(TEST_TITLE);
-//        taskDetails.address = PowerMockito.mock(PlaceAutocompleteFragment.class);
-//        when(taskDetails.address.getText()).thenReturn(TEST_ADDRESS); TODO: Fix.
         taskDetails.taskNotes = PowerMockito.mock(TextView.class);
         when(taskDetails.taskNotes.getText()).thenReturn(TEST_TASK_NOTES);
+        taskDetails.paymentAmount = PowerMockito.mock(TextView.class);
+        when(taskDetails.paymentAmount.getText()).thenReturn(TEST__PAYMENT_AMOUNT);
     }
 
     @After
@@ -65,10 +68,10 @@ public class TaskDetailsTest {
         // Verify prior.
         verify(Utility.currentTaskBuilder, times(0))
                 .title(TEST_TITLE);
-//        verify(Utility.currentTaskBuilder, times(0)) // TODO: Fix
-//                .address(TEST_ADDRESS);
         verify(Utility.currentTaskBuilder, times(0))
                 .notes(TEST_TASK_NOTES);
+        verify(Utility.currentTaskBuilder, times(0))
+                .paymentAmount(TEST__PAYMENT_AMOUNT);
         verify(taskDetails, times(0)).startActivity(intentMock);
 
         // Execute.
@@ -77,10 +80,10 @@ public class TaskDetailsTest {
         // Verify post.
         verify(Utility.currentTaskBuilder, times(1))
                 .title(TEST_TITLE);
-//        verify(Utility.currentTaskBuilder, times(1)) // TODO: Fix
-//                .address(TEST_ADDRESS);
         verify(Utility.currentTaskBuilder, times(1))
                 .notes(TEST_TASK_NOTES);
+        verify(Utility.currentTaskBuilder, times(1))
+                .paymentAmount(TEST__PAYMENT_AMOUNT);
         verify(taskDetails, times(1)).startActivity(intentMock);
         PowerMockito.verifyNew(Intent.class).withArguments(taskDetails, TaskConfirm.class);
     }
