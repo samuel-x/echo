@@ -30,7 +30,7 @@ import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 public class LoginActivity extends AppCompatActivity {
     private static final int MIN_USERNAME_LENGTH = 3;
     private static final int PHONENUMBER_LENGTH = 10;
-
+    private final int DEBUG = 0;
     private static String ASSISTANT_AP_STATUS_FAIL;
     private static String PHONE_FAIL;
     private static String NAME_FAIL;
@@ -143,7 +143,9 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<InstanceIdResult> task) {
                             if (!task.isSuccessful()) {
-                                Log.w("FCM", "getInstanceId failed", task.getException());
+                                if(DEBUG==1){
+                                    Log.w("FCM", "getInstanceId failed", task.getException());
+                                }
                                 return;
                             }
 

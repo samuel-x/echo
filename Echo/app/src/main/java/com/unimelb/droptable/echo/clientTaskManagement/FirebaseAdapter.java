@@ -41,6 +41,7 @@ public class FirebaseAdapter {
     protected static final String STATUS = "status";
     protected static final String RATING = "rating";
 
+
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference masterDbReference = database.getReference();
     public static DatabaseReference tasksDbReference = masterDbReference
@@ -54,6 +55,7 @@ public class FirebaseAdapter {
     public static DataSnapshot currentData;
 
     public static ValueEventListener listener = new ValueEventListener() {
+        private final int DEBUG = 0;
         @Override
         public void onDataChange(DataSnapshot snapshot) {
             FirebaseAdapter.currentData = snapshot;
@@ -61,7 +63,9 @@ public class FirebaseAdapter {
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
-            Log.d("Error:", "Error reading task from Database");
+            if(DEBUG==1) {
+                Log.d("Error:", "Error reading task from Database");
+            }
         }
     };
 

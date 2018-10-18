@@ -38,6 +38,8 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
 
     protected Button taskButton;
 
+    private final int DEBUG = 0;
+
     private FloatingActionButton helperButton;
     private FloatingActionButton accountButton;
 
@@ -187,10 +189,14 @@ public class ApMapActivity extends FragmentActivity implements OnMapReadyCallbac
                                 .title("Your Location")
                                 .icon(BitmapDescriptorFactory.defaultMarker(
                                         BitmapDescriptorFactory.HUE_AZURE)));
-                        Log.d("AP:", String.valueOf(ClientInfo.hasPartner()));
+                        if(DEBUG==1){
+                            Log.d("AP:", String.valueOf(ClientInfo.hasPartner()));
+                        }
                         if (ClientInfo.hasPartner()) {
                             LatLng assistant = FirebaseAdapter.getAssistantLocation();
-                            Log.d("AP:", assistant.toString());
+                            if(DEBUG==1) {
+                                Log.d("AP:", assistant.toString());
+                            }
                             mMap.addMarker(new MarkerOptions().position(assistant)
                                     .title(ClientInfo.getTask().getAssistant() + "'s Location")
                                     .icon(BitmapDescriptorFactory.defaultMarker(

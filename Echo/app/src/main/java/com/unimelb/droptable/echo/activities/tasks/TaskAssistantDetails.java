@@ -16,6 +16,8 @@ import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class TaskAssistantDetails extends AppCompatActivity {
 
+    private final int DEBUG = 0;
+
     private TextView taskCurrentTitle;
     private TextView taskCurrentAddress;
     private TextView taskCurrentNotes;
@@ -43,7 +45,10 @@ public class TaskAssistantDetails extends AppCompatActivity {
         setAddress(task.getAddress());
         setNotes(task.getNotes());
         setPaymentAmount(task.getPaymentAmount());
-        Log.d("Bind:", "what the heck");
+        if (DEBUG==1){
+            Log.d("Bind:", "onStartDebugLinePrinted");
+        }
+
     }
 
     private void setTitle(@Nullable String title) {
@@ -66,7 +71,6 @@ public class TaskAssistantDetails extends AppCompatActivity {
         ClientInfo.setTask(task);
         FirebaseAdapter.assignTask(ClientInfo.getUsername(), task.getId());
         startActivity(new Intent(this, AssistantMapActivity.class));
-        finish();
     }
 }
 

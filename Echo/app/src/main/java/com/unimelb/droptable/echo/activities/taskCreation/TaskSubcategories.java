@@ -10,7 +10,7 @@ import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.Utility;
 
 public class TaskSubcategories extends AppCompatActivity {
-
+    private final int DEBUG = 0;
     // Grab UI references
     protected Button subcategoryA;
     protected Button subcategoryB;
@@ -25,7 +25,9 @@ public class TaskSubcategories extends AppCompatActivity {
         subcategoryB = findViewById(R.id.buttonTaskSubcategoryB);
 
         if (!getIntent().hasExtra("category")) {
-            Log.d("Warning", "Missing key 'category'");
+            if(DEBUG==1){
+                Log.d("Warning", "Missing key 'category'");
+            }
         }
         else if (getIntent().getExtras().getString("category").equals("Household")) {
             subcategoryA.setText("Cooking");

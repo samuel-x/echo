@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class FirebaseNotificationsAdapter {
+
     public static FirebaseMessaging fm = FirebaseMessaging.getInstance();
 
 //    public static void sendMessage(String recipientID, String senderID, String message) {
@@ -20,11 +21,15 @@ public class FirebaseNotificationsAdapter {
 //    }
 
     public static void sendAssistantCompleteMessage(ImmutableTask task) {
+        final int DEBUG = 0;
         String recipient = FirebaseAdapter.getUserRegistration(task.getAssistant());
         String sender = FirebaseAdapter.getUserRegistration(task.getAp());
         String message = "Task " + task.getTitle() + " has been completed!";
-        Log.d("MESSAGING: ", "Recipient ID: " + recipient);
-        Log.d("MESSAGING: ", "Sender ID: " + sender);
-//        sendMessage(recipient, sender, message);
+        if(DEBUG==1){
+            Log.d("MESSAGING: ", "Recipient ID: " + recipient);
+
+            Log.d("MESSAGING: ", "Sender ID: " + sender);
+        }
+        //sendMessage(recipient, sender, message);
     }
 }

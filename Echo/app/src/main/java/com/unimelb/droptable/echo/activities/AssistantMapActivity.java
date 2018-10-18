@@ -38,6 +38,8 @@ import java.util.List;
 
 public class AssistantMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    public final int DEBUG = 0;
+
     private GoogleMap mMap;
 
     public Button taskButton;
@@ -136,7 +138,10 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-            Log.d("Task", "updating phase");
+            if(DEBUG==1){
+                Log.d("Task", "updating phase");
+            }
+
             return;
         }
 
@@ -325,7 +330,10 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     private void checkStatus() {
         ClientInfo.updateTask();
 
-        Log.d("task:", ClientInfo.getTask().toString());
+        if(DEBUG==1){
+            Log.d("task:", ClientInfo.getTask().toString());
+        }
+
 
         LatLng startLL = ClientInfo.getCurrentLocationAsLatLng();
 
@@ -347,7 +355,9 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
             if (Utility.distance(startLL, midStop) < 100.0) {
                 completeTaskButton.setText(fstInstruction);
                 enableCompleteTask();
-                Log.d("Assistant", "Check Status");
+                if (DEBUG==1){
+                    Log.d("Assistant", "Check Status");
+                }
             }
             else {
                 disableCompleteTask();
