@@ -67,8 +67,6 @@ public class TaskAssistantDetailsTest {
         PowerMockito.doReturn(TEST_USER).when(ClientInfo.class);
         ClientInfo.getUsername();
 
-
-
         //Mock Firebase
         PowerMockito.mockStatic(FirebaseAdapter.class);
 
@@ -114,6 +112,5 @@ public class TaskAssistantDetailsTest {
         PowerMockito.verifyStatic(FirebaseAdapter.class, times(1));
         FirebaseAdapter.assignTask(TEST_USER, TEST_ID);
         verify(taskAssistantDetails,times(1)).startActivity(any());
-
     }
 }

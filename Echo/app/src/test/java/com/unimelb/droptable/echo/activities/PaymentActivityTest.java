@@ -67,8 +67,6 @@ public class PaymentActivityTest {
         PowerMockito.doReturn(task).when(ClientInfo.class);
         ClientInfo.getTask();
 
-
-
         // Define mock behaviors.
         Mockito.doNothing().when(paymentActivity).onCreate(any(Bundle.class));
         Mockito.doNothing().when(paymentActivity).setContentView(any(int.class));

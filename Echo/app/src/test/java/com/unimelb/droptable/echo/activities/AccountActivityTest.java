@@ -32,6 +32,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static android.provider.Settings.Global.getString;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -54,11 +55,6 @@ public class AccountActivityTest {
     private static final Boolean IS_ASSITANT = true;
     private static final Boolean IS_AP = false;
 
-    private static int testClientInfoRatingCounter = 0;
-    private static int testClientInfoUsernameCounter = 0;
-    private static int testClientInfoPhoneNumberCounter = 0;
-    private static int testClientInfoAssistantCounter = 0;
-
     @Before
     public void setUp() throws Exception {
         accountActivity = Mockito.spy(AccountActivity.class);
@@ -77,33 +73,33 @@ public class AccountActivityTest {
         PowerMockito.doReturn(TEST_RATING).when(ClientInfo.class);
         ClientInfo.getRating();
 
-
         //Mock Behaviours
         Mockito.doNothing().when(accountActivity).onCreate(any(Bundle.class));
-        Mockito.doNothing().when(accountActivity).setContentView(any(int.class));
+        Mockito.doNothing().when(accountActivity).setContentView(anyInt());
         PowerMockito.whenNew(Intent.class).withAnyArguments().thenReturn(intentMock);
         when(intentMock.putExtra(any(String.class), any(String.class))).thenReturn(intentMock);
-
-
     }
 
+    @After
     public void tearDown() throws Exception {
         ClientInfo.resetClientInfo();
     }
 
+    /** Tests if the UI is correctly updated as an Assistant */
     @Test
-    public void updateUIAssistant(){
+    public void testUpdateUIasAssistant(){
         //Make the isAssistant variable true
         PowerMockito.doReturn(IS_ASSITANT).when(ClientInfo.class);
         ClientInfo.isAssistant();
 
+        // Verify prior.
         PowerMockito.verifyStatic(ClientInfo.class, times(0));
         ClientInfo.getUsername();
         PowerMockito.verifyStatic(ClientInfo.class, times(0));
         ClientInfo.getPhoneNumber();
         PowerMockito.verifyStatic(ClientInfo.class, times(0));
         ClientInfo.isAssistant();
-        PowerMockito.verifyStatic(ClientInfo.class, times(testClientInfoRatingCounter));
+        PowerMockito.verifyStatic(ClientInfo.class, times(0));
         ClientInfo.getRating();
         verify(accountActivity.username, times(0)).setText(TEST_USER);
         verify(accountActivity.phone,times(0)).setText(TEST_PHONENUMBER);
@@ -111,8 +107,10 @@ public class AccountActivityTest {
         verify(accountActivity.isAssistantText, times(0)).setEnabled(true);
         verify(accountActivity.ratingBar,times(0)).setEnabled(true);
 
+        //Execute
         accountActivity.updateUI();
 
+        //Verify post
         PowerMockito.verifyStatic(ClientInfo.class, times(1));
         ClientInfo.getUsername();
         PowerMockito.verifyStatic(ClientInfo.class, times(1));
@@ -126,16 +124,16 @@ public class AccountActivityTest {
         verify(accountActivity.ratingBar, times(1)).setRating(TEST_RATING);
         verify(accountActivity.isAssistantText, times(1)).setEnabled(true);
         verify(accountActivity.ratingBar,times(1)).setEnabled(true);
-
-
     }
 
+    /** Tests if the UI is correctly updated as an AP */
     @Test
-    public void updateUIAP(){
+    public void testUpdateUIasAP(){
         //Make the isAssistant variable true
         PowerMockito.doReturn(IS_AP).when(ClientInfo.class);
         ClientInfo.isAssistant();
 
+        //Verify Prior
         PowerMockito.verifyStatic(ClientInfo.class, times(0));
         ClientInfo.getUsername();
         PowerMockito.verifyStatic(ClientInfo.class, times(0));
@@ -148,8 +146,11 @@ public class AccountActivityTest {
         verify(accountActivity.isAssistantText, times(0)).setAlpha(0.0f);
         verify(accountActivity.ratingBar, times(0)).setEnabled(false);
         verify(accountActivity.ratingBar,times(0)).setAlpha(0.0f);
+
+        //Execute
         accountActivity.updateUI();
 
+        //Verify Post
         PowerMockito.verifyStatic(ClientInfo.class, times(1));
         ClientInfo.getUsername();
         PowerMockito.verifyStatic(ClientInfo.class, times(1));
@@ -162,7 +163,5 @@ public class AccountActivityTest {
         verify(accountActivity.isAssistantText, times(1)).setAlpha(0.0f);
         verify(accountActivity.ratingBar, times(1)).setEnabled(false);
         verify(accountActivity.ratingBar,times(1)).setAlpha(0.0f);
-
-
     }
 }
