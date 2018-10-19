@@ -22,17 +22,11 @@ import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 public class TaskConfirm extends AppCompatActivity {
 
     // UI references
-    /** The Title. */
     protected TextView title;
-    /** The Address. */
     protected TextView address;
-    /** The Notes. */
     protected TextView notes;
-    /** The Payment amount. */
     protected TextView paymentAmount;
-    /** The Confirm button. */
     protected Button confirmButton;
-    /** The Task. */
     protected ImmutableTask task;
 
     /**

@@ -20,15 +20,10 @@ import com.unimelb.droptable.echo.Utility;
 public class TaskDetails extends AppCompatActivity {
 
     // UI references
-    /** The Title. */
     protected TextView title;
-    /** The Address. */
     protected PlaceAutocompleteFragment address;
-    /** The Task notes. */
     protected TextView taskNotes;
-    /** The Submit now button.*/
     protected Button submitNowButton;
-    /** The Payment amount. */
     protected TextView paymentAmount;
 
 

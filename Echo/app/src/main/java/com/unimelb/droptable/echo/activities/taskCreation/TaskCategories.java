@@ -13,16 +13,11 @@ import com.unimelb.droptable.echo.Utility;
  * The Activity for Task Categories.
  * Allows the AP to select the correct category for their task.
  */
-
-
 public class TaskCategories extends AppCompatActivity {
 
     //UI references
-    /** The Transport category button. */
     protected Button categoryTransportButton;
-    /** The Delivery category button. */
     protected Button categoryDeliveryButton;
-    /** The Household category button. */
     protected Button categoryHouseholdButton;
 
 
