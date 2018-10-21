@@ -277,7 +277,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
         if (FirebaseAdapter.getHomeAddress(ClientInfo.getTask().getAp()) == null) {
             return FirebaseAdapter.getLocation(ClientInfo.getTask().getAp());
         } else {
-            return FirebaseAdapter.getHomeAddress(ClientInfo.getTask().getAp();
+            return FirebaseAdapter.getHomeAddress(ClientInfo.getTask().getAp());
         }
     }
 

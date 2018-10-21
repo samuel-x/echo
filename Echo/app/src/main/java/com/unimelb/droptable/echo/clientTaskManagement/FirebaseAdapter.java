@@ -36,6 +36,9 @@ public class FirebaseAdapter {
     protected static final String TOKEN_ROOT = "tokens";
     protected static final String ASSISTANT = "assistant";
     protected static final String STATUS = "status";
+    protected static final String LATITUDE = "latitude";
+    protected static final String LONGITUDE = "longitude";
+    protected static final String LOCATION = "location";
     protected static final String RATING = "rating";
     protected static final String HOME = "home";
 
@@ -350,21 +353,25 @@ public class FirebaseAdapter {
 
     public static LatLng getAssistantLocation() {
         return new LatLng(
-                getUser(ClientInfo.getTask().getAssistant()).child("location")
-                        .child("latitude").getValue(double.class),
-                getUser(ClientInfo.getTask().getAssistant()).child("location")
-                        .child("longitude").getValue(double.class));
+                getUser(ClientInfo.getTask().getAssistant()).child(LOCATION)
+                        .child(LATITUDE).getValue(double.class),
+                getUser(ClientInfo.getTask().getAssistant()).child(LOCATION)
+                        .child(LONGITUDE).getValue(double.class));
     }
 
     public static LatLng getHomeAddress(String ap) {
-        return currentData.child(USERS_ROOT).child(ap).child(HOME).getValue(LatLng.class);
+        return new LatLng(
+                getUser(ap).child(HOME)
+                        .child(LATITUDE).getValue(double.class),
+                getUser(ap).child(HOME)
+                        .child(LONGITUDE).getValue(double.class));
     }
 
     public static LatLng getLocation(String user) {
         return new LatLng(
-                getUser(user).child("location")
-                        .child("latitude").getValue(double.class),
-                getUser(user).child("location")
-                        .child("longitude").getValue(double.class));
+                getUser(user).child(LOCATION)
+                        .child(LATITUDE).getValue(double.class),
+                getUser(user).child(LOCATION)
+                        .child(LONGITUDE).getValue(double.class));
     }
 }
