@@ -23,7 +23,6 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.Utility;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 /**
@@ -100,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                         status.getStatusMessage().toString(), Toast.LENGTH_LONG).show();
             }
         });
-        address.setText(getString(R.string.prompt_home_address));
+        address.setHint(getString(R.string.prompt_home_address));
     }
 
 

@@ -2,6 +2,7 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 
 import android.content.Intent;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
@@ -16,6 +17,7 @@ import org.powermock.core.classloader.annotations.SuppressStaticInitializationFo
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -25,7 +27,7 @@ import static org.mockito.Mockito.when;
 @SuppressStaticInitializationFor("com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter")
 public class TaskConfirmTest {
 
-    private static final String TEST_TITLE = "Test TEST_TITLE";
+    private static final String TEST_TITLE = "TEST_TITLE";
     private static final String TEST_ADDRESS = "TEST_ADDRESS";
     private static final String TEST_NOTES = "TEST_NOTES";
     private static final String TEST_STATUS = "TEST_STATUS";
@@ -74,6 +76,10 @@ public class TaskConfirmTest {
         PowerMockito.verifyStatic(FirebaseAdapter.class, times(0));
         FirebaseAdapter.pushTask(task);
         verify(taskConfirm, times(0)).finish();
+
+        // set home address to ignore dialog
+        when(FirebaseAdapter.getHomeAddress(anyString())).thenReturn(
+                new LatLng(0.0, 0.0));
 
         // Execute
         taskConfirm.confirmSubmit();

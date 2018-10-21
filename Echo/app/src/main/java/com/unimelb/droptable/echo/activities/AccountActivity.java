@@ -27,9 +27,6 @@ public class AccountActivity extends AppCompatActivity {
     protected TextView username;
     protected TextView phone;
     protected RatingBar ratingBar;
-    protected Button changeAddress;
-
-    protected PlaceAutocompleteFragment homeAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,50 +38,9 @@ public class AccountActivity extends AppCompatActivity {
         username = findViewById(R.id.textAccountUsername);
         phone = findViewById(R.id.textAccountPhoneNumber);
         ratingBar = findViewById(R.id.userRatingAccount);
-        changeAddress = findViewById(R.id.userChangeHomeAddress);
-        changeAddress.setOnClickListener(view -> onChangeAddress());
         ratingBar.setIsIndicator(true);
 
         updateUI();
-    }
-
-    private void onChangeAddress() {
-
-        android.app.AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new android.app.AlertDialog.Builder(this,
-                    android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new android.app.AlertDialog.Builder(this);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder.setView(R.layout.home_address)
-                    .setTitle("Change Address")
-                    .setMessage("Please select your address below.")
-                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                    })
-                    .show();
-            homeAddress = (PlaceAutocompleteFragment)
-                    getFragmentManager().findFragmentById(R.id.textHomeAddressModifyDialog);
-
-            homeAddress.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    // Assign their home.
-                    FirebaseAdapter.updateHomeAddress(ClientInfo.getUsername(), place);
-                    return;
-                }
-
-                @Override
-                public void onError(Status status) {
-                    Toast.makeText(AccountActivity.this,
-                            status.getStatusMessage().toString(), Toast.LENGTH_LONG).show();
-                }
-            });
-        } else {
-            builder.setTitle("Error").setMessage("Your version of android is too low. " +
-                    "Please update your phone.");
-        }
     }
 
     @Override
@@ -120,15 +76,12 @@ public class AccountActivity extends AppCompatActivity {
             ratingBar.setRating(ClientInfo.getRating());
             isAssistantText.setEnabled(true);
             ratingBar.setEnabled(true);
-            changeAddress.setEnabled(false);
-            changeAddress.setAlpha(0.0f);
         }
         else {
             isAssistantText.setEnabled(false);
             isAssistantText.setAlpha(0.0f);
             ratingBar.setEnabled(false);
             ratingBar.setAlpha(0.0f);
-            changeAddress.setEnabled(true);
         }
     }
 

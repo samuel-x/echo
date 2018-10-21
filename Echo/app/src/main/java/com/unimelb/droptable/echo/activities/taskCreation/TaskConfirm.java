@@ -14,11 +14,10 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.AccountActivity;
+import com.unimelb.droptable.echo.Utility;
 import com.unimelb.droptable.echo.activities.ApMapActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
-import com.unimelb.droptable.echo.Utility;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
@@ -28,6 +27,8 @@ import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
  */
 public class TaskConfirm extends AppCompatActivity {
 
+    private static final String ERROR_MESSAGE = "Error attempting to show dialog. Please update" +
+            "your android device.";
     // UI references
     protected TextView title;
     protected TextView address;
@@ -122,9 +123,6 @@ public class TaskConfirm extends AppCompatActivity {
                                 status.getStatusMessage().toString(), Toast.LENGTH_LONG).show();
                     }
                 });
-            } else {
-                builder.setTitle("Error").setMessage("Your version of android is too low. " +
-                        "Please update your phone.");
             }
         }
 
