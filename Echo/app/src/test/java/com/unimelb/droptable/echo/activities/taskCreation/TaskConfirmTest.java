@@ -49,8 +49,6 @@ public class TaskConfirmTest {
 
         // Mock FirebaseAdapter.
         PowerMockito.mockStatic(FirebaseAdapter.class);
-        PowerMockito.doReturn(HttpURLConnection.HTTP_OK).when(FirebaseAdapter.class);
-        FirebaseAdapter.pushTask(task);
 
         // Define mock behaviors.
         PowerMockito.whenNew(Intent.class).withAnyArguments().thenReturn(intentMock);
@@ -72,14 +70,17 @@ public class TaskConfirmTest {
 
     @Test
     public void confirmSubmit() {
+        // Verify post.
         PowerMockito.verifyStatic(ClientInfo.class, times(0));
         ClientInfo.setTask(task);
         PowerMockito.verifyStatic(FirebaseAdapter.class, times(0));
         FirebaseAdapter.pushTask(task);
         verify(taskConfirm, times(0)).finish();
+
+        // Execute
         taskConfirm.confirmSubmit();
 
-        // Verify that static methods were called.
+        // Verify post.
         PowerMockito.verifyStatic(ClientInfo.class, times(1));
         ClientInfo.setTask(task);
         PowerMockito.verifyStatic(FirebaseAdapter.class, times(1));

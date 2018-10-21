@@ -474,9 +474,9 @@ public class FirebaseAdapterTest {
         final String TEST_ID = "TEST_ID";
 
         // Prepare test.
-        PowerMockito.doReturn(0).when(FirebaseAdapter.class);
+        PowerMockito.doNothing().when(FirebaseAdapter.class);
         FirebaseAdapter.updateTaskStatus("ACCEPTED", TEST_ID);
-        PowerMockito.doReturn(0).when(FirebaseAdapter.class);
+        PowerMockito.doNothing().when(FirebaseAdapter.class);
         FirebaseAdapter.updateTaskAssistant(TEST_ASSISTANT, TEST_ID);
         PowerMockito.doNothing().when(FirebaseAdapter.class);
         FirebaseAdapter.updateAssistantTask(TEST_ASSISTANT, TEST_ID);

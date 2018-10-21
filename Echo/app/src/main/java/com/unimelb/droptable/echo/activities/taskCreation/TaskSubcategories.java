@@ -3,6 +3,7 @@ package com.unimelb.droptable.echo.activities.taskCreation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 
 import com.unimelb.droptable.echo.R;
@@ -35,8 +36,7 @@ public class TaskSubcategories extends AppCompatActivity {
 
         //Determines what the category selected was and what it's subcategories are
         if (!getIntent().hasExtra("category")) {
-            // If no Intent is given to the activity an error occurs
-            throw new RuntimeException("Missing key 'category'");
+            Log.d("Error", "Missing key 'category'");
         }
         else if (getIntent().getExtras().getString("category").equals("Household")) {
             subcategoryA.setText("Cooking");

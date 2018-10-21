@@ -15,12 +15,12 @@ import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 public class TaskAssistantDetails extends AppCompatActivity {
 
-    private TextView taskCurrentTitle;
-    private TextView taskCurrentAddress;
-    private TextView taskCurrentNotes;
-    private TextView taskCurrentPaymentAmount;
-    private Button acceptButton;
-    private ImmutableTask task;
+    protected TextView taskCurrentTitle;
+    protected TextView taskCurrentAddress;
+    protected TextView taskCurrentNotes;
+    protected TextView taskCurrentPaymentAmount;
+    protected Button acceptButton;
+    protected ImmutableTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +60,9 @@ public class TaskAssistantDetails extends AppCompatActivity {
         taskCurrentAddress.setText(address);
     }
 
-    private void onAccept() {
+    protected void onAccept() {
         ClientInfo.setTask(task);
         FirebaseAdapter.assignTask(ClientInfo.getUsername(), task.getId());
         startActivity(new Intent(this, AssistantMapActivity.class));
     }
 }
-

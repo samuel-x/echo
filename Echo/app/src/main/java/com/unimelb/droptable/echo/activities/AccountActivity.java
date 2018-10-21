@@ -12,11 +12,11 @@ import com.unimelb.droptable.echo.activities.tasks.uiElements.TaskNotification;
 
 public class AccountActivity extends AppCompatActivity {
 
-    private ImageView avatar;
-    private TextView isAssistantText;
-    private TextView username;
-    private TextView phone;
-    private RatingBar ratingBar;
+    protected ImageView avatar;
+    protected TextView isAssistantText;
+    protected TextView username;
+    protected TextView phone;
+    protected RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class AccountActivity extends AppCompatActivity {
 //        }
     }
 
-    private void updateUI() {
+    protected void updateUI() {
         username.setText(ClientInfo.getUsername());
         phone.setText(ClientInfo.getPhoneNumber());
         if (ClientInfo.isAssistant()) {

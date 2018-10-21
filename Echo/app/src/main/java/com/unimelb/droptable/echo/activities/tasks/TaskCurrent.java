@@ -143,7 +143,7 @@ public class TaskCurrent extends AppCompatActivity {
         taskCurrentTitle.setText(title);
     }
 
-    private void setNotes(@Nullable String notes) {
+    protected void setNotes(@Nullable String notes) {
         taskCurrentNotes.setText(notes);
     }
 
@@ -152,7 +152,7 @@ public class TaskCurrent extends AppCompatActivity {
         taskCurrentPaymentAmount.setText(s1);
     }
 
-    private void setAddress(@Nullable String address) {
+    protected void setAddress(@Nullable String address) {
         taskCurrentAddress.setText(address);
     }
 
