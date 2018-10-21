@@ -28,23 +28,15 @@ public class ApMapActivityTest {
 
     private ApMapActivity apMapActivity;
 
-    private static final String TEST_TITLE = "Test TEST_TITLE";
-    private static final String TEST_ADDRESS = "TEST_ADDRESS";
-    private static final String TEST_NOTES = "TEST_NOTES";
-    private static final String TEST_STATUS = "TEST_STATUS";
-    private static final String TEST_AP = "TEST_AP";
-    private static final String TEST_ASSISTANT = "TEST_ASSISTANT";
-
     @Before
     public void setUp() {
         apMapActivity = mActivityRule.getActivity();
     }
 
     @Test
-    public void testTaskButtonTextOnTaskAssign() {
+    public void testTaskButtonTextWithoutTask() {
         assertTrue(apMapActivity.hasWindowFocus());
         assertEquals(apMapActivity.taskButton.getText().toString(), "New Task");
-        // TODO: Implement a full test for checking whether the text changes on task assignment
     }
 
     @Test

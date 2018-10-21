@@ -34,9 +34,8 @@ public class RatingActivity extends AppCompatActivity {
         ClientInfo.updateTask();
         ImmutableTask task = ClientInfo.getTask();
 
-        // TODO: Update Rating here (
-        FirebaseAdapter.updateUserRating(ClientInfo.getTask().getAssistant(), ratingBar.getRating());
-        FirebaseAdapter.completeTask(ClientInfo.getTask());
+        FirebaseAdapter.updateUserRating(task.getAssistant(), ratingBar.getRating());
+        FirebaseAdapter.completeTask(task);
 
         ClientInfo.setTask(null);
 

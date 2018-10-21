@@ -17,16 +17,6 @@ import com.unimelb.droptable.echo.Utility;
 
 public class FirebaseAdapter {
 
-    // TODO: Figure out a way to use the strings.xml resources here. Right now, it crashes if used.
-//    private final static String TASKS_ROOT = Resources.getSystem().getString(R.string.tasks_root);
-
-    //            = Resources.getSystem().getString(R.string.user_is_assistant);
-    //    private final static String IS_ASSISTANT
-//    private final static String TASK_ID = Resources.getSystem().getString(R.string.task_id);
-//    private final static String USERS_ROOT = Resources.getSystem().getString(R.string.users_root);
-//    private final static String MESSAGES_ROOT
-//            = Resources.getSystem().getString(R.string.messages_root);
-
     protected static final String TASKS_ROOT = "tasks";
     protected static final String MESSAGES_ROOT = "messages";
     protected static final String USERS_ROOT = "users";
@@ -35,12 +25,25 @@ public class FirebaseAdapter {
     protected static final String PHONE_NUMBER = "phoneNumber";
     protected static final String TOKEN_ROOT = "tokens";
     protected static final String ASSISTANT = "assistant";
-    protected static final String STATUS = "status";
+    protected static final String CATEGORY = "category";
+    protected static final String SUBCATEGORY = "subCategory";
+    protected static final String NOTES = "notes";
+    protected static final String AP = "ap";
+    protected static final String LAST_PHASE = "lastPhase";
     protected static final String LATITUDE = "latitude";
     protected static final String LONGITUDE = "longitude";
+    protected static final String TOKEN = "token";
     protected static final String LOCATION = "location";
+    protected static final String PAYMENT_AMOUNT = "paymentAmount";
+    protected static final String STATUS = "status";
     protected static final String RATING = "rating";
     protected static final String HOME = "home";
+    protected static final String ADDRESS = "address";
+    protected static final String PENDING = "PENDING";
+    protected static final String USER_PENDING = "USER_PENDING";
+    protected static final String ACCEPTED = "ACCEPTED";
+    protected static final String ID = "id";
+    protected static final String TITLE = "title";
 
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference masterDbReference = database.getReference();
@@ -64,7 +67,7 @@ public class FirebaseAdapter {
     };
 
     // Our base query for assistants
-    public final static Query mostRecentTasks = tasksDbReference.orderByChild("status").equalTo("PENDING");
+    public final static Query mostRecentTasks = tasksDbReference.orderByChild(STATUS).equalTo(PENDING);
 
     public FirebaseAdapter(DatabaseReference testDatabase, DataSnapshot testSnapshot) {
         // Constructor for the test
@@ -77,22 +80,20 @@ public class FirebaseAdapter {
 
     /**
      * Pushes a task to the database and assigns it to the current user
-     * @param task
-     * @return
+     * @param task the task to push
      */
     public static void pushTask(ImmutableTask task) {
         DatabaseReference pushTask = tasksDbReference.push();
         pushTask.setValue(task);
-        pushTask.child("id").setValue(pushTask.getKey());
+        pushTask.child(ID).setValue(pushTask.getKey());
 
         usersDbReference.child(ClientInfo.getUsername()).child(TASK_ID).setValue(pushTask.getKey());
     }
 
     /**
      * Compares the specified task to the task on Firebase and updates changes accordingly
-     * @param task
-     * @param id
-     * @return
+     * @param task the new task
+     * @param id the id of the task to update
      */
     public static void updateTask(ImmutableTask task, String id) {
         DatabaseReference push = tasksDbReference.child(id);
@@ -101,18 +102,16 @@ public class FirebaseAdapter {
 
     /**
      * Updates the status of a task
-     * @return
      */
     public static void updateTaskStatus(String newStatus, String id) {
-        tasksDbReference.child(id).child("status").setValue(newStatus);
+        tasksDbReference.child(id).child(STATUS).setValue(newStatus);
     }
 
     /**
      * Updates the assistant id of a task
-     * @return
      */
     public static void updateTaskAssistant(String newAssistant, String id) {
-        tasksDbReference.child(id).child("assistant").setValue(newAssistant);
+        tasksDbReference.child(id).child(ASSISTANT).setValue(newAssistant);
     }
 
     /**
@@ -133,18 +132,28 @@ public class FirebaseAdapter {
 
     /**
      * This returns a DataSnapshot of the user
-     * @return
+     * @return a datasnapshot with the user
      */
     public static DataSnapshot getUser(String user) {
         return currentData.child(USERS_ROOT).child(user);
     }
 
+    /**
+     * Checks if the given user exists in Firebase
+     * @param username the name of the user
+     * @return a boolean to reflect if the user does indeed exist
+     */
     public static boolean userExists(String username) {
         return currentData
                 .child(USERS_ROOT)
                 .hasChild(username);
     }
 
+    /**
+     * Checks if the given user is an assistant
+     * @param username the username to check
+     * @return a Boolean to reflect if the user is indeed an assistant
+     */
     public static Boolean isAssistant(String username) {
         if (!userExists(username)) {
             return null;
@@ -157,29 +166,62 @@ public class FirebaseAdapter {
                 .getValue(Boolean.class);
     }
 
+    /**
+     * Pushes a user to the Firebase database.
+     * @param username The name of the user
+     * @param phoneNumber The phone number of the user
+     * @param isAssistant Whether or not the user is an assistant
+     */
     public static void pushUser(String username, String phoneNumber, boolean isAssistant) {
         usersDbReference.child(username).child(IS_ASSISTANT).setValue(isAssistant);
         usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
     }
 
+    /**
+     * Updates a user's home address
+     * @param username
+     * @param address
+     */
+    public static void updateHomeAddress(String username, Place address) {
+        usersDbReference.child(username).child(HOME).setValue(address.getLatLng());
+    }
+
+    /**
+     * Pushes a user to the Firebase database.
+     * @param username The name of the user
+     * @param phoneNumber The phone number of the user
+     * @param isAssistant Whether or not the user is an assistant
+     * @param address The Place of the user's home address
+     */
     public static void pushUser(String username, String phoneNumber, boolean isAssistant, Place address) {
         usersDbReference.child(username).child(IS_ASSISTANT).setValue(isAssistant);
         usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
         usersDbReference.child(username).child(HOME).setValue(address.getLatLng());
     }
 
-    public static void updateHomeAddress(String username, Place address) {
-        usersDbReference.child(username).child(HOME).setValue(address.getLatLng());
-    }
-
+    /**
+     * Pushes a new user rating to the given user
+     * @param username The user name of the user
+     * @param rating The new rating
+     */
     public static void updateUserRating(String username, float rating) {
         usersDbReference.child(username).child(RATING).setValue(rating);
     }
 
+    /**
+     * Gets the rating of a given user
+     * @param username The name of the suer
+     * @return The rating of the user
+     */
     public static float getUserRating(String username) {
         return getUser(username).child(RATING).getValue(float.class);
     }
 
+    /**
+     * Returns the phone number of the given user
+     * @param username The name of the user
+     * @return The phone number of the user
+     */
     public static String getPhoneNumber(String username) {
         if (!currentData.child(USERS_ROOT).hasChild(username)) {
             return null;
@@ -196,28 +238,32 @@ public class FirebaseAdapter {
                 .getValue(String.class);
     }
 
+    /**
+     * Gets a task object from the database
+     * @param id The id of the task to get
+     * @return The requested task
+     */
     public static ImmutableTask getTask(String id) {
         DataSnapshot taskRef = currentData.child(TASKS_ROOT).child(id);
 
-        // TODO: Change the strings here for ImmutableTask to use strings.xml.
-        String title = taskRef.child("title").getValue(String.class);
+        String title = taskRef.child(TITLE).getValue(String.class);
 
         if (title == null) {
             // This task does not exist, so return null.
             return null;
         }
 
-        String address = taskRef.child("address").getValue(String.class);
-        String category = taskRef.child("category").getValue(String.class);
-        String subCategory = taskRef.child("subCategory").getValue(String.class);
-        String notes = taskRef.child("notes").getValue(String.class);
-        String status = taskRef.child("status").getValue(String.class);
-        String ap = taskRef.child("ap").getValue(String.class);
-        String assistant = taskRef.child("assistant").getValue(String.class);
-        String paymentAmount = taskRef.child("paymentAmount").getValue(String.class);
-        String latitude = taskRef.child("latitude").getValue(String.class);
-        String longitude = taskRef.child("longitude").getValue(String.class);
-        String lastPhase = taskRef.child("lastPhase").getValue(String.class);
+        String address = taskRef.child(ADDRESS).getValue(String.class);
+        String category = taskRef.child(CATEGORY).getValue(String.class);
+        String subCategory = taskRef.child(SUBCATEGORY).getValue(String.class);
+        String notes = taskRef.child(NOTES).getValue(String.class);
+        String status = taskRef.child(STATUS).getValue(String.class);
+        String ap = taskRef.child(AP).getValue(String.class);
+        String assistant = taskRef.child(ASSISTANT).getValue(String.class);
+        String paymentAmount = taskRef.child(PAYMENT_AMOUNT).getValue(String.class);
+        String latitude = taskRef.child(LATITUDE).getValue(String.class);
+        String longitude = taskRef.child(LONGITUDE).getValue(String.class);
+        String lastPhase = taskRef.child(LAST_PHASE).getValue(String.class);
 
 
         return ImmutableTask.builder()
@@ -237,7 +283,8 @@ public class FirebaseAdapter {
     }
 
     /**
-     * Get current user's task once (if they have one)
+     * Get the user's current task (if they have one)
+     * @return The user's task
      */
     public static ImmutableTask getCurrentTask() {
         String currentTaskId = getCurrentTaskID();
@@ -283,36 +330,64 @@ public class FirebaseAdapter {
         return messagesDbReference.child(id);
     }
 
+    /**
+     * Makes the data base go offline, removing listeners.
+     */
     public static void goOffline() {
         masterDbReference.removeEventListener(FirebaseAdapter.listener);
         masterDbReference.removeEventListener(FirebaseAdapter.listener);
         database.goOffline();
     }
 
+    /**
+     * Adds listeners, making the database go online.
+     */
     public static void goOnline() {
         masterDbReference.addListenerForSingleValueEvent(FirebaseAdapter.listener);
         masterDbReference.addValueEventListener(FirebaseAdapter.listener);
     }
 
+    /**
+     * Pushes a message to Firebase.
+     * @param message The message
+     */
     public static void pushMessage(ChatMessage message) {
         messagesDbReference.child(Utility.generateUserChatId(message.getSender(),
                 message.getReceiver())).push().setValue(message);
     }
 
+    /**
+     * Assigns a task of the given id to the given assistant
+     * @param assistant The assistant to be assigned
+     * @param id The id of the task to assign
+     */
     public static void assignTask(String assistant, String id) {
-        updateTaskStatus("ACCEPTED", id);
+        updateTaskStatus(ACCEPTED, id);
         updateTaskAssistant(assistant, id);
         updateAssistantTask(assistant, id);
     }
 
+    /**
+     * Sets the task id of the given assistant
+     * @param assistant The assistant to set the task id for
+     * @param id The id of the task
+     */
     protected static void updateAssistantTask(String assistant, String id) {
-        usersDbReference.child(assistant).child("taskID").setValue(id);
+        usersDbReference.child(assistant).child(TASK_ID).setValue(id);
     }
 
-    public static void updatePhase(String assistant) {
-        tasksDbReference.child(getCurrentTaskID()).child("lastPhase").setValue("true");
+    /**
+     * If there is a 2-phase task, this will go to the last phase.
+     */
+    public static void updatePhase() {
+        tasksDbReference.child(getCurrentTaskID()).child(LAST_PHASE).setValue(Boolean.toString(true));
     }
 
+    /**
+     * Completes the given task. This removes it from the data base, as well as references to its
+     * id for the assistant and AP.
+     * @param task The task to complete
+     */
     public static void completeTask(ImmutableTask task) {
         currentData.child(TASKS_ROOT).child(task.getId()).getRef().removeValue();
         currentData.child(USERS_ROOT).child(task.getAssistant()).child(TASK_ID).getRef().removeValue();
@@ -321,36 +396,44 @@ public class FirebaseAdapter {
 
     /**
      * Updates the server with a user's token
-     * @param token
+     * @param token The token of the user
      */
     public static void sendRegistrationToServer(String token) {
-        masterDbReference.child(TOKEN_ROOT).child(token).setValue("USER_PENDING");
+        masterDbReference.child(TOKEN_ROOT).child(token).setValue(USER_PENDING);
     }
 
     /**
      * Assigns a user's token for notifications
-     * @param token
-     * @param user
+     * @param token The token of the user
+     * @param user The name of the user
      */
     public static void updateRegistrationToServer(String token, String user) {
-        masterDbReference.child(USERS_ROOT).child(user).child("token").setValue(token);
+        masterDbReference.child(USERS_ROOT).child(user).child(TOKEN).setValue(token);
         masterDbReference.child(TOKEN_ROOT).child(token).setValue(user);
     }
 
     /**
-     * Assigns a token to a user
-     * @param user
-     * @return
+     * Gets a user's token
+     * @param user The name of the user
+     * @return The token of the user
      */
     public static String getUserRegistration(String user) {
-        return getUser(user).child("token").getValue(String.class);
+        return getUser(user).child(TOKEN).getValue(String.class);
     }
 
+    /**
+     * Pushes the user's lat long to the Firebase.
+     * @param location The location of the user
+     */
     public static void updateLocationOfUser(Location location) {
         LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-        usersDbReference.child(ClientInfo.getUsername()).child("location").setValue(loc);
+        usersDbReference.child(ClientInfo.getUsername()).child(LOCATION).setValue(loc);
     }
 
+    /**
+     * Gets the location of the assistant
+     * @return The lat long of the assitant
+     */
     public static LatLng getAssistantLocation() {
         return new LatLng(
                 getUser(ClientInfo.getTask().getAssistant()).child(LOCATION)
@@ -359,6 +442,10 @@ public class FirebaseAdapter {
                         .child(LONGITUDE).getValue(double.class));
     }
 
+    /**
+     * Gets the home address of the specified user
+     * @return The lat long of the user's home
+     */
     public static LatLng getHomeAddress(String ap) {
         return new LatLng(
                 getUser(ap).child(HOME)
@@ -367,6 +454,10 @@ public class FirebaseAdapter {
                         .child(LONGITUDE).getValue(double.class));
     }
 
+    /**
+     * Gets the current location of the specified user
+     * @return The lat long of the user
+     */
     public static LatLng getLocation(String user) {
         return new LatLng(
                 getUser(user).child(LOCATION)

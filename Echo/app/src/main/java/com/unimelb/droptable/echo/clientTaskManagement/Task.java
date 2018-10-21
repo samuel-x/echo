@@ -5,6 +5,12 @@ import android.support.annotation.Nullable;
 import org.immutables.serial.Serial;
 import org.immutables.value.Value;
 
+/**
+ * This where we define our Task object, or "ImmutableTask". We're using a library called
+ * Immutables, which allows us to define an interface such as this, annotate it with
+ * @Value.Immutable, and it will auto generate a fully functional object for us. In this case,
+ * ImmutableTask.
+ */
 @Value.Immutable
 @Serial.Structural
 public interface Task {
