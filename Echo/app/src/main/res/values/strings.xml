@@ -93,5 +93,8 @@
 
     <!--Payment-->
     <string name = "title"> Payment Summary </string>
+    <string name="prompt_home_address">Home Address (Optional)</string>
+    <string name="prompt_home_address_change">Please enter your new home address:</string>
+    <string name="change_address">Change Address</string>
 
 </resources>

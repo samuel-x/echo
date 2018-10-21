@@ -3,6 +3,7 @@ package com.unimelb.droptable.echo.clientTaskManagement;
 
 import android.location.Location;
 
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +37,7 @@ public class FirebaseAdapter {
     protected static final String ASSISTANT = "assistant";
     protected static final String STATUS = "status";
     protected static final String RATING = "rating";
+    protected static final String HOME = "home";
 
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference masterDbReference = database.getReference();
@@ -157,10 +159,14 @@ public class FirebaseAdapter {
         usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
     }
 
-    public static void pushUser(String username, String phoneNumber, boolean isAssistant, float rating) {
+    public static void pushUser(String username, String phoneNumber, boolean isAssistant, Place address) {
         usersDbReference.child(username).child(IS_ASSISTANT).setValue(isAssistant);
         usersDbReference.child(username).child(PHONE_NUMBER).setValue(phoneNumber);
-        usersDbReference.child(username).child(RATING).setValue(rating);
+        usersDbReference.child(username).child(HOME).setValue(address.getLatLng());
+    }
+
+    public static void updateHomeAddress(String username, Place address) {
+        usersDbReference.child(username).child(HOME).setValue(address.getLatLng());
     }
 
     public static void updateUserRating(String username, float rating) {
@@ -347,6 +353,18 @@ public class FirebaseAdapter {
                 getUser(ClientInfo.getTask().getAssistant()).child("location")
                         .child("latitude").getValue(double.class),
                 getUser(ClientInfo.getTask().getAssistant()).child("location")
+                        .child("longitude").getValue(double.class));
+    }
+
+    public static LatLng getHomeAddress(String ap) {
+        return currentData.child(USERS_ROOT).child(ap).child(HOME).getValue(LatLng.class);
+    }
+
+    public static LatLng getLocation(String user) {
+        return new LatLng(
+                getUser(user).child("location")
+                        .child("latitude").getValue(double.class),
+                getUser(user).child("location")
                         .child("longitude").getValue(double.class));
     }
 }

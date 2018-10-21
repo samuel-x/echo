@@ -16,9 +16,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.Utility;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 
 /**
@@ -31,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private static String PHONE_FAIL;
     private static String NAME_FAIL;
     private static String SUCCESSFUL_LOGIN;
+    protected PlaceAutocompleteFragment address;
 
     // UI references.
     protected EditText usernameText;
@@ -41,10 +47,15 @@ public class LoginActivity extends AppCompatActivity {
     protected FloatingActionButton helperButton;
     protected View signInView;
 
+    private Place userHome;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // User has not selected their home
+        userHome = null;
 
         // Set up the login form.
         usernameText = findViewById(R.id.usernameText);
@@ -69,10 +80,31 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseAdapter.goOnline();
 
+        address = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.textHomeAddress);
+
         //Request for Location permissions
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+
+        address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // Assign their home.
+                userHome = place;
+            }
+
+            @Override
+            public void onError(Status status) {
+                Toast.makeText(LoginActivity.this,
+                        status.getStatusMessage().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+        address.setText(getString(R.string.prompt_home_address));
     }
+
+
+
 
     protected void onSignInClick() {
         try {
@@ -115,7 +147,13 @@ public class LoginActivity extends AppCompatActivity {
             throw new LoginError(ASSISTANT_AP_STATUS_FAIL);
         }
 
-        FirebaseAdapter.pushUser(username, phoneNumber, isAssistantCheckBox.isChecked());
+        if (userHome == null) {
+            FirebaseAdapter.pushUser(username, phoneNumber, isAssistantCheckBox.isChecked());
+        }
+        else {
+            FirebaseAdapter.pushUser(username, phoneNumber, isAssistantCheckBox.isChecked(),
+                    userHome);
+        }
         ClientInfo.setUsername(username);
         ClientInfo.setPhoneNumber(phoneNumber);
         ClientInfo.setIsAssistant(isAssistantCheckBox.isChecked());

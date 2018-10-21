@@ -273,12 +273,12 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     }
 
     private LatLng thirdStop(){
-
-        // TODO: NEED TO HAVE USERS STORE THEIR HOME LAT LONGS / CURRENT LOCATIONS
-
-        // placeholder is Arts West
-
-        return new LatLng(-37.7976, 144.9594);
+        // Return the AP's home. If they have no home address, try getting their current address.
+        if (FirebaseAdapter.getHomeAddress(ClientInfo.getTask().getAp()) == null) {
+            return FirebaseAdapter.getLocation(ClientInfo.getTask().getAp());
+        } else {
+            return FirebaseAdapter.getHomeAddress(ClientInfo.getTask().getAp();
+        }
     }
 
     private LocationCallback newCallBack() {

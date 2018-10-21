@@ -1,13 +1,20 @@
 package com.unimelb.droptable.echo.activities.taskCreation;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.unimelb.droptable.echo.ClientInfo;
 import com.unimelb.droptable.echo.R;
+import com.unimelb.droptable.echo.activities.AccountActivity;
 import com.unimelb.droptable.echo.activities.ApMapActivity;
 import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
@@ -28,6 +35,7 @@ public class TaskConfirm extends AppCompatActivity {
     protected TextView paymentAmount;
     protected Button confirmButton;
     protected ImmutableTask task;
+    protected PlaceAutocompleteFragment homeAddress;
 
     /**
      * {@inheritDoc}
@@ -80,6 +88,45 @@ public class TaskConfirm extends AppCompatActivity {
         // Submit and remember the task.
         ClientInfo.setTask(task);
         FirebaseAdapter.pushTask(task);
+
+        // Check we have a home address, if we don't, ask for one.
+        if (FirebaseAdapter.getHomeAddress(ClientInfo.getUsername()) == null) {
+            android.app.AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new android.app.AlertDialog.Builder(this,
+                        android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new android.app.AlertDialog.Builder(this);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder.setView(R.layout.home_address)
+                        .setTitle("Set an Address")
+                        .setMessage("Please set your home address below.")
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                        })
+                        .show();
+                homeAddress = (PlaceAutocompleteFragment)
+                        getFragmentManager().findFragmentById(R.id.textHomeAddressModifyDialog);
+
+                homeAddress.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                    @Override
+                    public void onPlaceSelected(Place place) {
+                        // Assign their home.
+                        FirebaseAdapter.updateHomeAddress(ClientInfo.getUsername(), place);
+                        return;
+                    }
+
+                    @Override
+                    public void onError(Status status) {
+                        Toast.makeText(TaskConfirm.this,
+                                status.getStatusMessage().toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } else {
+                builder.setTitle("Error").setMessage("Your version of android is too low. " +
+                        "Please update your phone.");
+            }
+        }
 
         // Go back to the map and end the activity.
         startActivity(new Intent(this, ApMapActivity.class).addFlags(FLAG_ACTIVITY_CLEAR_TOP));
