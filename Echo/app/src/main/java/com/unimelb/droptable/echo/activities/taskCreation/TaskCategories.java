@@ -9,19 +9,27 @@ import com.unimelb.droptable.echo.R;
 import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 import com.unimelb.droptable.echo.Utility;
 
+/**
+ * The Activity for Task Categories.
+ * Allows the AP to select the correct category for their task.
+ */
 public class TaskCategories extends AppCompatActivity {
 
-    // Grab UI references
-    private Button categoryTransportButton;
-    private Button categoryDeliveryButton;
-    private Button categoryHouseholdButton;
+    //UI references
+    protected Button categoryTransportButton;
+    protected Button categoryDeliveryButton;
+    protected Button categoryHouseholdButton;
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creation_category);
 
-        // Setup our buttons
+        // Setup the category buttons
         categoryTransportButton = findViewById(R.id.buttonTaskTransport);
         categoryDeliveryButton = findViewById(R.id.buttonTaskDelivery);
         categoryHouseholdButton = findViewById(R.id.buttonTaskHousehold);
@@ -35,16 +43,31 @@ public class TaskCategories extends AppCompatActivity {
         Utility.currentTaskBuilder = ImmutableTask.builder();
     }
 
+    /**
+     * Household task. <p>
+     * Called when categoryHouseholdButton is pressed. <p>
+     * Enters the subcategory selection activity for Household tasks.
+     */
     protected void householdTask() {
         Utility.currentTaskBuilder.category("Household");
         startActivity(new Intent(this, TaskSubcategories.class).putExtra("category", "Household"));
     }
 
+    /**
+     * Delivery task. <p>
+     * Called when categoryDeliveryButton is pressed. <p>
+     * Enters the subcategory selection activity for Delivery tasks.
+     */
     protected void deliveryTask() {
         Utility.currentTaskBuilder.category("Delivery");
         startActivity(new Intent(this, TaskSubcategories.class).putExtra("category", "Delivery"));
     }
 
+    /**
+     * Transport tasks. <p>
+     * Called when categoryDeliveryButton is pressed <p>
+     * Enters the subcategory selection activity for Delivery tasks.
+     */
     protected void transportTask() {
         Utility.currentTaskBuilder.category("Transport");
         startActivity(new Intent(this, TaskSubcategories.class).putExtra("category", "Transport"));
