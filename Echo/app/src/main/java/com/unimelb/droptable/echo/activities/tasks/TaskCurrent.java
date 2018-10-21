@@ -139,7 +139,7 @@ public class TaskCurrent extends AppCompatActivity {
         Log.d("Bind:", "Current Task UI AP");
     }
 
-    private void setTitle(@Nullable String title) {
+    protected void setTitle(@Nullable String title) {
         taskCurrentTitle.setText(title);
     }
 

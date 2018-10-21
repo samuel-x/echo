@@ -28,7 +28,6 @@ import java.util.Set;
 
 public class TaskNotification extends DialogFragment {
 
-    // TODO: Replace this with strings.xml
     public static final String TASK_ACCEPT_TITLE = "Task Accepted!";
     public static final String TASK_ACCEPT_MESSAGE = "Your task has been accepted by ";
     public static final String TASK_COMPLETE_REQUEST_TITLE = "Complete Task Request";

@@ -57,7 +57,9 @@
     <string name="home_help_text">
         This screen lets you do several things.\n
         If you\'ve not yet started a task, you can create one with the \'%s\' button at the bottom.\n
-        If you already have, you can press the \'%s\' button at the bottom to view its details.
+        If you already have, you can press the \'%s\' button at the bottom to view its details.\n
+        Your position will appear as a blue marker. If you have a task in progress and an assistant
+        helping you, they will have a green maker indicating their current position.
     </string>
     <string name="task_current_helper_text">
         This screen lets you view the current task that you have asked for assistance with.

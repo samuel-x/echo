@@ -1,36 +1,19 @@
 package com.unimelb.droptable.echo.activities;
 
 import android.accounts.Account;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.unimelb.droptable.echo.ClientInfo;
-import com.unimelb.droptable.echo.R;
-import com.unimelb.droptable.echo.activities.ChatActivity;
-import com.unimelb.droptable.echo.activities.RatingActivity;
-import com.unimelb.droptable.echo.clientTaskManagement.FirebaseAdapter;
-import com.unimelb.droptable.echo.clientTaskManagement.ImmutableTask;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-import static android.provider.Settings.Global.getString;
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
@@ -39,8 +22,6 @@ import static org.mockito.Mockito.when;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import java.net.HttpURLConnection;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Account.class, TextView.class, RatingBar.class, ClientInfo.class})

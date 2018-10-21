@@ -123,7 +123,7 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     private void onCompleteTaskButton() {
 
         if (!ClientInfo.getTask().getLastPhase().equals("true")){
-            FirebaseAdapter.updatePhase(ClientInfo.getUsername());
+            FirebaseAdapter.updatePhase();
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 builder = new AlertDialog.Builder(this,
@@ -273,8 +273,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
     }
 
     private LatLng thirdStop(){
-
-        // TODO: NEED TO HAVE USERS STORE THEIR HOME LAT LONGS / CURRENT LOCATIONS
 
         // placeholder is Arts West
 
