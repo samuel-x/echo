@@ -274,8 +274,6 @@ public class AssistantMapActivity extends FragmentActivity implements OnMapReady
 
     private LatLng thirdStop(){
 
-        // TODO: NEED TO HAVE USERS STORE THEIR HOME LAT LONGS / CURRENT LOCATIONS
-
         // placeholder is Arts West
 
         return new LatLng(-37.7976, 144.9594);

@@ -78,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
         try {
             attemptLogin();
         } catch (LoginError loginError) {
-            // TODO: Make a more obvious style of error
             Toast.makeText(this, loginError.getMessage(), Toast.LENGTH_LONG).show();
         }
     }

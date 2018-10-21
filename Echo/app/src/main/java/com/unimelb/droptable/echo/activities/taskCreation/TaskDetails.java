@@ -50,7 +50,6 @@ public class TaskDetails extends AppCompatActivity {
         address.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
                 Utility.currentTaskBuilder.address(place.getName().toString());
                 Utility.currentTaskBuilder.latitude(Double.valueOf(place.getLatLng().latitude).toString());
                 Utility.currentTaskBuilder.longitude(Double.valueOf(place.getLatLng().longitude).toString());
@@ -59,7 +58,6 @@ public class TaskDetails extends AppCompatActivity {
             @Override
             //This is called when there is an error with the auto-fill
             public void onError(Status status) {
-                // TODO: Handle the error.
             }
         });
 
@@ -78,6 +76,5 @@ public class TaskDetails extends AppCompatActivity {
 
         //Start the new Activity and close this one
         startActivity(new Intent(this, TaskConfirm.class));
-        finish();
     }
 }
