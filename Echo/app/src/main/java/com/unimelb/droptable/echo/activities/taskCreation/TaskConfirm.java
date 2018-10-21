@@ -15,9 +15,13 @@ import com.unimelb.droptable.echo.Utility;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
+/**
+ * The Activity for Task Categories.
+ * Allows the AP to select the correct category for their task
+ */
 public class TaskConfirm extends AppCompatActivity {
 
-    // Grab UI references
+    // UI references
     protected TextView title;
     protected TextView address;
     protected TextView notes;
@@ -25,28 +29,41 @@ public class TaskConfirm extends AppCompatActivity {
     protected Button confirmButton;
     protected ImmutableTask task;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creation_confirm);
 
+        // Get the current Task from currentTaskBuilder
         task = Utility.currentTaskBuilder.status("PENDING").ap(ClientInfo.getUsername())
                 .lastPhase("false").build();
 
-        // Setup our buttons
+        // Setup the UI elements
         title = findViewById(R.id.textTaskConfirmTitle);
         address = findViewById(R.id.textTaskConfirmAddress);
         notes = findViewById(R.id.textTaskConfirmNotes);
         paymentAmount = findViewById(R.id.paymentAmount);
         confirmButton = findViewById(R.id.buttonTaskConfirmConfirm);
+
+        //Subscribe to click events
         confirmButton.setOnClickListener((view) -> confirmSubmit());
+
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onResume() {
         super.onResume();
 
+        // Get the current Task from currentTaskBuilder
         task = Utility.currentTaskBuilder.status("PENDING").ap(ClientInfo.getUsername()).build();
+
+        // Set the text of the UI elements
         title.setText(task.getTitle());
         address.setText(task.getAddress());
         notes.setText(task.getNotes());
@@ -55,6 +72,10 @@ public class TaskConfirm extends AppCompatActivity {
         paymentAmount.setText(amountString);
     }
 
+    /**
+     * Confirms that the current task selected. <p>
+     * Sends the current task to the firebase database and returns the user to Map Activity.
+     */
     protected void confirmSubmit() {
         // Submit and remember the task.
         ClientInfo.setTask(task);
